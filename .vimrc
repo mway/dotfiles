@@ -108,6 +108,11 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,mac,dos
 
+augroup vagrant
+    au!
+    au Bufread,BufNewFile Vagrantfile set filetype=ruby
+augroup END
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
