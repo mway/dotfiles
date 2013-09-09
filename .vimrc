@@ -301,6 +301,8 @@ map <leader>pp :setlocal paste!<cr>
 
 imap <S-Tab> <C-o><<
 
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
