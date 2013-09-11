@@ -92,6 +92,7 @@ set tm=500
 syntax enable
 
 colorscheme slate
+colorscheme jellybeans
 set background=dark
 
 " Set extra options when running in GUI mode
