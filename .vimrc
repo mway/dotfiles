@@ -91,9 +91,9 @@ set tm=500
 " Enable syntax highlighting
 syntax enable
 
-colorscheme slate
-colorscheme jellybeans
 set background=dark
+" colorscheme slate
+colorscheme jellybeans
 
 " Set extra options when running in GUI mode
 if has("gui_running")
