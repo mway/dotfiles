@@ -95,6 +95,7 @@ syntax enable
 set background=dark
 " colorscheme slate
 colorscheme jellybeans
+" colorscheme hybrid
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -365,3 +366,5 @@ function! <SID>BufcloseCloseIt()
    endif
 endfunction
 
+" use Xresources colors
+" let g:hybrid_use_Xresources = 1
