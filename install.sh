@@ -10,3 +10,4 @@ for f in .*; do
 done
 
 echo 'source ~/.envrc' >> ~/.bashrc
+source ~/.envrc
