@@ -9,3 +9,4 @@ for f in .*; do
     fi
 done
 
+echo 'source .envrc' >> .bashrc
