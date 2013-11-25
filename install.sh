@@ -9,5 +9,8 @@ for f in .*; do
     fi
 done
 
-echo 'source ~/.envrc' >> ~/.bashrc
+src='source ~/.envrc'
+echo $src >> ~/.bashrc
+echo $src >> ~/.bash_profile
+
 source ~/.envrc
