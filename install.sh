@@ -1,5 +1,6 @@
 #!/bin/bash
 
+[ ! "$HOME" ] && HOME=$(bash <<< "echo ~$SUDO_USER")
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 for f in .*; do
