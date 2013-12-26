@@ -96,9 +96,7 @@ set tm=500
 syntax enable
 
 set background=dark
-" colorscheme slate
-colorscheme jellybeans
-" colorscheme hybrid
+colorscheme base16-default
 
 " Set extra options when running in GUI mode
 if has("gui_running")

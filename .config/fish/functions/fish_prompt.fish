@@ -1,5 +1,5 @@
 function fish_prompt
-    set c_uh (set_color 333)
+    set c_uh (set_color 778)
     set c_cwd (set_color 0aa)
     set c_nrm (set_color normal)
 
