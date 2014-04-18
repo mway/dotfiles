@@ -6,5 +6,6 @@ function fish_prompt
     set p_uh (hostname | cut -d . -f 1)
     set p_cwd (prompt_pwd)
     
-    echo $c_uh$USER@$p_uh$c_nrm $c_cwd$p_cwd$c_nrm' ❯ '
+    #echo $c_uh$USER@$p_uh$c_nrm $c_cwd$p_cwd$c_nrm' ❯ '
+    echo $c_uh$USER@$p_uh$c_nrm $c_cwd$p_cwd$c_nrm' $ '
 end
