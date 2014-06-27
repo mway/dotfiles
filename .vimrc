@@ -97,7 +97,7 @@ syntax enable
 
 " set background=dark
 " colorscheme base16-default
-set background=light
+set background=dark
 colorscheme base16-default
 
 " Set extra options when running in GUI mode
