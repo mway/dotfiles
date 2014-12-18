@@ -113,6 +113,7 @@ set encoding=utf8
 
 " Use Unix as the standard file type
 set ffs=unix,mac,dos
+set ff=unix
 
 augroup vagrant
     au!
@@ -216,6 +217,15 @@ set laststatus=2
 
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+
+""""""""""""""""""""""""""""""""""
+" => Color overrides
+""""""""""""""""""""""""""""""""""
+hi StatusLine ctermbg=4 ctermfg=0
+hi TabLineFill ctermbg=8 ctermfg=7
+hi TabLineSel ctermbg=0 ctermfg=4
+hi TabLine ctermbg=8 ctermfg=7
+hi LineNr ctermfg=4
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
