@@ -1,5 +1,2 @@
-fish_history
-fishd*
-**.0
-**.DS_Store
-**.netrwhist
+.vim/bundle/*
+!.vim/bundle/.gitkeep

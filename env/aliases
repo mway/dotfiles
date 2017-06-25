@@ -1,0 +1,27 @@
+alias bz='bazel'
+alias docker-ip="docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
+alias docker-kill='docker rm -f $(sudo docker ps -aq)'
+alias docker-attach='docker exec -it $1 /bin/bash'
+alias htop='sudo htop'
+alias ll='ls -al'
+alias ls='ls -lAG'
+alias mkdir='mkdir -p'
+alias mosh='mosh --ssh="ssh -A"'
+alias netstat='sudo netstat'
+alias pmux='tmux new -s "$(basename "$(pwd)")"'
+alias qpmux='tmux new -s "$(basename "$(cd .. && pwd)")-$(basename "$(pwd)")"'
+alias secrand='head -c$(echo ${1:-32}) /dev/urandom | openssl base64'
+alias ssh='cat ~/.ssh/config.d/* 2>/dev/null > ~/.ssh/config.combined; ssh -F ~/.ssh/config.combined'
+alias scp='cat ~/.ssh/config.d/* 2>/dev/null > ~/.ssh/config.combined; scp -F ~/.ssh/config.combined'
+alias tm='echo "$@";{ tmux a -dt $@ ;} || tmux new -s $@'
+alias tmux='tmux -2'
+alias vi='vim -p'
+alias vim='vim -p'
+alias vipe='echo|vipe'
+
+alias lxc-attach="sudo \lxc-attach"
+alias lxc-create="sudo \lxc-create"
+alias lxc-destroy="sudo \lxc-destroy"
+alias lxc-ls="sudo \lxc-ls"
+alias lxc-start="sudo \lxc-start"
+alias lxc-stop="sudo \lxc-stop"
