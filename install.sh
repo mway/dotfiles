@@ -2,7 +2,9 @@
 
 _install_dotfiles() {
   local DIR="$(cd "$(dirname "$(realpath "${BASH_SOURCE[0]}")")" && pwd)"
-  local files=$(\ls -a "${DIR}" | grep '^\.' | grep -vE '^(\.|\.\.|\.git)$')
+  local files=$(\ls -a "${DIR}" | grep '^\.' | grep -vE '^(\.|\.\.|\.git|\.gitmodules)$')
+
+  bash -c "cd ${DIR} && git submodule update --init --recursive"
 
   if [ "$1" == "force" ]; then
     for f in $files; do
