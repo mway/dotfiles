@@ -9,6 +9,11 @@ else
     let g:solarized_termcolors=128
 endif
 
+if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+endif
+
 let g:solarized_termtrans=1
 let g:mapleader = ","
 let mapleader = ","

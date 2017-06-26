@@ -2,9 +2,12 @@
 
 _install_dotfiles() {
   local DIR="$(cd "$(dirname "$(realpath "${BASH_SOURCE[0]}")")" && pwd)"
-  local files=$(\ls -a "${DIR}" | grep '^\.' | grep -vE '^(\.|\.\.|\.git|\.gitmodules)$')
 
   bash -c "cd ${DIR} && git submodule update --init --recursive"
+  mkdir -p ~/.config
+
+  local files=$(\ls -a "${DIR}" | grep '^\.' | grep -vE '^(\.|\.\.|\.git|\.gitmodules)$')
+  local configs=$(\ls -a "${DIR}/config")
 
   if [ "$1" == "force" ]; then
     for f in $files; do
@@ -14,16 +17,35 @@ _install_dotfiles() {
         unlink "${HOME}/${f}"
       fi
     done
+
+    for c in $configs; do
+      if [ -d "${HOME}/.config/${c}" ]; then
+        rm -r "${HOME}/.config/${c}"
+      elif [ -e "${HOME}/.config/${c}" ]; then
+        unlink "${HOME}/${c}"
+      fi
+    done
   fi
 
   for f in $files; do
     if [ ! -e "${HOME}/${f}" ]; then
       ln -s "${DIR}/${f}" "${HOME}/${f}"
       echo "Created ${HOME}/${f}."
-    elif [ -s "${HOME}/${f}" ]; then
+    elif [ -L "${HOME}/${f}" ]; then
       echo "${HOME}/${f} is already a symlink."
     else
       echo "${HOME}/${f} exists, but is not a symlink."
+    fi
+  done
+
+  for c in $configs; do
+    if [ ! -e "${HOME}/.config/${c}" ]; then
+      ln -s "${DIR}/config/${c}" "${HOME}/.config/${c}"
+      echo "Created ${HOME}/.config/${c}."
+    elif [ -L "${HOME}/.config/${c}" ]; then
+      echo "${HOME}/.config/${c} is already a symlink."
+    else
+      echo "${HOME}/.config/${c} exists, but is not a symlink."
     fi
   done
 }
