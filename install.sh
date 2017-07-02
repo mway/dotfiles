@@ -2,11 +2,15 @@
 
 _install_dotfiles() {
   local readlink="readlink -f"
-  if [ ! $($readlink .) ]; then
+  if [ ! $($readlink . 2>/dev/null) ]; then
     readlink="readlink"
   fi
 
-  local DIR="$(cd "$(dirname "$($readlink "${BASH_SOURCE[0]}")")" && pwd)"
+  # Work around BSD readlink
+  local FILE="$($readlink ${BASH_SOURCE[0]})"
+  [ -n "${FILE}" ] || FILE="${BASH_SOURCE[0]}"
+
+  local DIR="$(cd "$(dirname "${FILE}")" && pwd)"
   local files=$(\ls -a "${DIR}" | grep '^\.' | grep -vE '^(\.|\.\.|\.git|\.gitmodules)$')
 
   bash -c "cd ${DIR} && git submodule update --init --recursive"
