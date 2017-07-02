@@ -11,7 +11,6 @@ _install_dotfiles() {
   [ -n "${FILE}" ] || FILE="${BASH_SOURCE[0]}"
 
   local DIR="$(cd "$(dirname "${FILE}")" && pwd)"
-  local files=$(\ls -a "${DIR}" | grep '^\.' | grep -vE '^(\.|\.\.|\.git|\.gitmodules)$')
 
   bash -c "cd ${DIR} && git submodule update --init --recursive"
   mkdir -p ~/.config
