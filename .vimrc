@@ -1,16 +1,10 @@
 filetype off
 syntax on
 
-if empty($WINDIR)
-    let base16colorspace=256
-    let g:solarized_termcolors=256
-else
-    let base16colorspace=128
-    let g:solarized_termcolors=128
-endif
+let base16colorspace=16
+let g:solarized_termcolors=16
 
 if filereadable(expand("~/.vimrc_background"))
-    let base16colorspace=256
     source ~/.vimrc_background
 endif
 
@@ -76,7 +70,7 @@ set splitbelow
 set softtabstop=4
 set t_Co=256
 set t_vb=
-set tabpagemax=30
+set tabpagemax=50
 set tabstop=4
 set title
 set tm=500
