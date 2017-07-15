@@ -93,8 +93,10 @@ nnoremap <C-H> <C-A-Left>
 nnoremap <C-L> <C-A-Right>
 nmap <F1> :if expand('%:e')=='hh'<CR>e %:r.cc<CR>else<CR>e %:r.hh<CR>endif<CR><CR>
 :imap jj <Esc>
-noremap <F3> :Autoformat<CR>
+:imap qq <Esc>
+:imap `` <Esc>
 
+noremap <F3> :Autoformat<CR>
 noreabbrev cav cd ~/src/av
 noreabbrev ccd cd %:p:h
 noreabbrev ccdd cd %:p:h <bar> cd ..
@@ -130,6 +132,7 @@ Plugin 'stephpy/vim-yaml'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'bogado/file-line'
+Plugin 'nsf/gocode', {'rtp': 'vim/'}
 call vundle#end()
 
 colorscheme base16-ocean
