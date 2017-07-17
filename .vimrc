@@ -74,6 +74,7 @@ set tabpagemax=50
 set tabstop=4
 set title
 set tm=500
+set ttimeout
 set ttyfast
 set whichwrap+=<,>,h,l
 set wildignore=*.o,*~,*.pyc,*/build/*,*/bin/*
@@ -95,6 +96,7 @@ nmap <F1> :if expand('%:e')=='hh'<CR>e %:r.cc<CR>else<CR>e %:r.hh<CR>endif<CR><C
 :imap jj <Esc>
 :imap qq <Esc>
 :imap `` <Esc>
+:imap ;; <Esc>
 
 noremap <F3> :Autoformat<CR>
 noreabbrev cav cd ~/src/av
