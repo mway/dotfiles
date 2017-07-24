@@ -44,8 +44,9 @@
     spop = "!f() { git stash pop stash^{/$*}; }; f"
 [filter "lfs"]
     required = true
-    clean = git-lfs clean %f
-    smudge = git-lfs smudge %f
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
 [gui]
     recentrepo = /Users/mway/src/git/github.com/resumator/resumator
 [branch]

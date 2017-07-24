@@ -29,7 +29,7 @@ set background=dark
 set backspace=indent,eol,start
 set clipboard=unnamed
 set cmdheight=1
-set colorcolumn=120
+set colorcolumn=80,100,120
 set cursorline
 set encoding=utf-8 nobomb
 set esckeys
@@ -93,10 +93,10 @@ nnoremap <C-K> <C-A-Down>
 nnoremap <C-H> <C-A-Left>
 nnoremap <C-L> <C-A-Right>
 nmap <F1> :if expand('%:e')=='hh'<CR>e %:r.cc<CR>else<CR>e %:r.hh<CR>endif<CR><CR>
-:imap jj <Esc>
-:imap qq <Esc>
-:imap `` <Esc>
-:imap ;; <Esc>
+imap jj <Esc>
+imap qq <Esc>
+imap `` <Esc>
+imap ;; <Esc>
 
 noremap <F3> :Autoformat<CR>
 noreabbrev cav cd ~/src/av
