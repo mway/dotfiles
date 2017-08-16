@@ -55,6 +55,7 @@ set noswapfile
 set novisualbell
 set nowb
 set number
+set pastetoggle=<leader>p
 set ruler
 set secure
 set shell=/bin/bash
