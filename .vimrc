@@ -100,6 +100,7 @@ imap `` <Esc>
 imap ;; <Esc>
 
 noremap <F3> :Autoformat<CR>
+noremap <leader>a :Autoformat<CR>
 noreabbrev cav cd ~/src/av
 noreabbrev ccd cd %:p:h
 noreabbrev ccdd cd %:p:h <bar> cd ..
