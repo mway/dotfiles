@@ -27,7 +27,6 @@ set ai
 set autoread
 set background=dark
 set backspace=indent,eol,start
-set clipboard=unnamed
 set cmdheight=1
 set colorcolumn=80,100,120
 set cursorline
@@ -81,6 +80,10 @@ set whichwrap+=<,>,h,l
 set wildignore=*.o,*~,*.pyc,*/build/*,*/bin/*
 set wildmenu
 
+if $TMUX == ''
+    set clipboard+=unnamed
+endif
+
 hi TabLine ctermfg=10
 
 try
@@ -96,7 +99,6 @@ nnoremap <C-L> <C-A-Right>
 nmap <F1> :if expand('%:e')=='hh'<CR>e %:r.cc<CR>else<CR>e %:r.hh<CR>endif<CR><CR>
 imap jj <Esc>
 imap qq <Esc>
-imap `` <Esc>
 imap ;; <Esc>
 
 noremap <F3> :Autoformat<CR>
