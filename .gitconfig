@@ -24,6 +24,7 @@
     autocorrect = 1
 [push]
     default = current
+	followTags = true
 [core]
     excludesfile = ~/.gitignore
 [merge]
@@ -42,11 +43,6 @@
     sshow = "!f() { git stash show stash^{/$*} -p; }; f"
     sapply = "!f() { git stash apply stash^{/$*}; }; f"
     spop = "!f() { git stash pop stash^{/$*}; }; f"
-[filter "lfs"]
-    required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
 [gui]
     recentrepo = /Users/mway/src/git/github.com/resumator/resumator
 [branch]
@@ -57,11 +53,9 @@
     insteadOf = git://code.uber.internal/
 [url "ssh://git@github.com/uber/"]
     insteadOf = https://github.com/uber/
-[url "ssh://gitolite@code.uber.internal:2222/"]
+[url "ssh://gitolite@code.uber.internal/"]
     insteadOf = https://code.uber.internal/
-[url "ssh://code@code.mway.co:2222/"]
-    insteadOf = code.mway.co/
-[url "ssh://code@code.mway.co:2222/"]
-    insteadOf = ssh://code.mway.co/
-[url "ssh://code@code.mway.co:2222/"]
-    insteadOf = ssh://code@code.mway.co/
+[http "https://gopkg.uberinternal.com"]
+	followRedirects = true
+[http "https://gopkg.in"]
+	followRedirects = true

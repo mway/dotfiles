@@ -1,8 +1,8 @@
 filetype off
 syntax on
 
-let base16colorspace=16
-let g:solarized_termcolors=16
+let base16colorspace=256
+let g:solarized_termcolors=256
 
 if filereadable(expand("~/.vimrc_background"))
     source ~/.vimrc_background
