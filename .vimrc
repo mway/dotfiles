@@ -31,7 +31,6 @@ set cmdheight=1
 set colorcolumn=80,100,120
 set cursorline
 set encoding=utf-8 nobomb
-set esckeys
 set expandtab
 set exrc
 set ffs=unix,mac,dos
@@ -133,12 +132,14 @@ Plugin 'scrooloose/nerdtree'
 "Plugin 'ssh://code@code.int.uberatc.com/diffusion/VIMHIDL/vim-hidl-ftplugin.git'
 Plugin 'stephpy/vim-yaml'
 "Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-abolish'
 "Plugin 'tpope/vim-fugitive'
 "Plugin 'tpope/vim-surround'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'bogado/file-line'
 Plugin 'nsf/gocode', {'rtp': 'vim/'}
+Plugin 'w0rp/ale'
 call vundle#end()
 
 colorscheme base16-ocean
@@ -151,6 +152,9 @@ let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline_theme='base16'
 let g:NERDTreeMapOpenInTab = ''
 let g:phabrowse_domains = ['https://code.int.uberatc.com']
+let g:go_fmt_fail_silently = 1
+let g:go_fmt_command = "goimports"
+let g:go_def_mode = 'godef'
 
 let g:tmuxline_separators = {
     \ 'left' : '',
@@ -158,6 +162,16 @@ let g:tmuxline_separators = {
     \ 'right' : '',
     \ 'right_alt' : '<',
     \ 'space' : ' '}
+
+let g:ale_linters = {
+    \ 'go': ['golint', 'go vet'],
+    \ 'proto': ['prototool-compile'],
+    \ }
+let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_enter = 0
+let g:airline#extensions#ale#enabled = 1
+nnoremap <silent> <C-n> :ALEPrevious<CR>
+nnoremap <silent> <C-m> :ALENext<CR>
 
 if has("autocmd")
     filetype on
