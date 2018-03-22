@@ -18,6 +18,7 @@ alias tmux='tmux -2'
 alias vi='vim -p'
 alias vim='vim -p'
 alias vipe='echo|vipe'
+alias goinstall='sudo rm -rf $GOROOT && curl https://dl.google.com/go/go${GO_VERSION:-1.9.3}.linux-amd64.tar.gz | sudo tar -zxf - -C $(dirname $GOROOT)'
 
 alias lxc-attach="sudo \lxc-attach"
 alias lxc-create="sudo \lxc-create"
