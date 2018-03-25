@@ -109,38 +109,23 @@ noreabbrev setgopath let $GOPATH='.'
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" Plugin 'Valloric/YouCompleteMe'
-" Plugin 'rdnetto/YCM-Generator'
-" Plugin 'rhysd/vim-clang-format'
-Plugin 'Chiel92/vim-autoformat'
-"Plugin 'honza/vim-snippets'
+
 Bundle 'edkolev/tmuxline.vim'
-"Plugin 'Shougo/vimproc.vim'
+Plugin 'Chiel92/vim-autoformat'
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'chriskempson/base16-vim'
-"Plugin 'davidhalter/jedi-vim'  " CPU issues
 Plugin 'fatih/vim-go'
-"Plugin 'kien/ctrlp.vim'
+Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Plugin 'nvie/vim-flake8'
-"Plugin 'pangloss/vim-javascript'
-"Plugin 'peplin/vim-phabrowse'
 Plugin 'scrooloose/nerdtree'
-"Plugin 'scrooloose/syntastic'
-"Plugin 'sjl/gundo.vim'
-"Plugin 'ssh://code@code.int.uberatc.com/diffusion/VIMHIDL/vim-hidl-ftplugin.git'
 Plugin 'stephpy/vim-yaml'
-"Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-abolish'
-"Plugin 'tpope/vim-fugitive'
-"Plugin 'tpope/vim-surround'
+Plugin 'uber/prototool', {'rtp': 'vim/prototool'}
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-"Plugin 'bogado/file-line'
-Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Plugin 'w0rp/ale'
-call vundle#end()
 
 colorscheme base16-ocean
 
@@ -164,10 +149,12 @@ let g:tmuxline_separators = {
     \ 'space' : ' '}
 
 let g:ale_linters = {
-    \ 'go': ['golint', 'go vet'],
-    \ 'proto': ['prototool-compile'],
+    \ 'go': ['golint'],
+    \ 'proto': ['prototool'],
     \ }
 let g:ale_lint_on_text_changed = 'never'
+noremap <silent> <leader>f :call PrototoolFormatToggle()<CR>
+
 " let g:ale_lint_on_enter = 0
 let g:airline#extensions#ale#enabled = 1
 nnoremap <silent> <C-n> :ALEPrevious<CR>
@@ -189,6 +176,7 @@ if has("autocmd")
     autocmd BufNewFile,BufRead BUILD.* setfiletype conf setlocal syntax=conf
     autocmd BufNewFile,BufRead *.bzl setfiletype py setlocal syntax=python
     autocmd BufNewFile,BufRead *.py set ts=4 sts=4 sw=4 expandtab nosmartindent ff=unix
+    autocmd BufNewFile,BufRead,BufEnter *.cc,*.hh ALEDisable
     autocmd BufWritePost *.py call Flake8()
     " autocmd BufNewFile,BufRead *.yaml,*.yml so ~/.vim/bundle/vim-yaml/after/yaml.vim
     " autocmd Filetype c,cpp,hidl set comments^=:///
@@ -230,3 +218,4 @@ nnoremap <C-n> :call NumberToggle()<cr>
 highlight LineNr ctermbg=0
 highlight colorcolumn ctermbg=0
 
+call vundle#end()

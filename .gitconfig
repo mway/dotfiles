@@ -33,9 +33,10 @@
     keepBackup = true
 [alias]
     l = log --pretty=oneline -n 20 --graph --abbrev-commit
-    lg = log --graph --pretty=format:'%C(bold red)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --branches=*
+    lg = log --graph --pretty=format:'%C(bold red)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
     s = status -s
     d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+    changed = !"git diff-tree -r --name-only --no-commit-id HEAD"
     tags = tag -l
     branches = branch -a
     remotes = remote -v
