@@ -29,7 +29,6 @@ function sshagent_testsocket {
             return 0
         fi
     else
-        echo "$SSH_AUTH_SOCK is not a socket!"
         return 3
     fi
 }
@@ -56,7 +55,7 @@ function sshagent_init {
     # If at this point we still haven't located an agent, it's time to
     # start a new one
     if [ $AGENTFOUND = 0 ] ; then
-        eval `ssh-agent`
+        eval `ssh-agent` >/dev/null
     fi
 
     # Clean up
@@ -64,7 +63,11 @@ function sshagent_init {
     unset agentsocket
 
     # Finally, show what keys are currently in the agent
-    ssh-add -l
+    ssh-add -l | grep -v 'no identities'
 }
 
 alias sagent="sshagent_init"
+
+port() {
+  lsof -nP -i4TCP:$1 | grep LISTEN
+}
