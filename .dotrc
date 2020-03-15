@@ -1,0 +1,131 @@
+#!/usr/bin/env bash
+
+shopt -s autocd 2>/dev/null
+shopt -s cdspell 2>/dev/null
+shopt -s globstar 2>/dev/null
+shopt -s nocaseglob 2>/dev/null
+
+_dotrc() {
+  _dotrc_aliases
+  _dotrc_colorcodes
+  _dotrc_colors
+  _dotrc_exports
+  _dotrc_paths
+  _dotrc_ssh
+}
+
+_dotrc_aliases() {
+  alias htop='sudo htop'
+  alias ls='ls -lAG'
+  alias mkdir='mkdir -p'
+  alias rgrep='grep -r'
+  alias tmux='tmux -2'
+  alias vi='vim -p'
+  alias vim='vim -p'
+}
+
+_dotrc_colorcodes() {
+  export GRN="\e[32m"
+  export HIG="\e[92m"
+  export YEL="\e[33m"
+  export HIY="\e[93m"
+  export RED="\[\e[31m\]"
+  export HIR="\e[91m"
+  export BLU="\[\e[34m\]"
+  export HIB="\e[94m"
+  export CYN="\[\e[36m\]"
+  export HIC="\e[96m"
+  export MAG="\e[35m"
+  export HIM="\e[95m"
+  export WHT="\e[97m"
+  export GRY="\[\e[90m\]"
+  export BLK="\e[30m"
+  export DEF="\e[39m"
+  export RESET="\[\e[0m\]"
+  export BOLD="\e[1m"
+  export DIM="\e[2m"
+  export BG_GRN="\e[42m"
+  export BG_HIG="\e[102m"
+  export BG_YEL="\e[43m"
+  export BG_HIY="\e[103m"
+  export BG_RED="\e[41m"
+  export BG_HIR="\e[101m"
+  export BG_BLU="\e[44m"
+  export BG_HIB="\e[104m"
+  export BG_CYN="\e[46m"
+  export BG_HIC="\e[106m"
+  export BG_MAG="\e[45m"
+  export BG_HIM="\e[105m"
+  export BG_WHT="\e[107m"
+  export BG_GRY="\e[100m"
+  export BG_BLK="\e[40m"
+  export BG_DEF="\e[49m"
+}
+
+_dotrc_colors() {
+  BASE16_SHELL="$HOME/.config/base16-shell/"
+  [ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ] && eval "$("$BASE16_SHELL/profile_helper.sh")"
+  base16_ocean 2>/dev/null
+}
+
+_dotrc_exports() {
+  export EDITOR="vim"
+  export HISTCONTROL=ignoreboth:erasedups
+  export LS_COLORS='di=38;5;108:fi=00:*svn-commit.tmp=31:ln=38;5;116:ex=38;5;186'
+  export TERM="xterm-256color"
+
+  # Prompt
+  export PROMPT_COMMAND='PS1X=$(p="${PWD#${HOME}}"; [ "${PWD}" != "${p}" ] && printf "~";IFS=/; for q in ${p:1}; do printf /${q:0:1}; done; printf "${q:1}")'
+  export VERBOSE_BASE_PS1="${BLU}\u@\h${GRY}:${CYN}\${PS1X}${RESET}${RED}\$${RESET} "
+  export BASE_PS1="${CYN}\${PS1X}${RESET}${RED}\$${RESET} "
+  export PS1="${GRY}\D{%T}> $VERBOSE_BASE_PS1"
+}
+
+_dotrc_paths() {
+  _dotrc_path_golang
+  _dotrc_path_homebrew
+
+  [ ! -d "${HOME}/bin" ] || path_prepend "${HOME}/bin"
+  [ ! -d /usr/local/bin ] || path_prepend /usr/local/bin
+  [ ! -d /usr/local/sbin ] || path_prepend /usr/local/sbin
+}
+
+_dotrc_path_golang() {
+  local gopath="$(go env 2>&1 | grep GOPATH | cut -d= -f2 | sed -e 's/^"//' -e 's/"$//')"
+  if [ -n "${gopath}" ]; then
+    export GOPATH="${gopath}"
+
+    local gobin="$(go env 2>&1 2>&1 | grep GOBIN | cut -d= -f2 | sed -e 's/^"//' -e 's/"$//')"
+    [ -n "${gobin}" ] || gobin="${GOPATH}/bin"
+
+    export GOBIN="${gobin}"
+    path_prepend "${GOBIN}"
+  fi
+}
+
+_dotrc_path_homebrew() {
+  # Homebrew
+  if [ -n "$PATH_HOMEBREW" ]; then
+    [ -d "${PATH_HOMEBREW}/sbin" ] && { path_prepend "${PATH_HOMEBREW}/sbin" ;}
+    [ -d "${PATH_HOMEBREW}/bin" ] && { path_prepend "${PATH_HOMEBREW}/bin" ;}
+    type "brew" &>/dev/null && {
+      [ -s "$PATH_HOMEBREW/etc/bash_completion" ] && . "$PATH_HOMEBREW/etc/bash_completion"
+    }
+  fi
+}
+
+_dotrc_ssh() {
+  [ ! $(which keychain) ] || eval `keychain --eval --agents ssh id_rsa`
+}
+
+path_prepend() {
+  for d in $@; do
+    # [[ ":$PATH:" != *":${d}:"* ]] && PATH="${d}:${PATH}";
+    PATH="$d:$(python -c "import os,sys; p=[d for d in os.environ['PATH'].split(os.pathsep) if d != '$d']; sys.stdout.write(os.pathsep.join(p))")"
+  done
+
+  export PATH
+}
+
+_dotrc $@
+
