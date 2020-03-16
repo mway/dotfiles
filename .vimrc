@@ -136,7 +136,6 @@ let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline_theme='base16'
 let g:NERDTreeMapOpenInTab = ''
-let g:phabrowse_domains = ['https://code.int.uberatc.com']
 let g:go_fmt_fail_silently = 1
 let g:go_fmt_command = "goimports"
 let g:go_def_mode = 'godef'
@@ -155,7 +154,7 @@ let g:ale_linters = {
 let g:ale_lint_on_text_changed = 'never'
 noremap <silent> <leader>f :call PrototoolFormatToggle()<CR>
 
-" let g:ale_lint_on_enter = 0
+let g:ale_lint_on_enter = 0
 let g:airline#extensions#ale#enabled = 1
 nnoremap <silent> <C-n> :ALEPrevious<CR>
 nnoremap <silent> <C-m> :ALENext<CR>
@@ -178,13 +177,8 @@ if has("autocmd")
     autocmd BufNewFile,BufRead *.py set ts=4 sts=4 sw=4 expandtab nosmartindent ff=unix
     autocmd BufNewFile,BufRead,BufEnter *.cc,*.hh ALEDisable
     autocmd BufWritePost *.py call Flake8()
-    " autocmd BufNewFile,BufRead *.yaml,*.yml so ~/.vim/bundle/vim-yaml/after/yaml.vim
-    " autocmd Filetype c,cpp,hidl set comments^=:///
-
     autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab smartindent
     autocmd FileType sh setlocal ts=2 sts=2 sw=2 expandtab smartindent
-
-    " autocmd BufWritePre *.go call go#lint#Run()
 endif
 
 function! NumberToggle()
@@ -198,22 +192,6 @@ function! NumberToggle()
 endfunc
 
 nnoremap <C-n> :call NumberToggle()<cr>
-
-"if has("autocmd")
-"    filetype on
-"    filetype plugin on
-"    filetype indent on
-"
-"    " autocmd FileType javascript setlocal ts=2 sts=2 sw=2
-"    " autocmd FileType json setlocal ts=2 sts=2 sw=2
-"    " autocmd FileType ruby setlocal ts=2 sts=2 sw=2
-"    " autocmd FileType yaml setlocal ts=2 sts=2 sw=2
-"
-"    autocmd BufReadPost *
-"        \ if line("'\"") > 0 && line("'\"") <= line("$") |
-"        \   exe "normal! g`\"" |
-"        \ endif
-"endif
 
 highlight LineNr ctermbg=0
 highlight colorcolumn ctermbg=0
