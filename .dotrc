@@ -12,6 +12,7 @@ _dotrc() {
   _dotrc_exports
   _dotrc_paths
   _dotrc_ssh
+  _dotrc_direnv
 }
 
 _dotrc_aliases() {
@@ -66,6 +67,10 @@ _dotrc_colors() {
   BASE16_SHELL="$HOME/.config/base16-shell/"
   [ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ] && eval "$("$BASE16_SHELL/profile_helper.sh")"
   base16_ocean 2>/dev/null
+}
+
+_dotrc_direnv() {
+  [ ! $(which direnv) ] || eval "$(direnv hook bash)"
 }
 
 _dotrc_exports() {
@@ -134,8 +139,9 @@ _dotrc_ssh() {
 
 path_prepend() {
   for d in $@; do
+    [[ ":$PATH:" =~ ":$d:" ]] || PATH="$d:$PATH"
     # [[ ":$PATH:" != *":${d}:"* ]] && PATH="${d}:${PATH}";
-    PATH="$d:$(python -c "import os,sys; p=[d for d in os.environ['PATH'].split(os.pathsep) if d != '$d']; sys.stdout.write(os.pathsep.join(p))")"
+    # PATH="$d:$(python -c "import os,sys; p=[d for d in os.environ['PATH'].split(os.pathsep) if d != '$d']; sys.stdout.write(os.pathsep.join(p))")"
   done
 
   export PATH
