@@ -84,6 +84,9 @@ _dotrc_exports() {
   export VERBOSE_BASE_PS1="${BLU}\u@\h${GRY}:${CYN}\${PS1X}${RESET}${RED}\$${RESET} "
   export BASE_PS1="${CYN}\${PS1X}${RESET}${RED}\$${RESET} "
   export PS1="${GRY}\D{%T}> $VERBOSE_BASE_PS1"
+  
+  # Mac bash -> zsh depreecation warning
+  export BASH_SILENCE_DEPRECATION_WARNING=1
 }
 
 _dotrc_paths() {
