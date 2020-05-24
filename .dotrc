@@ -82,9 +82,10 @@ _dotrc_exports() {
   # Prompt
   export PROMPT_COMMAND='PS1X=$(p="${PWD#${HOME}}"; [ "${PWD}" != "${p}" ] && printf "~";IFS=/; for q in ${p:1}; do printf /${q:0:1}; done; printf "${q:1}")'
   export VERBOSE_BASE_PS1="${BLU}\u@\h${GRY}:${CYN}\${PS1X}${RESET}${RED}\$${RESET} "
-  export BASE_PS1="${CYN}\${PS1X}${RESET}${RED}\$${RESET} "
-  export PS1="${GRY}\D{%T}> $VERBOSE_BASE_PS1"
-  
+  # export BASE_PS1="${CYN}\${PS1X}${RESET}${RED}\$${RESET} "
+  export BASE_PS1="${CYN}\${PS1X}${RESET} ${GRY}#${RESET} "
+  export PS1="${GRY}\D{%T}> $BASE_PS1"
+
   # Mac bash -> zsh depreecation warning
   export BASH_SILENCE_DEPRECATION_WARNING=1
 }
@@ -92,14 +93,20 @@ _dotrc_exports() {
 _dotrc_paths() {
   [ ! -d "${HOME}/bin" ] || path_prepend "${HOME}/bin"
   [ ! -d "${HOME}/.local/bin" ] || path_prepend "${HOME}/.local/bin"
-
   [ ! -d /usr/local/go/bin ] || path_prepend /usr/local/go/bin
-  _dotrc_path_golang
 
+  _dotrc_path_dotnet
+  _dotrc_path_golang
   _dotrc_path_python
   _dotrc_path_homebrew
+
   [ ! -d /usr/local/bin ] || path_prepend /usr/local/bin
   [ ! -d /usr/local/sbin ] || path_prepend /usr/local/sbin
+}
+
+_dotrc_path_dotnet() {
+  local dotnet_path="/usr/local/share/dotnet"
+  [ ! -d "${dotnet_path}" ] || path_prepend "${dotnet_path}"
 }
 
 _dotrc_path_golang() {
