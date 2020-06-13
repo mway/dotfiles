@@ -24,6 +24,7 @@ _dotrc_aliases() {
   alias tmux='tmux -2'
   alias vi='vim -p'
   alias vim='vim -p'
+  alias brew-save='brew bundle dump -f ~/Brewfile'
 }
 
 _dotrc_colorcodes() {

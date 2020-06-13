@@ -15,7 +15,7 @@ _install_dotfiles() {
   bash -c "cd ${DIR} && git submodule update --init --recursive"
   mkdir -p ~/.config
 
-  local files=$(\ls -a "${DIR}" | grep '^\.' | grep -vE '^(\.|\.\.|\.git|\.gitmodules)$')
+  local files=$(\ls -a "${DIR}" | grep -E '(^\.|Brewfile)' | grep -vE '^(\.|\.\.|\.git|\.gitmodules)$')
   local configs=$(\ls -a "${DIR}/config")
 
   if [ "$1" == "force" ]; then
