@@ -13,6 +13,7 @@ _dotrc() {
   _dotrc_paths
   _dotrc_ssh
   _dotrc_direnv
+  _dotrc_thefuck
 }
 
 _dotrc_aliases() {
@@ -144,7 +145,11 @@ _dotrc_path_python() {
 }
 
 _dotrc_ssh() {
-  [ ! $(which keychain) ] || eval `keychain --eval --agents ssh id_rsa`
+  [ ! $(which keychain 2>/dev/null) ] || eval `keychain --eval --agents ssh id_rsa`
+}
+
+_dotrc_thefuck() {
+  [ ! $(which thefuck 2>/dev/null) ] || eval `thefuck --alias`
 }
 
 path_prepend() {
