@@ -8,7 +8,8 @@ if filereadable(expand("~/.vimrc_background"))
     source ~/.vimrc_background
 endif
 
-let g:solarized_termtrans=1
+let g:go_echo_command_info = 0
+let g:solarized_termtrans = 1
 let g:mapleader = ","
 let mapleader = ","
 let g:ycm_confirm_extra_conf = 0
@@ -21,6 +22,9 @@ let g:ctrlp_dotfiles = 0
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_match_window_bottom = 0
 let g:ctrlp_match_window_reversed = 0
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+let NERDTreeAutoDeleteBuffer = 1
 set textwidth=0
 
 set ai
@@ -29,13 +33,16 @@ set background=dark
 set backspace=indent,eol,start
 set cmdheight=1
 set colorcolumn=80,100,120
+set completeopt-=preview
 set cursorline
 set encoding=utf-8 nobomb
 set expandtab
 set exrc
 set ffs=unix,mac,dos
 set ff=unix
+set formatoptions+=ro
 set gdefault
+set hidden
 set history=700
 set hlsearch
 set ignorecase
@@ -45,10 +52,10 @@ set lazyredraw
 set magic
 set mat=2
 set modeline
+set mouse=a
 set nobackup
 set nocompatible
 set noerrorbells
-set nohidden
 set noswapfile
 set novisualbell
 set nowb
@@ -91,6 +98,8 @@ try
 catch
 endtry
 
+nnoremap <leader>q :bp<cr>:bd #<cr>
+nnoremap <silent> <expr> <leader>` g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
 nnoremap <C-J> <C-A-Up>
 nnoremap <C-K> <C-A-Down>
 nnoremap <C-H> <C-A-Left>
@@ -99,13 +108,17 @@ nmap <F1> :if expand('%:e')=='hh'<CR>e %:r.cc<CR>else<CR>e %:r.hh<CR>endif<CR><C
 imap jj <Esc>
 imap qq <Esc>
 imap ;; <Esc>
+noremap mt :tabn<CR>
+noremap mT :tabp<CR>
+noremap gt :bn<CR>
+noremap gT :bp<CR>
 
+" noremap bn :bn<CR>
+" noremap bp :bp<CR>
+" noremap bN :bp<CR>
 noremap <F3> :Autoformat<CR>
 noremap <leader>a :Autoformat<CR>
-noreabbrev cav cd ~/src/av
-noreabbrev ccd cd %:p:h
-noreabbrev ccdd cd %:p:h <bar> cd ..
-noreabbrev setgopath let $GOPATH='.'
+noremap [] :GoDef<CR>
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -127,6 +140,13 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'w0rp/ale'
 
+" Deoplete
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'Shougo/neopairs.vim'
+Plugin 'roxma/nvim-yarp'
+Plugin 'roxma/vim-hug-neovim-rpc'
+Plugin 'autozimu/LanguageClient-neovim'
+
 colorscheme base16-ocean
 
 let g:flake8_show_quickfix=1
@@ -136,9 +156,24 @@ let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline_theme='base16'
 let g:NERDTreeMapOpenInTab = ''
+let g:go_gopls_gofumpt=1
 let g:go_fmt_fail_silently = 1
-let g:go_fmt_command = "goimports"
-let g:go_def_mode = 'godef'
+let g:go_fmt_command = 'gopls'
+let g:go_def_mode = 'gopls'
+let g:go_imports_mode = 'gopls'
+let g:go_gopls_staticcheck = v:null
+let g:go_gopls_gofumpt = v:true
+let g:deoplete#enable_at_startup = 1
+let g:go_metalinter_command = "gopls"
+
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_changeThrottle = 0
+let g:LanguageClient_diagnosticsSignsMax = 0
+let g:LanguageClient_serverCommands = {}
+let g:LanguageClient_serverCommands.go = ['gopls']
+
+let g:LanguageClient_rootMarkers = {}
+let g:LanguageClient_rootMarkers.go = ['go.mod', 'Gopkg.toml', 'glide.lock']
 
 let g:tmuxline_separators = {
     \ 'left' : '',
@@ -148,7 +183,7 @@ let g:tmuxline_separators = {
     \ 'space' : ' '}
 
 let g:ale_linters = {
-    \ 'go': ['golint'],
+    \ 'go': ['gopls'],
     \ 'proto': ['prototool'],
     \ }
 let g:ale_lint_on_text_changed = 'never'

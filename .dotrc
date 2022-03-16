@@ -22,8 +22,8 @@ _dotrc_aliases() {
   alias mkdir='mkdir -p'
   alias rgrep='grep -r'
   alias tmux='tmux -2'
-  alias vi='vim -p'
-  alias vim='vim -p'
+  alias vi='\nvim'
+  alias vim='\nvim'
   alias brew-save='brew bundle dump -f ~/Brewfile'
 }
 
@@ -126,12 +126,10 @@ _dotrc_path_golang() {
 
 _dotrc_path_homebrew() {
   # Homebrew
-  if [ -n "$PATH_HOMEBREW" ]; then
-    [ -d "${PATH_HOMEBREW}/sbin" ] && { path_prepend "${PATH_HOMEBREW}/sbin" ;}
-    [ -d "${PATH_HOMEBREW}/bin" ] && { path_prepend "${PATH_HOMEBREW}/bin" ;}
-    type "brew" &>/dev/null && {
-      [ -s "$PATH_HOMEBREW/etc/bash_completion" ] && . "$PATH_HOMEBREW/etc/bash_completion"
-    }
+  if [ -n "$HOMEBREW_PREFIX" ]; then
+    [ -d "${HOMEBREW_PREFIX}/sbin" ] && { path_prepend "${HOMEBREW_PREFIX}/sbin" ;}
+    [ -d "${HOMEBREW_PREFIX}/bin" ] && { path_prepend "${HOMEBREW_PREFIX}/bin" ;}
+    [ -s "$HOMEBREW_PREFIX/etc/bash_completion" ] && source "$HOMEBREW_PREFIX/etc/bash_completion"
   fi
 }
 
@@ -162,6 +160,9 @@ path_prepend() {
 
   export PATH
 }
+
+### BEGIN UBER ###
+### END UBER ###
 
 _dotrc $@
 
