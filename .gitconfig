@@ -27,6 +27,7 @@
 	followTags = true
 [core]
     excludesfile = ~/.gitignore
+	editor = vim
 [merge]
     conflictstyle = diff3
 [mergetool]
