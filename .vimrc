@@ -1,179 +1,378 @@
-filetype off
-syntax on
-
-let base16colorspace=256
-let g:solarized_termcolors=256
-
-if filereadable(expand("~/.vimrc_background"))
-    source ~/.vimrc_background
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
-let g:go_echo_command_info = 0
-let g:solarized_termtrans = 1
-let g:mapleader = ","
-let mapleader = ","
-let g:ycm_confirm_extra_conf = 0
-let g:clang_format#command="clang-format-3.6"
-let g:clang_format#detect_style_file=1
-let g:clang_format#auto_formatexpr=1
-let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_dotfiles = 0
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_match_window_bottom = 0
-let g:ctrlp_match_window_reversed = 0
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-let NERDTreeAutoDeleteBuffer = 1
-set textwidth=0
+call plug#begin('~/.config/nvim/plugged')
+Plug 'fatih/vim-go', { 'tag': '*' }
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'chriskempson/base16-vim'
+Plug 'scrooloose/nerdtree'
 
-set ai
-set autoread
-set background=dark
-set backspace=indent,eol,start
-set cmdheight=1
-set colorcolumn=80,100,120
-set completeopt-=preview
-set cursorline
-set encoding=utf-8 nobomb
-set expandtab
-set exrc
-set ffs=unix,mac,dos
-set ff=unix
-set formatoptions+=ro
-set gdefault
-set hidden
-set history=700
-set hlsearch
-set ignorecase
-set incsearch
-set laststatus=2
-set lazyredraw
-set magic
-set mat=2
-set modeline
-set mouse=a
-set nobackup
-set nocompatible
-set noerrorbells
-set noswapfile
-set novisualbell
-set nowb
-set number
-set pastetoggle=<leader>p
-set ruler
-set secure
-set shell=/bin/bash
-set shiftwidth=4
-set shortmess=atI
-set showcmd
-set showmatch
-set showmode
-set si
-set smartcase
-set splitright
-set splitbelow
-set softtabstop=4
-set t_Co=256
-set t_vb=
-set tabpagemax=50
-set tabstop=4
-set title
-set tm=500
-set ttimeout
-set ttyfast
-set whichwrap+=<,>,h,l
-set wildignore=*.o,*~,*.pyc,*/build/*,*/bin/*
-set wildmenu
+Plug 'dense-analysis/ale'
+Plug 'fatih/vim-go'
+Plug 'stephpy/vim-yaml'
+Plug 'nvie/vim-flake8'
 
-if $TMUX == ''
-    set clipboard+=unnamed
-endif
+Plug 'edkolev/tmuxline.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
-hi TabLine ctermfg=10
+Plug 'dense-analysis/ale'
+Plug 'folke/lsp-colors.nvim'
+Plug 'folke/trouble.nvim'
+Plug 'ray-x/lsp_signature.nvim'
 
-try
-  set switchbuf=useopen,usetab,newtab
-  set stal=2
-catch
-endtry
-
-nnoremap <leader>q :bp<cr>:bd #<cr>
-nnoremap <silent> <expr> <leader>` g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
-nnoremap <C-J> <C-A-Up>
-nnoremap <C-K> <C-A-Down>
-nnoremap <C-H> <C-A-Left>
-nnoremap <C-L> <C-A-Right>
-nmap <F1> :if expand('%:e')=='hh'<CR>e %:r.cc<CR>else<CR>e %:r.hh<CR>endif<CR><CR>
-imap jj <Esc>
-imap qq <Esc>
-imap ;; <Esc>
-noremap mt :tabn<CR>
-noremap mT :tabp<CR>
-noremap gt :bn<CR>
-noremap gT :bp<CR>
-
-" noremap bn :bn<CR>
-" noremap bp :bp<CR>
-" noremap bN :bp<CR>
-noremap <F3> :Autoformat<CR>
-noremap <leader>a :Autoformat<CR>
-noremap [] :GoDef<CR>
-
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Bundle 'edkolev/tmuxline.vim'
-Plugin 'Chiel92/vim-autoformat'
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'bronson/vim-trailing-whitespace'
-Plugin 'chriskempson/base16-vim'
-Plugin 'fatih/vim-go'
-Plugin 'nsf/gocode', {'rtp': 'vim/'}
-Plugin 'nvie/vim-flake8'
-Plugin 'scrooloose/nerdtree'
-Plugin 'stephpy/vim-yaml'
-Plugin 'tpope/vim-abolish'
-Plugin 'uber/prototool', {'rtp': 'vim/prototool'}
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'w0rp/ale'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+Plug 'SirVer/ultisnips'
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
 
 " Deoplete
-Plugin 'Shougo/deoplete.nvim'
-Plugin 'Shougo/neopairs.vim'
-Plugin 'roxma/nvim-yarp'
-Plugin 'roxma/vim-hug-neovim-rpc'
-Plugin 'autozimu/LanguageClient-neovim'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/neopairs.vim'
+" Plug 'roxma/nvim-yarp'
+" Plug 'roxma/vim-hug-neovim-rpc'
+" Plug 'junegunn/fzf'
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'autozimu/LanguageClient-neovim', {
+"    \ 'branch': 'next',
+"    \ 'do': 'bash install.sh',
+"    \ }
+call plug#end()
 
-colorscheme base16-ocean
+lua << EOF
+if vim.env.VIM_PATH then
+	vim.env.PATH = vim.env.VIM_PATH
+end
 
-let g:flake8_show_quickfix=1
-let g:flake8_show_in_gutter=1
+local options = {
+    autoindent = true,
+    autoread = false,
+    background = 'dark',
+    backspace = {'indent', 'eol', 'start'},
+    backup = false,
+    cmdheight = 1,
+    colorcolumn = '80,100,120',
+    compatible = false,
+    copyindent = true,
+    cursorline = true,
+    errorbells = false,
+    expandtab = true,
+    exrc = true,
+    hidden = true,
+    history = 700,
+    hlsearch = true,
+    ignorecase = true,
+    incsearch = true,
+    joinspaces = false,
+    laststatus = 2,
+    lazyredraw = true,
+    mouse = 'a',
+    number = true,
+    pastetoggle = '<leader>p',
+    preserveindent = true,
+    ruler = true,
+    shiftwidth = 4,
+    shortmess = 'atI',
+    showcmd = true,
+    showmatch = true,
+    showmode = true,
+    smartcase = true,
+    -- smartindent = true,
+    softtabstop = 4,
+    splitbelow = true,
+    splitright = true,
+    swapfile = false,
+    tabpagemax = 50,
+    tabstop = 4,
+    textwidth = 79,
+    timeoutlen = 300,
+    title = true,
+    ttimeout = true,
+    virtualedit = 'all',
+    visualbell = false,
+    wrap = false,
+    writebackup = false,
+    wildignore = {
+        '*.o', '*~', '*.pyc',
+    },
+    wildmenu = true,
+}
+
+for name, val in pairs(options) do
+	vim.opt[name] = val
+end
+
+-- let_g(table)
+-- let_g(prefix, table)
+--
+-- Sets values on g:*. If prefix is non-empty, it's added to every key.
+function let_g(prefix, opts)
+	if opts == nil then
+		opts, prefix = prefix, ''
+	end
+
+	for key, val in pairs(opts) do
+		if prefix ~= '' then
+			key = prefix .. key
+		end
+		vim.g[key] = val
+	end
+end
+
+let_g {
+	mapleader = ',',
+}
+EOF
+
+" lua ale.linters.go = {}
+
+lua << EOF
+local nvim_lsp = require('lspconfig')
+local lsp_capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local lsp_signature = require('lsp_signature')
+
+function setup_lsp(server, lsp_opts)
+	lsp_opts.on_attach = function(client, bufnr)
+		local function buf_set_keymap(...)
+			vim.api.nvim_buf_set_keymap(bufnr, ...)
+		end
+
+		local function buf_set_option(...)
+			vim.api.nvim_buf_set_option(bufnr, ...)
+		end
+
+		-- Show hints for every parameter, but don't need to report the
+		-- signature again since it's easily accessible.
+		lsp_signature.on_attach({
+			bind = true,
+			floating_window = false,
+			hint_enable = true,
+			always_trigger = true,
+		}, bufnr)
+
+		buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+		local opts = { noremap = true, silent = true }
+
+		-- Keybindings
+		--  K            Documentation
+		--  <leader>d    Go to definition
+		--  F2           Rename
+		--  Alt-Enter    Code action
+
+		buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+		buf_set_keymap('n', '<leader>d', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+		buf_set_keymap('n', '<F1>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+		buf_set_keymap('n', '<M-CR>', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+	end
+
+	lsp_opts.capabilities = lsp_capabilities
+	lsp_opts.flags = {
+		-- Don't spam LSP with changes. Wait a second between updates.
+		debounce_text_changes = 1000,
+	}
+
+	nvim_lsp[server].setup(lsp_opts)
+end
+
+-- LSP implementations that don't need any configuration.
+local default_lsps = {
+	'pylsp',
+}
+
+for _, server in pairs(default_lsps) do
+	setup_lsp(server, {})
+end
+EOF
+
+lua << EOF
+local cmp = require 'cmp'
+
+local feedkey = function(key, mode)
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+end
+
+local handleTab = function(fallback)
+	if cmp.visible() then
+		if cmp.get_selected_entry() ~= nil then
+			cmp.confirm()
+		else
+			cmp.select_next_item()
+		end
+	elseif vim.fn['UltiSnips#CanJumpForwards']() == 1 then
+		feedkey("<Plug>(ultisnips_jump_forward)", "")
+	else
+		fallback()
+	end
+end
+
+cmp.setup {
+	completion = {
+		keyword_length = 2,
+	},
+	snippet = {
+		expand = function(args)
+			vim.fn["UltiSnips#Anon"](args.body)
+		end,
+	},
+	mapping = {
+		-- Ctrl-u/d: scroll docs of completion item if available.
+		['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+		['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+
+		-- tab: If completion menu is visible and nothing has been selected,
+		-- select first item. If something is selected, start completion with that.
+		-- If in the middle of the completion, jump to next snippet position.
+
+		-- Tab/Shift-Tab:
+		-- If completion menu is not visible,
+		--  1. if we're in the middle of a snippet, move forwards/backwards
+		--  2. Otherwise use regular key behavior
+		--
+		-- If completion menu is visible and,
+		--  1. no item is selected, select the first/last one
+		--  2. an item is selected, start completion with it
+		['<Tab>'] = cmp.mapping({
+			i = handleTab,
+			s = handleTab,
+		}),
+		['<S-Tab>'] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item()
+			elseif vim.fn['UltiSnips#CanJumpBackwards']() == 1 then
+				feedkey("<Plug>(ultisnips_jump_backward)", "")
+			else
+				fallback()
+			end
+		end, {'i', 's'}),
+
+		-- Ctrl-Space: force completion
+		['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+
+		-- Ctr-e: cancel completion
+		['<C-e>'] = cmp.mapping({
+			i = cmp.mapping.abort(),
+			c = cmp.mapping.close(),
+		}),
+
+		-- Enter: confirm completion
+		['<CR>'] = cmp.mapping.confirm({select = false}),
+	},
+	sources = cmp.config.sources({
+		{name = 'nvim_lsp'},
+		{name = 'ultisnips'},
+	}, {
+		{name = 'path'},
+		{name = 'buffer'},
+		{name = 'tmux'},
+	}),
+	experimental = {
+		ghost_text  = true,
+	},
+}
+EOF
+
+lua << EOF
+-- Support disabling gopls and LSP by setting an environment variable,
+-- and in diff mode.
+local disable_gopls = vim.env.VIM_GOPLS_DISABLED or vim.opt.diff:get()
+
+local gopls_options = {
+	gofumpt         = true,
+	staticcheck     = true,
+	usePlaceholders = true,
+}
+
+-- Support overriding memory mode with an environment variable.
+if vim.env.VIM_GOPLS_MEMORY_MODE then
+	gopls_options.memoryMode = vim.env.VIM_GOPLS_MEMORY_MODE
+end
+
+if not disabled_gopls then
+	setup_lsp('gopls', {
+		cmd = {'gopls', '-remote=auto'},
+		init_options = gopls_options,
+	})
+end
+EOF
+
+lua <<EOF
+let_g('go_', {
+	def_mapping_enabled = 0,
+	code_completion_enabled = 0,
+	doc_keywordprg_enabled = 0,
+	metalinter_autosave_enabled = {},
+	gopls_enabled = 0,
+	term_enabled = 1,
+	term_reuse = 1,
+	term_mode = "split",
+	template_file = vim.env.HOME .. "/.config/vim-go/main.go",
+	template_test_file = vim.env.HOME .. "/.config/vim-go/test.go",
+})
+
+if vim.env.VIM_GO_BIN_PATH then
+	vim.g.go_bin_path = vim.env.VIM_GO_BIN_PATH
+end
+EOF
+
+lua << EOF
+-- Support disabling gopls and LSP by setting an environment variable,
+-- and in diff mode.
+local disable_gopls = vim.env.VIM_GOPLS_DISABLED or vim.opt.diff:get()
+
+local gopls_options = {
+	gofumpt         = true,
+	staticcheck     = true,
+	usePlaceholders = true,
+}
+
+-- Support overriding memory mode with an environment variable.
+if vim.env.VIM_GOPLS_MEMORY_MODE then
+	gopls_options.memoryMode = vim.env.VIM_GOPLS_MEMORY_MODE
+end
+
+if not disabled_gopls then
+	setup_lsp('gopls', {
+		cmd = {'gopls', '-remote=auto'},
+		init_options = gopls_options,
+	})
+end
+EOF
+
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#ale#enabled = 1
 let g:airline_theme='base16'
+let g:base16colorspace=256
+let g:flake8_show_quickfix=1
+let g:flake8_show_in_gutter=1
 let g:NERDTreeMapOpenInTab = ''
-let g:go_gopls_gofumpt=1
-let g:go_fmt_fail_silently = 1
-let g:go_fmt_command = 'gopls'
-let g:go_def_mode = 'gopls'
-let g:go_imports_mode = 'gopls'
-let g:go_gopls_staticcheck = v:null
-let g:go_gopls_gofumpt = v:true
-let g:deoplete#enable_at_startup = 1
-let g:go_metalinter_command = "gopls"
-
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_changeThrottle = 0
-let g:LanguageClient_diagnosticsSignsMax = 0
-let g:LanguageClient_serverCommands = {}
-let g:LanguageClient_serverCommands.go = ['gopls']
-
-let g:LanguageClient_rootMarkers = {}
-let g:LanguageClient_rootMarkers.go = ['go.mod', 'Gopkg.toml', 'glide.lock']
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeDirArrows = 1
+let g:NERDTreeAutoDeleteBuffer = 1
+"let g:go_gopls_gofumpt=1
+"let g:go_fmt_fail_silently = 1
+"let g:go_fmt_command = 'gopls'
+"let g:go_def_mode = 'gopls'
+"let g:go_imports_mode = 'gopls'
+"let g:go_gopls_staticcheck = v:null
+"let g:go_gopls_gofumpt = v:true
+"let g:deoplete#enable_at_startup = 1
+"let g:go_metalinter_command = "gopls"
+"let g:LanguageClient_autoStart = 1
+"let g:LanguageClient_changeThrottle = 0
+"let g:LanguageClient_diagnosticsSignsMax = 0
+"let g:LanguageClient_serverCommands = {}
+"let g:LanguageClient_serverCommands.go = ['gopls']
+"let g:LanguageClient_rootMarkers = {}
+"let g:LanguageClient_rootMarkers.go = ['go.mod', 'Gopkg.toml', 'glide.lock']
 
 let g:tmuxline_separators = {
     \ 'left' : '',
@@ -184,51 +383,23 @@ let g:tmuxline_separators = {
 
 let g:ale_linters = {
     \ 'go': ['gopls'],
-    \ 'proto': ['prototool'],
     \ }
 let g:ale_lint_on_text_changed = 'never'
-noremap <silent> <leader>f :call PrototoolFormatToggle()<CR>
 
-let g:ale_lint_on_enter = 0
-let g:airline#extensions#ale#enabled = 1
-nnoremap <silent> <C-n> :ALEPrevious<CR>
-nnoremap <silent> <C-m> :ALENext<CR>
+colorscheme base16-ocean
 
-if has("autocmd")
-    filetype on
-    filetype plugin on
-    filetype indent on
+""""""
+" Keys
+nnoremap <leader>q :bp<cr>:bd #<cr>
+nnoremap <silent> <expr> <leader>` g:NERDTree.IsOpen() ? "\:NERDTreeClose<CR>" : bufexists(expand('%')) ? "\:NERDTreeFind<CR>" : "\:NERDTree<CR>"
+nnoremap <C-J> <C-A-Up>
+nnoremap <C-K> <C-A-Down>
+nnoremap <C-H> <C-A-Left>
+nnoremap <C-L> <C-A-Right>
+imap ;; <Esc>
+noremap gt :bn<CR>
+noremap gT :bp<CR>
 
-    autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-    autocmd BufNewFile,BufRead *.json setfiletype json setlocal syntax=javascript ts=2 sts=2
-    autocmd BufNewFile,BufRead *.md setfiletype markdown
-    autocmd BufNewFile,BufRead *.yml,*.sls setfiletype yaml
-    autocmd BufNewFile,BufRead *.hidl setfiletype cpp
-    autocmd BufNewFile,BufRead *.go setlocal syntax=go
-    autocmd BufNewFile,BufRead Vagrantfile setfiletype ruby
-    autocmd BufNewFile,BufRead BUILD.* setfiletype conf setlocal syntax=conf
-    autocmd BufNewFile,BufRead *.bzl setfiletype py setlocal syntax=python
-    autocmd BufNewFile,BufRead *.py set ts=4 sts=4 sw=4 expandtab nosmartindent ff=unix
-    autocmd BufNewFile,BufRead,BufEnter *.cc,*.hh ALEDisable
-    autocmd BufWritePost *.py call Flake8()
-    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab smartindent
-    autocmd FileType sh setlocal ts=2 sts=2 sw=2 expandtab smartindent
-endif
-
-function! NumberToggle()
-    if(&rnu == 1)
-        set nu
-        set nornu
-    else
-        set nonu
-        set rnu
-    endif
-endfunc
-
-nnoremap <C-n> :call NumberToggle()<cr>
-
+highlight TabLine ctermfg=10
 highlight LineNr ctermbg=0
 highlight colorcolumn ctermbg=0
-
-call vundle#end()
