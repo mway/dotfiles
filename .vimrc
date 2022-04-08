@@ -5,45 +5,29 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/plugged')
-Plug 'fatih/vim-go', { 'tag': '*' }
+Plug 'SirVer/ultisnips'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'chriskempson/base16-vim'
-Plug 'scrooloose/nerdtree'
-
 Plug 'dense-analysis/ale'
-Plug 'fatih/vim-go'
-Plug 'stephpy/vim-yaml'
-Plug 'nvie/vim-flake8'
-
+Plug 'dense-analysis/ale'
 Plug 'edkolev/tmuxline.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
-Plug 'dense-analysis/ale'
+Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'tag': '*' }
 Plug 'folke/lsp-colors.nvim'
 Plug 'folke/trouble.nvim'
-Plug 'ray-x/lsp_signature.nvim'
-
-Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-Plug 'SirVer/ultisnips'
-Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp'
-
-" Deoplete
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'Shougo/neopairs.vim'
-" Plug 'roxma/nvim-yarp'
-" Plug 'roxma/vim-hug-neovim-rpc'
-" Plug 'junegunn/fzf'
-" Plug 'neovim/nvim-lspconfig'
-" Plug 'autozimu/LanguageClient-neovim', {
-"    \ 'branch': 'next',
-"    \ 'do': 'bash install.sh',
-"    \ }
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvie/vim-flake8'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+Plug 'ray-x/lsp_signature.nvim'
+Plug 'scrooloose/nerdtree'
+Plug 'stephpy/vim-yaml'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 lua << EOF
@@ -238,11 +222,11 @@ cmp.setup {
 		-- If completion menu is visible and,
 		--  1. no item is selected, select the first/last one
 		--  2. an item is selected, start completion with it
-		['<Tab>'] = cmp.mapping({
+		['<C-Tab>'] = cmp.mapping({
 			i = handleTab,
 			s = handleTab,
 		}),
-		['<S-Tab>'] = cmp.mapping(function(fallback)
+		['<C-S-Tab>'] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item()
 			elseif vim.fn['UltiSnips#CanJumpBackwards']() == 1 then
@@ -253,10 +237,10 @@ cmp.setup {
 		end, {'i', 's'}),
 
 		-- Ctrl-Space: force completion
-		['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+		['<Tab>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
 
 		-- Ctr-e: cancel completion
-		['<C-e>'] = cmp.mapping({
+		['<Esc>'] = cmp.mapping({
 			i = cmp.mapping.abort(),
 			c = cmp.mapping.close(),
 		}),
