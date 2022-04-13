@@ -5,13 +5,10 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/plugged')
-Plug 'SirVer/ultisnips'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'chriskempson/base16-vim'
 Plug 'dense-analysis/ale'
-Plug 'dense-analysis/ale'
 Plug 'edkolev/tmuxline.vim'
-Plug 'fatih/vim-go'
 Plug 'fatih/vim-go', { 'tag': '*' }
 Plug 'folke/lsp-colors.nvim'
 Plug 'folke/trouble.nvim'
@@ -22,7 +19,6 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvie/vim-flake8'
-Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'scrooloose/nerdtree'
 Plug 'stephpy/vim-yaml'
@@ -37,7 +33,7 @@ end
 
 local options = {
     autoindent = true,
-    autoread = false,
+    autoread = true,
     background = 'dark',
     backspace = {'indent', 'eol', 'start'},
     backup = false,
@@ -49,6 +45,7 @@ local options = {
     errorbells = false,
     expandtab = true,
     exrc = true,
+    gdefault = true,
     hidden = true,
     history = 700,
     hlsearch = true,
@@ -57,18 +54,22 @@ local options = {
     joinspaces = false,
     laststatus = 2,
     lazyredraw = true,
+    magic = true,
+    mat = 2,
+    modeline = true,
     mouse = 'a',
     number = true,
     pastetoggle = '<leader>p',
     preserveindent = true,
     ruler = true,
+    secure = true,
+    shell = '/bin/bash',
     shiftwidth = 4,
     shortmess = 'atI',
     showcmd = true,
     showmatch = true,
     showmode = true,
     smartcase = true,
-    -- smartindent = true,
     softtabstop = 4,
     splitbelow = true,
     splitright = true,
@@ -79,7 +80,6 @@ local options = {
     timeoutlen = 300,
     title = true,
     ttimeout = true,
-    virtualedit = 'all',
     visualbell = false,
     wrap = false,
     writebackup = false,
@@ -115,7 +115,14 @@ let_g {
 }
 EOF
 
-" lua ale.linters.go = {}
+set completeopt-=preview
+set formatoptions+=ro
+
+try
+  set switchbuf=useopen,usetab,newtab
+  set stal=2
+catch
+endtry
 
 lua << EOF
 local nvim_lsp = require('lspconfig')
@@ -173,93 +180,6 @@ local default_lsps = {
 for _, server in pairs(default_lsps) do
 	setup_lsp(server, {})
 end
-EOF
-
-lua << EOF
-local cmp = require 'cmp'
-
-local feedkey = function(key, mode)
-	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-end
-
-local handleTab = function(fallback)
-	if cmp.visible() then
-		if cmp.get_selected_entry() ~= nil then
-			cmp.confirm()
-		else
-			cmp.select_next_item()
-		end
-	elseif vim.fn['UltiSnips#CanJumpForwards']() == 1 then
-		feedkey("<Plug>(ultisnips_jump_forward)", "")
-	else
-		fallback()
-	end
-end
-
-cmp.setup {
-	completion = {
-		keyword_length = 2,
-	},
-	snippet = {
-		expand = function(args)
-			vim.fn["UltiSnips#Anon"](args.body)
-		end,
-	},
-	mapping = {
-		-- Ctrl-u/d: scroll docs of completion item if available.
-		['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-		['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-
-		-- tab: If completion menu is visible and nothing has been selected,
-		-- select first item. If something is selected, start completion with that.
-		-- If in the middle of the completion, jump to next snippet position.
-
-		-- Tab/Shift-Tab:
-		-- If completion menu is not visible,
-		--  1. if we're in the middle of a snippet, move forwards/backwards
-		--  2. Otherwise use regular key behavior
-		--
-		-- If completion menu is visible and,
-		--  1. no item is selected, select the first/last one
-		--  2. an item is selected, start completion with it
-		['<C-Tab>'] = cmp.mapping({
-			i = handleTab,
-			s = handleTab,
-		}),
-		['<C-S-Tab>'] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item()
-			elseif vim.fn['UltiSnips#CanJumpBackwards']() == 1 then
-				feedkey("<Plug>(ultisnips_jump_backward)", "")
-			else
-				fallback()
-			end
-		end, {'i', 's'}),
-
-		-- Ctrl-Space: force completion
-		['<Tab>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-
-		-- Ctr-e: cancel completion
-		['<Esc>'] = cmp.mapping({
-			i = cmp.mapping.abort(),
-			c = cmp.mapping.close(),
-		}),
-
-		-- Enter: confirm completion
-		['<CR>'] = cmp.mapping.confirm({select = false}),
-	},
-	sources = cmp.config.sources({
-		{name = 'nvim_lsp'},
-		{name = 'ultisnips'},
-	}, {
-		{name = 'path'},
-		{name = 'buffer'},
-		{name = 'tmux'},
-	}),
-	experimental = {
-		ghost_text  = true,
-	},
-}
 EOF
 
 lua << EOF
@@ -341,22 +261,6 @@ let g:NERDTreeMapOpenInTab = ''
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeDirArrows = 1
 let g:NERDTreeAutoDeleteBuffer = 1
-"let g:go_gopls_gofumpt=1
-"let g:go_fmt_fail_silently = 1
-"let g:go_fmt_command = 'gopls'
-"let g:go_def_mode = 'gopls'
-"let g:go_imports_mode = 'gopls'
-"let g:go_gopls_staticcheck = v:null
-"let g:go_gopls_gofumpt = v:true
-"let g:deoplete#enable_at_startup = 1
-"let g:go_metalinter_command = "gopls"
-"let g:LanguageClient_autoStart = 1
-"let g:LanguageClient_changeThrottle = 0
-"let g:LanguageClient_diagnosticsSignsMax = 0
-"let g:LanguageClient_serverCommands = {}
-"let g:LanguageClient_serverCommands.go = ['gopls']
-"let g:LanguageClient_rootMarkers = {}
-"let g:LanguageClient_rootMarkers.go = ['go.mod', 'Gopkg.toml', 'glide.lock']
 
 let g:tmuxline_separators = {
     \ 'left' : '',
