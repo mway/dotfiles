@@ -69,7 +69,7 @@ _install_dotfiles() {
 
   for b in $bins; do
     if [ ! -e "${HOME}/bin/${b}" ]; then
-      ln -s "${DIR}/bin/${c}" "${HOME}/bin/${b}"
+      ln -s "${DIR}/bin/${b}" "${HOME}/bin/${b}"
       echo "Created ${HOME}/bin/${b}."
     elif [ -L "${HOME}/bin/${b}" ]; then
       echo "${HOME}/bin/${b} is already a symlink."
