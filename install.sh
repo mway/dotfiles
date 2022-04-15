@@ -13,10 +13,11 @@ _install_dotfiles() {
   local DIR="$(cd "$(dirname "${FILE}")" && pwd)"
 
   bash -c "cd ${DIR} && git submodule update --init --recursive"
-  mkdir -p ~/.config
+  mkdir -p ~/.config ~/bin
 
   local files=$(\ls -a "${DIR}" | grep -E '(^\.|Brewfile)' | grep -vE '^(\.|\.\.|\.git|\.gitmodules)$')
   local configs=$(\ls -a "${DIR}/config")
+  local bins=$(\ls -a "${DIR}/bin")
 
   if [ "$1" == "force" ]; then
     for f in $files; do
@@ -32,6 +33,14 @@ _install_dotfiles() {
         rm -r "${HOME}/.config/${c}"
       elif [ -e "${HOME}/.config/${c}" ]; then
         unlink "${HOME}/${c}"
+      fi
+    done
+
+    for b in $bins; do
+      if [ -d "${HOME}/bin/${b}" ]; then
+        rm -r "${HOME}/bin/${b}"
+      elif [ -e "${HOME}/bin/${b}" ]; then
+        unlink "${HOME}/${b}"
       fi
     done
   fi
@@ -55,6 +64,17 @@ _install_dotfiles() {
       echo "${HOME}/.config/${c} is already a symlink."
     else
       echo "${HOME}/.config/${c} exists, but is not a symlink."
+    fi
+  done
+
+  for b in $bins; do
+    if [ ! -e "${HOME}/bin/${b}" ]; then
+      ln -s "${DIR}/bin/${c}" "${HOME}/bin/${b}"
+      echo "Created ${HOME}/bin/${b}."
+    elif [ -L "${HOME}/bin/${b}" ]; then
+      echo "${HOME}/bin/${b} is already a symlink."
+    else
+      echo "${HOME}/bin/${b} exists, but is not a symlink."
     fi
   done
 }
