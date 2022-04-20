@@ -1,0 +1,50 @@
+# Ignore everything by default and whitelist things explicitly.
+/*
+
+# XDG home
+!/.config
+
+# Always ignore
+.DS_Store
+.*.sw?
+
+# Useful scripts/tools are placed in ~/bin
+!/bin
+
+# shell
+!.aliases
+!.bashrc
+!.bash_profile
+!.profile
+!.profile.d/
+!.zprofile
+!.zsh/
+!.zshenv
+!.zshrc
+/.zsh/rc.d/local
+
+# Misc
+!.dotrc
+!Brewfile
+
+# git
+!.gitconfig
+!/.gitconfig.d/
+/.gitconfig.d/local
+
+# tig
+!.tigrc
+
+# tmux
+!.tmux*.conf
+!/.tmux/
+
+# [n]vim
+!.vimrc
+
+# restack
+!/.restack
+
+{{- if eq .chezmoi.os "darwin" }}
+!/.hammerspoon
+{{- end }}
