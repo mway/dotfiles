@@ -178,6 +178,8 @@ cmp.setup {
 			i = handleTab,
 			s = handleTab,
 		}),
+		['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
+		['<Down>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
 		['<S-Tab>'] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item()
@@ -313,7 +315,7 @@ let_g('go_', {
 	code_completion_enabled = 0,
 	doc_keywordprg_enabled = 0,
 	metalinter_autosave_enabled = {},
-	gopls_enabled = 0,
+	gopls_enabled = 1,
 	term_enabled = 1,
 	term_reuse = 1,
 	term_mode = "split",
@@ -326,36 +328,16 @@ if vim.env.VIM_GO_BIN_PATH then
 end
 EOF
 
-lua << EOF
--- Support disabling gopls and LSP by setting an environment variable,
--- and in diff mode.
-local disable_gopls = vim.env.VIM_GOPLS_DISABLED or vim.opt.diff:get()
-
-local gopls_options = {
-	gofumpt         = true,
-	staticcheck     = true,
-	usePlaceholders = true,
-}
-
--- Support overriding memory mode with an environment variable.
-if vim.env.VIM_GOPLS_MEMORY_MODE then
-	gopls_options.memoryMode = vim.env.VIM_GOPLS_MEMORY_MODE
-end
-
-if not disabled_gopls then
-	setup_lsp('gopls', {
-		cmd = {'gopls', '-remote=auto'},
-		init_options = gopls_options,
-	})
-end
-EOF
-
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#ale#enabled = 1
 let g:airline_theme='base16'
 let g:base16colorspace=256
+let g:go_fmt_command='gopls'
+let g:go_gopls_gofumpt=1
+let g:go_imports_autosave=1
+let g:go_imports_mode='gopls'
 let g:flake8_show_quickfix=1
 let g:flake8_show_in_gutter=1
 let g:NERDTreeMapOpenInTab = ''
