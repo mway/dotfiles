@@ -9,7 +9,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'chriskempson/base16-vim'
 Plug 'dense-analysis/ale'
 Plug 'edkolev/tmuxline.vim'
-Plug 'fatih/vim-go', { 'tag': '*' }
+" Plug 'fatih/vim-go', { 'tag': '*' }
 Plug 'folke/lsp-colors.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'hrsh7th/cmp-buffer'
@@ -261,9 +261,9 @@ function setup_lsp(server, lsp_opts)
 		--  Alt-Enter    Code action
 
 		buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-		buf_set_keymap('n', '<leader>d', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-		buf_set_keymap('n', '<F1>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-		buf_set_keymap('n', '<M-CR>', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+		buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+		buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+		buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 	end
 
 	lsp_opts.capabilities = lsp_capabilities
@@ -328,6 +328,50 @@ if vim.env.VIM_GO_BIN_PATH then
 end
 EOF
 
+lua << EOF
+-- Support disabling gopls and LSP by setting an environment variable,
+-- and in diff mode.
+local disable_gopls = vim.env.VIM_GOPLS_DISABLED or vim.opt.diff:get()
+
+local gopls_options = {
+	gofumpt         = true,
+	staticcheck     = true,
+	usePlaceholders = true,
+}
+
+-- Support overriding memory mode with an environment variable.
+if vim.env.VIM_GOPLS_MEMORY_MODE then
+	gopls_options.memoryMode = vim.env.VIM_GOPLS_MEMORY_MODE
+end
+
+if not disabled_gopls then
+	setup_lsp('gopls', {
+		cmd = {'gopls', '-remote=auto'},
+		init_options = gopls_options,
+	})
+end
+EOF
+
+lua << EOF
+function FormatAndImports(wait_ms)
+    vim.lsp.buf.formatting_sync(nil, wait_ms)
+    local params = vim.lsp.util.make_range_params()
+    params.context = {only = {"source.organizeImports"}}
+    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
+    for _, res in pairs(result or {}) do
+        for _, r in pairs(res.result or {}) do
+            if r.edit then
+                vim.lsp.util.apply_workspace_edit(r.edit, "UTF-8")
+            else
+                vim.lsp.buf.execute_command(r.command)
+            end
+        end
+    end
+end
+EOF
+autocmd BufWritePre *.go lua FormatAndImports(3000)
+
+let $USE_SYSTEM_GO = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
