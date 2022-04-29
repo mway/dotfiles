@@ -127,7 +127,7 @@ _dotrc_path_golang() {
 }
 
 _dotrc_path_rust() {
-    if $(which rustc 2>/dev/null); then
+    if which rustc 2>&1 >/dev/null; then
         path_prepend "${HOME}/.cargo/bin"
     fi
 }

@@ -380,14 +380,15 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#ale#enabled = 1
-let g:airline_theme='base16'
-let g:base16colorspace=256
-let g:go_fmt_command='gopls'
-let g:go_gopls_gofumpt=1
-let g:go_imports_autosave=1
-let g:go_imports_mode='gopls'
-let g:flake8_show_quickfix=1
-let g:flake8_show_in_gutter=1
+let g:airline_theme = 'base16'
+let g:base16colorspace = 256
+let g:go_fmt_command = 'gopls'
+let g:go_gopls_gofumpt = 1
+let g:go_imports_autosave = 1 
+let g:go_imports_mode = 'gopls'
+let g:rustfmt_autosave = 1
+let g:flake8_show_quickfix = 1
+let g:flake8_show_in_gutter = 1
 let g:NERDTreeMapOpenInTab = ''
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeDirArrows = 1
@@ -402,6 +403,7 @@ let g:tmuxline_separators = {
 
 let g:ale_linters = {
     \ 'go': ['gopls'],
+    \ 'rust': [],
     \ }
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_sign_error = '>>'
