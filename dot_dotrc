@@ -100,6 +100,7 @@ _dotrc_paths() {
 
   _dotrc_path_dotnet
   _dotrc_path_golang
+  _dotrc_path_rust
   _dotrc_path_python
   _dotrc_path_homebrew
 
@@ -123,6 +124,12 @@ _dotrc_path_golang() {
     export GOBIN="${gobin}"
     path_prepend "${GOBIN}"
   fi
+}
+
+_dotrc_path_rust() {
+    if $(which rustc 2>/dev/null); then
+        path_prepend "${HOME}/.cargo/bin"
+    fi
 }
 
 _dotrc_path_homebrew() {

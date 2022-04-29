@@ -9,6 +9,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'chriskempson/base16-vim'
 Plug 'dense-analysis/ale'
 Plug 'edkolev/tmuxline.vim'
+Plug 'rust-lang/rust.vim'
 " Plug 'fatih/vim-go', { 'tag': '*' }
 Plug 'folke/lsp-colors.nvim'
 Plug 'folke/trouble.nvim'
