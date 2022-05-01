@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+export PROMPT_COMMAND='PS1X=$(p="${PWD#${HOME}}"; [ "${PWD}" != "${p}" ] && printf "~";IFS=/; for q in ${p:1}; do printf /${q:0:1}; done; printf "${q:1}")'
+export BASE_PS1="${CYN}\${PS1X}${RESET} ${GRY}#${RESET} "
+export PS1="${GRY}\D{%T}> $BASE_PS1"

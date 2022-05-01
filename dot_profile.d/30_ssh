@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Keychain: http://www.funtoo.org
+[ ! $(which keychain 2>/dev/null) ] || eval `keychain --quiet --eval --agents ssh id_rsa`
+

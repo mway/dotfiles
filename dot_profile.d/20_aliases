@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+alias htop='sudo htop'
+alias ls='ls -lAG'
+alias mkdir='mkdir -p'
+alias rgrep='grep -r'
+alias tmux='tmux -2'
+alias vi='\nvim'
+alias vim='\nvim'
+alias brew-save='brew bundle dump -f ~/Brewfile'
