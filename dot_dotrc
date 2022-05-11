@@ -20,3 +20,5 @@ else
     for f in $_profiled_files; do source "$f"; done
     echo "${BOLD}${HIR}Warning:${RESET} direnv not found."
 fi
+
+set +e
