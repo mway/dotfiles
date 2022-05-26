@@ -1,0 +1,132 @@
+---
+- hosts: localhost
+  connection: local
+  vars:
+    home: "{{ lookup('env', 'HOME') }}"
+    nvim_src_dir: "{{ home }}/src/neovim"
+    nvim_target_version: v0.8
+    tmux_src_dir: "{{ home }}/src/tmux"
+    tmux_target_version: 3.2a
+    go_target_version: 1.18.2
+    go_src_dir: /usr/local/go
+  tasks:
+    - name: Install packages
+      become: yes # Need root
+      apt:
+        pkg:
+          - cmake
+          - exa
+          - jq
+          - pandoc
+          - pv
+          - ripgrep
+          - shellcheck
+          - stow
+          - fasd
+          - tig
+          - libtool-bin
+          - bison          # for tmux
+          - libevent-dev   # for tmux
+          - libncurses-dev # for tmux
+          - pipenv
+          - pipx
+        state: latest
+        allow_unauthenticated: true
+        update_cache: yes
+        install_recommends: yes
+
+    - name: Install Go
+      block:
+        - name: Check Go version
+          command: go version
+          register: go_version
+          changed_when: False
+        - name: Remove old Go installation
+          become: yes
+          file:
+            path: "{{ go_src_dir }}"
+            state: absent
+          when: go_target_version not in go_version.stdout
+          changed_when: False
+        - name: "Install Go v{{ go_target_version }}"
+          become: yes
+          unarchive:
+            dest: "{{ go_src_dir|dirname }}"
+            src: "https://go.dev/dl/go{{ go_target_version }}.{{ ansible_system|lower }}-amd64.tar.gz"
+            remote_src: yes
+          when: go_target_version not in go_version.stdout
+
+    - name: Install chezmoi
+      block:
+        - name: Check chezmoi
+          command: chezmoi --version
+          register: chezmoi_version
+          changed_when: False
+        - name: Install latest chezmoi
+          shell:
+            cmd: sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply mway
+          when: "'chezmoi version' not in chezmoi_version.stdout"
+
+    - name: Update dotfiles
+      command: chezmoi apply --force
+
+    - name: Install/update neovim
+      block:
+        - name: Check version
+          command: nvim --version
+          register: nvim_version
+          changed_when: False
+        - name: "Clone neovim ({{ nvim_src_dir }})"
+          git:
+            repo: https://github.com/neovim/neovim.git
+            dest: "{{ nvim_src_dir }}"
+            clone: yes
+            update: yes
+          register: nvim_clone
+          when: nvim_target_version not in nvim_version.stdout
+        - name: "Build neovim ({{ nvim_src_dir }})"
+          command:
+            chdir: "{{ nvim_src_dir }}"
+            cmd: make CMAKE_BUILD_TYPE=Release
+          register: nvim_build
+          when: nvim_clone is changed
+        - name: "Install neovim binary ({{ nvim_src_dir }})"
+          become: yes
+          command:
+            chdir: "{{ nvim_src_dir }}"
+            cmd: make install
+          when: nvim_build is changed
+
+    - name: Install/update tmux
+      block:
+        - name: Check version
+          command: tmux -V
+          register: tmux_version
+          changed_when: False
+        - name: "Clone tmux ({{ tmux_src_dir }})"
+          git:
+            repo: https://github.com/tmux/tmux.git
+            version: "{{ tmux_target_version }}"
+            dest: "{{ tmux_src_dir }}"
+            clone: yes
+            update: yes
+          register: tmux_clone
+          when: tmux_target_version not in tmux_version.stdout
+        - name: "Configure tmux ({{ tmux_src_dir }})"
+          shell:
+            chdir: "{{ tmux_src_dir }}"
+            cmd: ./autogen.sh && ./configure
+          register: tmux_configure
+          when: tmux_clone is changed
+        - name: "Build tmux ({{ tmux_src_dir }})"
+          command:
+            chdir: "{{ tmux_src_dir }}"
+            cmd: make
+          register: tmux_build
+          when: tmux_configure is changed
+        - name: "Install tmux binary ({{ tmux_src_dir }})"
+          become: yes
+          command:
+            chdir: "{{ tmux_src_dir }}"
+            cmd: make install
+          when: tmux_build is changed

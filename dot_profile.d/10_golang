@@ -15,4 +15,5 @@ if [ $? -eq 0 ]; then
 
     PATH_add "$(go env GOROOT)/bin"
     PATH_add "$GOBIN"
+    PATH_add "/usr/local/go/bin"
 fi
