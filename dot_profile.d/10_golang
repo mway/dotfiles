@@ -2,6 +2,8 @@
 
 which go 2>&1 >/dev/null
 if [ $? -eq 0 ]; then
+    [ ! -d "$HOME/go" ] || export GOPATH="$HOME/go"
+
     local _gopath="$(go env GOPATH)"
     [ -n "$_gopath" ] || _gopath="$HOME/go"
 
