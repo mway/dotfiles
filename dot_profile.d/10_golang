@@ -15,7 +15,5 @@ if command -v go >/dev/null; then
     mkdir -p $_gopath $_gobin
     export GOPATH="$_gopath" GOBIN="$_gobin"
 
-    PATH_add "$(go env GOROOT)/bin"
-    PATH_add "$GOBIN"
-    PATH_add "/usr/local/go/bin"
+    PATH_add /usr/local/go/bin "$(go env GOROOT)/bin" "$GOBIN"
 fi
