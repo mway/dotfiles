@@ -1,6 +1,3 @@
 #!/usr/bin/env bash
 
-which rustc 2>&1 >/dev/null
-if [ $? -eq 0 ]; then
-    PATH_add "$HOME/.cargo/bin"
-fi
+PATH_add "$HOME/.cargo/bin"
