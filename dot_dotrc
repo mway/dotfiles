@@ -21,8 +21,7 @@ function PATH_add() {
 }
 
 for f in $_profiled_files; do
-    echo "[$HOME/.dotrc] Sourcing $f"
-    source "$f"
+    source "$f" || echo "[$HOME/.dotrc] Failed to source $f"
 done
 
 set +e
