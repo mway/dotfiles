@@ -10,12 +10,15 @@ export PATH="$HOME/bin:/usr/local/sbin:/usr/local/bin:$PATH"
 _profiled_files="$(find "$HOME/.profile.d" -type f | sort)"
 
 # Use direnv by default
-if $(which direnv 2>&1 >/dev/null); then
-    eval "$(direnv hook bash)"
+if command -v direnv >/dev/null; then
     eval "$(direnv stdlib)"
 
+    _old_format="$DIRENV_LOG_FORMAT"
     DIRENV_LOG_FORMAT=""
     for f in $_profiled_files; do source_env "$f"; done
+    DIRENV_LOG_FORMAT="$_old_format"
+
+    eval "$(direnv hook bash)"
 else
     for f in $_profiled_files; do source "$f"; done
     echo "${BOLD}${HIR}Warning:${RESET} direnv not found."
