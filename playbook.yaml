@@ -10,6 +10,13 @@
     go_target_version: 1.18.2
     go_src_dir: /usr/local/go
   tasks:
+    - name: Add Bazel key
+      become: yes # Need root
+      apt_key:
+        id: 71A1D0EFCFEB6281FD0437C93D5919B448457EE0
+        url: https://bazel.build/bazel-release.pub.gpg
+        state: present
+
     - name: Install packages
       become: yes # Need root
       apt:
@@ -56,6 +63,21 @@
             remote_src: yes
           when: go_target_version not in go_version.stdout
 
+    - name: Install Rust
+      block:
+        - name: Check Cargo
+          shell:
+            cmd: which cargo 2>/dev/null
+            warn: False
+          register: which_cargo
+          changed_when: False
+          ignore_errors: yes
+        - name: Run rustup
+          shell:
+            cmd: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+            warn: False
+          when: which_cargo.rc != 0
+
     - name: Install chezmoi
       block:
         - name: Check chezmoi
@@ -69,6 +91,8 @@
 
     - name: Update dotfiles
       command: chezmoi apply --force
+      register: chezmoi_apply
+      changed_when: chezmoi_apply.stdout | length > 0
 
     - name: Install/update neovim
       block:
@@ -95,7 +119,13 @@
           command:
             chdir: "{{ nvim_src_dir }}"
             cmd: make install
+          register: nvim_install
           when: nvim_build is changed
+        - name: "Remove neovim source ({{ nvim_src_dir }})"
+          file:
+            path: "{{ nvim_src_dir }}"
+            ensure: absent
+          when: nvim_install is skipped or nvim_install is changed
 
     - name: Install/update tmux
       block:
@@ -129,4 +159,10 @@
           command:
             chdir: "{{ tmux_src_dir }}"
             cmd: make install
+          register: tmux_install
           when: tmux_build is changed
+        - name: "Remove tmux source ({{ tmux_src_dir }})"
+          file:
+            path: "{{ tmux_src_dir }}"
+            ensure: absent
+          when: tmux_install is skipped or tmux_install is changed
