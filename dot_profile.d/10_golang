@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 if command go >/dev/null 2>&1; then
+    export GOPACKAGESDRIVER="$HOME/bin/gopackagesdriver.sh"
+    export VIM_GOPLS_MEMORY_MODE="DegradeClosed"
+
     [ ! -d "$HOME/go" ] || export GOPATH="$HOME/go"
 
     local _gopath="$(go env GOPATH)"
