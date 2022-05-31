@@ -124,7 +124,7 @@
         - name: "Remove neovim source ({{ nvim_src_dir }})"
           file:
             path: "{{ nvim_src_dir }}"
-            ensure: absent
+            state: absent
           when: nvim_install is skipped or nvim_install is changed
 
     - name: Install/update tmux
@@ -164,5 +164,5 @@
         - name: "Remove tmux source ({{ tmux_src_dir }})"
           file:
             path: "{{ tmux_src_dir }}"
-            ensure: absent
+            state: absent
           when: tmux_install is skipped or tmux_install is changed
