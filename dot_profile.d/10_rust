@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-if command cargo >/dev/null 2>&1; then
+if command -v cargo >/dev/null; then
     PATH_add "$HOME/.cargo/bin"
-else
-    echo "No cargo2"
 fi

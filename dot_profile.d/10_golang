@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
-if command go >/dev/null 2>&1; then
+if command -v go >/dev/null; then
     export GOPACKAGESDRIVER="$HOME/bin/gopackagesdriver.sh"
     export VIM_GOPLS_MEMORY_MODE="DegradeClosed"
 
     [ ! -d "$HOME/go" ] || export GOPATH="$HOME/go"
 
-    local _gopath="$(go env GOPATH)"
+    _gopath="$(go env GOPATH)"
     [ -n "$_gopath" ] || _gopath="$HOME/go"
 
-    local _gobin="$(go env GOBIN)"
+    _gobin="$(go env GOBIN)"
     [ -n "$_gobin" ] || _gobin="$_gopath/bin"
 
     mkdir -p $_gopath $_gobin
