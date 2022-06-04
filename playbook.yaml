@@ -4,7 +4,7 @@
   vars:
     home: "{{ lookup('env', 'HOME') }}"
     nvim_src_dir: "{{ home }}/src/neovim"
-    nvim_target_version: v0.8
+    nvim_target_version: v0.7.0
     tmux_src_dir: "{{ home }}/src/tmux"
     tmux_target_version: 3.2a
     go_target_version: 1.18.2
@@ -103,6 +103,7 @@
         - name: "Clone neovim ({{ nvim_src_dir }})"
           git:
             repo: https://github.com/neovim/neovim.git
+            version:  "{{ nvim_target_version }}"
             dest: "{{ nvim_src_dir }}"
             clone: yes
             update: yes
