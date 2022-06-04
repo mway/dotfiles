@@ -17,11 +17,6 @@
 !.bash_profile
 !.profile
 !.profile.d/
-!.zprofile
-!.zsh/
-!.zshenv
-!.zshrc
-/.zsh/rc.d/local
 
 # Misc
 !.dotrc
@@ -39,12 +34,11 @@
 !.tmux*.conf
 !/.tmux/
 
-# [n]vim
+# neovim
 !.vimrc
+!.config/nvim/
+.config/nvim/autoload/plug.vim # managed by chezmoi
+.config/nvim/plugged/ # managed by vim-plug
+.config/nvim/plugged/* # managed by vim-plug
+.config/nvim/plugged/**/* # managed by vim-plug
 
-# restack
-!/.restack
-
-{{- if eq .chezmoi.os "darwin" }}
-!/.hammerspoon
-{{- end }}
