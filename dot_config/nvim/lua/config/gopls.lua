@@ -1,5 +1,3 @@
-vim.g.go_gopls_gofumpt = true
-
 local gopls_options = {
 	gofumpt     = true,
 	staticcheck = true,
@@ -8,6 +6,16 @@ local gopls_options = {
         unreachable  = true,
 	},
 }
+
+vim.g.go_fmt_command = 'gopls'
+vim.g.go_imports_mode = 'gopls'
+vim.g.go_metalinter_command = 'gopls'
+vim.g.go_gopls_gofumpt = true
+vim.g.go_gopls_options = {'-remote=auto'}
+
+vim.g.ale_go_gopls_options = '-remote=auto'
+vim.g.ale_go_gopls_init_options = gopls_options
+vim.g.ale_go_gopls_use_global = true
 
 if vim.env.VIM_GOPLS_MEMORY_MODE then
 	gopls_options.memoryMode = vim.env.VIM_GOPLS_MEMORY_MODE
@@ -20,4 +28,3 @@ if not disabled_gopls then
 		init_options = gopls_options,
 	})
 end
-
