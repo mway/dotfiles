@@ -1,3 +1,4 @@
+local gopls_flags = '-remote=auto'
 local gopls_options = {
 	gofumpt     = true,
 	staticcheck = true,
@@ -10,10 +11,11 @@ local gopls_options = {
 -- vim.g.go_fmt_command = 'gopls'
 -- vim.g.go_imports_mode = 'gopls'
 -- vim.g.go_metalinter_command = 'gopls'
-vim.g.go_gopls_gofumpt = true
-vim.g.go_gopls_options = {'-remote=auto'}
 
-vim.g.ale_go_gopls_options = '-remote=auto'
+vim.g.go_gopls_gofumpt = true
+vim.g.go_gopls_options = {gopls_flags}
+
+vim.g.ale_go_gopls_options = gopls_flags
 vim.g.ale_go_gopls_init_options = gopls_options
 vim.g.ale_go_gopls_use_global = true
 
@@ -24,7 +26,7 @@ end
 local disable_gopls = vim.env.VIM_GOPLS_DISABLED or vim.opt.diff:get()
 if not disabled_gopls then
 	setup_lsp('gopls', {
-		cmd = {'gopls', '-remote=auto'},
+		cmd = {'gopls', gopls_flags},
 		init_options = gopls_options,
 	})
 end

@@ -1,5 +1,5 @@
 vim.g.rustfmt_autosave = true
-vim.g.ale_linters.rust = {}
+-- vim.g.ale_linters.rust = {}
 
 setup_lsp('rust_analyzer', {
 	settings = {

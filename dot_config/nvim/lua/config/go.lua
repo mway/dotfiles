@@ -5,17 +5,18 @@ vim.g.go_code_completion_enabled = false
 vim.g.go_doc_keywordprg_enabled = false
 vim.g.go_metalinter_autosave_enabled = {}
 vim.g.go_gopls_enabled = false
+vim.g.go_gopls_gofumpt = true
 vim.g.go_term_enabled = true
 vim.g.go_term_reuse = true
 vim.g.go_term_mode = "split"
 vim.g.go_template_file = vim.env.HOME .. '/.config/vim-go/main.go'
 vim.g.go_template_test_file = vim.env.HOME .. '/.config/vim-go/test.go'
-vim.g.ale_linters.go = {}
 
 if vim.env.VIM_GO_BIN_PATH then
     vim.g.go_bin_path = vim.env.VIM_GO_BIN_PATH
 end
 
+--[[
 local goFormatAndImports = function(wait_ms)
     vim.lsp.buf.format({
         timeout_ms = wait_ms,
@@ -43,3 +44,4 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         goFormatAndImports(10000)
     end,
 })
+]]--
