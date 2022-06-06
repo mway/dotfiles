@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+_curlo() {
+    local src="$1"
+    local dst="$2"
+
+    mkdir -p "$(dirname "$dst")" && curl -sSL -o "$dst" "$src"
+}
+
+_curlo "$@"
