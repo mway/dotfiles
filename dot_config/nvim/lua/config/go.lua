@@ -9,8 +9,6 @@ vim.g.go_gopls_gofumpt = true
 vim.g.go_term_enabled = true
 vim.g.go_term_reuse = true
 vim.g.go_term_mode = "split"
-vim.g.go_template_file = vim.env.HOME .. '/.config/vim-go/main.go'
-vim.g.go_template_test_file = vim.env.HOME .. '/.config/vim-go/test.go'
 
 if vim.env.VIM_GO_BIN_PATH then
     vim.g.go_bin_path = vim.env.VIM_GO_BIN_PATH
