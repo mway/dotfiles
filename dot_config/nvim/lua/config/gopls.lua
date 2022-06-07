@@ -8,9 +8,9 @@ local gopls_options = {
 	},
 }
 
-vim.g.go_fmt_command = 'gopls'
-vim.g.go_imports_mode = 'gopls'
-vim.g.go_metalinter_command = 'gopls'
+-- vim.g.go_fmt_command = 'gopls'
+-- vim.g.go_imports_mode = 'gopls'
+-- vim.g.go_metalinter_command = 'gopls'
 
 vim.g.go_gopls_gofumpt = true
 vim.g.go_gopls_options = {gopls_flags}

@@ -14,6 +14,11 @@ if vim.env.VIM_GO_BIN_PATH then
     vim.g.go_bin_path = vim.env.VIM_GO_BIN_PATH
 end
 
+vim.cmd [[
+    autocmd FileType go nnoremap <buffer> gl :GoLint<CR>
+    autocmd FileType go nnoremap <buffer> gb :GoBuild<CR>
+]]
+
 --[[
 local goFormatAndImports = function(wait_ms)
     vim.lsp.buf.format({
