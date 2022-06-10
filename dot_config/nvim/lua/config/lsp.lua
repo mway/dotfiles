@@ -1,6 +1,6 @@
 local nvim_lsp = require('lspconfig')
 local lsp_capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
--- local lsp_signature = require('lsp_signature')
+local lsp_signature = require('lsp_signature')
 
 function setup_lsp(server, lsp_opts)
 	lsp_opts.on_attach = function(client, bufnr)
@@ -11,6 +11,13 @@ function setup_lsp(server, lsp_opts)
 		local function buf_set_option(...)
 			vim.api.nvim_buf_set_option(bufnr, ...)
 		end
+
+        lsp_signature.on_attach({
+            bind = true,
+            floating_window = false,
+            hint_enable = true,
+            always_trigger = true,
+        }, bufnr)
 
 		buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 		local opts = { noremap = true, silent = true }
