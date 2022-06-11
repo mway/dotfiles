@@ -1,8 +1,9 @@
-vim.g.base16colorspace = 256
-vim.cmd [[
-    colorscheme base16-ocean
+vim.g.dracula_colorterm = true
+vim.g.dracula_bold = false
+vim.g.dracula_italic = false
+vim.g.dracula_underline = false
+vim.g.dracula_full_special_attrs_support = false
 
-    highlight TabLine ctermfg=10
-    highlight LineNr ctermbg=0
-    highlight colorcolumn ctermbg=0
+vim.cmd [[
+    colorscheme dracula
 ]]

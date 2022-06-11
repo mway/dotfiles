@@ -28,5 +28,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'stephpy/vim-yaml'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug('dracula/vim', { as = 'dracula' })
 
 vim.call('plug#end')

@@ -1,3 +1,3 @@
-[submodule "dot_config/base16-shell"]
-	path = dot_config/base16-shell
-	url = https://github.com/chriskempson/base16-shell
+[submodule "dot_config/iterm/dracula"]
+	path = dot_config/iterm/dracula
+	url = https://github.com/dracula/iterm.git

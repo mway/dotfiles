@@ -35,7 +35,3 @@ export BG_WHT="\e[107m"
 export BG_GRY="\e[100m"
 export BG_BLK="\e[40m"
 export BG_DEF="\e[49m"
-
-BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ] && eval "$("$BASE16_SHELL/profile_helper.sh")"
-base16_ocean 2>/dev/null
