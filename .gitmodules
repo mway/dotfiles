@@ -1,3 +1,9 @@
 [submodule "dot_config/iterm/dracula"]
 	path = dot_config/iterm/dracula
 	url = https://github.com/dracula/iterm.git
+[submodule "dot_tmux/plugins/tpm"]
+	path = dot_tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
+[submodule "dot_tmux/plugins/dracula"]
+	path = dot_tmux/plugins/dracula
+	url = https://github.com/dracula/tmux
