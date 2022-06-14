@@ -50,11 +50,11 @@ cmp.setup {
 			i = cmp.mapping.abort(),
 			c = cmp.mapping.close(),
 		}),
-		['<CR>'] = cmp.mapping.confirm({select = false}),
+		['<CR>'] = cmp.mapping.confirm({ select = true }),
 	},
 	sources = cmp.config.sources({
 		{name = 'nvim_lsp'},
-		{name = 'nvim_lsp_signature_help'},
+		-- {name = 'nvim_lsp_signature_help'},
 		{name = 'ultisnips'},
 	}, {
 		{name = 'path'},

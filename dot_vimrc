@@ -21,6 +21,10 @@ lua require('config/ale')
 lua require('config/gopls')
 lua require('config/go')
 
+" C++
+lua require('config/ccls')
+lua require('config/cpp')
+
 " Rust
 lua require('config/rust')
 
