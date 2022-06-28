@@ -15,8 +15,10 @@ if vim.env.VIM_GO_BIN_PATH then
 end
 
 vim.cmd [[
-    autocmd FileType go nnoremap <buffer> gl :GoLint<CR>
+    autocmd FileType go nnoremap <buffer> ga :GoAlternate<CR>
     autocmd FileType go nnoremap <buffer> gb :GoBuild<CR>
+    autocmd FileType go nnoremap <buffer> gf :GoFillStruct<CR>
+    autocmd FileType go nnoremap <buffer> gl :GoLint<CR>
 ]]
 
 --[[
