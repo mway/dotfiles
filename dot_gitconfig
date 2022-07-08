@@ -20,6 +20,7 @@
     untracked = cyan
 [diff]
     renames = copies
+	external = difft
 [help]
     autocorrect = 1
 [push]
