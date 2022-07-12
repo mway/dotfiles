@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 alias htop='sudo htop'
-alias ls='ls -lAG'
+#alias ls='ls -lAG'
+alias ls='exa -al'
 alias mkdir='mkdir -p'
 alias rgrep='grep -r'
 alias tmux='tmux -2'
