@@ -8,6 +8,27 @@ local gopls_options = {
 	},
 }
 
+-- Support namspacing gopls. For example, a large Bazel project could use a
+-- different gopls server instance than a smaller, non-Bazel project.
+local namespace = vim.env.VIM_GOPLS_NAMESPACE
+if namespace == '' then
+    namespace = nil
+elseif namespace == 'git-branch' then
+    local branch = vim.fn.system("git branch --show-current 2>/dev/null | tr -d '\n'")
+    if branch == '' then
+        namespace = nil
+    else
+        namespace = branch
+    end
+elseif namespace == 'root-dir' then
+    namespace = vim.fn.getcwd():gsub('/', '_')
+else
+    -- nop; use namespace verbatim
+end
+
+-- Amend the namespace, if any, to our flags.
+gopls_flags = table.concat({gopls_flags, namespace}, ';')
+
 -- vim.g.go_fmt_command = 'gopls'
 -- vim.g.go_imports_mode = 'gopls'
 -- vim.g.go_metalinter_command = 'gopls'
