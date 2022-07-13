@@ -20,6 +20,8 @@
 
 # Misc
 !.dotrc
+!.envrc
+!.envrc.local
 !Brewfile
 
 # git

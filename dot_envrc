@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+export VIM_GOPLS_NAMESPACE="root-dir"
