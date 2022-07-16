@@ -1,3 +1,18 @@
+[".tmux/plugins/tpm"]
+    type = "git-repo"
+    url = "https://github.com/tmux-plugins/tpm"
+    refreshPeriod = "168h" # update weekly
+
+[".tmux/plugins/dracula"]
+    type = "git-repo"
+    url = "https://github.com/dracula/tmux"
+    refreshPeriod = "168h" # update weekly
+
+[".tmux/plugins/tmux-resurrect"]
+    type = "git-repo"
+    url = "https://github.com/tmux-plugins/tmux-resurrect"
+    refreshPeriod = "168h" # update weekly
+
 [".config/nvim/autoload/plug.vim"]
     type = "file"
     url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
