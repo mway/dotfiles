@@ -21,7 +21,7 @@ elseif namespace == 'git-branch' then
         namespace = branch
     end
 elseif namespace == 'root-dir' then
-    namespace = vim.fn.getcwd():gsub('/', '_')
+    namespace = vim.fn.getcwd():match(".*[/\\](.*)")
 else
     -- nop; use namespace verbatim
 end
