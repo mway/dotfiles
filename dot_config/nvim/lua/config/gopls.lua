@@ -21,7 +21,15 @@ elseif namespace == 'git-branch' then
         namespace = branch
     end
 elseif namespace == 'root-dir' then
-    namespace = vim.fn.getcwd():match(".*[/\\](.*)")
+    -- Use basename(cwd)+md5(cwd)[:8] as the gopls namespace to avoid OS socket
+    -- name length issues.
+    local cwd = vim.fn.getcwd()
+    -- Get the basedir component.
+    namespace = cwd:match(".*[/\\](.*)")
+    -- Pipe the whole cwd to md5 and concatenate the first 8 characters.
+    cmd = io.popen('md5 -q -s ' .. cwd)
+    namespace = namespace .. cmd:read("*a"):sub(0, 8)
+    cmd:close()
 else
     -- nop; use namespace verbatim
 end
