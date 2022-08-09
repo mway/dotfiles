@@ -27,7 +27,7 @@ elseif namespace == 'root-dir' then
     -- Get the basedir component.
     namespace = cwd:match(".*[/\\](.*)")
     -- Pipe the whole cwd to md5 and concatenate the first 8 characters.
-    cmd = io.popen('md5 -q -s ' .. cwd)
+    cmd = io.popen("echo " .. cwd .. " | md5sum | awk '{print $1}'")
     namespace = namespace .. cmd:read("*a"):sub(0, 8)
     cmd:close()
 else
