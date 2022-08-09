@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 {{ if eq .chezmoi.os "linux" -}}
-sudo apt install neovim
+sudo apt -y install neovim
 {{ else if eq .chezmoi.os "darwin" -}}
 brew update && brew upgrade && brew bundle
 {{ end -}}
