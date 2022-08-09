@@ -2,6 +2,7 @@
 
 {{ if eq .chezmoi.os "linux" -}}
 command -v nvim || sudo apt -y install neovim
+command -v exa || sudo apt -y install exa
 {{ else if eq .chezmoi.os "darwin" -}}
 brew update && brew upgrade && brew bundle
 {{ end -}}
