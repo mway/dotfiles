@@ -38,6 +38,7 @@
 
 # neovim
 !.vimrc
+!.vim/
 !.config/nvim/
 .config/nvim/autoload/plug.vim # managed by chezmoi
 .config/nvim/plugged/ # managed by vim-plug
