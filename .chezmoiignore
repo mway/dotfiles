@@ -45,3 +45,6 @@
 .config/nvim/plugged/* # managed by vim-plug
 .config/nvim/plugged/**/* # managed by vim-plug
 
+# Just
+!justfile
+!*.justfile
