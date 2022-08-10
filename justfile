@@ -1,5 +1,7 @@
+DOCKER_DIR := env_var_or_default("DOCKER_DIR", "/opt/docker")
+
 @default:
     just --list | grep -v default
 
 env FLAVOR $SRC_DIR=invocation_directory():
-    just -f /opt/docker/justfile run {{ FLAVOR }} -v $SRC_DIR:/opt/src
+    just -f "{{ DOCKER_DIR }}/justfile" run {{ FLAVOR }}
