@@ -12,7 +12,7 @@ bundle:
 
 # push Chezmoi changes to remote
 chezmoi CMD *ARGS:
-    {{ if CMD == "push" { "chezmoi cd; git push; exit 0" } else { CMD + " " + ARGS } }}
+    {{ if CMD == "push" { "cd $(chezmoi source-path); git push" } else { CMD + " " + ARGS } }}
 
 # clean up unused Docker artifacts
 docker-clean:
