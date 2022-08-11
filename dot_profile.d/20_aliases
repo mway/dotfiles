@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+alias fd='fd -g --hidden'
 alias htop='sudo htop'
 #alias ls='ls -lAG'
 alias ls='exa -al'
