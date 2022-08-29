@@ -28,6 +28,8 @@ Plug 'rhysd/vim-lsp-ale'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'stephpy/vim-yaml'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug('dracula/vim', { as = 'dracula' })
