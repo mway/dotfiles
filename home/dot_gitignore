@@ -1,6 +1,7 @@
-/justfile
-/.justfile
+.config/nvim/autoload/*
 .vim/bundle/*
 !.vim/bundle/.gitkeep
+/.justfile
+/justfile
 cover.html
 cover.out
