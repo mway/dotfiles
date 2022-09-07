@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+shopt -s globstar
+
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export VISUAL="nvim"
 export EDITOR="$VISUAL"
