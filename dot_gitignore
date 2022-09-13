@@ -1,2 +1,6 @@
+/justfile
+/.justfile
 .vim/bundle/*
 !.vim/bundle/.gitkeep
+cover.html
+cover.out
