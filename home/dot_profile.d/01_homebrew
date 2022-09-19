@@ -4,7 +4,6 @@ if [ -d /opt/homebrew ]; then
     PATH_add /opt/homebrew/bin /opt/homebrew/sbin
 fi
 
-
 if command -v brew >/dev/null && ! grep apt-get /usr/local/bin/brew >/dev/null 2>&1; then
     _prefix="$(brew --prefix)"
     PATH_add "$_prefix/bin" "$_prefix/sbin"

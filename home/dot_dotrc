@@ -6,7 +6,7 @@ shopt -s globstar 2>/dev/null
 shopt -s nocaseglob 2>/dev/null
 
 # Well-known paths
-export PATH="$HOME/bin:/usr/local/sbin:/usr/local/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:$PATH"
 _profiled_files="$(find "$HOME/.profile.d" -type f | sort)"
 
 function PATH_add() {
