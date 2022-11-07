@@ -45,6 +45,9 @@
 .config/nvim/plugged/* # managed by vim-plug
 .config/nvim/plugged/**/* # managed by vim-plug
 
+# helix
+.config/helix/runtime/
+
 # Just
 !justfile
 !*.justfile
