@@ -29,7 +29,6 @@
 [core]
     excludesfile = ~/.gitignore
 	editor = nvim
-	fsMonitor = false
 [merge]
     conflictstyle = diff3
 [mergetool]
@@ -52,6 +51,7 @@
     newbranch = "!f() { cur=\"$(git rev-parse --abbrev-ref HEAD)\"; git checkout -b $1; git branch -u $cur; }; f"
     curbranch = symbolic-ref --short HEAD
     show-files = show --pretty="format:" --name-only
+    amend = commit --amend -C HEAD
 [branch]
     autosetuprebase = always
 [rerere]
