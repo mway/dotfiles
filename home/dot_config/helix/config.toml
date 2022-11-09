@@ -29,18 +29,14 @@ separator = "|"
 # mode.select = "VISUAL"
 
 [keys.normal]
-0 = "goto_line_start"
-"$" = "goto_line_end"
-"^" = "goto_first_nonwhitespace"
 "+" = ":pipe goimports"
-V = ["select_mode", "extend_to_line_bounds"]
+# V = ["select_mode", "extend_to_line_bounds"]
 D = ["extend_to_line_end", "delete_selection"]
-d = { d = ["extend_to_line_bounds", "delete_selection"], t = ["extend_till_char"], s = ["surround_delete"], i = ["select_textobject_inner"], a = ["select_textobject_around"] }
-x = "delete_selection"
-p = "paste_clipboard_after"
-P = "paste_clipboard_before"
-y = ["yank_main_selection_to_clipboard", "normal_mode", "flip_selections", "collapse_selection"]
-Y = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "goto_line_start", "collapse_selection"]
+# d = { d = ["extend_to_line_bounds", "delete_selection"], t = ["extend_till_char"], s = ["surround_delete"], i = ["select_textobject_inner"], a = ["select_textobject_around"] }
+# p = "paste_clipboard_after"
+# P = "paste_clipboard_before"
+# y = ["yank_main_selection_to_clipboard", "normal_mode", "flip_selections", "collapse_selection"]
+# Y = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "goto_line_start", "collapse_selection"]
 w = ["move_next_word_start", "move_char_right", "collapse_selection"]
 e = ["move_next_word_end", "collapse_selection"]
 b = ["move_prev_word_start", "collapse_selection"]
@@ -48,6 +44,7 @@ esc = ["collapse_selection", "keep_primary_selection"]
 "C-c" = ["collapse_selection", "normal_mode"]
 "C-r" = ["redo"]
 "C-/" = ["toggle_comments"]
+";" = ["repeat_last_motion"]
 
 [keys.insert]
 ";" = { ";" = "normal_mode" }
