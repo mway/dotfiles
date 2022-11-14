@@ -1,3 +1,7 @@
 [[language]]
 name = "go"
 config = { goimports = true, gofumpt = true, staticcheck = true, analyses = { unusedparams = true, unreachable  = true } }
+
+[[grammar]]
+name = "go"
+source = { git = "https://github.com/tree-sitter/tree-sitter-go", rev = "05900faa3cdb5d2d8c8bd5e77ee698487e0a8611" }
