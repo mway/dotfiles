@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+_goparallelinstall() {
+  local pkgs="$@"
+
+  for pkg in $pkgs; do
+    go install $pkg &
+  done
+
+  wait
+}
+
+_goparallelinstall $@

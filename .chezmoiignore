@@ -51,3 +51,6 @@
 # Just
 !justfile
 !*.justfile
+
+# Ansible
+.config/ansible/inventory*
