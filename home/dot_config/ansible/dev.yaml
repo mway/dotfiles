@@ -7,10 +7,10 @@
   vars:
     dist: '{{ ansible_distribution_release }}'
     path: /home/mway/.cargo/bin:/home/mway/go/bin:/usr/local/go/bin:/home/mway/.local/bin:/home/mway/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
-      
+
   environment:
     PATH: '{{ path }}'
-  
+
   tasks:
     - name: Configuration
       become: yes
@@ -22,7 +22,7 @@
             mode: preserve
       tags:
         - config
-  
+
     - name: Environment
       become: yes
       block:
@@ -84,7 +84,7 @@
       tags:
         - config
         - packages
-  
+
     - name: Tailscale
       block:
         - name: Tailscale > add apt key
@@ -108,7 +108,7 @@
             update_cache: yes
       tags:
         - extra
-  
+
     - name: NextDNS
       block:
         - name: NextDNS > check presence
@@ -131,7 +131,7 @@
           file:
             path: /tmp/nextdns-install
             state: absent
-  
+
     - name: dnsmasq
       block:
         - name: dnsmasq > install or update
@@ -142,7 +142,7 @@
               - dnsmasq-utils
       tags:
         - extra
-  
+
     - name: Docker
       become: yes
       block:
@@ -169,13 +169,39 @@
       tags:
         - extra
 
-    - name: btop > install or update
-      become: yes
-      snap:
-        name: btop
+    - name: btop
+      block:
+        - name: btop > check version
+          command: btop --version
+          register: cmd
+          failed_when: '"1.2.13" not in cmd.stdout'
+      rescue:
+        - name: btop > install
+          block:
+            - name: btop > install snap
+              become: yes
+              snap:
+                name: btop
+          rescue:
+            - name: btop > source > preflight
+              file:
+                path: /tmp/btop
+                state: absent
+            - name: btop > source > download
+              unarchive:
+                src: https://
+                dest: /tmp/btop
+            - name: btop > source > install
+              command:
+                chdir: /tmp/btop
+                cmd: make install
+            - name: btop > source > cleanup
+              file:
+                path: /tmp/btop
+                state: absent
       tags:
         - tools
-  
+
     - name: Just > install or update
       become: yes
       snap:
@@ -184,7 +210,7 @@
         channel: edge
       tags:
         - tools
-  
+
     - name: Bazel
       block:
         - name: Bazel > add apt key
@@ -312,7 +338,7 @@
             state: absent
       tags:
         - tools
-  
+
     - name: Helix
       block:
         - name: Helix > check presence
@@ -336,7 +362,7 @@
             chdir: /tmp/helix
       tags:
         - tools
-    
+
     - name: Chezmoi
       block:
         - name: Chezmoi > install/update snap
