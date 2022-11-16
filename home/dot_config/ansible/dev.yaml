@@ -5,11 +5,20 @@
   gather_facts: yes
 
   vars:
-    dist: '{{ ansible_distribution_release }}'
-    path: /home/mway/.cargo/bin:/home/mway/go/bin:/usr/local/go/bin:/home/mway/.local/bin:/home/mway/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+    ansible_os: "{{ lookup('lines', 'uname -s | tr \"[:upper:]\" \"[:lower:]\"') }}"
+    dist: "{{ ansible_distribution_release }}"
+    path: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.HOME }}/go/bin:/usr/local/go/bin:{{ ansible_env.HOME }}/.local/bin:{{ ansible_env.HOME }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+    versions:
+      btop: 1.2.13
+      chezmoi: v2.27.1
+      go: 1.19.3
+      helix: 22.08.1
+      just: 1.8.0
+      rust: 1.65.0
+      tmux: 3.3a
 
   environment:
-    PATH: '{{ path }}'
+    PATH: "{{ path }}"
 
   tasks:
     - name: Configuration
@@ -21,6 +30,7 @@
             dest: /usr/local/bin/
             mode: preserve
       tags:
+        - base
         - config
 
     - name: Environment
@@ -33,8 +43,9 @@
               export PATH="{{ path }}"
             owner: root
             group: root
-            mode: '0755'
+            mode: "0755"
       tags:
+        - base
         - config
 
     - name: apt > install/update packages
@@ -43,8 +54,8 @@
         pkg:
           # General
           - build-essential
-          - clang-14
-          - clang-format-14
+          - clang-13
+          - clang-format-13
           - cmake
           - cron
           - curl
@@ -82,99 +93,17 @@
         update_cache: yes
         autoremove: yes
       tags:
+        - base
         - config
         - packages
-
-    - name: Tailscale
-      block:
-        - name: Tailscale > add apt key
-          become: yes
-          get_url:
-            url: 'https://pkgs.tailscale.com/stable/ubuntu/{{ dist }}.noarmor.gpg'
-            checksum: sha256:3e03dacf222698c60b8e2f990b809ca1b3e104de127767864284e6c228f1fb39
-            dest: /usr/share/keyrings/tailscale-archive-keyring.gpg
-        - name: Tailscale > add apt sources
-          become: yes
-          get_url:
-            url: 'https://pkgs.tailscale.com/stable/ubuntu/{{ dist }}.tailscale-keyring.list'
-            checksum: sha256:e0acc200aebb45a3d67b4b66524100f8c1f4497866958654798fc4ba09d49f3f
-            dest: /etc/apt/sources.list.d/tailscale.list
-        - name: Tailscale > install or update
-          become: yes
-          apt:
-            pkg:
-              - tailscale
-            state: latest
-            update_cache: yes
-      tags:
-        - extra
-
-    - name: NextDNS
-      block:
-        - name: NextDNS > check presence
-          command: nextdns version
-          changed_when: no
-      rescue:
-        - name: NextDNS > preflight
-          file:
-            path: /tmp/nextdns-install
-            state: absent
-        - name: NextDNS > download
-          get_url:
-            url: https://nextdns.io/install
-            dest: /tmp/nextdns-install
-            mode: '0755'
-        - name: NextDNS > install
-          shell: echo | /tmp/nextdns-install
-      always:
-        - name: NextDNS > cleanup
-          file:
-            path: /tmp/nextdns-install
-            state: absent
-
-    - name: dnsmasq
-      block:
-        - name: dnsmasq > install or update
-          become: yes
-          apt:
-            pkg:
-              - dnsmasq
-              - dnsmasq-utils
-      tags:
-        - extra
-
-    - name: Docker
-      become: yes
-      block:
-        - name: Docker > add apt key
-          apt_key:
-            url: https://download.docker.com/linux/ubuntu/gpg
-            id: 0EBFCD88
-        - name: Docker > add apt repository
-          apt_repository:
-            repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ dist }} stable'
-            state: present
-        - name: Docker > install packages
-          apt:
-            pkg:
-              - docker
-              - docker-compose
-            state: latest
-            update_cache: yes
-        - name: Docker > update user groups
-          user:
-            name: '{{ ansible_user_id }}'
-            groups: docker
-            append: yes
-      tags:
-        - extra
 
     - name: btop
       block:
         - name: btop > check version
           command: btop --version
           register: cmd
-          failed_when: '"1.2.13" not in cmd.stdout'
+          changed_when: no
+          failed_when: versions.btop not in cmd.stdout
       rescue:
         - name: btop > install
           block:
@@ -184,31 +113,49 @@
                 name: btop
           rescue:
             - name: btop > source > preflight
-              file:
-                path: /tmp/btop
-                state: absent
+              shell:
+                cmd: rm -rf /tmp/btop && mkdir -p /tmp/btop
+              changed_when: no
             - name: btop > source > download
               unarchive:
-                src: https://
+                src: "https://github.com/aristocratos/btop/releases/download/v1.2.13/btop-{{ ansible_architecture }}-{{ ansible_system|lower }}-musl.tbz"
                 dest: /tmp/btop
+                remote_src: yes
             - name: btop > source > install
+              become: yes
               command:
-                chdir: /tmp/btop
+                chdir: /tmp/btop/btop
                 cmd: make install
+          always:
             - name: btop > source > cleanup
               file:
                 path: /tmp/btop
                 state: absent
       tags:
+        - base
+        - btop
         - tools
 
-    - name: Just > install or update
-      become: yes
-      snap:
-        name: just
-        classic: yes
-        channel: edge
+    - name: Just
+      block:
+        - name: Just > check version
+          command: just --version
+          register: cmd
+          changed_when: no
+          failed_when: versions.just not in cmd.stdout
+      rescue:
+        - name: Just > install
+          become: yes
+          unarchive:
+            src: "https://github.com/casey/just/releases/download/{{ versions.just }}/just-{{ versions.just }}-{{ ansible_architecture }}-unknown-{{ ansible_system|lower }}-musl.tar.gz"
+            dest: /usr/local/bin/
+            remote_src: yes
+            include:
+              - just
+            mode: "0755"
       tags:
+        - base
+        - just
         - tools
 
     - name: Bazel
@@ -231,8 +178,10 @@
                 url: https://github.com/bazelbuild/bazelisk/releases/download/v1.15.0/bazelisk-linux-amd64
                 checksum: sha256:19fd84262d5ef0cb958bcf01ad79b528566d8fef07ca56906c5c516630a0220b
                 dest: /usr/bin/bazel
-                mode: '0755'
+                mode: "0755"
       tags:
+        - base
+        - bazel
         - tools
 
     - name: Go
@@ -242,13 +191,13 @@
           command: go version
           register: cmd
           changed_when: no
-          failed_when: '"1.19.3" not in cmd.stdout'
+          failed_when: versions.go not in cmd.stdout
       rescue:
         - name: Go > download and install
           become: yes
           unarchive:
             dest: /usr/local
-            src: 'https://go.dev/dl/go1.19.3.{{ ansible_system|lower }}-amd64.tar.gz'
+            src: "https://go.dev/dl/go{{ versions.go }}.{{ ansible_system|lower }}-amd64.tar.gz"
             remote_src: yes
       always:
         - name: Go > install or upgrade tools
@@ -268,16 +217,18 @@
           register: cmd
           changed_when: cmd.stdout | length > 0
       tags:
+        - base
         - go
         - languages
 
     - name: Rust
       block:
         - name: Rust > check version
-          command: cargo --version
+          shell:
+            cmd: cargo --version
           register: cmd
           changed_when: no
-          failed_when: '"1.65.0" not in cmd.stdout'
+          failed_when: versions.rust not in cmd.stdout
       rescue:
         - name: Rust > preflight
           file:
@@ -287,10 +238,11 @@
           get_url:
             url: https://sh.rustup.rs
             dest: /tmp/rustup-init
-            mode: '0755'
+            mode: "0755"
         - name: Rust > run rustup-init
           become: yes
-          command: /tmp/rustup-init -y --profile default
+          shell:
+            cmd: /tmp/rustup-init -y --profile default
       always:
         - name: Rust > cleanup
           become: yes
@@ -298,6 +250,7 @@
             path: /tmp/rustup-init
             state: absent
       tags:
+        - base
         - languages
         - rust
 
@@ -307,7 +260,7 @@
           command: tmux -V
           register: cmd
           changed_when: no
-          failed_when: '"3.3a" not in cmd.stdout'
+          failed_when: versions.tmux not in cmd.stdout
       rescue:
         - name: tmux > preflight
           file:
@@ -337,15 +290,18 @@
             path: /tmp/tmux
             state: absent
       tags:
+        - base
+        - tmux
         - tools
 
     - name: Helix
       block:
-        - name: Helix > check presence
-          command: hx --version
+        - name: Helix > check version
+          shell:
+            cmd: hx --version
           register: cmd
           changed_when: no
-          failed_when: '"22.08.1" not in cmd.stdout'
+          failed_when: versions.helix not in cmd.stdout
       rescue:
         - name: Helix > preflight
           file:
@@ -357,28 +313,39 @@
             version: 22.08.1
             dest: /tmp/helix
         - name: Helix > build and install
-          command:
-            cmd: cargo install --path helix-term
+          shell:
             chdir: /tmp/helix
+            cmd: cargo install --path helix-term
       tags:
+        - base
+        - helix
         - tools
 
     - name: Chezmoi
       block:
-        - name: Chezmoi > install/update snap
-          become: yes
-          snap:
-            name: chezmoi
-            classic: yes
+        - name: Chezmoi > check version
+          command: chezmoi --version
+          register: cmd
+          changed_when: no
+          failed_when: versions.chezmoi not in cmd.stdout
+      rescue:
+        - name: Chezmoi > install
+          shell:
+            cmd: sh -c "$(curl -fsLS chezmoi.io/get)"
+      always:
         - name: Chezmoi > clone
           block:
-            - name: Chezmoi > clone dotfiles with ssh
-              command: chezmoi init git@github.com:mway/dotfiles
-              changed_when: no
-          rescue:
-            - name: Chezmoi > clone dotfiles with https
-              command: chezmoi init https://github.com/mway/dotfiles
-              changed_when: no
+            - name: Chezmoi > clone methods
+              block:
+                - name: Chezmoi > clone dotfiles with ssh
+                  command: chezmoi init git@github.com:mway/dotfiles
+                  register: cmd
+                  changed_when: cmd.stdout | length > 0
+              rescue:
+                - name: Chezmoi > clone dotfiles with https
+                  command: chezmoi init https://github.com/mway/dotfiles
+                  register: cmd
+                  changed_when: cmd.stdout | length > 0
         - name: Chezmoi > check diff
           command: chezmoi diff
           register: cmd
@@ -388,4 +355,94 @@
             cmd: echo all-overwrite | chezmoi apply --force
           when: cmd.stdout | length > 0
       tags:
+        - base
+        - chezmoi
         - tools
+
+    - name: Docker
+      become: yes
+      block:
+        - name: Docker > add apt key
+          apt_key:
+            url: https://download.docker.com/linux/ubuntu/gpg
+            id: 0EBFCD88
+        - name: Docker > add apt repository
+          apt_repository:
+            repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ dist }} stable"
+            state: present
+        - name: Docker > install packages
+          apt:
+            pkg:
+              - docker
+              - docker-compose
+            state: latest
+            update_cache: yes
+        - name: Docker > update user groups
+          user:
+            name: "{{ ansible_user_id }}"
+            groups: docker
+            append: yes
+      tags:
+        - extra
+    - name: Tailscale
+      block:
+        - name: Tailscale > add apt key
+          become: yes
+          get_url:
+            url: "https://pkgs.tailscale.com/stable/ubuntu/{{ dist }}.noarmor.gpg"
+            checksum: sha256:3e03dacf222698c60b8e2f990b809ca1b3e104de127767864284e6c228f1fb39
+            dest: /usr/share/keyrings/tailscale-archive-keyring.gpg
+        - name: Tailscale > add apt sources
+          become: yes
+          get_url:
+            url: "https://pkgs.tailscale.com/stable/ubuntu/{{ dist }}.tailscale-keyring.list"
+            checksum: sha256:e0acc200aebb45a3d67b4b66524100f8c1f4497866958654798fc4ba09d49f3f
+            dest: /etc/apt/sources.list.d/tailscale.list
+        - name: Tailscale > install or update
+          become: yes
+          apt:
+            pkg:
+              - tailscale
+            state: latest
+            update_cache: yes
+      tags:
+        - docker
+        - extra
+
+    - name: NextDNS
+      block:
+        - name: NextDNS > check presence
+          command: nextdns version
+          changed_when: no
+      rescue:
+        - name: NextDNS > preflight
+          file:
+            path: /tmp/nextdns-install
+            state: absent
+        - name: NextDNS > download
+          get_url:
+            url: https://nextdns.io/install
+            dest: /tmp/nextdns-install
+            mode: "0755"
+        - name: NextDNS > install
+          shell: echo | /tmp/nextdns-install
+      always:
+        - name: NextDNS > cleanup
+          file:
+            path: /tmp/nextdns-install
+            state: absent
+      tags:
+        - extra
+        - nextdns
+
+    - name: dnsmasq
+      block:
+        - name: dnsmasq > install or update
+          become: yes
+          apt:
+            pkg:
+              - dnsmasq
+              - dnsmasq-utils
+      tags:
+        - dnsmasq
+        - extra
