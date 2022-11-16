@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+_ansible_playbook() {
+	local playbook="$1"
+	local inventory="$2"
+	
+	if [ -z "$playbook" ] || [ -z "$inventory" ]; then
+		echo "usage: apb PLAYBOOK INVENTORY"
+		exit 1
+	fi
+	
+	exec ansible-playbook \
+		-i "$HOME/.config/ansible/inventory_${inventory}" \
+		"$HOME/.config/ansible/${playbook}.yaml"
+}
+
+_ansible_playbook $@
