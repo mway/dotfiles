@@ -10,23 +10,30 @@ auto-info = true
 rulers = [80, 100, 120]
 auto-pairs = true
 true-color = true
+cursorline = true
+color-modes = true
 
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
 select = "block"
 
+[editor.lsp]
+display-messages = true
+auto-signature-help = true
+display-signature-help-docs = true
+
 [editor.file-picker]
-hidden = false
+hidden = true
 
 [editor.statusline]
 left = ["mode", "spinner", "file-name"]
 center = []
-right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+right = ["diagnostics", "selections", "spacer",  "spacer", "position", "position-percentage", "spacer", "spacer", "file-encoding", "file-line-ending", "file-type"]
 separator = "|"
-# mode.normal = "NORMAL"
-# mode.insert = "INSERT"
-# mode.select = "VISUAL"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "VISUAL"
 
 [keys.normal]
 "+" = ":pipe goimports"
