@@ -49,6 +49,7 @@
 
 "error" = { fg = "red" }
 "warning" = { fg = "cyan" }
+"diagnostic" = { modifiers = ["underlined"] }
 
 "markup.heading" = { fg = "purple", modifiers = ["bold"] }
 "markup.list" = "cyan"
