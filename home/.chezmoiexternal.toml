@@ -1,24 +1,24 @@
 [".config/tmux/plugins/tpm"]
     type = "git-repo"
     url = "https://github.com/tmux-plugins/tpm"
-    refreshPeriod = "1s"
+    refreshPeriod = "1d"
 
 [".config/tmux/plugins/tmux-resurrect"]
     type = "git-repo"
     url = "https://github.com/tmux-plugins/tmux-resurrect"
-    refreshPeriod = "1s"
+    refreshPeriod = "1d"
 
 [".config/tmux/plugins/dracula"]
     type = "git-repo"
     url = "https://github.com/dracula/tmux"
-    refreshPeriod = "1s"
+    refreshPeriod = "1d"
 
 [".config/iterm/dracula"]
     type = "git-repo"
     url = "https://github.com/dracula/iterm.git"
-    refreshPeriod = "1s"
+    refreshPeriod = "1d"
 
 [".config/nvim/autoload/plug.vim"]
     type = "file"
     url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-    refreshPeriod = "168h"
+    refreshPeriod = "1d"

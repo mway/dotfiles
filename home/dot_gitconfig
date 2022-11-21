@@ -2,60 +2,60 @@
 	name = Matt Way
 	email = mway@uber.com
 [github]
-    user = mway
+	user = mway
 [color]
-    ui = auto
+	ui = auto
 [color "branch"]
-    current = yellow reverse
-    local = yellow
-    remote = green
+	current = yellow reverse
+	local = yellow
+	remote = green
 [color "diff"]
-    meta = yellow bold
-    frag = magenta bold
-    old = red
-    new = green
+	meta = yellow bold
+	frag = magenta bold
+	old = red
+	new = green
 [color "status"]
-    added = yellow
-    changed = green
-    untracked = cyan
+	added = yellow
+	changed = green
+	untracked = cyan
 [diff]
-    renames = copies
+	renames = copies
 	external = difft
 [help]
-    autocorrect = 1
+	autocorrect = 1
 [push]
-    default = current
+	default = current
 	followTags = true
 [core]
-    excludesfile = ~/.gitignore
-	editor = nvim
+	excludesfile = ~/.gitignore
+	editor = hx
 [merge]
-    conflictstyle = diff3
+	conflictstyle = diff3
 [mergetool]
-    keepBackup = true
+	keepBackup = true
 [alias]
-    l = log --pretty=oneline -n 20 --graph --abbrev-commit
-    lg = log --graph --pretty=format:'%C(bold red)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-    s = status -s
-    d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
-    changed = !"git diff-tree -r --name-only --no-commit-id HEAD"
-    tags = tag -l
-    branches = branch -a
-    remotes = remote -v
-    retag = "!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r"
-    sshow = "!f() { git stash show stash^{/$*} -p; }; f"
-    sapply = "!f() { git stash apply stash^{/$*}; }; f"
-    spop = "!f() { git stash pop stash^{/$*}; }; f"
-    po = push origin
-    pto = push --tags origin
-    newbranch = "!f() { cur=\"$(git rev-parse --abbrev-ref HEAD)\"; git checkout -b $1; git branch -u $cur; }; f"
-    curbranch = symbolic-ref --short HEAD
-    show-files = show --pretty="format:" --name-only
-    amend = commit --amend -C HEAD
+	l = log --pretty=oneline -n 20 --graph --abbrev-commit
+	lg = log --graph --pretty=format:'%C(bold red)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	s = status -s
+	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+	changed = !"git diff-tree -r --name-only --no-commit-id HEAD"
+	tags = tag -l
+	branches = branch -a
+	remotes = remote -v
+	retag = "!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r"
+	sshow = "!f() { git stash show stash^{/$*} -p; }; f"
+	sapply = "!f() { git stash apply stash^{/$*}; }; f"
+	spop = "!f() { git stash pop stash^{/$*}; }; f"
+	po = push origin
+	pto = push --tags origin
+	newbranch = "!f() { cur=\"$(git rev-parse --abbrev-ref HEAD)\"; git checkout -b $1; git branch -u $cur; }; f"
+	curbranch = symbolic-ref --short HEAD
+	show-files = show --pretty="format:" --name-only
+	amend = commit --amend -C HEAD
 [branch]
-    autosetuprebase = always
+	autosetuprebase = always
 [rerere]
-    enabled = true
+	enabled = true
 [http "https://gopkg.uberinternal.com"]
 	followRedirects = true
 [http "https://gopkg.in"]
@@ -86,7 +86,7 @@
 [url "ssh://git@github.com/uber/"]
 	insteadOf = https://github.com/uber/
 [farc "upload"]
-    add-repo-prefix = false
+	add-repo-prefix = false
 [merge]
 	stat = false
 [rebase]
