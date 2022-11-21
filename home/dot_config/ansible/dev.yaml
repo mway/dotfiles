@@ -9,6 +9,7 @@
     dist: "{{ ansible_distribution_release }}"
     path: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.HOME }}/go/bin:/usr/local/go/bin:{{ ansible_env.HOME }}/.local/bin:{{ ansible_env.HOME }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
     versions:
+      bat: 0.22.1
       btop: 1.2.13
       chezmoi: v2.27.1
       go: 1.19.3
@@ -156,6 +157,15 @@
       tags:
         - base
         - just
+        - tools
+  
+    - name: bat
+      become: yes
+      apt:
+        deb: "https://github.com/sharkdp/bat/releases/download/v{{ versions.bat }}/bat-musl_{{ versions.bat }}_amd64.deb"
+      tags:
+        - base
+        - bat
         - tools
 
     - name: Bazel
