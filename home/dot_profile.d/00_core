@@ -2,6 +2,7 @@
 
 shopt -s globstar
 
+export ANSIBLE_NOCOWS=1
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export VISUAL="hx"
 export EDITOR="$VISUAL"
