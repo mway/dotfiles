@@ -33,14 +33,13 @@
 !.tigrc
 
 # tmux
-!.tmux*.conf
-!/.tmux/
+!.config/tmux/tmux.conf
+!.config/tmux/plugins/tpm
 
 # neovim
 !.vimrc
 !.vim/
 !.config/nvim/
-.config/nvim/autoload/plug.vim # managed by chezmoi
 .config/nvim/plugged/ # managed by vim-plug
 .config/nvim/plugged/* # managed by vim-plug
 .config/nvim/plugged/**/* # managed by vim-plug
@@ -53,4 +52,5 @@
 !*.justfile
 
 # Ansible
+!.config/ansible/**
 .config/ansible/inventory*
