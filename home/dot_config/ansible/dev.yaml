@@ -170,12 +170,6 @@
 
     - name: Bazel
       block:
-        - name: Bazel > add apt key
-          become: yes
-          apt_key:
-            id: 71A1D0EFCFEB6281FD0437C93D5919B448457EE0
-            url: https://bazel.build/bazel-release.pub.gpg
-            state: present
         - name: Bazelisk
           block:
             - name: Bazel > Bazelisk > check presence
@@ -356,14 +350,11 @@
                   command: chezmoi init https://github.com/mway/dotfiles
                   register: cmd
                   changed_when: cmd.stdout | length > 0
-        - name: Chezmoi > check diff
-          command: chezmoi diff
-          register: cmd
-          changed_when: cmd.stdout | length > 0
-        - name: Chezmoi > apply
+        - name: Chezmoi > update and apply
           shell:
-            cmd: echo all-overwrite | chezmoi apply --force
-          when: cmd.stdout | length > 0
+            cmd: echo all-overwrite | chezmoi update --force
+          register: cmd
+          changed_when: cmd.stdout | length > 0 and 'up to date' not in cmd.stdout
       tags:
         - base
         - chezmoi
