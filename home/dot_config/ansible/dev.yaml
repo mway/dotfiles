@@ -9,14 +9,14 @@
     dist: "{{ ansible_distribution_release }}"
     path: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.HOME }}/go/bin:/usr/local/go/bin:{{ ansible_env.HOME }}/.local/bin:{{ ansible_env.HOME }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
     versions:
-      bat: 0.22.1
-      btop: 1.2.13
-      chezmoi: v2.27.1
-      go: 1.19.3
-      helix: 22.08.1
-      just: 1.8.0
-      rust: 1.65.0
-      tmux: 3.3a
+      bat: "0.22.1"
+      btop: "1.2.13"
+      chezmoi: "v2.29.1"
+      go: "1.19.5"
+      helix: "22.12"
+      just: "1.11.0"
+      rust: "1.66.1"
+      tmux: "3.3a"
 
   environment:
     PATH: "{{ path }}"
@@ -234,19 +234,24 @@
           changed_when: no
           failed_when: versions.rust not in cmd.stdout
       rescue:
-        - name: Rust > preflight
-          file:
-            path: /tmp/rustup-init
-            state: absent
-        - name: Rust > download rustup-init
-          get_url:
-            url: https://sh.rustup.rs
-            dest: /tmp/rustup-init
-            mode: "0755"
-        - name: Rust > run rustup-init
-          become: yes
-          shell:
-            cmd: /tmp/rustup-init -y --profile default
+        - name: Rust > update/install
+          block:
+            - name: Rust > update
+              command: rustup update
+          rescue:
+            - name: Rust > preflight
+              file:
+                path: /tmp/rustup-init
+                state: absent
+            - name: Rust > download rustup-init
+              get_url:
+                url: https://sh.rustup.rs
+                dest: /tmp/rustup-init
+                mode: "0755"
+            - name: Rust > run rustup-init
+              become: yes
+              shell:
+                cmd: /tmp/rustup-init -y --profile default
       always:
         - name: Rust > cleanup
           become: yes
@@ -314,12 +319,12 @@
         - name: Helix > clone
           git:
             repo: https://github.com/helix-editor/helix
-            version: 22.08.1
+            version: "{{ versions.helix }}"
             dest: /tmp/helix
         - name: Helix > build and install
           shell:
             chdir: /tmp/helix
-            cmd: cargo install --path helix-term
+            cmd: cargo install --locked --path helix-term
       tags:
         - base
         - helix
