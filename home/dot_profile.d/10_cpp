@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
-_homebrew_llvm="/usr/local/opt/llvm"
-
-if [ -d "$_homebrew_llvm" ]; then
+_homebrew_llvm="$(brew --prefix llvm 2>/dev/null)"
+if [ -n "$_homebrew_llvm" ] && [ -d "$_homebrew_llvm" ]; then
     export LDFLAGS="-L$_homebrew_llvm/lib -Wl,-rpath,$_homebrew_llvm/lib $LDFLAGS"
     export CPPFLAGS="-I$_homebrew_llvm/include $CPPFLAGS"
-
+    PATH_add "$_homebrew_llvm/bin"
     PATH_add "$_homebrew_llvm/bin"
 fi

@@ -47,7 +47,7 @@ esc = ["collapse_selection", "keep_primary_selection", "normal_mode"]
 ";" = ["repeat_last_motion"]
 
 [keys.insert]
-";" = { ";" = "normal_mode" }
+# ";" = { ";" = "normal_mode" }
 esc = ["collapse_selection", "normal_mode"]
 "C-c" = ["collapse_selection", "normal_mode"]
 "C-/" = ["toggle_comments"]
