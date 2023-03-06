@@ -1,5 +1,6 @@
 [diff]
     command = "difft"
+    exclude = ["scripts"]
 
 [git]
     autoCommit = false

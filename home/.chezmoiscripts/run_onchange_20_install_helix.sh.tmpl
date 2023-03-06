@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# global cache {{ .cache.global }}
+
+source "$(chezmoi source-path)/scripts/utils.sh"
+
+_helix() {
+  run() {
+    local updated=0
+    local ignore="(warning|info|Downloaded|Compiling|Finished|Updating|Installing|Installed|done):"
+
+    if command -v hx >/dev/null; then
+      if [[ "$(hx --version)" == *" {{ .helix.version }} "* ]]; then
+        updated=1
+      fi
+    fi
+
+    if [ $updated -eq 0 ]; then
+      local SANDBOX="$(mktemp -d)"
+      trap 'rm -rf "$SANDBOX"' EXIT
+      cd "$SANDBOX"
+
+      git clone https://github.com/helix-editor/helix >/dev/null
+      cd helix
+      git checkout "{{ .helix.version }}" >/dev/null
+      cargo install --locked --path helix-term 2>&1 | grep -v "$ignore"
+
+      # Runtime configuration
+      mkdir -p ~/.config/helix && cp -R runtime ~/.config/helix/runtime
+    fi
+  }
+
+  _manage Helix run
+}
+
+_helix

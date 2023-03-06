@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# global cache {{ .cache.global }}
+
+source "$(chezmoi source-path)/scripts/utils.sh"
+
+_bazelisk() {
+  run() {
+    if ! command -v bazelisk >/dev/null; then
+      sudo curl -sLo /usr/local/bin/bazelisk \
+        "https://github.com/bazelbuild/bazelisk/releases/download/{{ .bazelisk.version }}/bazelisk-darwin-arm64"
+      sudo cp /usr/local/bin/{bazelisk,bazel}
+      echo "done."
+    fi
+  }
+
+  _manage Bazelisk run
+}
+
+_bazelisk

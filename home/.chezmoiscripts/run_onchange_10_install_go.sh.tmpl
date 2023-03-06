@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# global cache {{ .cache.global }}
+
+source "$(chezmoi source-path)/scripts/utils.sh"
+
+_go() {
+  run() {
+    local updated=0
+  
+    if command -v go >/dev/null; then
+      if [[ "$(go version)" == *"{{ .go.version }} "* ]]; then
+        updated=1
+      fi
+    fi
+
+    if [ $updated -eq 0 ]; then
+      local SANDBOX="$(mktemp -d)"
+      trap 'rm -rf "$SANDBOX"' EXIT
+      cd "$SANDBOX"
+
+      local TARFILE="go{{ .go.version }}.{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
+      curl -sLO "https://go.dev/dl/$TARFILE"
+      sudo rm -rf /usr/local/go
+      sudo tar -C /usr/local -zxf "$TARFILE"
+    fi
+  }
+
+  _manage Go run
+}
+
+_go

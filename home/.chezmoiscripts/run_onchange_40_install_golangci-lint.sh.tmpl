@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# global cache {{ .cache.global }}
+
+source "$(chezmoi source-path)/scripts/utils.sh"
+
+_golangci_lint() {
+  run() {
+    local updated=0
+
+    if command -v golangci-lint >/dev/null; then
+      if [[ "$(golangci-lint --version)" == *"{{ .golangci_lint.version }} "* ]]; then
+        updated=1
+      fi
+    fi
+
+    if [ $updated -eq 0 ]; then
+      local SANDBOX="$(mktemp -d)"
+      trap 'rm -rf "$SANDBOX"' EXIT
+      cd "$SANDBOX"
+
+      local TARDIR="golangci-lint-{{ trimPrefix "v" .golangci_lint.version }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
+      local TARFILE="$TARDIR.tar.gz"
+      curl -sLO "https://github.com/golangci/golangci-lint/releases/download/{{ .golangci_lint.version }}/$TARFILE"
+      tar -zxf "$TARFILE" && cd "$TARDIR"
+      mkdir -p "$MWAY_BIN"
+      mv golangci-lint "$MWAY_BIN/"
+      _wrapper "$MWAY_BIN/golangci-lint" "$HOME/bin/golangci-lint"
+    fi
+  }
+
+  _manage golangci-lint run
+}
+
+_golangci_lint
+

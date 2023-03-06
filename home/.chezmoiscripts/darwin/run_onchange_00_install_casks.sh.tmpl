@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# global cache {{ .cache.global }}
+
+source "$(chezmoi source-path)/scripts/utils.sh"
+
+_casks() {
+  _brew 1password "" "--cask"
+  _brew alfred "" "--cask"
+  _brew bartender "" "--cask"
+  _brew brave-browser "" "--cask"
+  _brew docker "" "--cask"
+  _brew dropbox "" "--cask"
+  _brew espanso "" "--cask"
+  _brew fork "" "--cask"
+  _brew google-chrome "" "--cask"
+  _brew google-cloud-sdk "" "--cask"
+  _brew iterm2 "" "--cask"
+  _brew macfuse "" "--cask"
+  _brew nordvpn "" "--cask"
+  _brew spectacle "" "--cask"
+  _brew spotify "" "--cask"
+  _brew tailscale "" "--cask"
+  _brew transmission "" "--cask"
+  _brew veracrypt "" "--cask"
+}
+
+_casks

@@ -10,6 +10,10 @@ export MOUNT_HOST := invocation_directory()
 bundle:
     brew bundle dump -f ~/Brewfile
 
+# push Chezmoi changes to remote
+chezmoi CMD *ARGS:
+    {{ if CMD == "push" { "cd $(chezmoi source-path); git push" } else { CMD + " " + ARGS } }}
+
 # clean up unused Docker artifacts
 docker-clean:
     docker images | grep none | awk '{print $3}' | xargs docker rmi
@@ -20,5 +24,5 @@ env FLAVOR *ARGS:
 
 # update and upgrade packages
 update:
-    chezmoi upgrade
-    chezmoi update
+    brew update
+    brew upgrade

@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# global cache {{ .cache.global }}
+
+source "$(chezmoi source-path)/scripts/utils.sh"
+
+_tmux() {
+  run() {
+    local updated=0
+
+    if command -v tmux >/dev/null; then
+      if [[ "$(tmux -V)" == *" {{ .tmux.version }} "* ]]; then
+        updated=1
+      fi
+    fi
+
+    if [ $updated -eq 0 ]; then
+      local SANDBOX="$(mktemp -d)"
+      trap 'rm -rf "$SANDBOX"' EXIT
+      cd "$SANDBOX"
+
+      local TARDIR="tmux-{{ .tmux.version }}"
+      local TARFILE="$TARDIR.tar.gz"
+      curl -sLO "https://github.com/tmux/tmux/releases/download/{{ .tmux.version }}/$TARFILE"
+      tar -zxf "$TARFILE" && cd "$TARDIR"
+      ./configure --prefix="$MWAY_PREFIX/tmux" --disable-utf8proc >/dev/null
+      make >/dev/null
+      make install >/dev/null
+      _wrapper "$MWAY_PREFIX/tmux/bin/tmux" "$HOME/bin/tmux"
+    fi
+  }
+
+  _manage tmux run
+}
+
+_tmux

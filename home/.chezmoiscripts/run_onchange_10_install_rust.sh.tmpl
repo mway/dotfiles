@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# global cache {{ .cache.global }}
+
+source "$(chezmoi source-path)/scripts/utils.sh"
+
+_rust() {
+  run() {
+    local ignore="(warning|info):"
+    local updated=0
+
+    if ! command -v rustup >/dev/null; then
+      rm -rf ~/.rustup
+    	(curl https://sh.rustup.rs -sSf | sh -s -- -yq --no-modify-path --profile complete) 2>&1 | grep -v "$ignore"
+      rustup component add rustfmt 2>&1 | grep -v "$ignore"
+    fi
+
+    rustup update 2>&1 | grep -v "$ignore"
+  }
+
+  _manage Rust run
+}
+
+_rust
