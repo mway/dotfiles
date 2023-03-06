@@ -2,7 +2,6 @@
 
 alias fd='fd -g --hidden'
 alias htop='sudo htop'
-#alias ls='ls -lAG'
 alias ls='exa -al'
 alias lsc='exa -al --color=always'
 alias mkdir='mkdir -p'

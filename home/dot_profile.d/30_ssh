@@ -2,6 +2,6 @@
 
 # Keychain: http://www.funtoo.org
 if command -v keychain >/dev/null; then
-    eval `keychain --quiet --eval --agents ssh id_rsa`
+    eval "$(keychain --quiet --eval --agents ssh id_rsa)"
 fi
 
