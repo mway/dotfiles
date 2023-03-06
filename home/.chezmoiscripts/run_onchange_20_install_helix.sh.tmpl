@@ -3,13 +3,19 @@
 
 source "$(chezmoi source-path)/scripts/utils.sh"
 
+{{- $env := quote (print .paths.rust.cargo "/env") }}
+{{- $cargo := quote (print .paths.rust.cargo "/bin/cargo") }}
+{{- $config := quote (print .paths.user.config "/helix") }}
+{{- $runtime := quote (print .paths.user.config "/helix/runtime") }}
+{{- $repo := "https://github.com/helix-editor/helix" }}
+
 _helix() {
   run() {
     local updated=0
     local ignore="(warning|info|Downloaded|Compiling|Finished|Updating|Installing|Installed|done):"
 
     if command -v hx >/dev/null; then
-      if [[ "$(hx --version)" == *" {{ .helix.version }} "* ]]; then
+      if [[ "$(hx --version)" == *" {{ .versions.helix }} "* ]]; then
         updated=1
       fi
     fi
@@ -19,13 +25,16 @@ _helix() {
       trap 'rm -rf "$SANDBOX"' EXIT
       cd "$SANDBOX"
 
-      git clone https://github.com/helix-editor/helix >/dev/null
+      git clone {{ $repo }} >/dev/null
       cd helix
-      git checkout "{{ .helix.version }}" >/dev/null
-      cargo install --locked --path helix-term 2>&1 | grep -v "$ignore"
+      git checkout "{{ .versions.helix }}" >/dev/null
+
+      source {{ $env }}
+      {{ $cargo }} install --locked --path helix-term 2>&1 | grep -v "$ignore"
 
       # Runtime configuration
-      mkdir -p ~/.config/helix && cp -R runtime ~/.config/helix/runtime
+      rm -rf {{ $runtime }}
+      mkdir -p {{ $config }} && cp -R runtime {{ $runtime }}
     fi
   }
 

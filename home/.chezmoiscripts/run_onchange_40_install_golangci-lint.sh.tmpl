@@ -3,12 +3,18 @@
 
 source "$(chezmoi source-path)/scripts/utils.sh"
 
+{{- $version := .versions.golangci_lint }}
+{{- $golangci := quote (print .paths.local.bin "/golangci-lint") }}
+{{- $tarDir := printf "golangci-lint-%s-%s-%s" (trimPrefix "v" $version) .chezmoi.os .chezmoi.arch }}
+{{- $tarFile := print $tarDir ".tar.gz" }}
+{{- $url := quote (printf "https://github.com/golangci/golangci-lint/releases/download/%s/%s" $version $tarFile) }}
+
 _golangci_lint() {
   run() {
     local updated=0
 
-    if command -v golangci-lint >/dev/null; then
-      if [[ "$(golangci-lint --version)" == *"{{ .golangci_lint.version }} "* ]]; then
+    if command -v {{ $golangci }} >/dev/null; then
+      if [[ "$({{ $golangci }} --version)" == *" {{ $version }} "* ]]; then
         updated=1
       fi
     fi
@@ -18,13 +24,9 @@ _golangci_lint() {
       trap 'rm -rf "$SANDBOX"' EXIT
       cd "$SANDBOX"
 
-      local TARDIR="golangci-lint-{{ trimPrefix "v" .golangci_lint.version }}-{{ .chezmoi.os }}-{{ .chezmoi.arch }}"
-      local TARFILE="$TARDIR.tar.gz"
-      curl -sLO "https://github.com/golangci/golangci-lint/releases/download/{{ .golangci_lint.version }}/$TARFILE"
-      tar -zxf "$TARFILE" && cd "$TARDIR"
-      mkdir -p "$MWAY_BIN"
-      mv golangci-lint "$MWAY_BIN/"
-      _wrapper "$MWAY_BIN/golangci-lint" "$HOME/bin/golangci-lint"
+      curl -sLO {{ $url }}
+      tar -zxf {{ $tarFile|quote }} && cd {{ $tarDir|quote }}
+      mv golangci-lint {{ $golangci }}
     fi
   }
 

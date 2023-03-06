@@ -1,0 +1,35 @@
+{{- $personal := and (lt (.chezmoi.hostname|len) 15) (ne .chezmoi.hostname .chezmoi.username) -}}
+{{- $localDir := print .chezmoi.homeDir "/.local" }}
+
+diff:
+  command: "difft"
+  # exclude:
+  #   - scripts
+git:
+  autoCommit: false
+
+data:
+  personal: {{ $personal }}
+  paths:
+    local:
+      bin: {{ (print $localDir "/bin")|quote }}
+      root: {{ $localDir|quote }}
+    user:
+      bin: {{ (print .chezmoi.homeDir "/bin")|quote }}
+      config: {{ (print .chezmoi.homeDir "/.config")|quote }}
+      home: {{ .chezmoi.homeDir|quote }}
+    go:
+      gopath: {{ (print .chezmoi.homeDir "/go")|quote }}
+      goroot: {{ (print $localDir "/go")|quote }}
+    rust:
+      cargo: {{ (print .chezmoi.homeDir "/.cargo")|quote }}
+  user: {{ .chezmoi.username|quote }}
+  cache:
+    global: 2
+
+  versions:
+    bazelisk: "v1.16.0"
+    go: "1.20.1"
+    golangci_lint: "v1.51.2"
+    helix: "22.12"
+    tmux: "3.3a"

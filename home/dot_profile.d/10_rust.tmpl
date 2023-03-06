@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# global cache {{ .cache.global }}
+
+_cargo_env={{ (print .paths.rust.cargo "/env")|quote }}
+[ ! -f "$_cargo_env" ] || . "$_cargo_env"

@@ -3,18 +3,26 @@
 
 source "$(chezmoi source-path)/scripts/utils.sh"
 
+{{- $env := quote (print .paths.rust.cargo "/env") }}
+{{- $rustup := quote (print .paths.rust.cargo "/bin/rustup") }}
+{{- $rustupCache := quote (print .paths.user.home "/.rustup") }}
+
 _rust() {
   run() {
     local ignore="(warning|info):"
     local updated=0
 
-    if ! command -v rustup >/dev/null; then
-      rm -rf ~/.rustup
+    if ! command -v $rustup >/dev/null; then
+      rm -rf {{ $rustupCache }}
     	(curl https://sh.rustup.rs -sSf | sh -s -- -yq --no-modify-path --profile complete) 2>&1 | grep -v "$ignore"
-      rustup component add rustfmt 2>&1 | grep -v "$ignore"
+
+      # Temporarily add this to PATH for rustup.
+      source {{ $env }}
+
+      {{ $rustup }} component add rustfmt 2>&1 | grep -v "$ignore"
     fi
 
-    rustup update 2>&1 | grep -v "$ignore"
+    {{ $rustup }} update 2>&1 | grep -v "$ignore"
   }
 
   _manage Rust run

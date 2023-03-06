@@ -2,9 +2,6 @@
 
 set -eo pipefail
 
-export MWAY_PREFIX="/opt/mway"
-export MWAY_BIN="$MWAY_PREFIX/bin"
-
 _manage() {
   local name="$1"
   local func="$2"

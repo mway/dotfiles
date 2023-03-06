@@ -6,8 +6,8 @@ shopt -s globstar 2>/dev/null
 shopt -s nocaseglob 2>/dev/null
 
 # Well-known paths
-export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:$PATH"
-_profiled_files="$(find "$HOME/.profile.d" -type f | sort)"
+export PATH="{{ .paths.local.bin }}:{{ .paths.user.bin }}:/usr/local/sbin:/usr/local/bin:$PATH"
+_profiled_files="$(find {{ (print .paths.user.home "/.profile.d")|quote }} -type f | sort)"
 
 function PATH_add() {
     for dir in "$@"; do
@@ -21,11 +21,7 @@ function PATH_add() {
 }
 
 for f in $_profiled_files; do
-    source "$f" || echo "[$HOME/.dotrc] Failed to source $f"
+    source "$f" || echo "[{{ print .paths.user.home "/.dotrc" }}] Failed to source $f"
 done
-
-if command -v direnv >/dev/null; then
-    eval "$(direnv hook bash)"
-fi
 
 set +e

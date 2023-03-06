@@ -3,14 +3,16 @@
 
 source "$(chezmoi source-path)/scripts/utils.sh"
 
+{{- $go := quote (print .paths.go.goroot "/bin/go") }}
+{{- $tarFile := printf "go%s.%s-%s.tar.gz" .versions.go .chezmoi.os .chezmoi.arch }}
+{{- $url := quote (print "https://go.dev/dl/" $tarFile) }}
+
 _go() {
   run() {
     local updated=0
-  
-    if command -v go >/dev/null; then
-      if [[ "$(go version)" == *"{{ .go.version }} "* ]]; then
-        updated=1
-      fi
+
+    if [[ "$({{ $go }} version 2>/dev/null)" == *" go{{ .versions.go }} "* ]]; then
+      updated=1
     fi
 
     if [ $updated -eq 0 ]; then
@@ -18,10 +20,10 @@ _go() {
       trap 'rm -rf "$SANDBOX"' EXIT
       cd "$SANDBOX"
 
-      local TARFILE="go{{ .go.version }}.{{ .chezmoi.os }}-{{ .chezmoi.arch }}.tar.gz"
-      curl -sLO "https://go.dev/dl/$TARFILE"
-      sudo rm -rf /usr/local/go
-      sudo tar -C /usr/local -zxf "$TARFILE"
+      curl -sLO {{ $url }}
+      tar -zxf {{ $tarFile|quote }}
+      rm -rf {{ .paths.go.goroot|quote }}
+      mv go {{ .paths.go.goroot|quote }}
     fi
   }
 

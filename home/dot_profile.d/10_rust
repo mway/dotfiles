@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-if [ -f "$HOME/.cargo/env" ]; then
-    source "$HOME/.cargo/env"
-elif command -v cargo >/dev/null; then
-    PATH_add "$HOME/.cargo/bin"
-fi
