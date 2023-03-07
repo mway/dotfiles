@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# global cache {{ .cache.global }}
+
+source "$(chezmoi source-path)/scripts/utils.sh"
+
+{{- $os := .chezmoi.os }}
+{{- if eq $os "darwin" }}
+{{-   $os = "macos" }}
+{{- end }}
+{{/*******************/}}
+{{- $arch := .chezmoi.arch }}
+{{- if eq $arch "amd64" }}
+{{-   $arch = "x86_64" }}
+{{- end }}
+{{/*******************/}}
+{{- $qualifier := "musl" }}
+{{- if eq $os "macos" }}
+{{-   $qualifier = "ventura" }}
+{{- end }}
+{{/*******************/}}
+{{- $btop := quote (print .paths.local.root "/btop/bin/btop") }}
+{{- $tarFile := printf "btop-%s-%s-%s.tbz" $arch $os $qualifier }}
+{{- $version := "v1.2.13" }}
+{{- $url := quote (printf "https://github.com/aristocratos/btop/releases/download/%s/%s" $version $tarFile) }}
+{{- $wrapper := quote (print .paths.local.bin "/btop") }}
+
+_btop() {
+  run() {
+    local updated=0
+
+    if [[ "$({{ $btop }} --version 2>/dev/null)" == *" v{{ .versions.go }}" ]]; then
+      updated=1
+    fi
+
+    if [ $updated -eq 0 ]; then
+      local SANDBOX="$(mktemp -d)"
+      trap 'rm -rf "$SANDBOX"' EXIT
+      cd "$SANDBOX"
+
+      curl -sLO {{ $url }}
+      tar -xf {{ $tarFile|quote }}
+      cd btop
+      
+      PREFIX={{ .paths.local.root|quote }} make install
+
+      _wrapper {{ $btop }} {{ $wrapper }}
+    fi
+  }
+
+  _manage btop run
+}
+
+_btop

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# global cache {{ .cache.global }}
+
+source "$(chezmoi source-path)/scripts/utils.sh"
+
+_gpg_key docker "https://download.docker.com/linux/debian/gpg" "--dearmor"
+_apt_key docker "7EA0A9C3F273FCD8"
+_apt_repo docker "https://download.docker.com/linux/debian" "$(lsb_release -cs) stable"
+_apt docker-ce

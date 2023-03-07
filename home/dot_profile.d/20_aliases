@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-alias fd='fd -g --hidden'
+alias fd='fd --no-ignore --hidden'
 alias htop='sudo htop'
 alias ls='exa -al'
 alias lsc='exa -al --color=always'

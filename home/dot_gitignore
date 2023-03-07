@@ -4,4 +4,6 @@
 /.justfile
 /justfile
 cover.html
+cover.html.raw
 cover.out
+cover.tmp

@@ -8,6 +8,7 @@ source "$(chezmoi source-path)/scripts/utils.sh"
 {{- $config := quote (print .paths.user.config "/helix") }}
 {{- $runtime := quote (print .paths.user.config "/helix/runtime") }}
 {{- $repo := "https://github.com/helix-editor/helix" }}
+{{- $version := .versions.helix }}
 
 _helix() {
   run() {
@@ -15,7 +16,7 @@ _helix() {
     local ignore="(warning|info|Downloaded|Compiling|Finished|Updating|Installing|Installed|done):"
 
     if command -v hx >/dev/null; then
-      if [[ "$(hx --version)" == *" {{ .versions.helix }} "* ]]; then
+      if [[ "$(hx --version)" == *" {{ $version }} "* ]]; then
         updated=1
       fi
     fi
@@ -27,7 +28,7 @@ _helix() {
 
       git clone {{ $repo }} >/dev/null
       cd helix
-      git checkout "{{ .versions.helix }}" >/dev/null
+      git checkout {{ quote $version }} >/dev/null
 
       source {{ $env }}
       {{ $cargo }} install --locked --path helix-term 2>&1 | grep -v "$ignore"

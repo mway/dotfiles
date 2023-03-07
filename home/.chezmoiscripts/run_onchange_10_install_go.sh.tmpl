@@ -3,15 +3,16 @@
 
 source "$(chezmoi source-path)/scripts/utils.sh"
 
+{{- $version := .versions.go }}
 {{- $go := quote (print .paths.go.goroot "/bin/go") }}
-{{- $tarFile := printf "go%s.%s-%s.tar.gz" .versions.go .chezmoi.os .chezmoi.arch }}
+{{- $tarFile := printf "go%s.%s-%s.tar.gz" $version .chezmoi.os .chezmoi.arch }}
 {{- $url := quote (print "https://go.dev/dl/" $tarFile) }}
 
 _go() {
   run() {
     local updated=0
 
-    if [[ "$({{ $go }} version 2>/dev/null)" == *" go{{ .versions.go }} "* ]]; then
+    if [[ "$({{ $go }} version 2>/dev/null)" == *" go{{ $version }} "* ]]; then
       updated=1
     fi
 

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# global cache {{ .cache.global }}
+
+source "$(chezmoi source-path)/scripts/utils.sh"
+
+_gpg_key_get github "https://cli.github.com/packages/githubcli-archive-keyring.gpg"
+_apt_key github "23F3D4EA75716059"
+_apt_repo github "https://cli.github.com/packages" "stable main"
+_apt gh

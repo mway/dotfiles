@@ -1,35 +1,49 @@
 {{- $personal := and (lt (.chezmoi.hostname|len) 15) (ne .chezmoi.hostname .chezmoi.username) -}}
-{{- $localDir := print .chezmoi.homeDir "/.local" }}
+{{- $localRoot := print .chezmoi.homeDir "/.local" }}
+{{- $localBin := print $localRoot "/bin" }}
+{{- $localGPG := print $localRoot "/gpg.d" }}
+{{- $userHome := .chezmoi.homeDir }}
+{{- $userBin := print $userHome "/bin" }}
+{{- $userConfig := print $userHome "/.config" }}
+{{- $goPath := print $userHome "/go" }}
+{{- $goRoot := print $localRoot "/go" }}
+{{- $rustCargo := print $userHome "/.cargo" }}
 
 diff:
   command: "difft"
-  # exclude:
-  #   - scripts
+  exclude:
+    - scripts
 git:
   autoCommit: false
 
 data:
+  arch: {{ quote .chezmoi.arch }}
+  os: {{ quote .chezmoi.os }}
   personal: {{ $personal }}
   paths:
     local:
-      bin: {{ (print $localDir "/bin")|quote }}
-      root: {{ $localDir|quote }}
+      bin: {{ quote $localBin }}
+      gpg: {{ quote $localGPG }}
+      root: {{ quote $localRoot }}
     user:
-      bin: {{ (print .chezmoi.homeDir "/bin")|quote }}
-      config: {{ (print .chezmoi.homeDir "/.config")|quote }}
-      home: {{ .chezmoi.homeDir|quote }}
+      bin: {{ quote $userBin }}
+      config: {{ quote $userConfig }}
+      home: {{ quote $userHome }}
     go:
-      gopath: {{ (print .chezmoi.homeDir "/go")|quote }}
-      goroot: {{ (print $localDir "/go")|quote }}
+      gopath: {{ quote $goPath }}
+      goroot: {{ quote $goRoot }}
     rust:
-      cargo: {{ (print .chezmoi.homeDir "/.cargo")|quote }}
-  user: {{ .chezmoi.username|quote }}
+      cargo: {{ quote $rustCargo }}
+  user: {{ quote .chezmoi.username }}
   cache:
     global: 2
-
   versions:
     bazelisk: "v1.16.0"
+    btop: "1.2.13"
+    buf: "v1.15.0"
     go: "1.20.1"
     golangci_lint: "v1.51.2"
     helix: "22.12"
     tmux: "3.3a"
+    yq: "v4.31.2"
+    zig: "0.10.1"
