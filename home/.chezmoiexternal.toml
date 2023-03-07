@@ -18,12 +18,22 @@
     url = "https://github.com/dracula/iterm.git"
     refreshPeriod = "24h"
 
-[".config/nvim/autoload/plug.vim"]
+[".profile.d/40_completion_git"]
     type = "file"
-    url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    url = "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash"
     refreshPeriod = "24h"
 
-{{ $fzfVersion := "0.17.5" -}}
+[".profile.d/40_completion_just"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/casey/just/master/completions/just.bash"
+    refreshPeriod = "24h"
+
+[".profile.d/40_completion_cargo"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/rust-lang/cargo/66789e531a1b75368fd7ca39ce2360b58cf2c709/src/etc/cargo.bashcomp.sh"
+    refreshPeriod = "24h"
+
+{{ $fzfVersion := "0.38.0" -}}
 
 [".profile.d/40_completion_fzf"]
     type = "file"

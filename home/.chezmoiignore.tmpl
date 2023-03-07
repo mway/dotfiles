@@ -1,80 +1,17 @@
 {{ if ne .chezmoi.os "darwin" }}
-/.chezmoiscripts/darwin/**
-Brewfile
+.chezmoiscripts/darwin/**
 {{ end }}
 
 {{ if ne .chezmoi.os "linux" }}
-/.chezmoiscripts/linux/**
+.chezmoiscripts/linux/**
 {{ end }}
 
 # Ignore all of $HOME/bin except specific scripts things
-/bin
+/bin/
 !/bin/executable_apb
 
-# Helix runtime
-/dot_config/helix/runtime
-
-# Chezmoi helpers
-/scripts/
-
-# Misc
-./dot_config/btop/btop.log
-
-#############
-
-# Ignore everything by default and whitelist things explicitly.
-# /*
-
-# XDG home
-# !/.config
-
-# Always ignore
+.config/helix/runtime
+/scripts/ # chezmoi helpers
+.config/btop/btop.log
 .DS_Store
 .*.sw?
-
-# Useful scripts/tools are placed in ~/bin
-# !/bin
-
-# shell
-# !.aliases
-# !.bashrc
-# !.bash_profile
-# !.profile
-# !.profile.d/
-
-# Misc
-# !.dotrc
-# !.envrc
-# !.envrc.local
-# !Brewfile
-
-# git
-# !.gitconfig
-# !/.gitconfig.d/
-# /.gitconfig.d/local
-
-# tig
-# !.tigrc
-
-# tmux
-# !.config/tmux/tmux.conf
-# !.config/tmux/plugins/tpm
-
-# neovim
-# !.vimrc
-# !.vim/
-# !.config/nvim/
-# .config/nvim/plugged/ # managed by vim-plug
-# .config/nvim/plugged/* # managed by vim-plug
-# .config/nvim/plugged/**/* # managed by vim-plug
-
-# helix
-# .config/helix/runtime/
-
-# Just
-# !justfile
-# !*.justfile
-
-# Ansible
-# !.config/ansible/**
-# .config/ansible/inventory*
