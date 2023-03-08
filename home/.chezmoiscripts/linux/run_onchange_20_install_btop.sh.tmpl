@@ -3,21 +3,13 @@
 
 source "$(chezmoi source-path)/scripts/utils.sh"
 
-{{- $os := .chezmoi.os }}
-{{- if eq $os "darwin" }}
-{{-   $os = "macos" }}
-{{- end }}
-{{/*******************/}}
-{{- $arch := .chezmoi.arch }}
-{{- if eq $arch "amd64" }}
-{{-   $arch = "x86_64" }}
-{{- end }}
-{{/*******************/}}
+{{- $os := replace "darwin" "macos" .os }}
+{{- $arch := replace "amd64" "x86_64" .arch }}
 {{- $qualifier := "musl" }}
 {{- if eq $os "macos" }}
 {{-   $qualifier = "ventura" }}
 {{- end }}
-{{/*******************/}}
+
 {{- $btop := quote (print .paths.local.root "/btop/bin/btop") }}
 {{- $tarFile := printf "btop-%s-%s-%s.tbz" $arch $os $qualifier }}
 {{- $version := "v1.2.13" }}

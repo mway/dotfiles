@@ -5,12 +5,9 @@ source "$(chezmoi source-path)/scripts/utils.sh"
 
 {{- $version := .versions.buf }}
 {{- $cliVersion := quote (trimPrefix "v" $version) }}
-{{- $arch := .chezmoi.arch }}
-{{- if eq $arch "amd64" }}
-{{-   $arch = "x86_64" }}
-{{- end }}
+{{- $arch := replace "amd64" "x86_64" .arch }}
 {{- $buf := quote (print .paths.local.bin "/buf") }}
-{{- $fname := printf "buf-%s-%s" (.chezmoi.os|title) $arch }}
+{{- $fname := printf "buf-%s-%s" (.os|title) $arch }}
 {{- $url := quote (printf "https://github.com/bufbuild/buf/releases/download/%s/%s" $version $fname) }}
 
 _buf() {
