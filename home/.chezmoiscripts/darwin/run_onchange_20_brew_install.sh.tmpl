@@ -3,7 +3,7 @@
 
 set -eo pipefail
 
-source "$(chezmoizmoi source-path)/scripts/utils.sh"
+source "$(chezmoi source-path)/scripts/utils.sh"
 
 _brew_install() {
   {{- $grouped := list }}
@@ -26,4 +26,4 @@ _brew_install() {
   brew install -q --cask {{ join " " (uniq (sortAlpha .homebrew.casks)) }}
 }
 
-_manage "Homebrew packages", _brew_install
+_manage "Homebrew packages" _brew_install
