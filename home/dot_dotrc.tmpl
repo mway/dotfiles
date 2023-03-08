@@ -1,27 +1,32 @@
 #!/usr/bin/env bash
 
-shopt -s autocd 2>/dev/null
-shopt -s cdspell 2>/dev/null
-shopt -s globstar 2>/dev/null
-shopt -s nocaseglob 2>/dev/null
+if [[ $MWAY_DOTRC -ne 1 ]]; then
+    export MWAY_DOTRC=1
 
-# Well-known paths
-export PATH="{{ .paths.local.bin }}:{{ .paths.user.bin }}:/usr/local/sbin:/usr/local/bin:$PATH"
-_profiled_files="$(find {{ (print .paths.user.home "/.profile.d")|quote }} -type f | sort)"
+    shopt -s autocd 2>/dev/null
+    shopt -s cdspell 2>/dev/null
+    shopt -s globstar 2>/dev/null
+    shopt -s nocaseglob 2>/dev/null
 
-function PATH_add() {
-    for dir in "$@"; do
-        [ -z "$dir" ] || PATH="$dir${PATH:+:${PATH}}"
+    # Well-known paths
+    export PATH="{{ .paths.local.bin }}:{{ .paths.user.bin }}:/usr/local/sbin:/usr/local/bin:$PATH"
+    _profiled_files="$(find {{ quote (print .paths.user.home "/.profile.d") }} -type f | sort)"
+
+    function PATH_add() {
+        for dir in "$@"; do
+            [ -z "$dir" ] || PATH="$dir${PATH:+:${PATH}}"
+        done
+
+        # https://stackoverflow.com/a/44232192
+        PATH="$(perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, $ENV{PATH}))')"
+
+        export PATH
+    }
+
+    for f in $_profiled_files; do
+        # shellcheck source=/dev/null
+        source "$f" || echo "[{{ print .paths.user.home "/.dotrc" }}] Failed to source $f"
     done
 
-    # https://stackoverflow.com/a/44232192
-    PATH="$(perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, $ENV{PATH}))')"
-
-    export PATH
-}
-
-for f in $_profiled_files; do
-    source "$f" || echo "[{{ print .paths.user.home "/.dotrc" }}] Failed to source $f"
-done
-
-set +e
+    set +e
+fi
