@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-# global cache {{ .cache.global }}
-
-source "$(chezmoi source-path)/scripts/utils.sh"
-
-_apt fd-find
-sudo update-alternatives \
-  --install /usr/bin/fd fd /usr/bin/fdfind 200

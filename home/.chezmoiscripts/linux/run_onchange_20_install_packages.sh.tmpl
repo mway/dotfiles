@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# global cache {{ .cache.global }}
+
+source "$(chezmoi source-path)/scripts/utils.sh"
+
+_install_packages() {
+  sudo apt install {{ join " " .apt.packages }}
+}
+
+_manage "apt packages" _install_packages

@@ -1,3 +1,4 @@
+{{- $globalCache := "0" }}
 {{- $personal := and (lt (.chezmoi.hostname|len) 15) (ne .chezmoi.hostname .chezmoi.username) -}}
 {{- $localRoot := print .chezmoi.homeDir "/.local" }}
 {{- $localBin := print $localRoot "/bin" }}
@@ -8,6 +9,13 @@
 {{- $goPath := print $userHome "/go" }}
 {{- $goRoot := print $localRoot "/go" }}
 {{- $rustCargo := print $userHome "/.cargo" }}
+{{- $linuxFamily := "" }}
+{{- $linuxVersion := "" }}
+
+{{- if eq .chezmoi.os "linux" }}
+{{- $linuxFamily = .chezmoi.osRelease.id }}
+{{- $linuxVersion = .chezmoi.osRelease.versionCodename }}
+{{- end }}
 
 diff:
   command: "difft"
@@ -36,7 +44,149 @@ data:
       cargo: {{ quote $rustCargo }}
   user: {{ quote .chezmoi.username }}
   cache:
-    global: 2
+    global: {{ $globalCache }}
+  {{- if eq .chezmoi.os "darwin" }}
+  homebrew:
+    formulae:
+      - ag
+      - ansible
+      - bash
+      - bash-language-server
+      - btop
+      - bufbuild/buf/buf
+      - buildifier
+      - clang-format
+      - cmake
+      - coreutils
+      - curl
+      - difftastic
+      - direnv
+      - docker
+      - docker-compose
+      - exa
+      - fd
+      - fzf
+      - gcc
+      - gh
+      - git
+      - htop
+      - jq
+      - keychain
+      - llvm
+      - npm
+      - python3
+      - ruby
+      - shellcheck
+      - telnet
+      - tree
+      - watch
+      - yaml-language-server
+      - yq
+      - zig --HEAD
+    casks:
+      - 1password
+      - alfred
+      - bartender
+      - dropbox
+      - espanso
+      - fork
+      - iterm2
+      - macfuse
+      - spectacle
+      - spotify
+      {{- if $personal }}
+      - brave-browser
+      - docker
+      - google-cloud-sdk
+      - nordvpn
+      - tailscale
+      - transmission
+      - veracrypt
+      {{- end }}
+  {{- end }}
+  {{- if eq .chezmoi.os "linux" }}
+  apt:
+    prerequisites:
+      - build-essential
+      - clang-13
+      - clang-format-13
+      - cmake
+      - curl
+      - gcc
+      - git
+      - llvm-13  
+      - lsb-release
+    gpg_keys:
+      - name: docker
+        url: "https://download.docker.com/linux/{{ $linuxFamily }}/gpg"
+        args: --dearmor
+      - name: github
+        url: "https://cli.github.com/packages/githubcli-archive-keyring.gpg"
+        verbatim: true
+    apt_keys:
+      - name: docker
+        server: keyserver.ubuntu.com
+        id: 7EA0A9C3F273FCD8
+      - name: github
+        server: keyserver.ubuntu.com
+        id: 23F3D4EA75716059
+    repositories:
+      - name: docker
+        url: "https://download.docker.com/linux/{{ $linuxFamily }}"
+        branch: "{{ $linuxVersion }} stable"
+      - name: github
+        url: "https://cli.github.com/packages"
+        branch: "stable main"
+    packages:
+      - ansible
+      - bash
+      - direnv
+      - docker-ce
+      - docker-compose
+      - exa
+      - fd-find
+      - fzf
+      - gh
+      - htop
+      - jq
+      - keychain
+      - python3
+      - ruby
+      - shellcheck
+      - silversearcher-ag
+      - telnet
+      - tree
+    alternatives:
+      - src: /usr/bin/llvm-config-13
+        dst: /usr/bin/llvm-config
+        related:
+          {{- $llvmCmds := list "ar" "as" "bcanalyzer" "cov" "diff" "dis" "dwarfdump" "extract" "link" "mc" "mcmarkup" "nm" "objcopy" "objdump" "ranlib" "readobj" "rtdyld" "size" "stress" "strip" "symbolizer" "tblgen" }}
+          {{ range $cmd := $llvmCmds }}
+          - src: /usr/bin/llvm-{{ $cmd }}-13
+            dst: /usr/bin/llvm-{{ $cmd }}
+          {{ end }}
+      - src: /usr/bin/clang-13
+        dst: /usr/bin/clang
+        related:
+          - src: /usr/bin/clang++-13
+            dst: /usr/bin/clang++
+          - src: /usr/bin/clang-cpp-13
+            dst: /usr/bin/clang-cpp
+      - src: /usr/bin/clang-format-13
+        dst: /usr/bin/clang-format
+        related:
+          - src: /usr/bin/clang-format-diff-13
+            dst: /usr/bin/clang-format-diff
+          - src: /usr/bin/git-clang-format-13
+            dst: /usr/bin/git-clang-format
+      - src: /usr/bin/fdfind
+        dst: /usr/bin/fd
+  {{- end }}
+  crates:
+    - bat --locked
+    - difftastic
+    - just
+  
   versions:
     bazelisk: "v1.16.0"
     btop: "1.2.13"

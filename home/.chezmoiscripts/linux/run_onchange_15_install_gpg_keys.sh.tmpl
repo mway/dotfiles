@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# global cache {{ .cache.global }}
+
+source "$(chezmoi source-path)/scripts/utils.sh"
+
+_install_gpg_keys() {
+  {{- range $key := .apt.gpg_keys }}
+    {{- $path := quote (print $.paths.local.gpg "/" $key.name ".gpg") }}
+    {{- if or (not (hasKey $key "verbatim")) (not $key.verbatim) }}
+      curl -fsSL {{ quote $key.url }} | gpg --yes {{ $key.args }} -o {{ $path }} >/dev/null
+    {{- else }}
+      curl -fsSLo {{ $path }} {{ quote $key.url }}
+    {{- end }}
+    chmod a+r {{ $path }}
+  {{- end }}
+}
+
+_manage "gpg keys" _install_gpg_keys
