@@ -1,6 +1,18 @@
 [[language]]
 name = "go"
-config = { "formatting.goimports" = true, "formatting.gofumpt" = true, "ui.diagnostic.staticcheck" = true, analyses = { unusedparams = true, unreachable  = true } }
+
+[language.config]
+gofumpt = true
+memoryMode = "DegradeClosed"
+deepCompletion = true
+staticcheck = true
+
+[language.config.analyses]
+fieldalignment = true
+nilness = true
+shadow = true
+unusedparams = true
+unreachable = true
 
 [[grammar]]
 name = "go"
