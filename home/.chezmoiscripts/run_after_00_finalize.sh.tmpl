@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+{{- $localBash := quote (print .paths.local.bin "/bash") }}
+
+if [ ! -x /usr/local/bin/bash ]; then
+  if [ -x /opt/homebrew/bin/bash ]; then
+    sudo ln -s /opt/homebrew/bin/bash /usr/local/bin/bash
+  elif [ -x {{ $localBash }} ]; then
+    sudo ln -s $localBash /usr/local/bin/bash
+  else
+    sudo ln -s /bin/bash /usr/local/bin/bash
+  fi
+fi

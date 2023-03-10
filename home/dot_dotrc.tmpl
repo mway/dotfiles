@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+[ -z "$MWAY_FORCE_DOTRC" ] || { unset MWAY_DOTRC; unset MWAY_FORCE_DOTRC; }
+
 if [[ $MWAY_DOTRC -ne 1 ]]; then
     export MWAY_DOTRC=1
 
@@ -9,7 +11,7 @@ if [[ $MWAY_DOTRC -ne 1 ]]; then
     shopt -s nocaseglob 2>/dev/null
 
     # Well-known paths
-    export PATH="{{ .paths.local.bin }}:{{ .paths.user.bin }}:/usr/local/sbin:/usr/local/bin:$PATH"
+    export PATH="/usr/local/sbin:/usr/local/bin:$PATH"
     _profiled_files="$(find {{ quote (print .paths.user.home "/.profile.d") }} -type f | sort)"
 
     function PATH_add() {
@@ -27,6 +29,9 @@ if [[ $MWAY_DOTRC -ne 1 ]]; then
         # shellcheck source=/dev/null
         source "$f" || echo "[{{ print .paths.user.home "/.dotrc" }}] Failed to source $f"
     done
+
+    # Give {{ .paths.local.bin }} and {{ .paths.user.bin }} precedence.
+    PATH_add {{ quote .paths.local.bin }} {{ quote .paths.user.bin }}
 
     set +e
 fi
