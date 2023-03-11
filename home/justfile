@@ -6,9 +6,8 @@ export MOUNT_HOST := invocation_directory()
 @default:
     just --justfile {{ justfile() }} --list | grep -v default
 
-# update ~/Brewfile
-bundle:
-    brew bundle dump -f ~/Brewfile
+chezmoi:
+    chezmoi update --init
 
 # clean up unused Docker artifacts
 docker-clean:
