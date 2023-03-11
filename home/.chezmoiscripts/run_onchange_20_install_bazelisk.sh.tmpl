@@ -10,9 +10,10 @@ source "$(chezmoi source-path)/scripts/utils.sh"
 
 _bazelisk() {
   run() {
-    if [ ! -f {{ $bazelisk}} ]; then
+    if [ ! -f {{ $bazelisk }} ]; then
       curl -sLo {{ $bazelisk }} {{ $url }}
-      cp {{ $bazelisk }} {{ $bazel }}
+      chmod +x {{ $bazelisk }}
+      _wrapper {{ $bazelisk }} {{ $bazel }}
     fi
   }
 

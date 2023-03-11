@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# global cache {{ .cache.global }}
+
+source "$(chezmoi source-path)/scripts/utils.sh"
+
+_buildifier() {
+  if ! command -v buildifier >/dev/null; then
+    go install github.com/bazelbuild/buildtools/buildifier@latest
+  fi
+}
+
+_manage "buildifier" _buildifier
