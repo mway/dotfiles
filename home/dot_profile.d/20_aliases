@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+alias cm='chezmoi'
 alias fd='fd --no-ignore --hidden'
 alias htop='sudo htop'
 alias ls='exa -al'
@@ -8,8 +9,4 @@ alias mkdir='mkdir -p'
 alias grep='ag'
 alias rgrep='ag'
 alias tmux='tmux -2'
-alias vi='\nvim'
-alias vim='\nvim'
-alias vmore='\vim -u ~/.vimrc.more -'
-alias brew-save='brew bundle dump -f ~/Brewfile'
 alias just='unset _JF; [ -f justfile ] || _JF="-f $HOME/justfile"; just --unstable $_JF'
