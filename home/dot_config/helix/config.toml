@@ -45,6 +45,7 @@ esc = ["collapse_selection", "keep_primary_selection", "normal_mode"]
 "C-r" = ["redo"]
 "C-/" = ["toggle_comments"]
 ";" = ["repeat_last_motion"]
+space = { "." = [":fmt"]}
 
 [keys.insert]
 esc = ["collapse_selection", "normal_mode"]
