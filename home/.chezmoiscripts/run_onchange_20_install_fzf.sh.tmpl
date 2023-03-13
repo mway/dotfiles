@@ -29,9 +29,7 @@ _fzf() {
     trap 'rm -rf "$SANDBOX"' EXIT
     cd "$SANDBOX"
 
-    echo curl -sLO {{ $url }} 1>&2
     curl -sLO {{ $url }}
-    echo {{ $command }} 1>&2
     {{ $command }}
     chmod +x {{ $fzf }}
   fi
