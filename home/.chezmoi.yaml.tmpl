@@ -91,6 +91,7 @@ data:
       - fork
       - iterm2
       - macfuse
+      - slack
       - spectacle
       - spotify
       {{- if $personal }}
@@ -183,6 +184,12 @@ data:
   {{- end }}
   crates:
     - bat --locked
+    - cargo-binutils
+    - cargo-make
+    - cargo-outdated
+    - cargo-sort
+    - cargo-tarpaulin
+    - cargo-watch
     - difftastic
     - just
   
