@@ -55,10 +55,6 @@ esc = ["collapse_selection", "normal_mode"]
 [keys.select]
 d = ["yank_main_selection_to_clipboard", "delete_selection"]
 x = ["yank_main_selection_to_clipboard", "delete_selection"]
-y = ["yank_main_selection_to_clipboard", "normal_mode", "flip_selections", "collapse_selection"]
-Y = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "goto_line_start", "collapse_selection", "normal_mode"]
-p = "replace_selections_with_clipboard"
-P = "paste_clipboard_before"
 esc = ["collapse_selection", "keep_primary_selection", "normal_mode"]
 "C-c" = ["toggle_comments"]
 "C-/" = ["toggle_comments"]
