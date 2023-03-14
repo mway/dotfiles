@@ -116,7 +116,7 @@ keybinds {
         bind "d" { Detach; }
     }
     tmux {
-        bind "[" { SwitchToMode "Scroll"; }
+        // bind "[" { SwitchToMode "Scroll"; }
         bind "Ctrl a" { Write 2; SwitchToMode "Normal"; }
         bind "\"" { NewPane "Down"; SwitchToMode "Normal"; }
         bind "%" { NewPane "Right"; SwitchToMode "Normal"; }
@@ -125,6 +125,8 @@ keybinds {
         bind "," { SwitchToMode "RenameTab"; }
         bind "p" { GoToPreviousTab; SwitchToMode "Normal"; }
         bind "n" { GoToNextTab; SwitchToMode "Normal"; }
+        bind "[" { GoToPreviousTab; SwitchToMode "Normal"; }
+        bind "]" { GoToNextTab; SwitchToMode "Normal"; }
         bind "Left" { MoveFocus "Left"; SwitchToMode "Normal"; }
         bind "Right" { MoveFocus "Right"; SwitchToMode "Normal"; }
         bind "Down" { MoveFocus "Down"; SwitchToMode "Normal"; }
@@ -138,6 +140,8 @@ keybinds {
         bind "Space" { NextSwapLayout; }
         bind "x" { CloseFocus; SwitchToMode "Normal"; }
         bind "S" { ToggleActiveSyncTab; SwitchToMode "Normal"; }
+        bind "PageDown" { PageScrollDown; }
+        bind "PageUp" { PageScrollUp; }
     }
     shared_except "locked" {
         bind "Ctrl g" { SwitchToMode "Locked"; }

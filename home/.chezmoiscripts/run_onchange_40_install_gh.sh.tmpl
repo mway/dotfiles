@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# global cache {{ .cache.global }}
+
+source "$(chezmoi source-path)/scripts/utils.sh"
+
+{{- $os := replace "darwin" "macOS" .os }}
+{{- $version := .versions.gh }}
+{{- $gh := quote (print .paths.local.bin "/gh") }}
+{{- $tarDir := printf "gh_%s_%s_%s" $version $os .arch }}
+{{- $tarFile := print $tarDir ".tar.gz" }}
+{{- $url := quote (printf "https://github.com/cli/cli/releases/download/v%s/%s" $version $tarFile) }}
+
+_gh() {
+  local updated=0
+
+  if command -v {{ $gh }} >/dev/null; then
+    if [[ "$({{ $gh }} --version)" == *"v{{ $version }}"* ]]; then
+      updated=1
+    fi
+  fi
+
+  if [ $updated -eq 0 ]; then
+    local SANDBOX="$(mktemp -d)"
+    trap 'rm -rf "$SANDBOX"' EXIT
+    cd "$SANDBOX"
+
+    curl -sLO {{ $url }}
+    tar -zxf {{ $tarFile|quote }} && cd {{ $tarDir|quote }}
+    mv bin/gh {{ $gh }}
+    chmod +x {{ $gh }}
+  fi
+}
+
+_manage gh _gh
+

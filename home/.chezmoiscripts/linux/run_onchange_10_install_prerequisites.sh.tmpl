@@ -5,9 +5,7 @@
 source "$(chezmoi source-path)/scripts/utils.sh"
 
 _install_prerequisites() {
-  {{- range $pkg := .apt.prerequisites }}
-  _apt {{ quote $pkg }}
-  {{- end }}
+  sudo apt install -yqqq {{ join " " .apt.prerequisites }}
 }
 
 _manage "prerequisites" _install_prerequisites
