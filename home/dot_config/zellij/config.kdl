@@ -140,8 +140,8 @@ keybinds {
         bind "Space" { NextSwapLayout; }
         bind "x" { CloseFocus; SwitchToMode "Normal"; }
         bind "S" { ToggleActiveSyncTab; SwitchToMode "Normal"; }
-        bind "PageDown" { PageScrollDown; }
-        bind "PageUp" { PageScrollUp; }
+        bind "PageDown" { PageScrollDown; SwitchToMode "scroll"; }
+        bind "PageUp" { PageScrollUp; SwitchToMode "scroll"; }
     }
     shared_except "locked" {
         bind "Ctrl g" { SwitchToMode "Locked"; }
