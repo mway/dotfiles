@@ -118,8 +118,8 @@ keybinds {
     tmux {
         // bind "[" { SwitchToMode "Scroll"; }
         bind "Ctrl a" { Write 2; SwitchToMode "Normal"; }
-        bind "\"" { NewPane "Down"; SwitchToMode "Normal"; }
-        bind "%" { NewPane "Right"; SwitchToMode "Normal"; }
+        bind "\"" "_" { NewPane "Down"; SwitchToMode "Normal"; }
+        bind "%" "|" { NewPane "Right"; SwitchToMode "Normal"; }
         bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
         bind "c" { NewTab; SwitchToMode "Normal"; }
         bind "," { SwitchToMode "RenameTab"; }
@@ -147,8 +147,8 @@ keybinds {
         bind "Ctrl g" { SwitchToMode "Locked"; }
         bind "Ctrl q" { Quit; }
         bind "Alt n" { NewPane; }
-        bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
-        bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
+        bind "Alt h" "Alt Left" { MoveFocus "Left"; }
+        bind "Alt l" "Alt Right" { MoveFocus "Right"; }
         bind "Alt j" "Alt Down" { MoveFocus "Down"; }
         bind "Alt k" "Alt Up" { MoveFocus "Up"; }
         bind "Alt =" "Alt +" { Resize "Increase"; }
