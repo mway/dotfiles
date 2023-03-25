@@ -79,6 +79,9 @@ data:
       - yaml-language-server
       - yq
       - zig --HEAD
+      {{- if not $personal }}
+      - imp
+      {{- end }}
     casks:
       - 1password
       - alfred
@@ -152,6 +155,9 @@ data:
       - silversearcher-ag
       - telnet
       - tree
+      {{- if not $personal }}
+      - imp
+      {{- end }}
     alternatives:
       - src: /usr/bin/llvm-config-13
         dst: /usr/bin/llvm-config
