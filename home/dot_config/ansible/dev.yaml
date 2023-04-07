@@ -11,11 +11,11 @@
     versions:
       bat: "0.22.1"
       btop: "1.2.13"
-      chezmoi: "v2.29.1"
+      chezmoi: "v2.33.0"
       go: "1.19.5"
       helix: "22.12"
       just: "1.11.0"
-      rust: "1.66.1"
+      rust: "1.68.2"
       tmux: "3.3a"
 
   environment:
@@ -67,6 +67,7 @@
           - lcov
           - libtool-bin
           - ninja-build
+          - openssl
           - pandoc
           - pipenv
           - pipx
