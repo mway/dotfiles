@@ -65,6 +65,8 @@
           - git
           - jq
           - lcov
+          - libssl-dev
+          - libssl3
           - libtool-bin
           - ninja-build
           - openssl
