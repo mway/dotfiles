@@ -4,7 +4,7 @@
 source "$(chezmoi source-path)/scripts/utils.sh"
 
 _install_packages() {
-  sudo apt install -yqqq {{ join " " .apt.packages }}
+  sudo apt install -y {{ join " " .apt.packages }}
 }
 
 _manage "apt packages" _install_packages

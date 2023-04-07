@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# global cache {{ .cache.global }}
+# global cache 3 {{ .cache.global }}
 
 source "$(chezmoi source-path)/scripts/utils.sh"
 
 _install_apt_keys() {
   {{- range $key := .apt.apt_keys }}
-    sudo apt-key adv --keyserver {{ quote $key.server }} --recv-keys {{ quote $key.id }} >/dev/null
+    echo sudo apt-key adv --keyserver {{ quote $key.server }} --recv-keys {{ quote $key.id }}
   {{- end }}
 }
 
