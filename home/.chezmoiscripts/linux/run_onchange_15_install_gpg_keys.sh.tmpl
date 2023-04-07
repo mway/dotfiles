@@ -4,6 +4,7 @@
 source "$(chezmoi source-path)/scripts/utils.sh"
 
 _install_gpg_keys() {
+  mkdir -p {{ quote .paths.local.gpg }}
   {{- range $key := .apt.gpg_keys }}
     {{- $path := quote (print $.paths.local.gpg "/" $key.name ".gpg") }}
     {{- if or (not (hasKey $key "verbatim")) (not $key.verbatim) }}
