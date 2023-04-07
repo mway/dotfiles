@@ -358,7 +358,7 @@
                   changed_when: cmd.stdout | length > 0
         - name: Chezmoi > update and apply
           shell:
-            cmd: echo all-overwrite | chezmoi update --force
+            cmd: echo all-overwrite | chezmoi update --init --force
           register: cmd
           changed_when: cmd.stdout | length > 0 and 'up to date' not in cmd.stdout
       tags:
