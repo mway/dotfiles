@@ -14,7 +14,7 @@
       chezmoi: "v2.33.0"
       go: "1.20.3"
       helix: "22.12"
-      just: "1.11.0"
+      just: "1.13.0"
       rust: "1.68.2"
       tmux: "3.3a"
 
@@ -85,12 +85,6 @@
           - apt-transport-https
           - ca-certificates
           - software-properties-common
-          # tmux
-          - autotools-dev
-          - pkg-config
-          - bison
-          - libevent-dev
-          - libncurses-dev
         state: latest
         allow_unauthenticated: yes
         install_recommends: yes
@@ -265,46 +259,6 @@
         - base
         - languages
         - rust
-
-    - name: tmux
-      block:
-        - name: tmux > check version
-          command: tmux -V
-          register: cmd
-          changed_when: no
-          failed_when: versions.tmux not in cmd.stdout
-      rescue:
-        - name: tmux > preflight
-          file:
-            path: /tmp/tmux
-            state: absent
-        - name: tmux > clone
-          git:
-            repo: https://github.com/tmux/tmux.git
-            version: 3.3a
-            dest: /tmp/tmux
-        - name: tmux > configure
-          shell:
-            chdir: /tmp/tmux
-            cmd: ./autogen.sh && ./configure
-        - name: tmux > build
-          command:
-            chdir: /tmp/tmux
-            cmd: make
-        - name: tmux > install
-          become: yes
-          command:
-            chdir: /tmp/tmux
-            cmd: make install
-      always:
-        - name: tmux > cleanup
-          file:
-            path: /tmp/tmux
-            state: absent
-      tags:
-        - base
-        - tmux
-        - tools
 
     - name: Helix
       block:
