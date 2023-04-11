@@ -1,0 +1,519 @@
+---
+packages:
+  - name: go
+    platforms:
+      _:
+        type: bootstrap
+        name: go
+        version: "1.20.3"
+  - name: gopls
+    platforms:
+      _:
+        type: go
+        package: golang.org/x/tools/gopls
+        version: v0.8.3
+  - name: rust
+    platforms:
+      _:
+        type: bootstrap
+        name: rust
+        version: "1.68.2"
+  - name: rust-analyzer
+    platforms:
+      _:
+        type: archive
+        url: https://github.com/rust-lang/rust-analyzer/releases/download/${VERSION}/rust-analyzer-${ARCH}-${OS}.gz
+        files:
+          rust-analyzer-${ARCH}-${OS}: $LOCAL_BIN/rust-analyzer
+        translations:
+          darwin: apple-darwin
+          linux: unknown-linux-gnu
+          amd64: x86_64
+          arm64: aarch64
+        version: "0.3"
+        version_command: [rust-analyzer, [--version]]
+  - name: ag
+    platforms:
+      darwin:
+        type: brew
+        name: the_silver_searcher
+        version: "2.2.0"
+      linux:
+        type: apt
+        name: silversearcher-ag
+        version: "2.2.0"
+  - name: ansible
+    platforms:
+      darwin:
+        type: brew
+        version: "7.4"
+      linux:
+        type: apt
+        version: "2.10"
+  - name: bash
+    platforms:
+      darwin:
+        type: brew
+        version: "5.2.15"
+      linux:
+        type: apt
+        version: "5.2.15"
+  - name: bat
+    platforms:
+      _:
+        locked: true
+        type: cargo
+        version: "0.22.1"
+  # TODO: can't use googleapis.com on VPN
+  # - name: bazel
+  #   platforms:
+  #     _:
+  #       type: file
+  #       name: bazel
+  #       url: "https://github.com/bazelbuild/bazelisk/releases/download/v1.16.0/bazelisk-$OS-$ARCH"
+  #       dst: $HOME/.local/bin/bazel
+  #       version: "6.1.1"
+  #       version_command: [bazel, [--version]]
+  - name: btop
+    platforms:
+      _:
+        type: archive
+        url: https://github.com/aristocratos/btop/releases/download/v$VERSION/btop-$ARCH-$OS-$OS_QUALIFIER.tbz
+        strip: btop
+        translations:
+          darwin: macos
+        commands:
+          - command: make
+            args: [install, PREFIX=$LOCAL/btop]
+          - command: ln
+            args: [-fs, -s $LOCAL/btop/bin/btop, $LOCAL_BIN/btop]
+        version: "1.2.13"
+        version_command: [btop, [--version]]
+  - name: buf
+    platforms:
+      _:
+        type: file
+        url: https://github.com/bufbuild/buf/releases/download/v${VERSION}/buf-${OS}-${ARCH}
+        dst: $LOCAL_BIN/buf
+        mode: +x
+        translations:
+          darwin: Darwin
+          linux: Linux
+        version: "1.17.0"
+        version_command: [buf, [--version]]
+  - name: build-essential
+    platforms:
+      linux:
+        type: apt
+        version: "12."
+  - name: cargo-binutils
+    platforms:
+      _:
+        name: cargo-binutils
+        type: cargo
+        version: "0.3.6"
+  - name: cargo-make
+    platforms:
+      _:
+        name: cargo-make
+        type: cargo
+        version: "0.36.6"
+  - name: cargo-outdated
+    platforms:
+      _:
+        name: cargo-outdated
+        type: cargo
+        version: "0.11.2"
+  - name: cargo-sort
+    platforms:
+      _:
+        name: cargo-sort
+        type: cargo
+        version: "1.0.9"
+  - name: cargo-tarpaulin
+    platforms:
+      _:
+        name: cargo-tarpaulin
+        type: cargo
+        version: "0.25.1"
+  - name: cargo-watch
+    platforms:
+      _:
+        name: cargo-watch
+        type: cargo
+        version: "8.4.0"
+  - name: clang-format
+    platforms:
+      darwin:
+        type: brew
+        version: "15."
+      linux:
+        type: apt
+        version: "14."
+  - name: cmake
+    platforms:
+      darwin:
+        type: brew
+        version: "3.26.0"
+      linux:
+        type: apt
+        version: "3.22.1"
+  - name: coreutils
+    platforms:
+      darwin:
+        type: brew
+        version: "9.1"
+  - name: curl
+    platforms:
+      darwin:
+        type: brew
+        version: "8."
+      linux:
+        type: apt
+        version: "8."
+  - name: difftastic
+    platforms:
+      _:
+        type: cargo
+        version: "0.45.0"
+        version_command: [difft, [--version]]
+  - name: direnv
+    platforms:
+      darwin:
+        type: brew
+        version: "2.32.2"
+      linux:
+        type: apt
+        version: "2.32.2"
+  - name: docker
+    platforms:
+      darwin:
+        type: brew
+        name: docker
+        version: "23."
+      linux:
+        type: apt
+        name: docker
+        key:
+          type: gpg
+          name: docker
+          url: https://download.docker.com/linux/$OS_FAMILY/gpg
+          dearmor: true
+        repository:
+          name: docker
+          url: https://download.docker.com/linux/$OS_FAMILY
+          branch: $OS_CODENAME stable
+          key: docker
+        version: "23.0"
+        version_command: [docker, [--version]]
+  - name: docker-compose
+    platforms:
+      darwin:
+        type: brew
+        name: docker-compose
+        version: "2.16.0"
+      linux:
+        type: apt
+        name: docker
+        key:
+          type: gpg
+          name: docker
+          url: https://download.docker.com/linux/$OS_FAMILY/gpg
+          dearmor: true
+        repository:
+          name: docker
+          url: https://download.docker.com/linux/$OS_FAMILY
+          branch: $OS_CODENAME stable
+          key: docker
+        version: "2.17"
+        version_command: [docker-compose, [--version]]
+  - name: docker-desktop
+    platforms:
+      darwin:
+        type: brew
+        name: docker
+        cask: true
+        version: "4.18."
+  - name: exa
+    platforms:
+      _:
+        name: exa
+        type: cargo
+        version: "0.10.1"
+        no_default_features: true
+  - name: fd-find
+    platforms:
+      _:
+        name: fd-find
+        type: cargo
+        version: "8.7.0"
+        version_command: [fd, [--version]]
+  - name: fzf
+    platforms:
+      _:
+        type: archive
+        url: "https://github.com/junegunn/fzf/releases/download/$VERSION/fzf-$VERSION-$OS_$ARCH.zip"
+        version: "0.38.0"
+        version_command: [fzf, [--version]]
+        files:
+          fzf: $HOME/.local/bin/fzf
+  - name: gcc
+    platforms:
+      darwin:
+        type: brew
+        version: "12."
+      linux:
+        type: apt
+        version: "11.3"
+  - name: gh
+    platforms:
+      _:
+        type: archive
+        url: https://github.com/cli/cli/releases/download/v${VERSION}/gh_${VERSION}_${OS}_${ARCH}.tar.gz
+        strip: gh_${VERSION}_${OS}_${ARCH}
+        files:
+          bin/gh: $LOCAL_BIN/gh
+        translations:
+          darwin: macOS
+        version: "2.27.0"
+        version_command: [gh, [--version]]
+  - name: git
+    platforms:
+      darwin:
+        type: brew
+        version: "2.40."
+      linux:
+        type: apt
+        version: "2.34."
+  - name: golangci-lint
+    platforms:
+      _:
+        type: archive
+        dst: $HOME/.local/bin
+        url: https://github.com/golangci/golangci-lint/releases/download/v$VERSION/golangci-lint-$VERSION-$OS-$ARCH.tar.gz
+        strip: golangci-lint-$VERSION-$OS-$ARCH
+        files:
+          golangci-lint: $HOME/.local/bin/golangci-lint
+        version: "1.51.2"
+        version_command: [golangci-lint, [--version]]
+  - name: helix
+    platforms:
+      _:
+        locked: true
+        name: helix-term
+        git: https://github.com/helix-editor/helix
+        version: "22.12"
+        version_command: [hx, [--version]]
+        type: cargo
+  - name: htop
+    platforms:
+      darwin:
+        type: brew
+        version: "3.2.2"
+      linux:
+        type: apt
+        version: "3.0.5"
+  - name: jq
+    platforms:
+      darwin:
+        type: brew
+        version: "1.6"
+      linux:
+        type: apt
+        version: "1.6"
+  - name: just
+    platforms:
+      _:
+        type: cargo
+        version: "1.13.0"
+  - name: keychain
+    platforms:
+      darwin:
+        type: brew
+        version: "2.8.5"
+      linux:
+        type: apt
+        version: "2.8.5"
+  - name: libevent
+    platforms:
+      darwin:
+        type: brew
+        version: "2.1"
+      linux:
+        type: apt
+        name: libevent-2.1-7
+        version: "2.1"
+  - name: libevent-dev
+    platforms:
+      linux:
+        type: apt
+        version: "2.1"
+  - name: llvm
+    platforms:
+      darwin:
+        type: brew
+        version: "16.0"
+      linux:
+        type: apt
+        version: ”14.0"
+  - name: lsb-release
+    platforms:
+      linux:
+        type: apt
+        version: "11.1"
+  - name: node_exporter
+    platforms:
+      _:
+        type: go
+        package: github.com/prometheus/node_exporter
+        version: "1"
+  - name: python3
+    platforms:
+      darwin:
+        type: brew
+        name: python
+        version: "3.11"
+      linux:
+        type: apt
+        version: "3.10"
+  - name: ripgrep
+    platforms:
+      _:
+        type: cargo
+        name: ripgrep
+        version: "13.0.0"
+  - name: ruby
+    platforms:
+      darwin:
+        type: brew
+        version: "3.2.1"
+      linux:
+        type: apt
+        version: "3.0"
+  - name: shellcheck
+    platforms:
+      darwin:
+        type: brew
+        version: "0.9.0"
+      linux:
+        type: apt
+        version: "0.8.0"
+  - name: staticcheck
+    platforms:
+      _:
+        type: go
+        package: honnef.co/go/tools/cmd/staticcheck
+        version: "0.4.3"
+  - name: telnet
+    platforms:
+      darwin:
+        type: brew
+      apt:
+        type: brew
+  - name: tree
+    platforms:
+      darwin:
+        type: brew
+        version: "2.1.0"
+      linux:
+        type: apt
+        version: "2.0"
+  - name: watch
+    platforms:
+      darwin:
+        type: brew
+        version: "4.0.3"
+      linux:
+        type: apt
+        name: procps
+        version: "3.3"
+  - name: zellij
+    platforms:
+      _:
+        locked: true
+        type: cargo
+        version: "0.35.2"
+        version_command: [zellij, [--version]]
+
+  - name: 1password
+    platforms:
+      darwin:
+        type: brew
+        cask: true
+  - name: alfred
+    platforms:
+      darwin:
+        type: brew
+        cask: true
+  - name: bartender
+    platforms:
+      darwin:
+        type: brew
+        cask: true
+  - name: dropbox
+    platforms:
+      darwin:
+        type: brew
+        cask: true
+  - name: espanso
+    platforms:
+      darwin:
+        type: brew
+        cask: true
+  - name: fork
+    platforms:
+      darwin:
+        type: brew
+        cask: true
+  - name: iterm2
+    platforms:
+      darwin:
+        type: brew
+        cask: true
+  - name: macfuse
+    platforms:
+      darwin:
+        type: brew
+        cask: true
+  - name: slack
+    platforms:
+      darwin:
+        type: brew
+        cask: true
+  - name: spectacle
+    platforms:
+      darwin:
+        type: brew
+        cask: true
+  - name: spotify
+    platforms:
+      darwin:
+        type: brew
+        cask: true
+  - name: brave-browser
+    platforms:
+      darwin:
+        type: brew
+        cask: true
+  - name: nordvpn
+    platforms:
+      darwin:
+        type: brew
+        cask: true
+  - name: tailscale
+    platforms:
+      darwin:
+        type: brew
+        cask: true
+  - name: veracrypt
+    platforms:
+      darwin:
+        type: brew
+        cask: true
+
+      # next: compose for both NUCs to run the right containers
+      # next: systemv for node_exporter
+      # next: make sure push metrics are supported @ victoria
+      # next: move /etc/mway contents to chezmoi?
+      # also, what about systemv?
+      # start cross-compiling, scping, and testing on linux

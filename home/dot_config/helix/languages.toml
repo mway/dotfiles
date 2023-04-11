@@ -25,6 +25,9 @@ name = "yaml"
 yaml.keyOrdering = false
 
 [[language]]
+name = "rust"
+
+[[language]]
 name = "cpp"
 
 [language.config]
