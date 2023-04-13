@@ -11,7 +11,7 @@ packages:
       _:
         type: go
         package: golang.org/x/tools/gopls
-        version: v0.8.3
+        version: v0.11.0
   - name: rust
     platforms:
       _:
@@ -25,12 +25,14 @@ packages:
         url: https://github.com/rust-lang/rust-analyzer/releases/download/${VERSION}/rust-analyzer-${ARCH}-${OS}.gz
         files:
           rust-analyzer-${ARCH}-${OS}: $LOCAL_BIN/rust-analyzer
+        modes:
+          rust-analyzer-*: +x
         translations:
           darwin: apple-darwin
           linux: unknown-linux-gnu
           amd64: x86_64
           arm64: aarch64
-        version: "0.3"
+        version: 2023-04-07
         version_command: [rust-analyzer, [--version]]
   - name: ag
     platforms:
@@ -163,6 +165,11 @@ packages:
       darwin:
         type: brew
         version: "9.1"
+  - name: cross
+    platforms:
+      _:
+        type: cargo
+        version: "0.2.5"
   - name: curl
     platforms:
       darwin:
@@ -252,11 +259,13 @@ packages:
     platforms:
       _:
         type: archive
-        url: "https://github.com/junegunn/fzf/releases/download/$VERSION/fzf-$VERSION-$OS_$ARCH.zip"
-        version: "0.38.0"
+        url: "https://github.com/junegunn/fzf/releases/download/$VERSION/fzf-${VERSION}-${OS}_${ARCH}.zip"
+        version: "0.39.0"
         version_command: [fzf, [--version]]
         files:
-          fzf: $HOME/.local/bin/fzf
+          fzf: $LOCAL_BIN/fzf
+        modes:
+          fzf: +x
   - name: gcc
     platforms:
       darwin:
@@ -299,7 +308,7 @@ packages:
         strip: golangci-lint-$VERSION-$OS-$ARCH
         files:
           golangci-lint: $HOME/.local/bin/golangci-lint
-        version: "1.51.2"
+        version: "1.52.2"
         version_command: [golangci-lint, [--version]]
   - name: helix
     platforms:
@@ -432,6 +441,12 @@ packages:
         type: apt
         name: procps
         version: "3.3"
+  - name: wego
+    platforms:
+      _:
+        type: go
+        package: github.com/schachmat/wego
+        version: "latest"
   - name: zellij
     platforms:
       _:

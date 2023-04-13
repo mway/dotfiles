@@ -1,5 +1,5 @@
-{{- $globalCache := "0" }}
-{{- $personal := and (lt (.chezmoi.hostname|len) 15) (ne .chezmoi.hostname .chezmoi.username) -}}
+{{- $globalCache := "1" }}
+{{- $personal := and (lt (len .chezmoi.hostname) 15) (ne .chezmoi.hostname .chezmoi.username) -}}
 {{- $localRoot := print .chezmoi.homeDir "/.local" }}
 {{- $localBin := print $localRoot "/bin" }}
 {{- $localGPG := print $localRoot "/gpg.d" }}
@@ -8,14 +8,7 @@
 {{- $userConfig := print $userHome "/.config" }}
 {{- $goPath := print $userHome "/go" }}
 {{- $goRoot := print $localRoot "/go" }}
-{{- $rustCargo := print $userHome "/.cargo" }}
-{{- $linuxFamily := "" }}
-{{- $linuxVersion := "" }}
-
-{{- if eq .chezmoi.os "linux" }}
-{{- $linuxFamily = .chezmoi.osRelease.id }}
-{{- $linuxVersion = .chezmoi.osRelease.versionCodename }}
-{{- end }}
+{{- $cargoHome := print $userHome "/.cargo" }}
 
 diff:
   command: "difft"
@@ -31,7 +24,6 @@ data:
   paths:
     local:
       bin: {{ quote $localBin }}
-      gpg: {{ quote $localGPG }}
       root: {{ quote $localRoot }}
     user:
       bin: {{ quote $userBin }}
@@ -39,34 +31,44 @@ data:
       home: {{ quote $userHome }}
     go:
       gopath: {{ quote $goPath }}
+      gobin: {{ quote (print $goPath "/bin") }}
       goroot: {{ quote $goRoot }}
-    rust:
-      cargo: {{ quote $rustCargo }}
+    cargo:
+      home: {{ quote $cargoHome }}
+      bin: {{ quote (print $cargoHome "/bin") }}
   user: {{ quote .chezmoi.username }}
   cache:
     global: {{ $globalCache }}
-  {{- if eq .chezmoi.os "darwin" }}
-  homebrew:
-    formulae:
+  mw:
+    packages:
+      - go
+      - rust
       - ag
       - ansible
       - bash
-      - bash-language-server
+      - bat
       - btop
-      - bufbuild/buf/buf
+      - buf
+      - cargo-*
       - clang-format
       - cmake
-      - coreutils
       - curl
       - difftastic
       - direnv
       - docker
       - docker-compose
+      - exa
       - fd
+      - fzf
       - gcc
+      - gh
       - git
+      - golangci-lint
+      - gopls
+      - helix
       - htop
       - jq
+      - just
       - keychain
       - llvm
       - npm
@@ -76,16 +78,13 @@ data:
       - telnet
       - tree
       - watch
-      - yaml-language-server
-      - yq
-      - zig --HEAD
-      {{- if not $personal }}
-      - imp
-      {{- end }}
-    casks:
+      - zellij
+      {{- if eq .chezmoi.os "darwin" }}
+      - coreutils
       - 1password
       - alfred
       - bartender
+      - docker-desktop
       - dropbox
       - espanso
       - fork
@@ -102,61 +101,15 @@ data:
       - tailscale
       - transmission
       - veracrypt
+      {{- else }}
+      - llc # TODO
+      - imp # TODO
       {{- end }}
-  {{- end }}
-  {{- if eq .chezmoi.os "linux" }}
-  apt:
-    prerequisites:
+      {{- end }}
+      {{- if eq .chezmoi.os "linux" }}
       - build-essential
-      - clang-13
-      - clang-format-13
-      - cmake
-      - curl
-      - gcc
-      - git
-      - libevent-2.1
       - libevent-dev
-      - llvm-13  
       - lsb-release
-    gpg_keys:
-      - name: docker
-        url: "https://download.docker.com/linux/{{ $linuxFamily }}/gpg"
-        args: --dearmor
-      - name: github
-        url: "https://cli.github.com/packages/githubcli-archive-keyring.gpg"
-        verbatim: true
-    apt_keys:
-      - name: docker
-        server: keyserver.ubuntu.com
-        id: 7EA0A9C3F273FCD8
-      - name: github
-        server: keyserver.ubuntu.com
-        id: 23F3D4EA75716059
-    repositories:
-      - name: docker
-        url: "https://download.docker.com/linux/{{ $linuxFamily }}"
-        branch: "{{ $linuxVersion }} stable"
-      - name: github
-        url: "https://cli.github.com/packages"
-        branch: "stable main"
-    packages:
-      - ansible
-      - bash
-      - direnv
-      - docker-ce
-      - docker-compose
-      - fd-find
-      - htop
-      - jq
-      - keychain
-      - python3
-      - ruby
-      - shellcheck
-      - silversearcher-ag
-      - telnet
-      - tree
-      {{- if not $personal }}
-      - imp
       {{- end }}
     alternatives:
       - src: /usr/bin/llvm-config-13
@@ -183,29 +136,3 @@ data:
             dst: /usr/bin/git-clang-format
       - src: /usr/bin/fdfind
         dst: /usr/bin/fd
-  {{- end }}
-  crates:
-    - bat --locked
-    - cargo-binutils
-    - cargo-make
-    - cargo-outdated
-    - cargo-sort
-    - cargo-tarpaulin
-    - cargo-watch
-    - difftastic
-    - exa --no-default-features
-    - just
-    - zellij --locked
-  
-  versions:
-    bazelisk: "v1.16.0"
-    btop: "1.2.13"
-    buf: "v1.15.0"
-    fzf: "0.38.0"
-    gh: "2.24.3"
-    go: "1.20.1"
-    golangci_lint: "v1.51.2"
-    helix: "22.12"
-    tmux: "3.3a"
-    yq: "v4.31.2"
-    zig: "0.10.1"

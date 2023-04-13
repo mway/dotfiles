@@ -19,9 +19,9 @@ _manage() {
   local _manage_func="$2"
 
   echo "[$(ansi --green --bold chezmoi)] $(ansi --bold --white "Managing $_manage_name")"
-  ansi::muted
-  $_manage_func >/dev/null
-  ansi::reset
+  # ansi::muted
+  $_manage_func # >/dev/null
+  # ansi::reset
 }
 
 _brew() {
