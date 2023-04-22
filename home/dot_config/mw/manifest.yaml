@@ -533,7 +533,7 @@ packages:
           dearmor: true
         repository:
           name: docker
-          url: https://downloads.1password.com/linux/$OS_FAMILY/$ARCH
+          url: https://downloads.1password.com/linux/debian/$ARCH
           branch: stable main
           key: 1password
         version: "23.0"
