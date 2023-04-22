@@ -7,8 +7,18 @@
 {{ end }}
 
 # Ignore all of $HOME/bin except specific scripts things
-/bin/
-!/bin/executable_apb
+bin/
+!bin/executable_apb
+
+# Ignore ~/.local by default
+.local/*
+!.local/etc
+!.local/etc/docker
+!.local/etc/ecobee
+!.local/etc/grafana
+!.local/etc/prometheus
+!.local/etc/systemd
+
 
 .config/helix/runtime
 /scripts/ # chezmoi helpers

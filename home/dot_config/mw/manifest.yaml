@@ -1,5 +1,14 @@
 ---
 packages:
+  - name: mw
+    platforms:
+      _:
+        type: group
+        packages:
+          - type: cargo
+            name: mw
+            git: ssh://git@github.com/mway/mway-rs
+            locked: true
   - name: go
     platforms:
       _:
@@ -34,6 +43,32 @@ packages:
           arm64: aarch64
         version: 2023-04-07
         version_command: [rust-analyzer, [--version]]
+  - name: chezmoi
+    platforms:
+      darwin:
+        type: brew
+        version: v2.31.1
+      linux:
+        type: apt
+  - name: 1password-cli
+    platforms:
+      darwin:
+        type: brew
+        tap: 1password/tap
+        version: "2.16"
+      linux:
+        type: apt
+        key:
+          type: gpg
+          name: 1password
+          url: https://downloads.1password.com/linux/keys/1password.asc
+          dearmor: true
+        repository:
+          name: 1password
+          url: https://downloads.1password.com/linux/debian/$ARCH
+          branch: stable main
+          key: 1password
+        version: "23.0"
   - name: ag
     platforms:
       darwin:
@@ -255,7 +290,7 @@ packages:
         type: cargo
         version: "8.7.0"
         version_command: [fd, [--version]]
-  - name: fzf
+  - name: fzf # TODO: add bash autocompletes here and elsewhere
     platforms:
       _:
         type: archive
@@ -313,12 +348,26 @@ packages:
   - name: helix
     platforms:
       _:
-        locked: true
-        name: helix-term
-        git: https://github.com/helix-editor/helix
-        version: "22.12"
+        type: group
+        packages:
+          - type: cargo
+            name: helix-term
+            git: https://github.com/helix-editor/helix
+            locked: true
+          - type: archive
+            name: helix-runtime
+            url: https://github.com/helix-editor/helix/archive/refs/tags/${VERSION}.tar.gz
+            strip: helix-$VERSION
+            files:
+              runtime: $USER_CONFIG/helix/runtime
+          - type: command
+            command: hx
+            args: [-g, fetch]
+          - type: command
+            command: hx
+            args: [-g, build]
+        version: "23.03"
         version_command: [hx, [--version]]
-        type: cargo
   - name: htop
     platforms:
       darwin:
@@ -424,6 +473,12 @@ packages:
         type: brew
       apt:
         type: brew
+  - name: terraform
+    platforms:
+      darwin:
+        type: brew
+        tap: hashicorp/tap
+        version: "1.4.5"
   - name: tree
     platforms:
       darwin:
@@ -469,6 +524,19 @@ packages:
       darwin:
         type: brew
         cask: true
+      linux:
+        type: apt
+        key:
+          type: gpg
+          name: 1password
+          url: https://downloads.1password.com/linux/keys/1password.asc
+          dearmor: true
+        repository:
+          name: docker
+          url: https://downloads.1password.com/linux/$OS_FAMILY/$ARCH
+          branch: stable main
+          key: 1password
+        version: "23.0"
   - name: alfred
     platforms:
       darwin:
