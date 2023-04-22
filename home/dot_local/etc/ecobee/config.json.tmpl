@@ -1,0 +1,26 @@
+{
+  "work_dir": "/opt/mway/share/ecobee",
+{{- range (onepassword "home.mway.dev").fields }}
+{{-   if eq .label "api.ecobee.key" }}
+  "api_key": "{{ .value }}",
+{{-   else if eq .label "api.ecobee.thermostat" }}
+  "thermostat_id": "{{ .value }}",
+{{-   else if eq .label "api.ecobee.influx_server" }}
+  "influx_server": "{{ .value }}",
+{{-   end }}
+{{- end }}
+  "influx_bucket": "ecobee",
+  "influx_user": "",
+  "influx_password": "",
+  "influx_token": "",
+  "influx_org": "",
+  "influx_health_check_disabled": true,
+  "always_write_weather_as_current": true,
+  "write_heat_pump_1": true,
+  "write_heat_pump_2": true,
+  "write_aux_heat_1": true,
+  "write_aux_heat_2": true,
+  "write_cool_1": true,
+  "write_cool_2": true,
+  "write_humidifier": false
+}

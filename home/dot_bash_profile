@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-[[ ! -f ~/.bashrc ]] || source ~/.bashrc
-[[ ! -f ~/.dotrc ]] || source ~/.dotrc

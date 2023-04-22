@@ -1,0 +1,14 @@
+[Unit]
+Description=%i service with docker compose
+PartOf=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+WorkingDirectory=/home/mway/.local
+ExecStart=/home/mway/.local/bin/docker-compose -f /home/mway/.local/etc/docker/docker-compose.yml up -d --remove-orphans
+ExecStop=/home/mway/.local/bin/docker-compose down
+
+[Install]
+WantedBy=multi-user.target

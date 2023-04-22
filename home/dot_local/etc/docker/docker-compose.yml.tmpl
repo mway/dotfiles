@@ -1,0 +1,75 @@
+services:
+  victoria-metrics:
+    image: victoriametrics/victoria-metrics
+    command: |
+      -retentionPeriod 5y
+      -selfScrapeInterval 10s
+      -promscrape.config /etc/prometheus/prometheus.yml
+      -promscrape.configCheckInterval 30s
+      -usePromCompatibleNaming
+    container_name: victoria-metrics
+    restart: always
+    volumes:
+      - victoria-metrics-data:/victoria-metrics-data
+      - $HOME/.local/etc/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    tmpfs:
+      - /tmp
+    network_mode: host
+    ports:
+      - 8428:8428
+
+  node-exporter:
+    image: quay.io/prometheus/node-exporter
+    command:
+      - --collector.processes
+      - --collector.systemd
+      - --path.rootfs=/host
+    container_name: node-exporter
+    restart: always
+    pid: host
+    volumes:
+      - /:/host:ro,rslave
+    tmpfs:
+      - /tmp
+    network_mode: host
+    ports:
+      - 9100:9100
+
+  loki:
+    image: grafana/loki
+    container_name: loki
+    restart: always
+    volumes:
+      - loki-data:/loki
+    tmpfs:
+      - /tmp
+    network_mode: host
+    ports:
+      - 3100:3100
+
+  promtail:
+    image: grafana/promtail
+    container_name: promtail
+    restart: always
+    network_mode: host
+                  
+  grafana:
+    image: grafana/grafana-oss
+    container_name: grafana
+    restart: always
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - $HOME/.local/etc/grafana.ini:/etc/grafana/grafana.ini
+    tmpfs:
+      - /tmp
+    network_mode: host
+    ports:
+      - 3000:3000
+    depends_on:
+      - loki
+      - victoria-metrics
+    
+volumes:
+  grafana-data:
+  loki-data:
+  victoria-metrics-data:
