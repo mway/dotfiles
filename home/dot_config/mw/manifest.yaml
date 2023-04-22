@@ -68,7 +68,7 @@ packages:
           url: https://downloads.1password.com/linux/debian/$ARCH
           branch: stable main
           key: 1password
-        version: "23.0"
+        version: "2.16"
   - name: ag
     platforms:
       darwin:
@@ -536,7 +536,7 @@ packages:
           url: https://downloads.1password.com/linux/debian/$ARCH
           branch: stable main
           key: 1password
-        version: "23.0"
+        version: "8.10"
   - name: alfred
     platforms:
       darwin:
