@@ -38,6 +38,7 @@ services:
     restart: always
     volumes:
       - loki-data:/loki
+      - $HOME/.local/etc/grafana/loki.yaml:/etc/grafana/loki.yaml
     tmpfs:
       - /tmp
     network_mode: host
@@ -50,6 +51,7 @@ services:
     container_name: promtail
     restart: always
     volumes:
+      - /:/host:ro,rslave
       - $HOME/.local/etc/grafana/promtail.yaml:/etc/grafana/promtail.yaml
     network_mode: host
                   
