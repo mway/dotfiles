@@ -1,37 +1,37 @@
 #!/usr/bin/env bash
 # global cache {{ .cache.global }}
 
-source "$(chezmoi source-path)/scripts/utils.sh"
-set -eo pipefail
+# source "$(chezmoi source-path)/scripts/utils.sh"
+# set -eo pipefail
 
-_mw_install() {
-  # Ensure that the `mw` command exists.
-  if [ ! -x "$(which mw || true)" ]; then
-    echo "Warning: mw not found, installing..."
-    if [ ! -x "$(which cargo)" ]; then
-      echo "Warning: cargo not found, installing..."
-      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
-        sh -- -y --no-modify-path --profile complete
-      echo "Installed cargo"
-      source "$HOME/.cargo/env"
-    fi
+# _mw_install() {
+#   # Ensure that the `mw` command exists.
+#   if [ ! -x "$(which mw || true)" ]; then
+#     echo "Warning: mw not found, installing..."
+#     if [ ! -x "$(which cargo)" ]; then
+#       echo "Warning: cargo not found, installing..."
+#       curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
+#         sh -- -y --no-modify-path --profile complete
+#       echo "Installed cargo"
+#       source "$HOME/.cargo/env"
+#     fi
 
-    echo "Installing mw..."
-    cargo install --git https://github.com/mway/mway-rs --path mw
-  fi
+#     echo "Installing mw..."
+#     cargo install --git https://github.com/mway/mway-rs --path mw
+#   fi
 
-  eval "$(mw env -es)"
+#   eval "$(mw env -es)"
 
-  mkdir -p "$GOPATH"
-  mkdir -p "$GOBIN"
-  mkdir -p "$GOROOT"
-  mkdir -p "$HOME_BIN"
-  mkdir -p "$LOCAL"
-  mkdir -p "$LOCAL_BIN"
-  chmod go+rx "$LOCAL" "$LOCAL_BIN"
-  export PATH="$(mw env PATH)"
+#   mkdir -p "$GOPATH"
+#   mkdir -p "$GOBIN"
+#   mkdir -p "$GOROOT"
+#   mkdir -p "$HOME_BIN"
+#   mkdir -p "$LOCAL"
+#   mkdir -p "$LOCAL_BIN"
+#   chmod go+rx "$LOCAL" "$LOCAL_BIN"
+#   export PATH="$(mw env PATH)"
 
-  mw install {{ join " " .mw.packages }}
-}
+#   mw install {{ join " " .mw.packages }}
+# }
 
-_manage "mw install" _mw_install
+# _manage "mw install" _mw_install
