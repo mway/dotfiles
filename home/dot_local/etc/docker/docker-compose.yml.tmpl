@@ -34,6 +34,9 @@ services:
 
   loki:
     image: grafana/loki
+    command:
+      - --config.file
+      - /etc/grafana/loki.yaml
     container_name: loki
     restart: always
     volumes:
