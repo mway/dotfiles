@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+_rustup() {
+  local rustup="$HOME/.cargo/bin/rustup"
+  if [ ! -x "$rustup" ]; then
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
+      sh -- -y --no-modify-path
+  fi
+
+  exec "$rustup" "$@"
+}
+
+_rustup "$@"

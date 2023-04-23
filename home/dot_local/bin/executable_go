@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+_go() {
+  local go="$HOME/.local/go/bin/go"
+  if [ ! -x "$go" ]; then
+    mw install go
+  fi
+
+  exec "$go" "$@"
+}
+
+_go "$@"

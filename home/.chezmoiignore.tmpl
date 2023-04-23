@@ -1,27 +1,39 @@
-{{ if ne .chezmoi.os "darwin" }}
-.chezmoiscripts/darwin/**
-{{ end }}
+# Ignore everything by default.
+*
 
-{{ if ne .chezmoi.os "linux" }}
-.chezmoiscripts/linux/**
-{{ end }}
+!bin
+bin/*
+!bin/apb
 
-# Ignore all of $HOME/bin except specific scripts things
-bin/
-!bin/executable_apb
+!.config
+.config/*
+!.config/ansible
+!.config/bat
+!.config/btop
+.config/btop/btop.log
+!.config/htop
+!.config/mw
+!.config/helix
+.config/helix/runtime
+!.config/zellij
 
-# Ignore ~/.local by default
+!.local
 .local/*
+!.local/bin
+.local/bin/*
+!.local/bin/cargo
+!.local/bin/go
+!.local/bin/mw
+!.local/bin/rustup
+
 !.local/etc
+.local/etc/*
 !.local/etc/docker
 !.local/etc/ecobee
 !.local/etc/grafana
 !.local/etc/prometheus
 !.local/etc/systemd
 
-
-.config/helix/runtime
 /scripts/ # chezmoi helpers
-.config/btop/btop.log
 .DS_Store
 .*.sw?

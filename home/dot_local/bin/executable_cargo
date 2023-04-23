@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+_cargo() {
+  local cargo="$HOME/.cargo/bin/cargo"
+  if [ ! -x "$cargo" ]; then
+    rustup install stable
+  fi
+
+  exec "$cargo" "$@"
+}
+
+_cargo "$@"

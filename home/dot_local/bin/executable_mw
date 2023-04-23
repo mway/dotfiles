@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+_mw() {
+  local mw="$HOME/.cargo/bin/mw"
+  if [ ! -x "$mw" ]; then
+    cargo install \
+      --config net.git-fetch-with-cli=true \
+      --git ssh://git@github.com/mway/mway-rs \
+      mw
+  fi
+
+  exec "$mw" "$@"
+}
+
+_mw "$@"
