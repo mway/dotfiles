@@ -2,11 +2,13 @@
 set -eo pipefail
 
 _mw() {
+  local version="0.1.0"
   local mw="$HOME/.cargo/bin/mw"
-  if [ ! -x "$mw" ]; then
+  if [ ! -x "$mw" ] || [[ "$("$mw" --version)" != *"$version"* ]]; then
     cargo install \
-      --config net.git-fetch-with-cli=true \
+      --config net.git-fetch-with-cli=true    \
       --git ssh://git@github.com/mway/mway-rs \
+      --tag "$version"                        \
       mw
   fi
 
