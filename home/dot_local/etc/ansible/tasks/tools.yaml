@@ -1,0 +1,26 @@
+---
+- name: mw install
+  command: "mw install {{ item }}"
+  register: mw_install_pkg
+  changed_when: "'is installed' in mw_install_pkg.stdout"
+  tags:
+    - devenv
+    - tools
+    - packages
+  loop:
+    - ag
+    - bash
+    - bat
+    - btop
+    - curl
+    - difftastic
+    - direnv
+    # - docker
+    # - docker-compose
+    - exa
+    - fd-find
+    - fzf
+    - git
+    - jq
+    - just
+    - tree

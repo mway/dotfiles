@@ -1,0 +1,46 @@
+---
+- name: Node Exporter
+  community.docker.docker_compose:
+    project_src: "{{ local }}/etc/docker"
+    services:
+      - node-exporter
+  when: "'personal' in group_names"
+  tags:
+    - node-exporter
+    - services
+
+- name: PiHole
+  community.docker.docker_compose:
+    project_src: "{{ local }}/etc/docker"
+    services:
+      - pihole
+  when: "'dns' in group_names"
+  tags:
+    - promtail
+    - services
+  
+- name: Promtail
+  community.docker.docker_compose:
+    project_src: "{{ local }}/etc/docker"
+    services:
+      - promtail
+  when: "'personal' in group_names"
+  tags:
+    - promtail
+    - services
+
+- name: Observability
+  community.docker.docker_compose:
+    project_src: "{{ local }}/etc/docker"
+    services:
+      - grafana
+      - loki
+      - victoria-metrics
+  when: "'obs' in group_names"
+  tags:
+    - grafana
+    - loki
+    - obs
+    - observability
+    - victoria-metrics
+    - services

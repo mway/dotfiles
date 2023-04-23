@@ -1,0 +1,71 @@
+---
+- name: NextDNS
+  blockinfile:
+    path: /etc/systemd/resolv.conf
+    create: true
+    mode: u=rw,g=r,o=r
+    block: |
+      [Resolve]
+      DNS=45.90.28.0#bc98cd.dns.nextdns.io
+      DNS=2a07:a8c0::#bc98cd.dns.nextdns.io
+      DNS=45.90.30.0#bc98cd.dns.nextdns.io
+      DNS=2a07:a8c1::#bc98cd.dns.nextdns.io
+      DNSOverTLS=yes
+  become: true
+  when: "'personal' in group_names"
+  tags:
+    - core
+    - network
+    - nextdns
+    - personal
+
+- name: Rust
+  block:
+    - name: Rust > rustup update
+      block:
+        - name: rustup update
+          command: rustup update stable
+          register: rustup_update
+          changed_when: "'unchanged' not in rustup_update.stdout"
+      rescue:
+        - name: install rustup
+          shell: curl -sL https://sh.rustup.rs/ | sh -s -- -y --no-modify-path --profile complete
+  tags:
+    - core
+    - devenv
+    - languages
+    - personal
+    - rust
+  
+- name: Ensure mw
+  command: cargo --config net.git-fetch-with-cli=true install --git ssh://git@github.com/mway/mway-rs mw
+  register: cargo_install_mw
+  changed_when: "'already installed' not in cargo_install_mw.stderr"
+  tags:
+    - core
+    - devenv
+    - mw
+    - personal
+    - tools
+
+- name: Update mw
+  command: mw install mw
+  register: mw_install_mw
+  changed_when: "'already installed' not in mw_install_mw.stderr"
+  tags:
+    - core
+    - devenv
+    - mw
+    - personal
+    - tools
+
+- name: Go
+  command: mw install go
+  register: mw_install_go
+  changed_when: "'already installed' not in mw_install_go.stdout"
+  tags:
+    - core
+    - devenv
+    - go
+    - languages
+    - personal

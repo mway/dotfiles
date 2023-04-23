@@ -1,0 +1,76 @@
+---
+- name: .ssh/authorized_keys
+  copy:
+    src: home/.ssh/authorized_keys
+    dest: ~/.ssh/
+    mode: u=rw,g=r,o=r
+  when: "'personal' in group_names"
+  tags:
+    - devenv
+    - config
+    - personal
+    - ssh
+
+- name: .ssh/config
+  blockinfile:
+    path: ~/.ssh/config
+    create: true
+    mode: u=rw,g=r,o=r
+    block: |
+      Host github.com
+        UpdateHostKeys yes
+  tags:
+    - config
+    - devenv
+    - personal
+    - ssh
+
+- name: 1password
+  block:
+    - name: Ensure 1password session
+      shell: op signin -f --account my
+      args:
+        stdin: "{{ vault_password }}"
+      register: op_session
+    - name: Extract 1password credentials
+      set_fact:
+        op_session_id: "{{ op_session.stdout_lines.0.split(' ').1.split('=').0 }}"
+        op_session_key: "{{ op_session.stdout_lines.0.split(' ').1.split('=').1.strip('\"') }}"
+        shell: awk '{print $NF}' | cut -d= -f1
+  no_log: true
+  tags:
+    - chezmoi
+    - config
+    - devenv
+    - dotfiles
+    - personal
+
+- name: Ensure chezmoi
+  block:
+    - name: chezmoi --version
+      shell: '[[ "$($HOME/.local/bin/chezmoi --version 2>/dev/null)" =~ "v{{ versions.chezmoi }}" ]]'
+      args:
+        executable: /bin/bash
+      changed_when: false
+  rescue:
+    - name: chezmoi init
+      shell: sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin init git@github.com:mway/dotfiles.git
+  tags:
+    - chezmoi
+    - config
+    - devenv
+    - dotfiles
+    - personal
+
+- name: chezmoi update
+  shell: |
+    {{ op_session_id }}={{ op_session_key }} chezmoi update --verbose --init --apply --force
+  register: chezmoi_update
+  changed_when: "chezmoi_update.stdout_lines|length > 1"
+  no_log: true
+  tags:
+    - chezmoi
+    - config
+    - devenv
+    - dotfiles
+    - personal
