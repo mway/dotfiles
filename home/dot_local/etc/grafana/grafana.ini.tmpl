@@ -741,12 +741,12 @@
 [smtp]
 enabled = true
 host = smtp.gmail.com:465
-{{- range (onepassword "home.mway.dev").fields }}
-{{-   if eq .label "api.gmail.user" }}
+{{- range (onepassword "gmail" "Infra").fields }}
+{{-   if eq .label "user" }}
 user = {{ .value }}
-{{-   else if eq .label "api.gmail.password" }}
+{{-   else if eq .label "app_password" }}
 password = {{ .value }}
-{{-   else if eq .label "api.gmail.from_address" }}
+{{-   else if eq .label "from_address" }}
 from_address = {{ .value }}
 {{-   end }}
 {{- end }}

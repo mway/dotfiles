@@ -1,11 +1,11 @@
 {
   "work_dir": "/opt/mway/share/ecobee",
-{{- range (onepassword "home.mway.dev").fields }}
-{{-   if eq .label "api.ecobee.key" }}
+{{- range (onepassword "ecobee" "Infra").fields }}
+{{-   if eq .label "api_key" }}
   "api_key": "{{ .value }}",
-{{-   else if eq .label "api.ecobee.thermostat" }}
+{{-   else if eq .label "thermostat" }}
   "thermostat_id": "{{ .value }}",
-{{-   else if eq .label "api.ecobee.influx_server" }}
+{{-   else if eq .label "influx_server" }}
   "influx_server": "{{ .value }}",
 {{-   end }}
 {{- end }}
