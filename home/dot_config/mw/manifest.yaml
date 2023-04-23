@@ -94,7 +94,7 @@ packages:
         version: "5.2.15"
       linux:
         type: apt
-        version: "5.2.15"
+        version: "5.1.16"
   - name: bat
     platforms:
       _:
@@ -212,7 +212,7 @@ packages:
         version: "8."
       linux:
         type: apt
-        version: "8."
+        version: "7."
   - name: difftastic
     platforms:
       _:
@@ -226,7 +226,7 @@ packages:
         version: "2.32.2"
       linux:
         type: apt
-        version: "2.32.2"
+        version: "2.25.2"
   - name: docker
     platforms:
       darwin:
@@ -290,17 +290,27 @@ packages:
         type: cargo
         version: "8.7.0"
         version_command: [fd, [--version]]
-  - name: fzf # TODO: add bash autocompletes here and elsewhere
+  - name: fzf
     platforms:
       _:
-        type: archive
-        url: "https://github.com/junegunn/fzf/releases/download/$VERSION/fzf-${VERSION}-${OS}_${ARCH}.zip"
+        type: group
+        packages:
+          - name: fzf
+            type: archive
+            url: "https://github.com/junegunn/fzf/releases/download/$VERSION/fzf-${VERSION}-${OS}_${ARCH}.zip"
+            files:
+              fzf: $LOCAL_BIN/fzf
+            modes:
+              fzf: +x
+          - name: fzf completion
+            type: archive
+            url: "https://github.com/junegunn/fzf/archive/refs/tags/${VERSION}.tar.gz"
+            strip: fzf-$VERSION
+            files:
+              shell/completion.bash: $HOME/.config/fzf/completion.bash
+              shell/key-bindings.bash: $HOME/.config/fzf/key-bindings.bash
         version: "0.39.0"
         version_command: [fzf, [--version]]
-        files:
-          fzf: $LOCAL_BIN/fzf
-        modes:
-          fzf: +x
   - name: gcc
     platforms:
       darwin:
