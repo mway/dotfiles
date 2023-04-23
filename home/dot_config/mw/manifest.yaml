@@ -467,6 +467,26 @@ packages:
         type: go
         package: honnef.co/go/tools/cmd/staticcheck
         version: "0.4.3"
+  - name: tailscale
+    platforms:
+      darwin:
+        type: brew
+        cask: true
+      linux:
+        type: group
+        packages:
+          - name: tailscale-installer
+            type: file
+            url: https://tailscale.com/install.sh
+            dst: $LOCAL_BIN/tailscale-installer
+            mode: +x
+            version: "1.38"
+            version_command: [tailscale, [--version]]
+          - name: tailscale
+            type: command
+            command: tailscale-installer
+            version: "1.38"
+            version_command: [tailscale, [--version]]
   - name: telnet
     platforms:
       darwin:
@@ -597,20 +617,8 @@ packages:
       darwin:
         type: brew
         cask: true
-  - name: tailscale
-    platforms:
-      darwin:
-        type: brew
-        cask: true
   - name: veracrypt
     platforms:
       darwin:
         type: brew
         cask: true
-
-      # next: compose for both NUCs to run the right containers
-      # next: systemv for node_exporter
-      # next: make sure push metrics are supported @ victoria
-      # next: move /etc/mway contents to chezmoi?
-      # also, what about systemv?
-      # start cross-compiling, scping, and testing on linux
