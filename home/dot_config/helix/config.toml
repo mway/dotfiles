@@ -27,7 +27,7 @@ display-signature-help-docs = true
 hidden = true
 
 [editor.statusline]
-left = ["mode", "spinner", "file-name"]
+left = ["mode", "spinner", "file-name", "file-modification-indicator"]
 center = []
 right = ["diagnostics", "selections", "spacer",  "spacer", "position", "position-percentage", "spacer", "spacer", "file-encoding", "file-line-ending", "file-type"]
 separator = "|"
