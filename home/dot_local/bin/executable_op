@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+_op() {
+  local op="/usr/bin/op"
+  if [ ! -x "$op" ]; then
+    op="/usr/local/bin/op"
+  fi
+
+  if [ ! -x "$op" ]; then
+    mw install 1password
+  fi
+
+  if [ ! -x "$op" ]; then
+    op="/usr/bin/op"
+  fi
+
+  case "$1" in
+    "-h" | "--help" | "signin" | "signout")
+      # passthrough
+      ;;
+    *)
+      if ! $(op read op://Infra/status/auth >/dev/null 2>&1); then
+        eval "$(op signin --account my)"
+      fi
+      ;;
+  esac
+
+  exec "$op" "$@"
+}
+
+_op "$@"
