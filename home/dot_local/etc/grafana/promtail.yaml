@@ -1,0 +1,5 @@
+---
+server:
+  disable: true
+clients:
+  - url: http://mway-nuc2:3100/loki/api/v1/push

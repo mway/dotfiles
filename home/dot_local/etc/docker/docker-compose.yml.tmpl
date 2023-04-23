@@ -21,7 +21,8 @@ services:
     command:
       - --collector.processes
       - --collector.systemd
-      - --path.rootfs=/host
+      - --path.rootfs
+      - /host
     container_name: node-exporter
     restart: always
     pid: host
@@ -43,8 +44,13 @@ services:
 
   promtail:
     image: grafana/promtail
+    command:
+      - --config.file
+      - /etc/grafana/promtail.yaml
     container_name: promtail
     restart: always
+    volumes:
+      - $HOME/.local/etc/grafana/promtail.yaml:/etc/grafana/promtail.yaml
     network_mode: host
                   
   grafana:
