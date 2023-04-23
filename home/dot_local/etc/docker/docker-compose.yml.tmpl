@@ -54,7 +54,7 @@ services:
     container_name: promtail
     restart: always
     volumes:
-      - /:/host:ro,rslave
+      - /var/run:/host/var/run:ro,rslave
       - $HOME/.local/etc/grafana/promtail.yaml:/etc/grafana/promtail.yaml
     network_mode: host
                   
@@ -71,7 +71,29 @@ services:
     depends_on:
       - loki
       - victoria-metrics
-    
+
+  pihole:
+    image: pihole/pihole:latest
+    container_name: pihole
+    restart: always
+    volumes:
+      - $HOME/.local/etc/pihole:/etc/pihole
+      - $HOME/.local/etc/dnsmasq.d:/etc/dnsmasq.d
+    network_mode: host
+    environment:
+      TZ: America/New_York
+      PIHOLE_DNS_: 76.76.2.2;76.76.10.2
+    cap_add:
+      - NET_ADMIN
+
+  huginn:
+    image: ghcr.io/huginn/huginn
+    container_name: huginn
+    restart: always
+    tmpfs:
+      - /tmp
+    network_mode: host
+
 volumes:
   grafana-data:
   loki-data:
