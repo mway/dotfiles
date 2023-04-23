@@ -20,8 +20,10 @@ _op() {
       # passthrough
       ;;
     *)
-      if ! $(op read op://Infra/status/auth >/dev/null 2>&1); then
-        eval "$(op signin --account my)"
+      if ! $("$op" read op://Infra/status/auth >/dev/null 2>&1); then
+        local session="$("$op" signin -f --account my | grep export)"
+        eval "$session"
+        echo "$session"
       fi
       ;;
   esac
