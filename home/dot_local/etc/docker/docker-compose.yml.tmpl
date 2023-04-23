@@ -11,12 +11,10 @@ services:
     restart: always
     volumes:
       - victoria-metrics-data:/victoria-metrics-data
-      - $HOME/.local/etc/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - $HOME/.local/etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     tmpfs:
       - /tmp
     network_mode: host
-    ports:
-      - 8428:8428
 
   node-exporter:
     image: quay.io/prometheus/node-exporter
@@ -32,8 +30,6 @@ services:
     tmpfs:
       - /tmp
     network_mode: host
-    ports:
-      - 9100:9100
 
   loki:
     image: grafana/loki
@@ -44,8 +40,6 @@ services:
     tmpfs:
       - /tmp
     network_mode: host
-    ports:
-      - 3100:3100
 
   promtail:
     image: grafana/promtail
@@ -59,12 +53,10 @@ services:
     restart: always
     volumes:
       - grafana-data:/var/lib/grafana
-      - $HOME/.local/etc/grafana.ini:/etc/grafana/grafana.ini
+      - $HOME/.local/etc/grafana/grafana.ini:/etc/grafana/grafana.ini
     tmpfs:
       - /tmp
     network_mode: host
-    ports:
-      - 3000:3000
     depends_on:
       - loki
       - victoria-metrics
