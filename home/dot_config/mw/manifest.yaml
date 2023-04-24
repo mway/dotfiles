@@ -50,25 +50,38 @@ packages:
         version: v2.31.1
       linux:
         type: apt
-  - name: 1password-cli
+  - name: 1password
     platforms:
       darwin:
-        type: brew
-        tap: 1password/tap
+        type: group
+        packages:
+          - type: brew
+            cask: true
+            tap: 1password/tap
+          - type: brew
+            tap: 1password/tap
         version: "2.16"
+        version_command: [op, [--version]]
       linux:
-        type: apt
-        key:
-          type: gpg
-          name: 1password
-          url: https://downloads.1password.com/linux/keys/1password.asc
-          dearmor: true
-        repository:
-          name: 1password
-          url: https://downloads.1password.com/linux/debian/$ARCH
-          branch: stable main
-          key: 1password
+        type: group
+        packages:
+          - name: 1password-key
+            type: command
+            command: curl
+            args: [-sS, https://downloads.1password.com/linux/keys/1password.asc, "|", sudo, gpg, --dearmor, --output, /usr/share/keyrings/1password-archive-keyring.gpg]
+          - name: 1password-repository
+            type: command
+            command: echo
+            args: ["deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/$(dpkg --print-architecture) stable main", "|", sudo, tee, /etc/apt/sources.list.d/1password.list]
+          - name: 1password-apt-update
+            type: command
+            command: apt
+            args: [update]
+            sudo: true
+          - name: 1password-cli
+            type: apt
         version: "2.16"
+        version_command: [op, [--version]]
   - name: ag
     platforms:
       darwin:
@@ -549,24 +562,6 @@ packages:
         version: "1.3"
 
   # Casks
-  - name: 1password
-    platforms:
-      darwin:
-        type: brew
-        cask: true
-      linux:
-        type: apt
-        key:
-          type: gpg
-          name: 1password
-          url: https://downloads.1password.com/linux/keys/1password.asc
-          dearmor: true
-        repository:
-          name: docker
-          url: https://downloads.1password.com/linux/debian/$ARCH
-          branch: stable main
-          key: 1password
-        version: "8.10"
   - name: alfred
     platforms:
       darwin:

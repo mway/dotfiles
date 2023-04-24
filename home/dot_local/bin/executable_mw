@@ -2,7 +2,7 @@
 set -eo pipefail
 
 _mw() {
-  local version="0.1.1"
+  local version="0.1.2"
   local mw="$HOME/.cargo/bin/mw"
   if [ ! -x "$mw" ] || [[ "$("$mw" --version)" != *"$version"* ]]; then
     cargo install \
