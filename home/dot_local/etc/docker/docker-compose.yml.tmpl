@@ -86,6 +86,14 @@ services:
     cap_add:
       - NET_ADMIN
 
+  ecobee:
+    image: cdzombak/ecobee_influx_connector
+    container_name: ecobee
+    restart: always
+    volumes:
+      - $HOME/.local/etc/ecobee:/config
+    network_mode: host
+
   huginn:
     image: ghcr.io/huginn/huginn
     container_name: huginn
