@@ -447,6 +447,34 @@ packages:
       linux:
         type: apt
         version: "11.1"
+  - name: nextdns
+    platforms:
+      darwin:
+        type: brew
+        tap: nextdns/tap
+        cask: true
+        version: "1.39"
+      linux:
+        type: group
+        packages:
+          - name: nextdns-key
+            type: command
+            command: curl
+            args: [-sSo, /usr/share/keyrings/nextdns.gpg, https://repo.nextdns.io/nextdns.gpg]
+            sudo: true
+          - name: nextdns-repository
+            type: shell
+            command: echo
+            args: ["deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main", "|", sudo, tee, /etc/apt/sources.list.d/nextdns.list]
+          - name: nextdns-apt-update
+            type: command
+            command: apt
+            args: [update]
+            sudo: true
+          - name: nextdns
+            type: apt
+        version: "1.39"
+        version_command: [op, [--version]]
   - name: node_exporter
     platforms:
       _:
