@@ -27,10 +27,10 @@
 
 - name: 1password
   block:
-    - name: Ensure 1password
-      command: mw install 1password
-      register: mw_install_1password
-      changed_when: "'already installed' not in mw_install_1password.stdout"
+    # - name: Ensure 1password
+    #   command: mw install 1password
+    #   register: mw_install_1password
+    #   changed_when: "'already installed' not in mw_install_1password.stdout"
     - name: Ensure 1password session
       shell: op signin -f --account my
       args:
