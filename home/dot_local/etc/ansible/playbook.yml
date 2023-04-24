@@ -21,7 +21,7 @@
     cargobin: "{{ cargo }}/bin"
 
     versions:
-      chezmoi: "2.33.1"
+      chezmoi: "2.33"
     # versions:
     #   rust: "1.68.2"
   #   ansible_os: "{{ lookup('lines', 'uname -s | tr \"[:upper:]\" \"[:lower:]\"') }}"
