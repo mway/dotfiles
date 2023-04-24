@@ -107,7 +107,7 @@ packages:
         version: "5.2.15"
       linux:
         type: apt
-        version: "5.1.16"
+        version: "5.1"
   - name: bat
     platforms:
       _:
@@ -310,6 +310,7 @@ packages:
         packages:
           - name: fzf
             type: archive
+            # TODO: extension changes based on platform; split or env variables?
             url: "https://github.com/junegunn/fzf/releases/download/$VERSION/fzf-${VERSION}-${OS}_${ARCH}.zip"
             files:
               fzf: $LOCAL_BIN/fzf
