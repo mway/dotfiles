@@ -4,6 +4,7 @@
     project_src: "{{ local }}/etc/docker"
     services:
       - node-exporter
+  become: true
   when: "'personal' in group_names"
   tags:
     - node-exporter
@@ -14,6 +15,7 @@
     project_src: "{{ local }}/etc/docker"
     services:
       - pihole
+  become: true
   when: "'dns' in group_names"
   tags:
     - promtail
@@ -43,4 +45,15 @@
     - obs
     - observability
     - victoria-metrics
+    - services
+
+- name: Ecobee
+  community.docker.docker_compose:
+    project_src: "{{ local }}/etc/docker"
+    services:
+      - ecobee
+  become: true
+  when: "'probes' in group_names"
+  tags:
+    - ecobee
     - services

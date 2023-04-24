@@ -1,5 +1,5 @@
 {
-  "work_dir": "/opt/mway/share/ecobee",
+  "work_dir": "/config",
 {{- range (onepassword "ecobee" "Infra").fields }}
 {{-   if eq .label "api_key" }}
   "api_key": "{{ .value }}",

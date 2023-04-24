@@ -27,6 +27,10 @@
 
 - name: 1password
   block:
+    - name: Ensure 1password
+      command: mw install 1password
+      register: mw_install_1password
+      changed_when: "'already installed' not in mw_install_1password.stdout"
     - name: Ensure 1password session
       shell: op signin -f --account my
       args:
@@ -67,7 +71,7 @@
     {{ op_session_id }}={{ op_session_key }} chezmoi update --verbose --init --apply --force
   register: chezmoi_update
   changed_when: "chezmoi_update.stdout_lines|length > 1"
-  no_log: true
+  # no_log: true
   tags:
     - chezmoi
     - config
