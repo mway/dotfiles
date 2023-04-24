@@ -3,8 +3,8 @@
 [[ ! -f ~/.bashrc ]] || source ~/.bashrc
 [[ ! -f ~/.dotrc ]] || source ~/.dotrc
 
-{{ range (onepassword "home.mway.dev").fields -}}
-{{   if eq .label "api.homebrew.token" -}}
+{{ range (onepassword "homebrew" "Infra").fields -}}
+{{   if eq .label "token" -}}
 export HOMEBREW_GITHUB_API_TOKEN="{{ .value }}"
 {{   end -}}
 {{ end -}}
