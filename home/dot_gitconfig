@@ -38,7 +38,7 @@
 	lg = log --graph --pretty=format:'%C(bold red)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	s = status -s
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
-	change-branch = "!f() { branch=\"$(git branch | grep \"$1\" | grep -v '^\\+' | awk '{print $NF}' | fzf)\"; [ -z \"$branch\" ] || git checkout \"branch\" ;}; f"
+	change-branch = "!f() { branch=\"$(git branch | grep \"$1\" | grep -v '^\\+' | awk '{print $NF}' | fzf)\"; [ -z \"$branch\" ] || git checkout \"$branch\" ;}; f"
 	cb = change-branch
 	changed = !"git diff-tree -r --name-only --no-commit-id HEAD"
 	edit-changed = "!f() { changed=\"$(git changed | grep \"$1\" | fzf)\"; [ -z \"$changed\" ] || \"$EDITOR\" \"$changed\" ;}; f"
