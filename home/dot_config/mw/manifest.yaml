@@ -69,11 +69,18 @@ packages:
           - name: 1password-key
             type: shell
             command: curl
-            args: [-sS, https://downloads.1password.com/linux/keys/1password.asc, "|", sudo, gpg, -f, --dearmor, --output, /usr/share/keyrings/1password-archive-keyring.gpg]
+            args: [-sS, https://downloads.1password.com/linux/keys/1password.asc, "|", gpg, --batch, --yes, --dearmor, --output, /usr/share/keyrings/1password-archive-keyring.gpg]
+            sudo: true
           - name: 1password-repository
             type: shell
             command: echo
-            args: ["deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/$(dpkg --print-architecture) stable main", "|", sudo, tee, /etc/apt/sources.list.d/1password.list]
+            args: ["deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/$(dpkg --print-architecture) stable main", "|", tee, /etc/apt/sources.list.d/1password.list]
+            sudo: true
+          - name: 1password-policy
+            type: shell
+            command: mkdir
+            args: [-p, /etc/debsig/policies/AC2D62742012EA22/, "&&", curl, -sS, https://downloads.1password.com/linux/debian/debsig/1password.pol, "|", tee, /etc/debsig/policies/AC2D62742012EA22/1password.pol, "&&", mkdir, -p, /usr/share/debsig/keyrings/AC2D62742012EA22, "&&", curl, -sS, https://downloads.1password.com/linux/keys/1password.asc, "|", gpg, --batch, --yes, --dearmor, --output, /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg]
+            sudo: true
           - name: 1password-apt-update
             type: command
             command: apt
