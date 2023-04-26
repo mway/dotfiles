@@ -1,10 +1,5 @@
 #!/usr/bin/env just --justfile
 
-DOCKER_DIR := env_var_or_default("DOCKER_DIR", "/opt/docker")
-
-alias clean-docker := docker-clean
-export MOUNT_HOST := invocation_directory()
-
 @default:
     just --justfile {{ justfile() }} --list | grep -v default
 
@@ -12,10 +7,14 @@ alias update := chezmoi
 chezmoi:
     chezmoi update --init
 
-# clean up unused Docker artifacts
-docker-clean:
-    docker images | grep none | awk '{print $3}' | xargs docker rmi
+alias cb := change-branch
+change-branch PATTERN="":
+    #!/usr/bin/env bash
+    branch="$(git branch | grep '{{ PATTERN }}' | grep -v '^\+' | awk '{print $NF}' | fzf)"
+    [ -z "$branch" ] || git checkout "$branch"
 
-# run a development environment container with the given FLAVOR
-env FLAVOR *ARGS:
-    just -f "{{ DOCKER_DIR }}/justfile" run {{ FLAVOR }} {{ ARGS }}
+alias ec := edit-changed
+edit-changed PATTERN="":
+    #!/usr/bin/env bash
+    changed="$(git changed | grep '{{ PATTERN }}' | fzf)"
+    [ -z "$changed" ] || "$EDITOR" "$changed"
