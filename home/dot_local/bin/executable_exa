@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+_fn() {
+  readonly version="0.10.1"
+  readonly prog="$HOME/.cargo/bin/exa"
+  if [ ! -x "$prog" ] || [[ "$("$prog" --version)" != *"$version"* ]]; then
+    cargo install exa
+  fi
+
+  exec "$prog" "$@"
+}
+
+_fn "$@"

@@ -2,10 +2,18 @@
 set -eo pipefail
 
 _fn() {
-  local version="1.20.3"
-  local prog="$HOME/.local/go/bin/go"
+  readonly version="1.20.3"
+  readonly prog="$HOME/.local/go/bin/go"
   if [ ! -x "$prog" ] || [[ "$("$prog" version)" != *"$version"* ]]; then
-    mw install go
+    readonly url="https://go.dev/dl/go1.20.3.$(mw env OS)-$(mw env ARCH).tar.gz"
+    readonly tmpdir="$(mktemp -d)"
+    echo $tmpdir $url
+    trap 'rm -rf $tmpdir' EXIT
+
+    cd "$tmpdir"
+    curl -Lo go.tar.gz "$url"
+    rm -rf "$HOME/.local/go"
+    tar -C "$HOME/.local" -zxf go.tar.gz
   fi
 
   exec "$prog" "$@"
