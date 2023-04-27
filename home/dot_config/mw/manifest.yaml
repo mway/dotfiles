@@ -316,21 +316,22 @@ packages:
       _:
         type: group
         packages:
-          - name: fzf
-            type: archive
-            # TODO: extension changes based on platform; split or env variables?
-            url: "https://github.com/junegunn/fzf/releases/download/$VERSION/fzf-${VERSION}-${OS}_${ARCH}.zip"
+          - type: archive
+            url: "https://github.com/junegunn/fzf/releases/download/$VERSION/fzf-${VERSION}-${OS}_${ARCH}.${OS_FAMILY}"
             files:
               fzf: $LOCAL_BIN/fzf
             modes:
               fzf: +x
-          - name: fzf completion
-            type: archive
-            url: "https://github.com/junegunn/fzf/archive/refs/tags/${VERSION}.tar.gz"
-            strip: fzf-$VERSION
-            files:
-              shell/completion.bash: $HOME/.config/fzf/completion.bash
-              shell/key-bindings.bash: $HOME/.config/fzf/key-bindings.bash
+          - type: file
+            url: https://raw.githubusercontent.com/junegunn/fzf/$VERSION/shell/completion.bash
+            dst: $HOME/.profile.d/40_completion_fzf
+          - type: file
+            url: https://raw.githubusercontent.com/junegunn/fzf/$VERSION/shell/key-bindings.bash
+            dst: $HOME/.profile.d/40_completion_fzf_keys
+        translations:
+          macos: zip
+          debian: tar.gz
+          ubuntu: tar.gz
         version: "0.39.0"
         version_command: [fzf, [--version]]
   - name: gcc
@@ -419,8 +420,14 @@ packages:
   - name: just
     platforms:
       _:
-        type: cargo
+        type: group
+        packages:
+          - type: cargo
+          - type: file
+            url: https://raw.githubusercontent.com/casey/just/$VERSION/completions/just.bash
+            dst: $HOME/.profile.d/40_completion_just
         version: "1.13.0"
+        version_command: [just, [--version]]
   - name: keychain
     platforms:
       darwin:

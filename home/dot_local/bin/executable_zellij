@@ -2,10 +2,10 @@
 set -eo pipefail
 
 _fn() {
-  readonly version="0.10.1"
-  readonly prog="$HOME/.cargo/bin/exa"
+  readonly version="0.35.2"
+  readonly prog="$HOME/.cargo/bin/zellij"
   if [ ! -x "$prog" ] || [[ "$("$prog" --version)" != *"$version"* ]]; then
-    cargo install --version "$version" exa
+    cargo install --version "$version" --locked zellij
   fi
 
   exec "$prog" "$@"

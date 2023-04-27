@@ -8,24 +8,7 @@
     url = "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash"
     refreshPeriod = "168h"
 
-[".profile.d/40_completion_just"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/casey/just/master/completions/just.bash"
-    refreshPeriod = "168h"
-
 [".profile.d/40_completion_cargo"]
     type = "file"
     url = "https://raw.githubusercontent.com/rust-lang/cargo/66789e531a1b75368fd7ca39ce2360b58cf2c709/src/etc/cargo.bashcomp.sh"
-    refreshPeriod = "168h"
-
-{{ $fzfVersion := "0.38.0" -}}
-
-[".profile.d/40_completion_fzf"]
-    type = "file"
-    url = "https://github.com/junegunn/fzf/raw/{{ $fzfVersion }}/shell/completion.bash"
-    refreshPeriod = "168h"
-
-[".profile.d/40_completion_fzf_keys"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/junegunn/fzf/{{ $fzfVersion }}/shell/key-bindings.bash"
     refreshPeriod = "168h"
