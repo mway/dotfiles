@@ -23,16 +23,17 @@
 	changed = green
 	untracked = cyan
 [diff]
-	renames = copies
 	external = difft
+	relative = true
+	renames = copies
 [help]
 	autocorrect = 1
 [push]
 	default = current
 	followTags = true
 [core]
-	excludesfile = ~/.gitignore
 	editor = hx
+	excludesfile = ~/.gitignore
 [merge]
 	conflictstyle = diff3
 [mergetool]
@@ -45,7 +46,7 @@
 	branch-commit = "!f() { git l "$1" | head -n1 ;}; f"
 	change-branch = "!f() { branch=\"$(git branch | grep \"$1\" | grep -v '^\\+' | awk '{print $NF}' | fzf)\"; [ -z \"$branch\" ] || git checkout \"$branch\" ;}; f"
 	cb = change-branch
-	changed = !"git diff-tree --relative -r --name-only --no-commit-id HEAD"
+	changed = show --pretty="" --name-only
 	edit-changed = "!f() { changed=\"$(git changed | grep \"$1\" | fzf)\"; [ -z \"$changed\" ] || \"$EDITOR\" \"$changed\" ;}; f"
 	ec = edit-changed
 	tags = tag -l
@@ -55,7 +56,7 @@
 	sshow = "!f() { git stash show stash^{/$*} -p; }; f"
 	sapply = "!f() { git stash apply stash^{/$*}; }; f"
 	spop = "!f() { git stash pop stash^{/$*}; }; f"
-	newbranch = "!f() { cur=\"$(git rev-parse --abbrev-ref HEAD)\"; git checkout -b $1; git branch -u $cur; }; f"
+	newbranch = "!f() { git checkout -t \"$(git curbranch)\" -b \"$1\" ;}; f"
 	curbranch = symbolic-ref --short HEAD
 	show-files = show --pretty="format:" --name-only
 [branch]
