@@ -1,6 +1,10 @@
 [user]
 	name = Matt Way
+	{{- if .personal }}
+	email = mway@mway.id
+	{{- else }}
 	email = mway@uber.com
+	{{- end }}
 [github]
 	user = mway
 [color]
@@ -50,12 +54,9 @@
 	sshow = "!f() { git stash show stash^{/$*} -p; }; f"
 	sapply = "!f() { git stash apply stash^{/$*}; }; f"
 	spop = "!f() { git stash pop stash^{/$*}; }; f"
-	po = push origin
-	pto = push --tags origin
 	newbranch = "!f() { cur=\"$(git rev-parse --abbrev-ref HEAD)\"; git checkout -b $1; git branch -u $cur; }; f"
 	curbranch = symbolic-ref --short HEAD
 	show-files = show --pretty="format:" --name-only
-	amend = commit --amend -C HEAD
 [branch]
 	autosetuprebase = always
 [rerere]
