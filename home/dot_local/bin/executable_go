@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-_go() {
-  local go="$HOME/.local/go/bin/go"
-  if [ ! -x "$go" ]; then
+_fn() {
+  local version="1.20.3"
+  local prog="$HOME/.local/go/bin/go"
+  if [ ! -x "$prog" ] || [[ "$("$prog" version)" != *"$version"* ]]; then
     mw install go
   fi
 
-  exec "$go" "$@"
+  exec "$prog" "$@"
 }
 
-_go "$@"
+_fn "$@"
