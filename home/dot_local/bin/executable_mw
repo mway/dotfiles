@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-_mw() {
-  local version="0.1.2"
-  local mw="$HOME/.cargo/bin/mw"
-  if [ ! -x "$mw" ] || [[ "$("$mw" --version)" != *"$version"* ]]; then
+_fn() {
+  readonly version="0.1.2"
+  readonly prog="$HOME/.cargo/bin/mw"
+  if [ ! -x "$prog" ] || [[ "$("$prog" --version)" != *"$version"* ]]; then
     cargo install \
       --config net.git-fetch-with-cli=true    \
       --git ssh://git@github.com/mway/mway-rs \
@@ -12,7 +12,7 @@ _mw() {
       mw
   fi
 
-  exec "$mw" "$@"
+  exec "$prog" "$@"
 }
 
-_mw "$@"
+_fn "$@"

@@ -5,13 +5,12 @@ _fn() {
   readonly version="1.20.3"
   readonly prog="$HOME/.local/go/bin/go"
   if [ ! -x "$prog" ] || [[ "$("$prog" version)" != *"$version"* ]]; then
-    readonly url="https://go.dev/dl/go1.20.3.$(mw env OS)-$(mw env ARCH).tar.gz"
+    # shellcheck disable=SC2155
     readonly tmpdir="$(mktemp -d)"
-    echo $tmpdir $url
     trap 'rm -rf $tmpdir' EXIT
 
     cd "$tmpdir"
-    curl -Lo go.tar.gz "$url"
+    curl -Lo go.tar.gz "https://go.dev/dl/go1.20.3.$(mw env OS)-$(mw env ARCH).tar.gz"
     rm -rf "$HOME/.local/go"
     tar -C "$HOME/.local" -zxf go.tar.gz
   fi
