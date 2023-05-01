@@ -1,3 +1,4 @@
+version: "3.7"
 services:
   victoria-metrics:
     image: victoriametrics/victoria-metrics
@@ -76,13 +77,22 @@ services:
     image: pihole/pihole:latest
     container_name: pihole
     restart: always
+    user: root
+    security_opt:
+      - seccomp=unconfined
+    ports:
+      - "53/tcp"
+      - "53/udp"
+      - "67/udp"
+      - "80:80/tcp"
     volumes:
       - $HOME/.local/etc/pihole:/etc/pihole
       - $HOME/.local/etc/dnsmasq.d:/etc/dnsmasq.d
-    network_mode: host
+    networks:
+      - pihole
     environment:
       TZ: America/New_York
-      PIHOLE_DNS_: 76.76.2.2;76.76.10.2
+      PIHOLE_DNS_: 45.90.28.252;45.90.30.252
     cap_add:
       - NET_ADMIN
 
@@ -101,6 +111,14 @@ services:
     tmpfs:
       - /tmp
     network_mode: host
+
+networks:
+  pihole:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.168.68.0/24
 
 volumes:
   grafana-data:

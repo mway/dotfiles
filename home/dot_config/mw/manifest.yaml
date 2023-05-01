@@ -332,6 +332,7 @@ packages:
           macos: zip
           debian: tar.gz
           ubuntu: tar.gz
+          unknown: tar.gz
         version: "0.39.0"
         version_command: [fzf, [--version]]
   - name: gcc
