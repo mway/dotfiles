@@ -16,6 +16,7 @@ services:
     tmpfs:
       - /tmp
     network_mode: host
+    dns: 100.100.100.100
 
   node-exporter:
     image: quay.io/prometheus/node-exporter
