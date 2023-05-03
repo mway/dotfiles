@@ -464,6 +464,14 @@ packages:
       linux:
         type: apt
         version: "11.1"
+  - name: mosh
+    platforms:
+      darwin:
+        type: brew
+        version: "1.4.0"
+      linux:
+        type: apt
+        version: "1.3.2"
   - name: nextdns
     platforms:
       darwin:
