@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-export GOPATH={{ .paths.go.gopath|quote }}
-export GOBIN="$GOPATH/bin"
-export GOROOT={{ .paths.go.goroot|quote }}
-
-PATH_add "$GOROOT/bin" "$GOBIN"

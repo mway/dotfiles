@@ -13,8 +13,6 @@ services:
     volumes:
       - victoria-metrics-data:/victoria-metrics-data
       - $HOME/.local/etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
-    tmpfs:
-      - /tmp
     network_mode: host
     dns: 100.100.100.100
 
@@ -23,36 +21,29 @@ services:
     command:
       - --collector.processes
       - --collector.systemd
-      - --path.rootfs
-      - /host
+      - --path.rootfs=/host
     container_name: node-exporter
     restart: always
     pid: host
     volumes:
       - /:/host:ro,rslave
-    tmpfs:
-      - /tmp
     network_mode: host
 
   loki:
     image: grafana/loki
     command:
-      - --config.file
-      - /etc/grafana/loki.yaml
+      - --config.file=/etc/grafana/loki.yaml
     container_name: loki
     restart: always
     volumes:
       - loki-data:/loki
       - $HOME/.local/etc/grafana/loki.yaml:/etc/grafana/loki.yaml
-    tmpfs:
-      - /tmp
     network_mode: host
 
   promtail:
     image: grafana/promtail
     command:
-      - --config.file
-      - /etc/grafana/promtail.yaml
+      - --config.file=/etc/grafana/promtail.yaml
     container_name: promtail
     restart: always
     volumes:
@@ -67,8 +58,6 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
       - $HOME/.local/etc/grafana/grafana.ini:/etc/grafana/grafana.ini
-    tmpfs:
-      - /tmp
     network_mode: host
     depends_on:
       - loki
@@ -109,8 +98,6 @@ services:
     image: ghcr.io/huginn/huginn
     container_name: huginn
     restart: always
-    tmpfs:
-      - /tmp
     network_mode: host
 
 networks:

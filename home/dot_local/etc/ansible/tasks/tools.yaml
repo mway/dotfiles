@@ -15,8 +15,8 @@
     - curl
     - difftastic
     - direnv
-    # - docker
-    # - docker-compose
+    - docker
+    - docker-compose
     - exa
     - fd-find
     - fzf
@@ -24,3 +24,15 @@
     - jq
     - just
     - tree
+
+- name: mw install personal
+  command: "mw install {{ item }}"
+  register: mw_install_personal_pkg
+  changed_when: "'already installed' not in mw_install_personal_pkg.stdout"
+  tags:
+    - 1password
+    - personal
+    - tailscale
+  loop:
+    - 1password
+    - tailscale

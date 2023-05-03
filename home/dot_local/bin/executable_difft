@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+_fn() {
+  readonly version="0.45.0"
+  readonly prog="$HOME/.cargo/bin/difft"
+  if [ ! -x "$prog" ] || [[ "$("$prog" --version)" != *"$version"* ]]; then
+    cargo install --version "$version" difft
+  fi
+
+  exec "$prog" "$@"
+}
+
+_fn "$@"

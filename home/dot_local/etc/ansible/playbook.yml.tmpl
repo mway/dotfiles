@@ -1,0 +1,62 @@
+---
+- hosts: all
+  connection: ssh
+  strategy: linear
+  gather_facts: yes
+
+  vars_prompt:
+    - name: vault_password
+      prompt: "Enter 1Password vault password"
+
+  environment:
+    PATH: "{{ .path.path }}"
+
+  tasks:
+    - name: "Ansible: docker"
+      pip:
+        name: docker
+        state: latest
+      when: "'personal' in group_names"
+      tags:
+        - devenv
+        - personal
+    - name: Configuration
+      include_tasks: tasks/config.yaml
+      tags:
+        - chezmoi
+        - config
+        - devenv
+        - dotfiles
+        - personal
+        - ssh
+    - name: Core
+      include_tasks: tasks/core.yaml
+      tags:
+        - core
+        - devenv
+        - go
+        - mw
+        - personal
+        - rust
+    - name: Tools
+      include_tasks: tasks/tools.yaml
+      tags:
+        - 1password
+        - devenv
+        - packages
+        - tailscale
+        - tools
+    - name: Services
+      include_tasks: tasks/services.yaml
+      tags:
+        - dns
+        - grafana
+        - loki
+        - node-exporter
+        - obs
+        - observability
+        - pi-hole
+        - promtail
+        - services
+        - tailscale
+        - victoria-metrics

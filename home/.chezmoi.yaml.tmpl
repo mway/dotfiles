@@ -1,14 +1,23 @@
-{{- $globalCache := "1" }}
+{{- $globalCache := "1" -}}
 {{- $personal := and (lt (len .chezmoi.hostname) 15) (ne .chezmoi.hostname .chezmoi.username) -}}
-{{- $localRoot := print .chezmoi.homeDir "/.local" }}
-{{- $localBin := print $localRoot "/bin" }}
-{{- $localGPG := print $localRoot "/gpg.d" }}
-{{- $userHome := .chezmoi.homeDir }}
+{{- $localRoot := print .chezmoi.homeDir "/.local" -}}
+{{- $localBin := print $localRoot "/bin" -}}
+{{- $userHome := .chezmoi.homeDir -}}
 {{- $userBin := print $userHome "/bin" }}
-{{- $userConfig := print $userHome "/.config" }}
-{{- $goPath := print $userHome "/go" }}
-{{- $goRoot := print $localRoot "/go" }}
-{{- $cargoHome := print $userHome "/.cargo" }}
+{{- $userConfig := print $userHome "/.config" -}}
+{{- $goPath := print $userHome "/go" -}}
+{{- $goPathBin := print $goPath "/bin" -}}
+{{- $goRoot := print $localRoot "/go" -}}
+{{- $goRootBin := print $goRoot "/bin" -}}
+{{- $cargoHome := print $userHome "/.cargo" -}}
+{{- $cargoBin := print $cargoHome "/bin" -}}
+{{- $pathFragments := list }}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $pathFragments = list $userBin $localBin $cargoBin $goPathBin $goRootBin "/opt/homebrew/sbin" "/opt/homebrew/bin" "/usr/local/sbin" "/usr/local/bin" }}
+{{- else -}}
+{{-   $pathFragments = list $userBin $localBin $cargoBin $goPathBin $goRootBin "/usr/local/sbin" "/usr/local/bin" }}
+{{- end -}}
+{{- $computedPath := join ":" (uniq (concat $pathFragments (splitList ":" (env "PATH")))) -}}
 
 diff:
   command: "difft"
@@ -21,6 +30,15 @@ data:
   arch: {{ quote .chezmoi.arch }}
   os: {{ quote .chezmoi.os }}
   personal: {{ $personal }}
+
+  path:
+    goroot: {{ $goRoot }}
+    gopath: {{ $goPath }}
+    local: {{ $localRoot }}
+    cargo: {{ $cargoHome }}
+    home: {{ $userHome }}
+    path: {{ $computedPath }}
+  
   paths:
     local:
       bin: {{ quote $localBin }}

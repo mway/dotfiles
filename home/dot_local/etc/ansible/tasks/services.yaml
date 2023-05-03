@@ -1,4 +1,33 @@
 ---
+- name: Tailscale - DNS
+  command:
+    argv:
+      - tailscale
+      - up
+      - --accept-dns=false
+      - --accept-routes
+      - --advertise-exit-node=false
+      - --advertise-routes=172.168.68.0/24
+      - --ssh
+  become: yes
+  when: "'personal' in group_names and 'dns' in group_names"
+  tags:
+    - tailscale
+
+- name: Tailscale - Non-DNS
+  command:
+    argv:
+      - tailscale
+      - up
+      - --accept-dns
+      - --accept-routes
+      - --advertise-exit-node
+      - --ssh
+  become: yes
+  when: "'personal' in group_names and 'dns' not in group_names"
+  tags:
+    - tailscale
+
 - name: Node Exporter
   community.docker.docker_compose:
     project_src: "{{ local }}/etc/docker"
@@ -18,6 +47,7 @@
   become: true
   when: "'dns' in group_names"
   tags:
+    - dns
     - promtail
     - services
   
