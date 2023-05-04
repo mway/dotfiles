@@ -442,6 +442,16 @@ packages:
       linux:
         type: apt
         version: "2.8.5"
+  - name: kubectl
+    aliases: [k8s, kubernetes]
+    platforms:
+      _:
+        type: file
+        url: https://dl.k8s.io/release/v${VERSION}/bin/$OS/$ARCH/kubectl
+        dst: $LOCAL_BIN/kubectl
+        mode: +x
+        version: "1.25.4"
+        version_command: [kubectl, [version, --short]]
   - name: libevent
     platforms:
       darwin:
