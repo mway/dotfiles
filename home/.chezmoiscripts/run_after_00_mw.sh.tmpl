@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-mw --version >/dev/null
-
 for dir in $(mw env -es | cut -d= -f2 | sort | uniq); do
   mkdir -p "$dir"
 done

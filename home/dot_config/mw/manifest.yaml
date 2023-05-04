@@ -44,6 +44,7 @@ packages:
         version: 2023-04-07
         version_command: [rust-analyzer, [--version]]
   - name: chezmoi
+    aliases: [cm]
     platforms:
       darwin:
         type: brew
@@ -52,6 +53,7 @@ packages:
         type: apt
         version: "2.31"
   - name: 1password
+    aliases: [1p, op]
     platforms:
       darwin:
         type: group
@@ -91,6 +93,7 @@ packages:
         version: "2.16"
         version_command: [op, [--version]]
   - name: ag
+    aliases: [silversearcher, thesilversearcher]
     platforms:
       darwin:
         type: brew
@@ -235,6 +238,7 @@ packages:
         type: apt
         version: "7."
   - name: difftastic
+    aliases: [difft]
     platforms:
       _:
         type: cargo
@@ -305,9 +309,9 @@ packages:
         version: "0.10.1"
         no_default_features: true
   - name: fd-find
+    aliases: [fd]
     platforms:
       _:
-        name: fd-find
         type: cargo
         version: "8.7.0"
         version_command: [fd, [--version]]
@@ -333,7 +337,7 @@ packages:
           debian: tar.gz
           ubuntu: tar.gz
           unknown: tar.gz
-        version: "0.39.0"
+        version: "0.40.0"
         version_command: [fzf, [--version]]
   - name: gcc
     platforms:
@@ -380,6 +384,7 @@ packages:
         version: "1.52.2"
         version_command: [golangci-lint, [--version]]
   - name: helix
+    aliases: [hx]
     platforms:
       _:
         type: group

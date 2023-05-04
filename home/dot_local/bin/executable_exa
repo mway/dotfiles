@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
+# shellcheck disable=SC2155
 _fn() {
-  readonly version="0.10.1"
-  readonly prog="$HOME/.cargo/bin/exa"
+  readonly name="exa"
+  readonly prog="$HOME/.cargo/bin/$name"
+  readonly detected_version="$(mw version "$name" 2>/dev/null || true)"
+  readonly version="${detected_version:-"0.10.1"}"
   if [ ! -x "$prog" ] || [[ "$("$prog" --version)" != *"$version"* ]]; then
-    cargo install --version "$version" exa
+    cargo install --version "$version" "$name"
   fi
 
   exec "$prog" "$@"

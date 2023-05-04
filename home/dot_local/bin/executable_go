@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
+# shellcheck disable=SC2155
 _fn() {
-  readonly version="1.20.3"
   readonly prog="$HOME/.local/go/bin/go"
+  readonly detected_version="$(mw version go 2>/dev/null || true)"
+  readonly version="${detected_version:-"1.20.3"}"
   if [ ! -x "$prog" ] || [[ "$("$prog" version)" != *"$version"* ]]; then
     # shellcheck disable=SC2155
     readonly tmpdir="$(mktemp -d)"

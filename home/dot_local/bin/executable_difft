@@ -3,9 +3,10 @@ set -eo pipefail
 
 _fn() {
   readonly version="0.45.0"
-  readonly prog="$HOME/.cargo/bin/difft"
+  readonly name="difft"
+  readonly prog="$HOME/.cargo/bin/$name"
   if [ ! -x "$prog" ] || [[ "$("$prog" --version)" != *"$version"* ]]; then
-    cargo install --version "$version" difft
+    cargo install --version "$version" "$name"
   fi
 
   exec "$prog" "$@"

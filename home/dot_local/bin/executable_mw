@@ -1,15 +1,18 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
+# shellcheck disable=SC2155
 _fn() {
-  readonly version="0.1.2"
-  readonly prog="$HOME/.cargo/bin/mw"
+  readonly name="mw"
+  readonly prog="$HOME/.cargo/bin/$name"
+  readonly detected_version="$("$prog" version "$name" 2>/dev/null || true)"
+  readonly version="${detected_version:-"0.2.0"}"
   if [ ! -x "$prog" ] || [[ "$("$prog" --version)" != *"$version"* ]]; then
     cargo install \
       --config net.git-fetch-with-cli=true    \
       --git ssh://git@github.com/mway/mway-rs \
       --tag "$version"                        \
-      mw
+      "$name"
   fi
 
   exec "$prog" "$@"

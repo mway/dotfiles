@@ -3,12 +3,12 @@ set -eo pipefail
 
 # shellcheck disable=SC2155
 _fn() {
-  readonly name="zellij"
-  readonly prog="$HOME/.cargo/bin/$name"
+  readonly name="yq"
+  readonly prog="$HOME/go/bin/$name"
   readonly detected_version="$(mw version "$name" 2>/dev/null || true)"
-  readonly version="${detected_version:-"0.35.2"}"
+  readonly version="${detected_version:-"4.33.3"}"
   if [ ! -x "$prog" ] || [[ "$("$prog" --version)" != *"$version"* ]]; then
-    cargo install --version "$version" --locked "$name"
+    go install "github.com/mikefarah/yq/v4@v$version"
   fi
 
   exec "$prog" "$@"

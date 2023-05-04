@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+# shellcheck disable=SC2155
+_fn() {
+  readonly name="hx"
+  readonly prog="$HOME/.cargo/bin/$name"
+  readonly detected_version="$(mw version "$name" 2>/dev/null || true)"
+  readonly version="${detected_version:-"23.03"}"
+  if [ ! -x "$prog" ] || [[ "$("$prog" --version)" != *"$version"* ]]; then
+    tmpdir="$(mktemp -d)"
+    trap 'rm -rf $tmpdir' EXIT
+    cd "$tmpdir"
+
+    cargo install --git https://github.com/helix-editor/helix --tag "$version" --locked helix-term
+    curl -Lo helix.tar.gz "https://github.com/helix-editor/helix/archive/refs/tags/${version}.tar.gz"
+    tar -zxf helix.tar.gz && cd "helix-$version"
+
+    readonly runtime="$HOME/.config/helix/runtime"
+    rm -rf "$runtime" && cp -R runtime "$runtime"
+
+    "$prog" -g fetch
+    "$prog" -g build
+  fi
+
+  exec "$prog" "$@"
+}
+
+_fn "$@"
