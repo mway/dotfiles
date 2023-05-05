@@ -41,6 +41,7 @@ bin/*
 !.local/bin/yq
 !.local/bin/zellij
 
+{{ if .personal -}}
 !.local/etc
 .local/etc/*
 !.local/etc/ansible
@@ -50,6 +51,7 @@ bin/*
 !.local/etc/grafana
 !.local/etc/prometheus
 !.local/etc/systemd
+{{- end }}
 
 /scripts/ # chezmoi helpers
 .DS_Store
