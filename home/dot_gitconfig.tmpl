@@ -57,7 +57,9 @@
 	sapply = "!f() { git stash apply stash^{/$*}; }; f"
 	spop = "!f() { git stash pop stash^{/$*}; }; f"
 	newbranch = "!f() { git checkout -t \"$(git curbranch)\" -b \"$1\" ;}; f"
+	flow = newbranch
 	curbranch = symbolic-ref --short HEAD
+	cur = curbranch
 	show-files = show --pretty="format:" --name-only
 [branch]
 	autosetuprebase = always
