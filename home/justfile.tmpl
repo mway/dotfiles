@@ -5,7 +5,7 @@
     just --justfile {{ "{{" }} justfile() {{ "}}" }} --list | grep -v default
 
 sync:
-    chezmoi add ~/.config/{bat,btop,helix,htop,mw,zellij}
+    chezmoi add --recursive=false ~/.config/{bat,btop,helix,htop,mw,zellij}/*
     chezmoi add ~/.local/bin/{cargo,difft,exa,go,hx,just,mw,rustup,yq,zellij}
     {{- if .personal }}
     chezmoi add ~/.local/etc/{ansible,docker,ecobee,grafana,prometheus,systemd}
