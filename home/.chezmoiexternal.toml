@@ -1,14 +1,31 @@
+{{ if eq .chezmoi.os "darwin" -}}
 [".config/iterm/dracula"]
     type = "git-repo"
     url = "https://github.com/dracula/iterm.git"
     refreshPeriod = "168h"
+{{- end }}
 
-[".profile.d/40_completion_git"]
+[".profile.d/40_completion_git.bash"]
     type = "file"
     url = "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash"
     refreshPeriod = "168h"
 
-[".profile.d/40_completion_cargo"]
+[".config/zsh/funcs/_git"]
     type = "file"
-    url = "https://raw.githubusercontent.com/rust-lang/cargo/66789e531a1b75368fd7ca39ce2360b58cf2c709/src/etc/cargo.bashcomp.sh"
+    url = "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh"
     refreshPeriod = "168h"
+
+[".profile.d/41_completion_fzf.zsh"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/lincheney/fzf-tab-completion/master/zsh/fzf-zsh-completion.sh"
+    refreshPeriod = "168h"
+
+[".profile.d/40_completion_cargo.bash"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/rust-lang/cargo/0.70.1/src/etc/cargo.bashcomp.sh"
+    refreshPeriod = "168h"
+
+# [".profile.d/40_completion_cargo.zsh"]
+#     type = "file"
+#     url = "https://raw.githubusercontent.com/rust-lang/cargo/0.70.1/src/etc/_cargo"
+#     refreshPeriod = "168h"

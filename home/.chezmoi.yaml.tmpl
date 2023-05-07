@@ -32,6 +32,8 @@ data:
   personal: {{ $personal }}
 
   path:
+    config: {{ $userConfig }}
+    profiled: {{ print $userHome "/.profile.d" }}
     goroot: {{ $goRoot }}
     gopath: {{ $goPath }}
     local: {{ $localRoot }}

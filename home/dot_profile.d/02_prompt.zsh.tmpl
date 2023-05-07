@@ -1,0 +1,34 @@
+#!/usr/bin/env zsh
+
+# ref: https://old.reddit.com/r/zsh/comments/vopro/truncated_path_in_zsh_prompt/c5ecfb3/
+function truncated_pwd() {
+    n=$1 # n = number of directories to show in full (n = 3, /a/b/c/dee/ee/eff)
+    path="$(dirs)"
+
+    # split our path on /
+    dirs=("${(s:/:)path}")
+    dirs_length=$#dirs
+
+    if [[ $dirs_length -ge $n ]]; then
+    # we have more dirs than we want to show in full, so compact those down
+    ((max=dirs_length - n))
+    for (( i = 1; i <= $max; i++ )); do
+      step="$dirs[$i]"
+      if [[ -z $step ]]; then
+        continue
+      fi
+      # if [[ $step =~ "^\." ]]; then
+      #   dirs[$i]=$step[0,2] #make .mydir => .m
+      # else
+        dirs[$i]=$step[0,1] # make mydir => m
+      # fi
+
+    done
+  fi
+
+  echo ${(j:/:)dirs}
+}
+
+precmd() {
+  PROMPT="%{$fg_bold[grey]%}%*>%{$fg[default]%} %{$fg_no_bold[blue]%}%{$(truncated_pwd 1)%}%{$fg[default]%} %{$fg_bold[green]%}#%{$fg[default]%} "
+}

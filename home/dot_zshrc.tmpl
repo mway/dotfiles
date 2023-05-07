@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' verbose yes file-sort modification
+zstyle ':completion:*' completer _complete _ignored _approximate
+zstyle ':completion:*:*:git:*' script '{{ .path.profiled }}/40_completion_git.bash'
+zstyle ':completion:*:*:just:*' script '{{ .path.config }}/zsh/funcs/_just'
+zstyle :compinstall filename '{{ .path.home }}/.zshrc'
+
+fpath=('{{ .path.config }}/zsh/funcs' $fpath)
+if command -v brew >/dev/null 2>&1; then
+  fpath=("$(brew --prefix zsh)/share/zsh/functions")
+fi
+
+autoload -Uz compinit && compinit
+autoload -U colors && colors
+
+[ ! -f '{{ .path.home }}/.dotrc' ] || source '{{ .path.home }}/.dotrc'
+[ ! -f '{{ .path.home }}/.dotrc.zsh' ] || source '{{ .path.home }}/.dotrc.zsh'

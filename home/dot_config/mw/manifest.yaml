@@ -307,7 +307,6 @@ packages:
         name: exa
         type: cargo
         version: "0.10.1"
-        no_default_features: true
   - name: fd-find
     aliases: [fd]
     platforms:
@@ -328,10 +327,16 @@ packages:
               fzf: +x
           - type: file
             url: https://raw.githubusercontent.com/junegunn/fzf/$VERSION/shell/completion.bash
-            dst: $HOME/.profile.d/40_completion_fzf
+            dst: $HOME/.profile.d/40_completion_fzf.bash
           - type: file
             url: https://raw.githubusercontent.com/junegunn/fzf/$VERSION/shell/key-bindings.bash
-            dst: $HOME/.profile.d/40_completion_fzf_keys
+            dst: $HOME/.profile.d/40_completion_fzf_keys.bash
+          - type: file
+            url: https://raw.githubusercontent.com/junegunn/fzf/$VERSION/shell/completion.zsh
+            dst: $HOME/.profile.d/40_completion_fzf.zsh
+          - type: file
+            url: https://raw.githubusercontent.com/junegunn/fzf/$VERSION/shell/key-bindings.zsh
+            dst: $HOME/.profile.d/40_completion_fzf_keys.zsh
         translations:
           macos: zip
           debian: tar.gz
@@ -431,8 +436,11 @@ packages:
           - type: cargo
           - type: file
             url: https://raw.githubusercontent.com/casey/just/$VERSION/completions/just.bash
-            dst: $HOME/.profile.d/40_completion_just
-        version: "1.13.0"
+            dst: $HOME/.profile.d/40_completion_just.bash
+          - type: file
+            url: https://raw.githubusercontent.com/casey/just/$VERSION/completions/just.zsh
+            dst: $HOME/.config/zsh/funcs/_just
+        version: "1.12.0"
         version_command: [just, [--version]]
   - name: keychain
     platforms:
@@ -620,6 +628,20 @@ packages:
         type: cargo
         version: "0.35.2"
         version_command: [zellij, [--version]]
+  - name: zsh
+    platforms:
+      darwin:
+        type: group
+        packages:
+          - type: brew
+          - name: zsh-completions
+            type: brew
+        version: "5.9"
+        version_command: [/opt/homebrew/bin/zsh, [--version]]
+      linux:
+        type: apt
+        version: "5.8.1"
+        version_command: [zsh, [--version]]
   - name: zstd
     platforms:
       darwin:

@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-shopt -s globstar
+export HISTCONTROL=ignoreboth:erasedups
+export HISTSIZE=100000000
+shopt -u histappend 2>/dev/null
 
 export ANSIBLE_NOCOWS=1
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export VISUAL="hx"
 export EDITOR="$VISUAL"
-export HISTCONTROL=ignoreboth:erasedups
-export HISTSIZE=100000000
 export LS_COLORS='di=38;5;108:fi=00:*svn-commit.tmp=31:ln=38;5;116:ex=38;5;186'
 export TERM="xterm-256color"
 

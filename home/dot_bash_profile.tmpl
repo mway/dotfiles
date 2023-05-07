@@ -1,10 +1,4 @@
 #!/usr/bin/env bash
 
-[[ ! -f ~/.bashrc ]] || source ~/.bashrc
-[[ ! -f ~/.dotrc ]] || source ~/.dotrc
-
-{{ range (onepassword "homebrew" "Infra").fields -}}
-{{   if eq .label "token" -}}
-export HOMEBREW_GITHUB_API_TOKEN="{{ .value }}"
-{{   end -}}
-{{ end -}}
+[ ! -f "$HOME/.dotrc" ] || source "$HOME/.dotrc"
+[ ! -f "$HOME/.dotrc.bash" ] || source "$HOME/.dotrc.bash"

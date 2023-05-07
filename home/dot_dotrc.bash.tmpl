@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+shopt -s autocd >/dev/null 2>&1
+shopt -s cdspell >/dev/null 2>&1
+shopt -s globstar >/dev/null 2>&1
+shopt -s nocaseglob >/dev/null 2>&1
+
+function PATH_add() {
+    for arg in "$@"; do
+        [ -z "$arg" ] || [[ ":$PATH:" == *":$arg:"* ]] || PATH=$arg:$PATH
+    done
+
+    export PATH
+}
+
+find "{{ .path.home }}/.profile.d" -type f -name "*.bash" -o \! \( -name "*.*" \) |\
+    sort |\
+    while IFS= read -r f; do
+        # shellcheck disable=SC1090
+        source "$f" || echo "[{{ .path.home }}/.dotrc.bash] Failed to source $f" >&2
+    done

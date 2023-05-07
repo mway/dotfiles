@@ -3,12 +3,13 @@ set -eo pipefail
 
 _just() {
   local version="1.13.0"
-  local just="$HOME/.cargo/bin/just"
-  if [ ! -x "$just" ] || [[ "$("$just" --version)" != *"$version"* ]]; then
-    cargo install --version "$version" just
+  local name="just"
+  local prog="$HOME/.cargo/bin/just"
+  if [ ! -x "$prog" ] || [[ "$("$prog" --version)" != *"$version"* ]]; then
+    cargo install --version "$version" "$name"
   fi
 
-  exec "$just" "$@"
+  exec "$prog" "$@"
 }
 
 _just "$@"
