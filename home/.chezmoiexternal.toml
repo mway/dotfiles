@@ -24,8 +24,3 @@
     type = "file"
     url = "https://raw.githubusercontent.com/rust-lang/cargo/0.70.1/src/etc/cargo.bashcomp.sh"
     refreshPeriod = "168h"
-
-# [".profile.d/40_completion_cargo.zsh"]
-#     type = "file"
-#     url = "https://raw.githubusercontent.com/rust-lang/cargo/0.70.1/src/etc/_cargo"
-#     refreshPeriod = "168h"

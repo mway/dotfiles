@@ -47,7 +47,7 @@
 	change-branch = "!f() { branch=\"$(git branch | grep \"$1\" | grep -v '^\\+' | awk '{print $NF}' | fzf)\"; [ -z \"$branch\" ] || git checkout \"$branch\" ;}; f"
 	cb = change-branch
 	changed = show --pretty="" --name-only
-	edit-changed = "!f() { changed=\"$(git changed | grep \"$1\" | fzf)\"; [ -z \"$changed\" ] || \"$EDITOR\" \"$changed\" ;}; f"
+	edit-changed = "!f() { changed=\"$(git changed | grep \"$1\" | fzf -m)\"; [ -z \"$changed\" ] || \"$EDITOR\" $changed ;}; f"
 	ec = edit-changed
 	tags = tag -l
 	branches = branch -a
