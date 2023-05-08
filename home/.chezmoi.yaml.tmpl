@@ -20,7 +20,7 @@
 {{- $computedPath := join ":" (uniq (concat $pathFragments (splitList ":" (env "PATH")))) -}}
 
 diff:
-  # command: "difft"
+  command: "difft"
   exclude:
     - scripts
 git:
