@@ -88,7 +88,7 @@ packages:
             sudo: true
           - name: 1password-cli
             type: apt
-        version: "2.16"
+        version: "2.17"
         version_command: [op, [--version]]
   - name: ag
     aliases: [silversearcher, thesilversearcher]
