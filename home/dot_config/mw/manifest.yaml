@@ -610,7 +610,6 @@ packages:
         version: "2.1.0"
       linux:
         type: apt
-        version: "2.0"
   - name: watch
     platforms:
       darwin:
