@@ -1,13 +1,10 @@
+# Managed by chezmoi
+
 function maybe_source() {
     # shellcheck disable=SC1090
     [ -z "$1" ] || [ ! -f "$1" ] || source "$1"
 }
 
-# Managed by chezmoi
 export PATH="{{ .path.path }}"
 
-{{ range (onepassword "homebrew" "Infra").fields -}}
-{{   if eq .label "token" -}}
-export HOMEBREW_GITHUB_API_TOKEN="{{ .value }}"
-{{   end -}}
-{{ end -}}
+maybe_source "$HOME/.config/homebrew/env"

@@ -1,0 +1,5 @@
+{{ range (onepassword "homebrew" "Infra").fields -}}
+{{   if eq .label "token" -}}
+export HOMEBREW_GITHUB_API_TOKEN="{{ .value }}"
+{{   end -}}
+{{ end -}}
