@@ -539,6 +539,7 @@ packages:
         type: apt
         version: "3.10"
   - name: ripgrep
+    aliases: [rg]
     platforms:
       _:
         type: cargo
