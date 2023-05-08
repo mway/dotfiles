@@ -540,8 +540,13 @@ packages:
         name: python
         version: "3.11"
       linux:
-        type: apt
-        version: "3.10"
+        type: group
+        packages:
+          - type: apt
+            version: "3.10"
+          - type: apt
+            name: python3-pip
+            version: "20.3"
   - name: ripgrep
     aliases: [rg]
     platforms:
