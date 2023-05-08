@@ -389,13 +389,14 @@ packages:
         version: "1.52.2"
         version_command: [golangci-lint, [--version]]
   - name: helix
-    aliases: [hx]
+    aliases: [hx, helix-editor]
     platforms:
       _:
         type: group
         packages:
           - type: cargo
             name: helix-term
+            bin: hx
             git: https://github.com/helix-editor/helix
             locked: true
           - type: archive
