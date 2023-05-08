@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+_fn() {
+  if [ -x /usr/local/bin/zsh ]; then
+    exec /usr/local/bin/zsh "$@"
+  elif [ -x /opt/homebrew/bin/zsh ]; then
+    exec /opt/homebrew/bin/zsh "$@"
+  elif [ -x /usr/bin/zsh ]; then
+    exec /usr/bin/zsh "$@"
+  elif [ -x /bin/zsh ]; then
+    exec /bin/zsh "$@"
+  else
+    echo "command not found: zsh" 1>&2
+    exit 127
+  fi
+}
+
+_fn "$@"

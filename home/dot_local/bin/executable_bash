@@ -1,0 +1,19 @@
+#!/bin/bash
+set -eo pipefail
+
+_fn() {
+  if [ -x /usr/local/bin/bash ]; then
+    exec /usr/local/bin/bash "$@"
+  elif [ -x /opt/homebrew/bin/bash ]; then
+    exec /opt/homebrew/bin/bash "$@"
+  elif [ -x /usr/bin/bash ]; then
+    exec /usr/bin/bash "$@"
+  elif [ -x /bin/bash ]; then
+    exec /bin/bash "$@"
+  else
+    echo "command not found: bash" 1>&2
+    exit 127
+  fi
+}
+
+_fn "$@"
