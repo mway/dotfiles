@@ -274,12 +274,6 @@ packages:
               branch: $OS_CODENAME stable
               key: docker
             version: "23.0"
-          - type: apt
-            name: docker-ce-cli
-          - type: apt
-            name: containerd.io
-          - type: apt
-            name: docker-buildx-plugin
         version_command: [docker, [--version]]
   - name: docker-compose
     platforms:
