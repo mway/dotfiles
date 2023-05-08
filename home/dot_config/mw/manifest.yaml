@@ -259,19 +259,27 @@ packages:
         name: docker
         version: "23."
       linux:
-        type: apt
-        name: docker
-        key:
-          type: gpg
-          name: docker
-          url: https://download.docker.com/linux/$OS_FAMILY/gpg
-          dearmor: true
-        repository:
-          name: docker
-          url: https://download.docker.com/linux/$OS_FAMILY
-          branch: $OS_CODENAME stable
-          key: docker
-        version: "23.0"
+        type: group
+        packages:
+          - type: apt
+            name: docker-ce
+            key:
+              type: gpg
+              name: docker
+              url: https://download.docker.com/linux/$OS_FAMILY/gpg
+              dearmor: true
+            repository:
+              name: docker
+              url: https://download.docker.com/linux/$OS_FAMILY
+              branch: $OS_CODENAME stable
+              key: docker
+            version: "23.0"
+          - type: apt
+            name: docker-ce-cli
+          - type: apt
+            name: containerd.io
+          - type: apt
+            name: docker-buildx-plugin
         version_command: [docker, [--version]]
   - name: docker-compose
     platforms:
@@ -281,7 +289,7 @@ packages:
         version: "2.16.0"
       linux:
         type: apt
-        name: docker
+        name: docker-compose-plugin
         key:
           type: gpg
           name: docker
