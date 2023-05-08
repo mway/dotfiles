@@ -574,6 +574,7 @@ packages:
       darwin:
         type: brew
         cask: true
+        version: "1.32.2"
       linux:
         type: group
         packages:
@@ -582,13 +583,11 @@ packages:
             url: https://tailscale.com/install.sh
             dst: $LOCAL_BIN/tailscale-installer
             mode: +x
-            version: "1.38"
-            version_command: [tailscale, [--version]]
           - name: tailscale
             type: command
             command: tailscale-installer
-            version: "1.38"
-            version_command: [tailscale, [--version]]
+        version: "1.40"
+        version_command: [tailscale, [--version]]
   - name: telnet
     platforms:
       darwin:
