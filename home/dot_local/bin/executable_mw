@@ -6,7 +6,7 @@ _fn() {
   readonly name="mw"
   readonly prog="$HOME/.cargo/bin/$name"
   readonly detected_version="$("$prog" version "$name" 2>/dev/null || true)"
-  readonly version="${detected_version:-"0.2.1"}"
+  readonly version="${detected_version:-"0.3.0"}"
   if [ ! -x "$prog" ] || [[ "$("$prog" --version)" != *"$version"* ]]; then
     cargo install \
       --config net.git-fetch-with-cli=true    \

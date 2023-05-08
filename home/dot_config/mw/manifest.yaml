@@ -3,12 +3,10 @@ packages:
   - name: mw
     platforms:
       _:
-        type: group
-        packages:
-          - type: cargo
-            name: mw
-            git: ssh://git@github.com/mway/mway-rs
-            locked: true
+        type: cargo
+        name: mw
+        git: ssh://git@github.com/mway/mway-rs
+        locked: true
   - name: go
     platforms:
       _:
