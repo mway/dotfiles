@@ -542,6 +542,7 @@ packages:
       _:
         type: cargo
         name: ripgrep
+        bin: rg
         version: "13.0.0"
   - name: ruby
     platforms:
