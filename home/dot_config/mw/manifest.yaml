@@ -543,10 +543,10 @@ packages:
         type: group
         packages:
           - type: apt
-            version: "3.10"
           - type: apt
             name: python3-pip
-            version: "20.3"
+        version: "3.9"
+        version_command: [python3, [--version]]
   - name: ripgrep
     aliases: [rg]
     platforms:
