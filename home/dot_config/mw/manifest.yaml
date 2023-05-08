@@ -644,7 +644,7 @@ packages:
         version_command: [/opt/homebrew/bin/zsh, [--version]]
       linux:
         type: apt
-        version: "5.8.1"
+        version: "5.8"
         version_command: [zsh, [--version]]
   - name: zstd
     platforms:
