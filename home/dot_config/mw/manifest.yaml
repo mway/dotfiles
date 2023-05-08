@@ -140,6 +140,7 @@ packages:
         url: https://github.com/aristocratos/btop/releases/download/v$VERSION/btop-$ARCH-$OS-$OS_QUALIFIER.tbz
         strip: btop
         translations:
+          amd64: x86_64
           darwin: macos
         commands:
           - command: make
