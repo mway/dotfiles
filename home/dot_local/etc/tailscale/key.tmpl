@@ -1,0 +1,5 @@
+{{ range (onepassword "tailscale" "infra").fields -}}
+{{   if eq .label "auth_key" -}}
+{{ .value }}
+{{   end -}}
+{{ end -}}
