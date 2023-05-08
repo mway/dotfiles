@@ -240,7 +240,8 @@ packages:
     platforms:
       _:
         type: cargo
-        version: "0.45.0"
+        bin: difft
+        version: "0.46.0"
         version_command: [difft, [--version]]
   - name: direnv
     platforms:
@@ -310,6 +311,7 @@ packages:
     platforms:
       _:
         type: cargo
+        bin: fd
         version: "8.7.0"
         version_command: [fd, [--version]]
   - name: fzf
