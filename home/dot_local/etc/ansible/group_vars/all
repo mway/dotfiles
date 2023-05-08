@@ -1,0 +1,14 @@
+---
+userbin: "{{ ansible_env.HOME }}/bin"
+gopath: "{{ ansible_env.HOME }}/go"
+gobin: "{{ ansible_env.HOME }}/go/bin"
+goroot: "{{ ansible_env.HOME }}/.local/go"
+gorootbin: "{{ ansible_env.HOME }}/.local/go/bin"
+local: "{{ ansible_env.HOME }}/.local"
+localbin: "{{ ansible_env.HOME }}/.local/bin"
+cargo: "{{ ansible_env.HOME }}/.cargo"
+cargobin: "{{ ansible_env.HOME }}/.cargo/bin"
+computed_path: "{{ userbin }}:{{ localbin }}:{{ cargobin }}:{{ gobin }}:{{ gorootbin }}:/opt/homebrew/sbin:/opt/homebrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+versions:
+  chezmoi: "2.33"
