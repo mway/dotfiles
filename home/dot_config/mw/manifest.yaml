@@ -379,7 +379,7 @@ packages:
         version: "2.40."
       linux:
         type: apt
-        version: "2.34."
+        version: "2.3"
   - name: golangci-lint
     platforms:
       _:
