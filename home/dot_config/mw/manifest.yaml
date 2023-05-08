@@ -61,7 +61,7 @@ packages:
             tap: 1password/tap
           - type: brew
             tap: 1password/tap
-        version: "2.16"
+        version: "2.17"
         version_command: [op, [--version]]
       linux:
         type: group
