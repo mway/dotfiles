@@ -628,7 +628,7 @@ packages:
       _:
         locked: true
         type: cargo
-        version: "0.35.2"
+        version: "0.36.0"
         version_command: [zellij, [--version]]
   - name: zsh
     platforms:
