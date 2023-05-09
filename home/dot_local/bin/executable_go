@@ -5,14 +5,14 @@ set -eo pipefail
 _fn() {
   readonly prog="$(mw path go 2>/dev/null || true)"
   readonly detected_version="$(mw version go 2>/dev/null || true)"
-  readonly version="${detected_version:-"1.20.3"}"
+  readonly version="${detected_version:-"1.20.4"}"
   if [ ! -x "$prog" ] || [[ "$("$prog" version)" != *"$version"* ]]; then
     # shellcheck disable=SC2155
     readonly tmpdir="$(mktemp -d)"
     trap 'rm -rf $tmpdir' EXIT
 
     cd "$tmpdir"
-    curl -Lo go.tar.gz "https://go.dev/dl/go1.20.3.$(mw env OS)-$(mw env ARCH).tar.gz"
+    curl -Lo go.tar.gz "https://go.dev/dl/go${version}.$(mw env OS)-$(mw env ARCH).tar.gz"
     rm -rf "$HOME/.local/go"
     tar -C "$HOME/.local" -zxf go.tar.gz
   fi
