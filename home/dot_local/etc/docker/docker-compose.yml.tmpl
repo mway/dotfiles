@@ -100,6 +100,18 @@ services:
     restart: always
     network_mode: host
 
+  ghost:
+    image: ghost:alpine
+    container_name: ghost
+    restart: always
+    ports:
+      - "3001:2368"
+    volumes:
+      - $HOME/.local/share/ghost:/var/lib/ghost/content
+    environment:
+      NODE_ENV: development
+      database__connection__filename: /var/lib/ghost/content/data/ghost.db
+
 networks:
   pihole:
     driver: bridge
