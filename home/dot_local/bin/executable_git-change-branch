@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
 # ref: https://github.com/abhinav/dotfiles/blob/a3a4d83f9e412cc5fe4232cafea9971c8a81c130/bin/executable_git-bco#L5-L7
+# shellcheck disable=SC2016
 fzf_select_ref() {
 	fzf --height=30% --preview 'git l --color {} ^$(git merge-base HEAD {})'
 }
 
+# shellcheck disable=SC2155
 _fn() {
 	readonly branch="$(git branch | grep "$1" | grep -v '^\\+' | awk '{print $NF}' | fzf_select_ref)"
 	[ -z "$branch" ] || git checkout "$branch"

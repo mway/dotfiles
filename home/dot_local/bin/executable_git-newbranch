@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# shellcheck disable=SC2155
 _fn() {
 	readonly curbranch="$(git curbranch)"
 	[ -z "$curbranch" ] || git checkout -t "$curbranch" -b "$1"
