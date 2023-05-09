@@ -5,6 +5,11 @@
     refreshPeriod = "168h"
 {{- end }}
 
+[".local/share/zsh/autocomplete"]
+    type = "git-repo"
+    url = "https://github.com/marlonrichert/zsh-autocomplete.git"
+    refreshPeriod = "168h"
+
 [".profile.d/40_completion_git.bash"]
     type = "file"
     url = "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash"
