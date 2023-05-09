@@ -105,7 +105,7 @@ services:
     container_name: ghost
     restart: always
     ports:
-      - "3001:2368"
+      - "2368:2368"
     volumes:
       - $HOME/.local/share/ghost:/var/lib/ghost/content
     environment:
