@@ -11,8 +11,8 @@ services:
     container_name: victoria-metrics
     restart: always
     volumes:
-      - victoria-metrics-data:/victoria-metrics-data
-      - $HOME/.local/etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - "victoria-metrics-data:/victoria-metrics-data"
+      - "{{ .path.local }}/etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro"
     network_mode: host
     dns: 100.100.100.100
 
@@ -26,7 +26,7 @@ services:
     restart: always
     pid: host
     volumes:
-      - /:/host:ro,rslave
+      - "/:/host:ro,rslave"
     network_mode: host
 
   loki:
@@ -36,8 +36,8 @@ services:
     container_name: loki
     restart: always
     volumes:
-      - loki-data:/loki
-      - $HOME/.local/etc/grafana/loki.yaml:/etc/grafana/loki.yaml
+      - "loki-data:/loki"
+      - "{{ .path.local }}/etc/grafana/loki.yaml:/etc/grafana/loki.yaml"
     network_mode: host
 
   promtail:
@@ -47,8 +47,8 @@ services:
     container_name: promtail
     restart: always
     volumes:
-      - /var/run:/host/var/run:ro,rslave
-      - $HOME/.local/etc/grafana:/etc/grafana
+      - "/var/run:/host/var/run:ro,rslave"
+      - "{{ .path.local }}/etc/grafana:/etc/grafana"
     network_mode: host
                   
   grafana:
@@ -56,8 +56,8 @@ services:
     container_name: grafana
     restart: always
     volumes:
-      - grafana-data:/var/lib/grafana
-      - $HOME/.local/etc/grafana/grafana.ini:/etc/grafana/grafana.ini
+      - "grafana-data:/var/lib/grafana"
+      - "{{ .path.local }}/etc/grafana/grafana.ini:/etc/grafana/grafana.ini"
     network_mode: host
     depends_on:
       - loki
@@ -76,8 +76,8 @@ services:
       - "67/udp"
       - "80:80/tcp"
     volumes:
-      - $HOME/.local/etc/pihole:/etc/pihole
-      - $HOME/.local/etc/dnsmasq.d:/etc/dnsmasq.d
+      - "{{ .path.local }}/etc/pihole:/etc/pihole"
+      - "{{ .path.local }}/etc/dnsmasq.d:/etc/dnsmasq.d"
     networks:
       - pihole
     environment:
@@ -91,7 +91,7 @@ services:
     container_name: ecobee
     restart: always
     volumes:
-      - $HOME/.local/etc/ecobee:/config
+      - "{{ .path.local }}/etc/ecobee:/config"
     network_mode: host
 
   huginn:
@@ -107,10 +107,10 @@ services:
     ports:
       - "2368:2368"
     volumes:
-      - $HOME/.local/share/ghost:/var/lib/ghost/content
+      - "{{ .path.local }}/share/ghost:/var/lib/ghost/content"
     environment:
       NODE_ENV: development
-      url: http://${HOSTNAME}:2368
+      url: http://{{ .chezmoi.hostname }}:2368
       database__connection__filename: /var/lib/ghost/content/data/ghost.db
 
   mediawiki:
@@ -120,8 +120,8 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - "{{ local }}/etc/mediawiki/LocalSettings.php:/var/www/html/LocalSettings.php"
-      - "{{ local }}/share/mediawiki/images:/var/www/html/images"
+      - "{{ .path.local }}/etc/mediawiki/LocalSettings.php:/var/www/html/LocalSettings.php"
+      - "{{ .path.local }}/share/mediawiki/images:/var/www/html/images"
 
 networks:
   pihole:
