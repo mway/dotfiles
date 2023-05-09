@@ -1,0 +1,92 @@
+---
+- hosts: all
+  connection: ssh
+  strategy: linear
+  gather_facts: yes
+
+  environment:
+    PATH: "{{ computed_path }}"
+
+  tasks:
+    - name: Configuration
+      include_tasks: tasks/config.yaml
+      tags:
+        - chezmoi
+        - config
+
+    - name: Core
+      include_tasks: tasks/core.yaml
+      tags:
+        - core
+        - go
+        - mw
+        - rust
+
+    - name: Tools
+      include_tasks: tasks/tools.yaml
+      tags:
+        - packages
+        - tools
+
+    - name: Vault
+      block:
+        - pause:
+            prompt: "Enter vault password"
+            echo: false
+          register: vault_password
+          no_log: true
+        - name: Ensure 1password session
+          shell: zsh -c 'op signin -f --account my'
+          args:
+            executable: /bin/bash
+            stdin: "{{ vault_password.user_input }}"
+          register: op_session
+          changed_when: false
+          no_log: true
+        - name: Extract 1password credentials
+          set_fact:
+            op_session_id: "{{ op_session.stdout_lines.0.split(' ').1.split('=').0 }}"
+            op_session_key: "{{ op_session.stdout_lines.0.split(' ').1.split('=').1.strip('\"') }}"
+            shell: awk '{print $NF}' | cut -d= -f1
+          no_log: true
+        - name: Chezmoi apply (Vault)
+          shell: |
+            {{ op_session_id }}="{{ op_session_key }}" chezmoi apply --verbose --force {{ local }}/etc
+          args:
+            executable: /bin/bash
+          register: service_config
+          changed_when: "service_config.stdout_lines|length > 1"
+      when: "'personal' in group_names"
+      tags:
+        - dns
+        - ecobee
+        - grafana
+        - loki
+        - network
+        - node-exporter
+        - observability
+        - services
+        - tailscale
+        - victoria-metrics
+
+    - name: Network
+      include_tasks: tasks/network.yaml
+      when: "'personal' in group_names"
+      tags:
+        - network
+        - tailscale
+
+    - name: Services
+      include_tasks: tasks/services.yaml
+      when: "'personal' in group_names"
+      tags:
+        - dns
+        - grafana
+        - loki
+        - node-exporter
+        - obs
+        - observability
+        - promtail
+        - services
+        - tailscale
+        - victoria-metrics

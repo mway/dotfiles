@@ -1,12 +1,13 @@
 ---
 - name: mw install
-  command: "mw install {{ item }}"
-  register: mw_install_pkg
-  changed_when: "'already installed' not in mw_install_pkg.stdout"
+  shell: mw install {{ item }}
+  args:
+    executable: /bin/bash
+  register: mw_install_pkgs
+  changed_when: "'already installed' not in mw_install_pkgs.stdout"
   tags:
-    - devenv
-    - tools
     - packages
+    - tools
   loop:
     - ag
     - bash
@@ -23,16 +24,18 @@
     - git
     - jq
     - just
+    - python3
     - tree
+    - zsh
 
 - name: mw install personal
-  command: "mw install {{ item }}"
-  register: mw_install_personal_pkg
-  changed_when: "'already installed' not in mw_install_personal_pkg.stdout"
+  shell: mw install {{ item }}
+  args:
+    executable: /bin/bash
+  register: mw_install_personal_pkgs
+  changed_when: "'already installed' not in mw_install_personal_pkgs.stdout"
   tags:
-    - 1password
-    - personal
-    - tailscale
+    - packages
+    - tools
   loop:
     - 1password
-    - tailscale

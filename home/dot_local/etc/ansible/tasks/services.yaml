@@ -1,32 +1,22 @@
 ---
-- name: Tailscale - DNS
-  command:
-    argv:
-      - tailscale
-      - up
-      - --accept-dns=false
-      - --accept-routes
-      - --advertise-exit-node=false
-      - --advertise-routes=172.168.68.0/24
-      - --ssh
-  become: yes
-  when: "'personal' in group_names and 'dns' in group_names"
+- name: "Pip docker"
+  pip:
+    executable: pip3
+    name:
+      - docker
+      - docker-compose
+    state: latest
+  become: true
+  when: "'personal' in group_names"
   tags:
-    - tailscale
-
-- name: Tailscale - Non-DNS
-  command:
-    argv:
-      - tailscale
-      - up
-      - --accept-dns
-      - --accept-routes
-      - --advertise-exit-node
-      - --ssh
-  become: yes
-  when: "'personal' in group_names and 'dns' not in group_names"
-  tags:
-    - tailscale
+    - dns
+    - ecobee
+    - grafana
+    - loki
+    - node-exporter
+    - observability
+    - services
+    - victoria-metrics
 
 - name: Node Exporter
   community.docker.docker_compose:
@@ -45,10 +35,9 @@
     services:
       - pihole
   become: true
-  when: "'dns' in group_names"
+  when: "'personal' in group_names and 'dns' in group_names"
   tags:
     - dns
-    - promtail
     - services
   
 - name: Promtail
@@ -56,9 +45,9 @@
     project_src: "{{ local }}/etc/docker"
     services:
       - promtail
+  become: true
   when: "'personal' in group_names"
   tags:
-    - promtail
     - services
 
 - name: Observability
@@ -68,11 +57,11 @@
       - grafana
       - loki
       - victoria-metrics
-  when: "'obs' in group_names"
+  become: true
+  when: "'personal' in group_names and 'obs' in group_names"
   tags:
     - grafana
     - loki
-    - obs
     - observability
     - victoria-metrics
     - services
@@ -83,7 +72,7 @@
     services:
       - ecobee
   become: true
-  when: "'probes' in group_names"
+  when: "'personal' in group_names and 'probes' in group_names"
   tags:
     - ecobee
     - services

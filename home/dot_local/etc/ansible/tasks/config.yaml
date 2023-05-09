@@ -25,56 +25,44 @@
     - personal
     - ssh
 
-- name: 1password
-  block:
-    # - name: Ensure 1password
-    #   command: mw install 1password
-    #   register: mw_install_1password
-    #   changed_when: "'already installed' not in mw_install_1password.stdout"
-    - name: Ensure 1password session
-      shell: op signin -f --account my
-      args:
-        stdin: "{{ vault_password }}"
-      register: op_session
-    - name: Extract 1password credentials
-      set_fact:
-        op_session_id: "{{ op_session.stdout_lines.0.split(' ').1.split('=').0 }}"
-        op_session_key: "{{ op_session.stdout_lines.0.split(' ').1.split('=').1.strip('\"') }}"
-        shell: awk '{print $NF}' | cut -d= -f1
-  no_log: true
-  tags:
-    - chezmoi
-    - config
-    - devenv
-    - dotfiles
-    - personal
-
-- name: Ensure chezmoi
-  block:
-    - name: chezmoi --version
-      shell: '[[ "$($HOME/.local/bin/chezmoi --version 2>/dev/null)" =~ "v{{ versions.chezmoi }}" ]]'
+- block:
+    - name: Chezmoi version check
+      shell: '[[ "$(chezmoi --version 2>/dev/null)" =~ "v{{ versions.chezmoi }}" ]]'
       args:
         executable: /bin/bash
       changed_when: false
   rescue:
-    - name: chezmoi init
+    - name: Chezmoi install
       shell: sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin init git@github.com:mway/dotfiles.git
+      args:
+        executable: /bin/bash
   tags:
     - chezmoi
     - config
-    - devenv
-    - dotfiles
-    - personal
 
-- name: chezmoi update
-  shell: |
-    {{ op_session_id }}={{ op_session_key }} chezmoi update --verbose --init --apply --force
+- name: Chezmoi update
+  shell: chezmoi update --verbose --init --apply=false
+  args:
+    executable: /bin/bash
   register: chezmoi_update
-  changed_when: "chezmoi_update.stdout_lines|length > 1"
-  # no_log: true
+  changed_when: "chezmoi_update.stdout_lines|length > 1 or chezmoi_update.stderr_lines|length > 1"
   tags:
     - chezmoi
     - config
-    - devenv
-    - dotfiles
-    - personal
+
+- name: Chezmoi apply core (may lazily bootstrap tools)
+  shell: |
+    chezmoi apply --verbose --force \
+      $HOME/.config                 \
+      $HOME/.dotrc{,.bash,.zsh}     \
+      $HOME/.profile.d              \
+      $HOME/.local/bin              \
+      $HOME/bin                     \
+      && true
+  args:
+    executable: /bin/bash
+  register: chezmoi_apply_core
+  changed_when: "chezmoi_apply_core.stdout_lines|length > 1"
+  tags:
+    - chezmoi
+    - config

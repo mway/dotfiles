@@ -1,0 +1,65 @@
+---
+- name: Ensure IP Forwarding
+  copy:
+    dest: /etc/sysctl.d/99-tailscale.conf
+    content: |
+      net.ipv4.ip_forward = 1
+      net.ipv6.conf.all.forwarding = 1
+  register: sysctl_d
+  become: true
+  when: "'personal' in group_names"
+  tags:
+    - network
+    - tailscale
+
+- name: Update IP Forwarding Rules
+  command: sysctl -p /etc/sysctl.d/99-tailscale.conf
+  become: true
+  when: "sysctl_d.changed and 'personal' in group_names"
+  tags:
+    - network
+    - tailscale
+
+- name: Install Tailscale
+  shell: mw install tailscale
+  args:
+    executable: /bin/bash
+  register: install_tailscale
+  changed_when: "'already installed' not in install_tailscale.stdout"
+  when: "'personal' in group_names"
+  tags:
+    - network
+    - tailscale
+
+- name: Tailscale - DNS
+  command:
+    argv:
+      - tailscale
+      - up
+      - --auth-key=file:{{ local }}/etc/tailscale/key
+      - --accept-dns=false
+      - --accept-routes
+      - --advertise-exit-node=false
+      - --advertise-routes=172.168.68.0/24
+      - --ssh
+  become: true
+  when: "'personal' in group_names and 'dns' in group_names"
+  tags:
+    - network
+    - tailscale
+
+- name: Tailscale - Non-DNS
+  command:
+    argv:
+      - tailscale
+      - up
+      - --auth-key=file:{{ local }}/etc/tailscale/key
+      - --accept-dns
+      - --accept-routes
+      - --advertise-exit-node
+      - --ssh
+  become: true
+  when: "'personal' in group_names and 'dns' not in group_names"
+  tags:
+    - network
+    - tailscale

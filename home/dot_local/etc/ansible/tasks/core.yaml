@@ -1,0 +1,30 @@
+---
+- name: Ensure Rust
+  shell: zsh -c 'cargo --version'
+  args:
+    executable: /bin/bash
+  register: ensure_rust
+  changed_when: "ensure_rust.stdout_lines|length > 1"
+  tags:
+    - core
+    - rust
+  
+- name: Ensure mw
+  shell: zsh -c 'mw --version'
+  args:
+    executable: /bin/bash
+  register: ensure_mw
+  changed_when: "ensure_mw.stdout_lines|length > 1"
+  tags:
+    - core
+    - mw
+
+- name: Ensure Go
+  shell: zsh -c 'go version'
+  args:
+    executable: /bin/bash
+  register: ensure_go
+  changed_when: "ensure_go.stdout_lines|length > 1"
+  tags:
+    - core
+    - go
