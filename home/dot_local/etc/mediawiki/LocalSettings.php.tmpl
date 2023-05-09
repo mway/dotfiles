@@ -20,7 +20,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 # $wgDisableOutputCompression = true;
 
 $wgSitename = "Timeless Halls";
-$wgMetaNamespace = "MyWiki";
+$wgMetaNamespace = "TimelessHalls";
 
 ## The URL base path to the directory containing the wiki;
 ## defaults for all runtime URL paths are based off of this.
@@ -124,7 +124,7 @@ $wgUseInstantCommons = false;
 # Periodically send a pingback to https://www.mediawiki.org/ with basic data
 # about this MediaWiki instance. The Wikimedia Foundation shares this data
 # with MediaWiki developers to help guide future development efforts.
-$wgPingback = true;
+$wgPingback = false;
 
 # Site language code, should be one of the list in ./includes/languages/data/Names.php
 $wgLanguageCode = "en";
@@ -181,6 +181,9 @@ wfLoadSkin( 'Vector' );
 # to LocalSettings.php. Check specific extension documentation for more details.
 # The following extensions were automatically enabled:
 wfLoadExtension( 'CategoryTree' );
+wfLoadExtension( 'Cite' );
+wfLoadExtension( 'ImageMap' );
+wfLoadExtension( 'InputBox' );
 wfLoadExtension( 'Math' );
 wfLoadExtension( 'MultimediaViewer' );
 wfLoadExtension( 'ParserFunctions' );
