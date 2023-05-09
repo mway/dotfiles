@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+_fn() {
+	readonly curbranch="$(git curbranch)"
+	[ -z "$curbranch" ] || git checkout -t "$curbranch" -b "$1"
+}
+
+_fn "$@"

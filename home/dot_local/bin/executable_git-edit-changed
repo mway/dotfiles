@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+fzf_preview() {
+	fzf -m --height=30% --preview 'bat --style=numbers --line-range :300 {}'
+}
+
+_fn() {
+	readonly changed="$(git changed | grep "$1" | fzf_preview)"
+	[ -z "$changed" ] || "$EDITOR" $changed
+}
+
+_fn "$@"

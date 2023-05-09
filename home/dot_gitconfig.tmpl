@@ -42,24 +42,19 @@
 	l = log --pretty=oneline -n 20 --graph --abbrev-commit
 	lg = log --graph --pretty=format:'%C(bold red)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	s = status -s
-	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
-	branch-commit = "!f() { git l "$1" | head -n1 ;}; f"
-	change-branch = "!f() { branch=\"$(git branch | grep \"$1\" | grep -v '^\\+' | awk '{print $NF}' | fzf)\"; [ -z \"$branch\" ] || git checkout \"$branch\" ;}; f"
+	ec = edit-changed
 	cb = change-branch
 	changed = show --pretty="" --name-only
-	edit-changed = "!f() { changed=\"$(git changed | grep \"$1\" | fzf -m)\"; [ -z \"$changed\" ] || \"$EDITOR\" $changed ;}; f"
-	ec = edit-changed
+	curbranch = symbolic-ref --short HEAD
+	cur = curbranch
+	branch-commit = "!f() { git l "$1" | head -n1 ;}; f"
 	tags = tag -l
 	branches = branch -a
 	remotes = remote -v
-	retag = "!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r"
 	sshow = "!f() { git stash show stash^{/$*} -p; }; f"
 	sapply = "!f() { git stash apply stash^{/$*}; }; f"
 	spop = "!f() { git stash pop stash^{/$*}; }; f"
-	newbranch = "!f() { git checkout -t \"$(git curbranch)\" -b \"$1\" ;}; f"
 	flow = newbranch
-	curbranch = symbolic-ref --short HEAD
-	cur = curbranch
 	show-files = show --pretty="format:" --name-only
 [branch]
 	autosetuprebase = always
