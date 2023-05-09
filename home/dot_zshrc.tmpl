@@ -9,7 +9,7 @@ zstyle :compinstall filename '{{ .path.home }}/.zshrc'
 
 fpath=('{{ .path.config }}/zsh/funcs' '{{ .path.local }}/share/zsh/autocomplete' $fpath)
 if command -v brew >/dev/null 2>&1; then
-  fpath+=("$(brew --prefix zsh)/share/zsh/functions")
+  fpath+=("$(brew --prefix zsh)/share/zsh/functions" "$(brew --prefix)/share/zsh/site-functions")
 fi
 
 autoload -Uz compinit && compinit
