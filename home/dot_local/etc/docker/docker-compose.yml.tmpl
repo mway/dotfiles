@@ -110,7 +110,7 @@ services:
       - $HOME/.local/share/ghost:/var/lib/ghost/content
     environment:
       NODE_ENV: development
-      url: http://${HOST:-${HOSTNAME:-localhost}}:2368
+      url: http://${HOSTNAME}:2368
       database__connection__filename: /var/lib/ghost/content/data/ghost.db
 
 networks:
