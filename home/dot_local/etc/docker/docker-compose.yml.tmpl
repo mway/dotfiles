@@ -113,6 +113,16 @@ services:
       url: http://${HOSTNAME}:2368
       database__connection__filename: /var/lib/ghost/content/data/ghost.db
 
+  mediawiki:
+    image: mediawiki
+    container_name: mediawiki
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - "{{ local }}/etc/mediawiki/LocalSettings.php:/var/www/html/LocalSettings.php"
+      - "{{ local }}/share/mediawiki/images:/var/www/html/images"
+
 networks:
   pihole:
     driver: bridge
