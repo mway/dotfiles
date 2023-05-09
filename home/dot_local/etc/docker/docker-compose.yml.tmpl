@@ -48,7 +48,7 @@ services:
     restart: always
     volumes:
       - /var/run:/host/var/run:ro,rslave
-      - $HOME/.local/etc/grafana/promtail.yaml:/etc/grafana/promtail.yaml
+      - $HOME/.local/etc/grafana:/etc/grafana
     network_mode: host
                   
   grafana:
