@@ -67,6 +67,7 @@
         - observability
         - services
         - tailscale
+        - vault
         - victoria-metrics
 
     - name: Network
@@ -75,6 +76,7 @@
       tags:
         - network
         - tailscale
+        - vault
 
     - name: Services
       include_tasks: tasks/services.yaml
@@ -89,4 +91,5 @@
         - promtail
         - services
         - tailscale
+        - vault
         - victoria-metrics
