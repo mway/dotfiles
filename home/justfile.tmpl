@@ -15,10 +15,8 @@ sync:
 play TAGS="config,core,tools,network,services" *ARGS="":
     ansible-playbook \
         {{ .path.local }}/etc/ansible/playbook.yml \
-        -i {{ .path.local }}/etc/ansible/lab \
-        -t "{{ "{{" }} TAGS {{ "}}" }}" \
-        "{{ "{{" }} ARGS {{ "}}" }}" \
-        && true
+        -i {{ .path.local }}/etc/ansible/inventory \
+        -t "{{ "{{" }} TAGS {{ "}}" }}" {{ "{{" }} ARGS {{ "}}" }}
 alias play-all: play
 
 play-config *ARGS="": (play "config" ARGS)
