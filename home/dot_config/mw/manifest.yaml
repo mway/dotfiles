@@ -444,7 +444,7 @@ packages:
           - type: file
             url: https://raw.githubusercontent.com/casey/just/$VERSION/completions/just.zsh
             dst: $HOME/.config/zsh/funcs/_just
-        version: "1.12.0"
+        version: "1.13.0"
         version_command: [just, [--version]]
   - name: keychain
     platforms:
