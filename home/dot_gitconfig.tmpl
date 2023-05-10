@@ -23,7 +23,7 @@
 	changed = green
 	untracked = cyan
 [diff]
-	external = difft
+	external = difft --parse-error-limit=5
 	relative = true
 	renames = copies
 [help]
@@ -44,6 +44,9 @@
 	s = status -s
 	ec = edit-changed
 	cb = change-branch
+	addn = add -N
+	fadd = fuzzy-add
+	fdiff = fuzzy-diff
 	changed = show --pretty="" --name-only
 	curbranch = symbolic-ref --short HEAD
 	cur = curbranch
