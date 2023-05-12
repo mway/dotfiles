@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+# shellcheck disable=SC2155
+_fn() {
+  readonly prog="$HOME/.local/protoc/bin/protoc"
+  readonly version="22.5"
+  if [ ! -x "$prog" ] || [[ "$("$prog" --version)" != *"$version"* ]]; then
+    # shellcheck disable=SC2155
+    readonly tmpdir="$(mktemp -d)"
+    trap 'rm -rf $tmpdir' EXIT
+
+    local os="$(mw env OS)"
+    [[ "$os" != "darwin" ]] || os="osx"
+
+    local arch="$(mw env ARCH)"
+    [[ "$arch" != "amd64" ]] || arch="x86_64"
+    [[ "$arch" != "arm64" ]] || arch="aarch_64"
+
+    cd "$tmpdir"
+    curl -Lo protoc.zip "https://github.com/protocolbuffers/protobuf/releases/download/v${version}/protoc-${version}-${os}-${arch}.zip"
+    rm -rf "$HOME/.local/protoc"
+    unzip -d "$HOME/.local/protoc" protoc.zip
+  fi
+
+  exec "$prog" "$@"
+}
+
+_fn "$@"

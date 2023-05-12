@@ -533,6 +533,22 @@ packages:
         type: go
         package: github.com/prometheus/node_exporter
         version: "1"
+  - name: protoc
+    platforms:
+      _:
+        type: archive
+        url: https://github.com/protocolbuffers/protobuf/releases/download/v${VERSION}/protoc-${VERSION}-${OS}-${ARCH}.zip
+        files:
+          bin: $LOCAL/protoc/bin
+          include: $LOCAL/protoc/include
+        modes:
+          bin/protoc: +x
+        translations:
+          amd64: x86_64
+          arm64: aarch_64
+          darwin: osx
+        version: "22.5"
+        version_check: [protoc, ["--version"]]
   - name: python3
     platforms:
       darwin:
