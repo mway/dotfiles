@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+_fn() {
+	local secs="$1"
+	if [ -z "$secs" ] || [[ "$secs" == "" ]]; then
+		echo "Usage: count SECONDS" 1>&2
+		exit 1
+	fi
+
+	while [ $secs -gt 0 ]; do
+   echo -ne "Countdown: $secs \033[0K\r"
+   sleep 1
+   : $((secs--))
+	done
+}
+
+_fn "$@"
