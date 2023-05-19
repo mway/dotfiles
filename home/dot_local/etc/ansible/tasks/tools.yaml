@@ -22,10 +22,13 @@
     - fd-find
     - fzf
     - git
+    - helix
     - jq
     - just
     - python3
+    - ripgrep
     - tree
+    - zellij
     - zsh
 
 - name: mw install personal
