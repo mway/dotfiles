@@ -7,4 +7,5 @@ function maybe_source() {
 
 export PATH="{{ .path.path }}"
 
-maybe_source "$HOME/.local/etc/homebrew/env"
+maybe_source "{{ .path.home }}/.local/etc/homebrew/env"
+maybe_source "{{ .path.home }}/.config/op/plugins.sh"
