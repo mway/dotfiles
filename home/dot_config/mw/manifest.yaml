@@ -280,7 +280,7 @@ packages:
       darwin:
         type: brew
         name: docker-compose
-        version: "2.16.0"
+        version: "2.18.1"
       linux:
         type: apt
         name: docker-compose-plugin
@@ -294,7 +294,7 @@ packages:
           url: https://download.docker.com/linux/$OS_FAMILY
           branch: $OS_CODENAME stable
           key: docker
-        version: "2.17"
+        version: "2.18.1"
         version_command: [docker-compose, [--version]]
   - name: docker-desktop
     platforms:
@@ -692,6 +692,9 @@ packages:
       darwin:
         type: brew
         cask: true
+      linux:
+        type: apt
+        version_command: [dropbox, [version]]
   - name: espanso
     platforms:
       darwin:
