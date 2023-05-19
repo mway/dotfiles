@@ -18,13 +18,13 @@ packages:
       _:
         type: go
         package: golang.org/x/tools/gopls
-        version: v0.11.0
+        version: v0.12.0-pre.2
   - name: rust
     platforms:
       _:
         type: bootstrap
         name: rust
-        version: "1.68.2"
+        version: "1.69.0"
   - name: rust-analyzer
     platforms:
       _:
@@ -39,17 +39,17 @@ packages:
           linux: unknown-linux-gnu
           amd64: x86_64
           arm64: aarch64
-        version: 2023-04-07
+        version: 2023-05-15
         version_command: [rust-analyzer, [--version]]
   - name: chezmoi
     aliases: [cm]
     platforms:
       darwin:
         type: brew
-        version: "2.31"
+        version: "2.33.6"
       linux:
         type: apt
-        version: "2.31"
+        version: "2.33.6"
   - name: 1password
     aliases: [1p, op]
     platforms:
@@ -122,7 +122,7 @@ packages:
       _:
         locked: true
         type: cargo
-        version: "0.22.1"
+        version: "0.23.0"
   # TODO: can't use googleapis.com on VPN
   # - name: bazel
   #   platforms:
@@ -159,7 +159,7 @@ packages:
         translations:
           darwin: Darwin
           linux: Linux
-        version: "1.17.0"
+        version: "1.19.0"
         version_command: [buf, [--version]]
   - name: build-essential
     platforms:
@@ -242,7 +242,7 @@ packages:
       _:
         type: cargo
         bin: difft
-        version: "0.46.0"
+        version: "0.47.0"
         version_command: [difft, [--version]]
   - name: direnv
     platforms:
@@ -370,7 +370,7 @@ packages:
           bin/gh: $LOCAL_BIN/gh
         translations:
           darwin: macOS
-        version: "2.27.0"
+        version: "2.29.0"
         version_command: [gh, [--version]]
   - name: git
     platforms:
