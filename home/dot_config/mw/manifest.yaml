@@ -414,7 +414,7 @@ packages:
           - type: command
             command: hx
             args: [-g, build]
-        version: "23.03"
+        version: "23.05"
         version_command: [hx, [--version]]
   - name: htop
     platforms:

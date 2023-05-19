@@ -6,7 +6,7 @@ _fn() {
   readonly name="hx"
   readonly prog="$(mw path "$name" 2>/dev/null || true)"
   readonly detected_version="$(mw version "$name" 2>/dev/null || true)"
-  readonly version="${detected_version:-"23.03"}"
+  readonly version="${detected_version:-"23.05"}"
   if [ ! -x "$prog" ] || [[ "$("$prog" --version)" != *"$version"* ]]; then
     tmpdir="$(mktemp -d)"
     trap 'rm -rf $tmpdir' EXIT
