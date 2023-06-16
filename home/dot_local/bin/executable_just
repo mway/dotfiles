@@ -11,12 +11,7 @@ _just() {
     cargo install --version "$version" "$name"
   fi
 
-  local justfile
-  if [ ! -f justfile ]; then
-    justfile="-f $HOME/justfile"
-  fi
-
-  exec "${prog:-"$HOME/.cargo/bin/$name"}" --unstable $justfile $@
+  exec "${prog:-"$HOME/.cargo/bin/$name"}" --unstable $@
 }
 
 _just "$@"

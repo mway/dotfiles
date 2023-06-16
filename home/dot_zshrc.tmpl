@@ -3,10 +3,17 @@
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' verbose yes file-sort modification
 zstyle ':completion:*' completer _complete _ignored _approximate
+zstyle ':completion:*' menu select
 zstyle ':completion:*:*:git:*' script '{{ .path.profiled }}/40_completion_git.bash'
 zstyle ':completion:*:*:just:*' script '{{ .path.config }}/zsh/funcs/_just'
 zstyle :compinstall filename '{{ .path.home }}/.zshrc'
 
+# zsh-z
+if [ -f '{{ .path.local }}/share/zsh/zsh-z/zsh-z.plugin.zsh' ]; then
+  source '{{ .path.local }}/share/zsh/zsh-z/zsh-z.plugin.zsh'
+fi
+
+# builtin/common autocomplete
 fpath=('{{ .path.config }}/zsh/funcs' '{{ .path.local }}/share/zsh/autocomplete' $fpath)
 if command -v brew >/dev/null 2>&1; then
   fpath+=("$(brew --prefix zsh)/share/zsh/functions" "$(brew --prefix)/share/zsh/site-functions")
