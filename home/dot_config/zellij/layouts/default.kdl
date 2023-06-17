@@ -1,6 +1,6 @@
 layout {
     pane split_direction="vertical" {
-        pane name="Code"
+        pane name="Code" size="126"
         pane split_direction="horizontal" {
             pane name="Shell"
             pane name="Shell"
