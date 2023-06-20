@@ -11,11 +11,12 @@
 {{- $goRootBin := print $goRoot "/bin" -}}
 {{- $cargoHome := print $userHome "/.cargo" -}}
 {{- $cargoBin := print $cargoHome "/bin" -}}
+{{- $userPythonBin := print (trim (output "python3" "-m" "site" "--user-base")) "/bin" -}}
 {{- $pathFragments := list }}
 {{- if eq .chezmoi.os "darwin" -}}
-{{-   $pathFragments = list $userBin $localBin $cargoBin $goPathBin $goRootBin "/opt/homebrew/sbin" "/opt/homebrew/bin" "/usr/local/sbin" "/usr/local/bin" }}
+{{-   $pathFragments = list $userBin $localBin $cargoBin $goPathBin $goRootBin $userPythonBin "/opt/homebrew/sbin" "/opt/homebrew/bin" "/usr/local/sbin" "/usr/local/bin" }}
 {{- else -}}
-{{-   $pathFragments = list $userBin $localBin $cargoBin $goPathBin $goRootBin "/usr/local/sbin" "/usr/local/bin" }}
+{{-   $pathFragments = list $userBin $localBin $cargoBin $goPathBin $goRootBin $userPythonBin "/usr/local/sbin" "/usr/local/bin" }}
 {{- end -}}
 {{- $computedPath := join ":" (uniq (concat $pathFragments (splitList ":" (env "PATH")))) -}}
 
