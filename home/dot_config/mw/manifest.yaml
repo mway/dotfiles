@@ -345,7 +345,7 @@ packages:
           debian: tar.gz
           ubuntu: tar.gz
           unknown: tar.gz
-        version: "0.40.0"
+        version: "0.42.0"
         version_command: [fzf, [--version]]
   - name: gcc
     platforms:
@@ -444,7 +444,7 @@ packages:
           - type: file
             url: https://raw.githubusercontent.com/casey/just/$VERSION/completions/just.zsh
             dst: $HOME/.config/zsh/funcs/_just
-        version: "1.13.0"
+        version: "1.14.0"
         version_command: [just, [--version]]
   - name: keychain
     platforms:
@@ -651,7 +651,7 @@ packages:
       _:
         locked: true
         type: cargo
-        version: "0.36.0"
+        version: "0.37.2"
         version_command: [zellij, [--version]]
   - name: zsh
     platforms:
