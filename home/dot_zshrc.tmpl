@@ -1,26 +1,27 @@
-#!/usr/bin/env zsh
+export ZSH="$HOME/.oh-my-zsh"
+export FZF_BASE="$HOME/.local/share/fzf"
 
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' verbose yes file-sort modification
-zstyle ':completion:*' completer _complete _ignored _approximate
-zstyle ':completion:*' menu select
-zstyle ':completion:*:*:git:*' script '{{ .path.profiled }}/40_completion_git.bash'
-zstyle ':completion:*:*:just:*' script '{{ .path.config }}/zsh/funcs/_just'
-zstyle :compinstall filename '{{ .path.home }}/.zshrc'
+# ZSH_THEME="dracula/dracula"
+HIST_STAMPS="yyyy-mm-dd"
+# DISABLE_AUTO_TITLE="true"
+# ENABLE_CORRECTION="true"
 
-# zsh-z
-if [ -f '{{ .path.local }}/share/zsh/zsh-z/zsh-z.plugin.zsh' ]; then
-  source '{{ .path.local }}/share/zsh/zsh-z/zsh-z.plugin.zsh'
-fi
+plugins=(
+  bazel
+  direnv
+  fasd
+  fd
+  fzf
+  gitfast
+  gpg-agent
+  golang
+  keychain
+  ripgrep
+  rust
+  z
+)
 
-# builtin/common autocomplete
-fpath=('{{ .path.config }}/zsh/funcs' '{{ .path.local }}/share/zsh/autocomplete' $fpath)
-if command -v brew >/dev/null 2>&1; then
-  fpath+=("$(brew --prefix zsh)/share/zsh/functions" "$(brew --prefix)/share/zsh/site-functions")
-fi
-
-autoload -Uz compinit && compinit
-autoload -U colors && colors
+source "$ZSH/oh-my-zsh.sh"
 
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS
@@ -32,6 +33,7 @@ setopt EXTENDED_HISTORY
 setopt INC_APPEND_HISTORY
 export HISTTIMEFORMAT="[%F %T] "
 export HISTSIZE=100000000
+export LANG=en_US.UTF-8
 
 [ ! -f '{{ .path.home }}/.dotrc' ] || source '{{ .path.home }}/.dotrc'
 [ ! -f '{{ .path.home }}/.dotrc.zsh' ] || source '{{ .path.home }}/.dotrc.zsh'

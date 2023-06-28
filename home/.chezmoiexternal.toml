@@ -5,10 +5,20 @@
     refreshPeriod = "168h"
 {{- end }}
 
-[".local/share/zsh/autocomplete"]
+[".oh-my-zsh/custom/plugins/zsh-syntax-highlighting"]
     type = "git-repo"
-    url = "https://github.com/marlonrichert/zsh-autocomplete.git"
+    url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
     refreshPeriod = "168h"
+
+[".oh-my-zsh/custom/themes/dracula"]
+    type = "git-repo"
+    url = "https://github.com/dracula/zsh"
+    refreshPeriod = "168h"
+
+# [".local/share/zsh/autocomplete"]
+#     type = "git-repo"
+#     url = "https://github.com/marlonrichert/zsh-autocomplete.git"
+#     refreshPeriod = "168h"
 
 [".local/share/fasd"]
     type = "archive"
@@ -17,10 +27,15 @@
     stripComponents = 1
     refreshPeriod = "168h"
 
-[".local/share/zsh/zsh-z"]
+[".local/share/fzf"]
     type = "git-repo"
-    url = "https://github.com/agkozak/zsh-z.git"
+    url = "https://github.com/junegunn/fzf.git"
     refreshPeriod = "168h"
+
+# [".local/share/zsh/zsh-z"]
+#     type = "git-repo"
+#     url = "https://github.com/agkozak/zsh-z.git"
+#     refreshPeriod = "168h"
 
 [".profile.d/40_completion_git.bash"]
     type = "file"
@@ -32,10 +47,10 @@
     url = "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh"
     refreshPeriod = "168h"
 
-[".profile.d/41_completion_fzf.zsh"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/lincheney/fzf-tab-completion/master/zsh/fzf-zsh-completion.sh"
-    refreshPeriod = "168h"
+# [".profile.d/41_completion_fzf.zsh"]
+#     type = "file"
+#     url = "https://raw.githubusercontent.com/lincheney/fzf-tab-completion/master/zsh/fzf-zsh-completion.sh"
+#     refreshPeriod = "168h"
 
 [".profile.d/40_completion_cargo.bash"]
     type = "file"
