@@ -31,6 +31,7 @@ data:
   arch: {{ quote .chezmoi.arch }}
   os: {{ quote .chezmoi.os }}
   personal: {{ $personal }}
+  shell: {{ trim (output "which" "zsh") }}
 
   path:
     config: {{ $userConfig }}

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+sudo chsh -s {{ quote .shell }} {{ trim (output "whoami") }}
