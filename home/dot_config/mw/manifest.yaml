@@ -116,7 +116,7 @@ packages:
         version: "5.2.15"
       linux:
         type: apt
-        version: "5.1"
+        version: "5."
   - name: bat
     platforms:
       _:
@@ -251,7 +251,7 @@ packages:
         version: "2.32.2"
       linux:
         type: apt
-        version: "2.25.2"
+        version: "2."
   - name: docker
     platforms:
       darwin:
@@ -273,7 +273,7 @@ packages:
               url: https://download.docker.com/linux/$OS_FAMILY
               branch: $OS_CODENAME stable
               key: docker
-            version: "23.0"
+            version: "24."
         version_command: [docker, [--version]]
   - name: docker-compose
     platforms:
@@ -431,7 +431,7 @@ packages:
         version: "1.6"
       linux:
         type: apt
-        version: "1.6"
+        version: "1."
   - name: just
     platforms:
       _:
@@ -561,7 +561,7 @@ packages:
           - type: apt
           - type: apt
             name: python3-pip
-        version: "3.9"
+        version: "3."
         version_command: [python3, [--version]]
   - name: ripgrep
     aliases: [rg]
@@ -665,7 +665,7 @@ packages:
         version_command: [/opt/homebrew/bin/zsh, [--version]]
       linux:
         type: apt
-        version: "5.8"
+        version: "5."
         version_command: [zsh, [--version]]
   - name: zstd
     platforms:
