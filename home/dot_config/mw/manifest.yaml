@@ -169,37 +169,31 @@ packages:
   - name: cargo-binutils
     platforms:
       _:
-        name: cargo-binutils
         type: cargo
         version: "0.3.6"
   - name: cargo-make
     platforms:
       _:
-        name: cargo-make
         type: cargo
         version: "0.36.6"
   - name: cargo-outdated
     platforms:
       _:
-        name: cargo-outdated
         type: cargo
         version: "0.11.2"
   - name: cargo-sort
     platforms:
       _:
-        name: cargo-sort
         type: cargo
         version: "1.0.9"
   - name: cargo-tarpaulin
     platforms:
       _:
-        name: cargo-tarpaulin
         type: cargo
         version: "0.25.1"
   - name: cargo-watch
     platforms:
       _:
-        name: cargo-watch
         type: cargo
         version: "8.4.0"
   - name: clang-format
@@ -391,6 +385,11 @@ packages:
           golangci-lint: $HOME/.local/bin/golangci-lint
         version: "1.52.2"
         version_command: [golangci-lint, [--version]]
+  - name: gping
+    platforms:
+      _:
+        type: cargo
+        version: "1.13.1"
   - name: helix
     aliases: [hx, helix-editor]
     platforms:
@@ -587,6 +586,11 @@ packages:
       linux:
         type: apt
         version: "0.8.0"
+  - name: sniffnet
+    platforms:
+      _:
+        type: cargo
+        version: "1.2.1"
   - name: staticcheck
     platforms:
       _:
