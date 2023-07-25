@@ -5,7 +5,7 @@ set -eo pipefail
 _fn() {
   readonly prog="$(mw path go 2>/dev/null || true)"
   readonly detected_version="$(mw version go 2>/dev/null || true)"
-  readonly version="${detected_version:-"1.20.4"}"
+  readonly version="${detected_version:-"1.20.6"}"
   if [ ! -x "$prog" ] || [[ "$("$prog" version)" != *"$version"* ]]; then
     # shellcheck disable=SC2155
     readonly tmpdir="$(mktemp -d)"
