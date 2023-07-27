@@ -526,6 +526,15 @@ packages:
             type: apt
         version: "1.39"
         version_command: [op, [--version]]
+  - name: ninja
+    platforms:
+      darwin:
+        type: brew
+        version: "1.11"
+      linux:
+        type: apt
+        name: ninja-build
+        version: "1.8"
   - name: node_exporter
     platforms:
       _:
