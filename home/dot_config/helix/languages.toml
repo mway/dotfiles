@@ -1,3 +1,16 @@
+[language-server.clangd]
+command = "clangd"
+args = ["--clang-tidy", "--header-insertion=iwyu"] 
+
+[language-server.clangd.config.Completion]
+AllScopes = "Yes"
+
+[language-server.clangd.config.Index]
+StandardLibrary = "Yes"
+
+[language-server.clangd.config.Diagnostics]
+UnusedIncludes = "Strict"
+
 [[language]]
 name = "go"
 
@@ -29,10 +42,18 @@ name = "rust"
 
 [[language]]
 name = "cpp"
+auto-format = true
+
+[language.formatter]
+command = "clang-format"
+args = [
+  "--Werror",
+]
 
 [language.config]
 Completion.AllScopes = "Yes"
+Diagnostics.UnusedIncludes = "Strict"
 
 [[language]]
 name = "starlark"
-file-types = ["starlark", { suffix = ".star"}, { suffix = ".bazel"}]
+file-types = ["starlark", { suffix = ".star" }, { suffix = ".bazel"}]
