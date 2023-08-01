@@ -20,6 +20,9 @@ memoryMode = "DegradeClosed"
 deepCompletion = true
 staticcheck = true
 
+[language.config.formatting]
+gofumpt = true
+
 [language.config.analyses]
 fieldalignment = true
 nilness = true
