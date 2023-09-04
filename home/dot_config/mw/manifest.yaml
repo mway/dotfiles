@@ -46,7 +46,7 @@ packages:
     platforms:
       darwin:
         type: brew
-        version: "2.33.6"
+        version: "2.39.0"
       linux:
         type: apt
         version: "2.33.6"
@@ -664,7 +664,7 @@ packages:
       _:
         locked: true
         type: cargo
-        version: "0.38.0"
+        version: "0.38.1"
         version_command: [zellij, [--version]]
   - name: zsh
     platforms:
