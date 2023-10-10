@@ -12,7 +12,7 @@ packages:
       _:
         type: bootstrap
         name: go
-        version: "1.21.0"
+        version: "1.21.3"
   - name: gopls
     platforms:
       _:
@@ -24,7 +24,7 @@ packages:
       _:
         type: bootstrap
         name: rust
-        version: "1.69.0"
+        version: "1.70.0"
   - name: rust-analyzer
     platforms:
       _:
@@ -46,7 +46,7 @@ packages:
     platforms:
       darwin:
         type: brew
-        version: "2.39.0"
+        version: "2.40."
       linux:
         type: apt
         version: "2.33.6"
@@ -236,7 +236,7 @@ packages:
       _:
         type: cargo
         bin: difft
-        version: "0.47.0"
+        version: "0.52.0"
         version_command: [difft, [--version]]
   - name: direnv
     platforms:
@@ -664,7 +664,7 @@ packages:
       _:
         locked: true
         type: cargo
-        version: "0.38.1"
+        version: "0.38.2"
         version_command: [zellij, [--version]]
   - name: zsh
     platforms:

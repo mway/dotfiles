@@ -6,7 +6,7 @@ _fn() {
   readonly name="difft"
   readonly prog="$(mw path "$name" 2>/dev/null || true)"
   readonly detected_version="$(mw version "$name" 2>/dev/null || true)"
-  readonly version="${detected_version:-"0.10.1"}"
+  readonly version="${detected_version:-"0.52.0"}"
   if [ ! -x "$prog" ] || [[ "$("$prog" --version)" != *"$version"* ]]; then
     cargo install --version "$version" difftastic
   fi
