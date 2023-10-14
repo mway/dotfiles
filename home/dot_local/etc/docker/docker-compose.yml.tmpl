@@ -123,6 +123,17 @@ services:
       - "{{ .path.local }}/etc/mediawiki/LocalSettings.php:/var/www/html/LocalSettings.php"
       - "{{ .path.local }}/share/mediawiki/images:/var/www/html/images"
 
+  lab-proxy:
+    image: nginx:mainline
+    container_name: lab-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "{{ .path.local }}/etc/nginx/lab-proxy.conf:/etc/nginx/nginx.conf:ro"
+      - "{{ .path.local }}/etc/nginx/ssl:/etc/wayhq/ssl:ro"
+
 networks:
   pihole:
     driver: bridge
