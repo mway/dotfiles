@@ -64,4 +64,4 @@ Diagnostics.UnusedIncludes = "Strict"
 
 [[language]]
 name = "starlark"
-file-types = ["starlark", "BUILD", { suffix = ".star" }, { suffix = ".bazel"}]
+file-types = ["starlark", "BUILD", { suffix = ".star" }, { suffix = ".bazel"}, { suffix = ".bzl" }, { suffix = ".build" }]
