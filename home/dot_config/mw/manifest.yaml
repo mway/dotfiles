@@ -303,6 +303,12 @@ packages:
         name: exa
         type: cargo
         version: "0.10.1"
+  - name: eza
+    platforms:
+      _:
+        name: eza
+        type: cargo
+        version: "0.15.0"
   - name: fd-find
     aliases: [fd]
     platforms:
