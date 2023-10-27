@@ -629,7 +629,7 @@ packages:
           - name: tailscale
             type: command
             command: tailscale-installer
-        version: "1.40"
+        version: "1.50"
         version_command: [tailscale, [--version]]
   - name: telnet
     platforms:
