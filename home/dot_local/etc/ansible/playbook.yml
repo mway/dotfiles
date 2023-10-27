@@ -74,6 +74,7 @@
       include_tasks: tasks/network.yaml
       when: "'personal' in group_names"
       tags:
+        - gateway
         - network
         - tailscale
         - vault

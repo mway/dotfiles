@@ -59,7 +59,25 @@
       - --advertise-exit-node
       - --ssh
   become: true
-  when: "'personal' in group_names and 'dns' not in group_names"
+  when: "'personal' in group_names and 'dns' not in group_names and 'gateway' not in group_names"
   tags:
     - network
     - tailscale
+
+- name: Tailscale - Gateway
+  command:
+    argv:
+      - tailscale
+      - up
+      - --auth-key=file:{{ local }}/etc/tailscale/key
+      - --accept-dns
+      - --accept-routes
+      - --advertise-exit-node
+      - --advertise-routes=172.168.68.0/24,192.168.0.0/16,192.168.68.0/24
+      - --ssh
+  become: true
+  when: "'personal' in group_names and 'gateway' in group_names"
+  tags:
+    - network
+    - tailscale
+    - gateway
