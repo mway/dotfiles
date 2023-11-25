@@ -2,46 +2,36 @@
 command = "clangd"
 args = ["--clang-tidy", "--header-insertion=iwyu"] 
 
-[language-server.clangd.config.Completion]
-AllScopes = "Yes"
 
-[language-server.clangd.config.Index]
-StandardLibrary = "Yes"
-
-[language-server.clangd.config.Diagnostics]
-UnusedIncludes = "Strict"
+[language-server.clangd.config]
+Completion.AllScopes = "Yes"
+Diagnostics.UnusedIncludes = "Strict"
+Index.StandardLibrary = "Yes"
 
 [[language]]
 name = "go"
+language-servers = ["gopls"]
 
-[language.config]
+[language-server.gopls.config]
 gofumpt = true
 memoryMode = "DegradeClosed"
 deepCompletion = true
 staticcheck = true
 
-[language.config.formatting]
+[language-server.gopls.config.formatting]
 gofumpt = true
 
-[language.config.analyses]
+[language-server.gopls.config.analyses]
 fieldalignment = true
 nilness = true
 shadow = true
 unusedparams = true
 unreachable = true
 
-[[grammar]]
-name = "go"
-source = { git = "https://github.com/tree-sitter/tree-sitter-go", rev = "64457ea6b73ef5422ed1687178d4545c3e91334a" }
-
-# [[grammar]]
-# name = "cpp"
-# source = { git = "https://github.com/tree-sitter/tree-sitter-cpp", rev = "f88bf81238ec2842682e4d1dac0acf3b43b686e9" }
-
 [[language]]
 name = "yaml"
 
-[language.config]
+[language-server.yaml-language-server.config]
 yaml.keyOrdering = false
 
 [[language]]
@@ -57,10 +47,6 @@ args = [
   "--sort-includes",
   "--Werror",
 ]
-
-[language.config]
-Completion.AllScopes = "Yes"
-Diagnostics.UnusedIncludes = "Strict"
 
 [[language]]
 name = "starlark"
