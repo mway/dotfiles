@@ -122,7 +122,7 @@ packages:
       _:
         locked: true
         type: cargo
-        version: "0.23.0"
+        version: "0.24.0"
   # TODO: can't use googleapis.com on VPN
   # - name: bazel
   #   platforms:
