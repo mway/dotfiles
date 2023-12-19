@@ -6,7 +6,7 @@ _fn() {
   readonly name="rg"
   readonly prog="$(mw path "$name" 2>/dev/null || true)"
   readonly detected_version="$(mw version "$name" 2>/dev/null || true)"
-  readonly version="${detected_version:-"13.0.0"}"
+  readonly version="${detected_version:-"14.0.3"}"
   if [ ! -x "$prog" ] || [[ "$("$prog" --version)" != *"$version"* ]]; then
     cargo install --version "$version" ripgrep
   fi

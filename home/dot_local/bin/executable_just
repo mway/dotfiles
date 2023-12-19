@@ -6,7 +6,7 @@ _just() {
   readonly name="just"
   readonly prog="$(mw path "$name" 2>/dev/null || true)"
   readonly detected_version="$(mw version "$name" 2>/dev/null || true)"
-  readonly version="${detected_version:-"1.14.0"}"
+  readonly version="${detected_version:-"1.16.0"}"
   if [ ! -x "$prog" ] || [[ "$("$prog" --version)" != *"$version"* ]]; then
     cargo install --version "$version" "$name"
   fi
