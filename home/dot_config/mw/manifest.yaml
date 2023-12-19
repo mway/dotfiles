@@ -584,7 +584,7 @@ packages:
         type: cargo
         name: ripgrep
         bin: rg
-        version: "13.0.0"
+        version: "14.0.3"
   - name: ruby
     platforms:
       darwin:
