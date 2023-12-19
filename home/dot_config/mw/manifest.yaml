@@ -18,7 +18,7 @@ packages:
       _:
         type: go
         package: golang.org/x/tools/gopls
-        version: v0.12.0-pre.2
+        version: v0.14.2
   - name: rust
     platforms:
       _:
