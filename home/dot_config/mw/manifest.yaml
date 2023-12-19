@@ -236,7 +236,7 @@ packages:
       _:
         type: cargo
         bin: difft
-        version: "0.52.0"
+        version: "0.53.1"
         version_command: [difft, [--version]]
   - name: direnv
     platforms:
