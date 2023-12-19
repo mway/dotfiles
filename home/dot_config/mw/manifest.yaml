@@ -345,7 +345,7 @@ packages:
           debian: tar.gz
           ubuntu: tar.gz
           unknown: tar.gz
-        version: "0.42.0"
+        version: "0.44.1"
         version_command: [fzf, [--version]]
   - name: gcc
     platforms:
