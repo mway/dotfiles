@@ -315,7 +315,7 @@ packages:
       _:
         type: cargo
         bin: fd
-        version: "8.7.0"
+        version: "9.0.0"
         version_command: [fd, [--version]]
   - name: fzf
     platforms:
