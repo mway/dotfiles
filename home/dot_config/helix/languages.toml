@@ -1,12 +1,4 @@
-[language-server.clangd]
-command = "clangd"
-args = ["--clang-tidy", "--header-insertion=iwyu"] 
-
-
-[language-server.clangd.config]
-Completion.AllScopes = "Yes"
-Diagnostics.UnusedIncludes = "Strict"
-Index.StandardLibrary = "Yes"
+use-grammars = { except = ["gemini"] }
 
 [[language]]
 name = "go"
@@ -17,9 +9,7 @@ gofumpt = true
 memoryMode = "DegradeClosed"
 deepCompletion = true
 staticcheck = true
-
-[language-server.gopls.config.formatting]
-gofumpt = true
+formatting.gofumpt = true
 
 [language-server.gopls.config.analyses]
 fieldalignment = true
@@ -28,14 +18,14 @@ shadow = true
 unusedparams = true
 unreachable = true
 
-[[language]]
-name = "yaml"
+[language-server.clangd]
+command = "clangd"
+args = ["--clang-tidy", "--completion-style=detailed", "--header-insertion=iwyu"] 
 
-[language-server.yaml-language-server.config]
-yaml.keyOrdering = false
-
-[[language]]
-name = "rust"
+[language-server.clangd.config]
+Completion.AllScopes = "Yes"
+Diagnostics.UnusedIncludes = "Strict"
+Index.StandardLibrary = "Yes"
 
 [[language]]
 name = "cpp"
@@ -47,6 +37,12 @@ args = [
   "--sort-includes",
   "--Werror",
 ]
+
+[[language]]
+name = "yaml"
+
+[language-server.yaml-language-server.config]
+yaml.keyOrdering = false
 
 [[language]]
 name = "starlark"
