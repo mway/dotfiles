@@ -60,11 +60,11 @@ bin/*
 !.local/bin/zellij
 !.local/bin/zsh
 
+{{ if .personal -}}
 !.local/etc
 .local/etc/*
 !.local/etc/ansible
 .local/etc/ansible/inventory
-{{ if .personal -}}
 !.local/etc/docker
 !.local/etc/ecobee
 !.local/etc/grafana
@@ -76,6 +76,6 @@ bin/*
 !.local/etc/tailscale
 {{- end }}
 
-/scripts/ # chezmoi helpers
+scripts/ # chezmoi helpers
 .DS_Store
 .*.sw?
