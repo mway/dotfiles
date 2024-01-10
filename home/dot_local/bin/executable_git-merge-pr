@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+echo -n "Waiting for builds"
+while true; do
+  out="$(gh pr checks 2>&1 | cat)"
+  if [[ "$out" == *"no pull requests found"* ]]; then
+    echo -n "."
+    sleep 1
+    continue
+  fi
+  break
+done
+
+echo
+gh pr checks --watch --interval 2 --fail-fast && gh pr merge -sd "$@"
