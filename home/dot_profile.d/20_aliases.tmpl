@@ -25,7 +25,7 @@ YQ_VERSION="4.40.5"
 ZELLIJ_VERSION="0.39.2"
 
 __ensure_path() {
-  which -as ensure | \grep '\->' | cut -d' ' -f1
+  which -as ensure | \grep -E '^/' | cut -d' ' -f1
 }
 
 __install_ensure() {
@@ -37,9 +37,15 @@ ensure() {
 
   local prog;
   prog="$(__ensure_path)"
-  [ -n "$prog" ] || { echo "ERROR: Failed to get path to 'ensure' command ($0)"; exit 1; }
+  if [ -z "$prog" ]; then
+    echo "ERROR: Failed to get path to 'ensure' command ($0)"
+    return 1
+  fi
 
-  "$prog" --version 2>&1 | \grep "v${ENSURE_VERSION}" >/dev/null || __install_ensure
+  "$prog" --version 2>&1 | \grep "v${ENSURE_VERSION}" >/dev/null || {
+    echo "Updating ensure..."
+    __install_ensure
+  }
 
   local debug;
   [ -z "$ENSURE_DEBUG" ] || debug="--debug"
