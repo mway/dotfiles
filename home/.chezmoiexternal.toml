@@ -15,11 +15,6 @@
     url = "https://github.com/dracula/zsh"
     refreshPeriod = "168h"
 
-# [".local/share/zsh/autocomplete"]
-#     type = "git-repo"
-#     url = "https://github.com/marlonrichert/zsh-autocomplete.git"
-#     refreshPeriod = "168h"
-
 [".local/bin/ansi"]
     type = "file"
     url = "https://raw.githubusercontent.com/fidian/ansi/master/ansi"
@@ -32,32 +27,27 @@
     stripComponents = 1
     refreshPeriod = "168h"
 
-[".local/share/fzf"]
-    type = "git-repo"
-    url = "https://github.com/junegunn/fzf.git"
-    refreshPeriod = "168h"
-
-# [".local/share/zsh/zsh-z"]
-#     type = "git-repo"
-#     url = "https://github.com/agkozak/zsh-z.git"
-#     refreshPeriod = "168h"
-
-[".profile.d/40_completion_git.bash"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash"
-    refreshPeriod = "168h"
-
 [".config/zsh/funcs/_git"]
     type = "file"
     url = "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh"
     refreshPeriod = "168h"
 
-# [".profile.d/41_completion_fzf.zsh"]
-#     type = "file"
-#     url = "https://raw.githubusercontent.com/lincheney/fzf-tab-completion/master/zsh/fzf-zsh-completion.sh"
-#     refreshPeriod = "168h"
+[".local/share/fzf"]
+    type = "git-repo"
+    url = "https://github.com/junegunn/fzf.git"
+    refreshPeriod = "168h"
 
-[".profile.d/40_completion_cargo.bash"]
+[".config/zsh/funcs/_fzf"]
     type = "file"
-    url = "https://raw.githubusercontent.com/rust-lang/cargo/0.70.1/src/etc/cargo.bashcomp.sh"
+    url = "https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh"
+    refreshPeriod = "168h"
+
+[".config/zsh/funcs/_just"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/casey/just/master/completions/just.zsh"
+    refreshPeriod = "168h"
+
+[".config/zsh/funcs/_golang"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/zsh-users/zsh-completions/master/src/_golang"
     refreshPeriod = "168h"

@@ -12,19 +12,20 @@
 !.mwrc
 !.profile.d
 !.shellcheckrc
-!.ssh
 !.zshrc
 !justfile
 
 !bin
 bin/*
-!bin/apb
 
 !.config
 .config/*
 !.config/bat
 !.config/btop
 .config/btop/btop.log
+.config/btop/themes/*
+!.config/btop/themes/dracula.theme
+!.config/ensure
 !.config/htop
 !.config/mw
 !.config/helix
@@ -40,24 +41,14 @@ bin/*
 !.local/bin/bash
 !.local/bin/cargo
 !.local/bin/countdown
-!.local/bin/difft
-!.local/bin/exa
-!.local/bin/eza
-!.local/bin/go
-!.local/bin/gopls
 !.local/bin/gping
 !.local/bin/git-*
-!.local/bin/hx
-!.local/bin/just
 !.local/bin/mw
 !.local/bin/ninja
 !.local/bin/protoc
-!.local/bin/rg
 !.local/bin/rustup
 !.local/bin/sniffnet
-!.local/bin/staticcheck
-!.local/bin/yq
-!.local/bin/zellij
+!.local/bin/zj
 !.local/bin/zsh
 
 {{ if .personal -}}
