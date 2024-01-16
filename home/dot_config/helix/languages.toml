@@ -9,7 +9,6 @@ gofumpt = true
 memoryMode = "DegradeClosed"
 deepCompletion = true
 staticcheck = true
-formatting.gofumpt = true
 
 [language-server.gopls.config.analyses]
 fieldalignment = true
