@@ -67,8 +67,8 @@
 	followRedirects = true
 [http "https://gopkg.in"]
 	followRedirects = true
-[credential]
-	helper = osxkeychain
+[url "ssh://git@github.com/mway/"]
+	insteadOf = https://github.com/mway/
 [url "ssh://config.uber.internal/"]
 	insteadOf = https://config.uber.internal/
 [url "ssh://gitolite@code.uber.internal:"]
@@ -77,6 +77,10 @@
 	insteadOf = https://code.uber.internal/
 [url "ssh://gitolite@code.uber.internal/"]
 	insteadOf = git://code.uber.internal/
+[url "ssh://git@github.com/uber/"]
+	insteadOf = https://github.com/uber/
+[credential]
+	helper = osxkeychain
 [credential "https://git.uberinternal.com"]
 	helper = usso
 [credential "https://vfs4g-cache.uberinternal.com"]
@@ -90,8 +94,6 @@
 	url = gitolite@code.uber.internal:community/farc
 [init]
 	defaultBranch = main
-[url "ssh://git@github.com/uber/"]
-	insteadOf = https://github.com/uber/
 [farc "upload"]
 	add-repo-prefix = false
 [merge]
