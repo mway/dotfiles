@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2124,SC2155
+
+_zj() {
+  local filter="$1"
+  local header="Choose an existing zellij session, or hit enter to create one with the given name"
+  local session="$(zellij list-sessions | fzf --ansi --nth=1 --with-nth=1 --select-1 --track --print-query --query="$filter" --header="$header" | tail -n1)"
+  [ -n "$session" ] || exit 1
+  exec zellij attach --create "$session"
+}
+
+_zj "$@"
