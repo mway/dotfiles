@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+_git_branch() {
+  git branch | grep -v '^\\+' | awk '{print $NF}'
+}
+
+_fzf() {
+  # ref: https://github.com/abhinav/dotfiles/blob/a3a4d83f9e412cc5fe4232cafea9971c8a81c130/bin/executable_git-bco#L5-L7
+	GIT_EXTERNAL_DIFF='difft --color=always --display=inline' \
+  	fzf -0 -1 --height=50% -q "$1" --preview 'git l --color {} ^$(git merge-base HEAD {})'
+}
+
+_fn() {
+  local unstaged="$(_git_branch | _fzf "$1")"
+  [ -z "$unstaged" ] || {{ . }}
+}
+
+_fn "$@"

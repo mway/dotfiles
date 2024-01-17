@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-gh pr create --fill "$@"
+exec gh pr create --fill "$@"

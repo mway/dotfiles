@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+_fzf() {
+	GIT_EXTERNAL_DIFF='difft --color=always --display=inline' \
+  	fzf -0 -1 -m --height=50% -q "$1" --preview 'git show --color=always --format="" {} | tail -n +6'
+}
+
+_fn() {
+  local changed="$(git changed | _fzf "$1")"
+  [ -z "$changed" ] || {{ . }}
+}
+
+_fn "$@"

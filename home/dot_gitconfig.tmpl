@@ -45,13 +45,17 @@
 	lg = log --graph --pretty=format:'%C(bold red)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	s = status --short --branch
 	ec = edit-changed
+	eu = edit-unstaged
+	du = diff-unstaged
+	au = add-unstaged
 	cb = change-branch
+	ds = diff --staged
 	fadd = fuzzy-add
 	fdiff = fuzzy-diff
 	changed = show --pretty="" --name-only
 	curbranch = symbolic-ref --short HEAD
 	cur = curbranch
-	branch-commit = "!f() { git l "$1" | head -n1 ;}; f"
+	branch-commit = "!f() { git l "$1" | head -n1; }; f"
 	bc = branch-commit
 	tags = tag -l
 	sshow = "!f() { git stash show stash^{/$*} -p; }; f"

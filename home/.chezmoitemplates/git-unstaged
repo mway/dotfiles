@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+_git_unstaged() {
+  git status --short | \grep -E '^[^U](M|\?)' | awk '{print $NF}'  
+}
+
+_fzf() {
+	GIT_EXTERNAL_DIFF='difft --color=always --display=inline' \
+  	fzf -0 -1 -m --height=50% -q "$1" --preview 'git diff --color=always --minimal {}'
+}
+
+_fn() {
+  local unstaged="$(_git_unstaged | _fzf "$1")"
+  [ -z "$unstaged" ] || {{ . }}
+}
+
+_fn "$@"
