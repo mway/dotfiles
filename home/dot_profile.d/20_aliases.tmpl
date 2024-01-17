@@ -52,6 +52,12 @@ ensure() {
   "$prog" $debug "$@"
 }
 
+{{ if eq .chezmoi.os "linux" -}}
+overrides="--config='$HOME/.config/ensure/overrides.yml'"
+{{ else -}}
+overrides=""
+{{ end -}}
+
 ###
 # Wrapper aliases around ensure
 alias ansi="ensure file ansi --"
@@ -62,7 +68,7 @@ alias direnv="ensure script direnv --version='${DIRENV_VERSION}' --"
 alias ensure-ensure="ensure go ensure --version='${ENSURE_VERSION}' --"
 alias eza="ensure cargo eza --version='${EZA_VERSION}' --"
 alias fd="ensure cargo fd --version='${FD_VERSION}' -- --no-ignore --hidden"
-alias fzf="ensure archive fzf --version='${FZF_VERSION}' --"
+alias fzf="ensure archive fzf $overrides --version='${FZF_VERSION}' --"
 alias gh="ensure archive gh --version='${GH_VERSION}' --"
 alias go="GOTOOLCHAIN=go${GO_VERSION} ensure archive go --version='${GO_VERSION}' --"
 alias golangci-lint="ensure archive golangci-lint --version='${GOLANGCI_LINT_VERSION}' --"

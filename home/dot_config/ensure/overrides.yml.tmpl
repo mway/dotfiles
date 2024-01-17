@@ -1,0 +1,6 @@
+---
+{{ if eq .chezmoi.os "linux" -}}
+ensure:
+  fzf:
+    url: "https://github.com/junegunn/fzf/releases/download/${FZF_VERSION}/fzf-${FZF_VERSION}-${OS}_${ARCH}.tar.gz"
+{{ end -}}
