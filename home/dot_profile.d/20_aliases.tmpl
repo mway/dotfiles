@@ -38,8 +38,8 @@ ensure() {
   local prog;
   prog="$(__ensure_path)"
   if [ -z "$prog" ]; then
-    echo "ERROR: Failed to get path to 'ensure' command ($0)"
-    return 1
+    echo "Ensure not found, installing..."
+    __install_ensure
   fi
 
   "$prog" --version 2>&1 | \grep "v${ENSURE_VERSION}" >/dev/null || {
