@@ -11,8 +11,8 @@ _fzf() {
 }
 
 _fn() {
-  local unstaged="$(_git_branch | _fzf "$1")"
-  [ -z "$unstaged" ] || {{ . }}
+  local branch="$(_git_branch | _fzf "$1")"
+  [ -z "$branch" ] || {{ . }}
 }
 
 _fn "$@"
