@@ -41,6 +41,7 @@
 [alias]
 	co = checkout
 	am = commit --amend
+	cascade = flow --cascade
 	l = log --pretty=oneline -n 20 --graph --abbrev-commit
 	lg = log --graph --pretty=format:'%C(bold red)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	s = status --short --branch
@@ -61,8 +62,8 @@
 	sshow = "!f() { git stash show stash^{/$*} -p; }; f"
 	sapply = "!f() { git stash apply stash^{/$*}; }; f"
 	spop = "!f() { git stash pop stash^{/$*}; }; f"
-	flow = newbranch
 	show-files = show --pretty="format:" --name-only
+	pr-and-merge = "!f() { git pr && git merge-pr; }; f"
 [branch]
 	autosetuprebase = always
 [rerere]

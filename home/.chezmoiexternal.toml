@@ -15,11 +15,6 @@
     url = "https://github.com/dracula/zsh"
     refreshPeriod = "168h"
 
-[".local/bin/ansi"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/fidian/ansi/master/ansi"
-    refreshPeriod = "168h"
-
 [".local/share/fasd"]
     type = "archive"
     url = "https://github.com/clvv/fasd/archive/refs/tags/1.0.1.tar.gz"
