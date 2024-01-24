@@ -56,6 +56,7 @@
 	changed = show --pretty="" --name-only
 	curbranch = symbolic-ref --short HEAD
 	cur = curbranch
+	upstream = rev-parse --abbrev-ref HEAD@{upstream}
 	branch-commit = "!f() { git l "$1" | head -n1; }; f"
 	bc = branch-commit
 	tags = tag -l
@@ -64,6 +65,7 @@
 	spop = "!f() { git stash pop stash^{/$*}; }; f"
 	show-files = show --pretty="format:" --name-only
 	pr-and-merge = "!f() { git pr && git merge-pr; }; f"
+	create-release = "!f() { release create --notes="$1" --title="$1" "$1" && git fetch -t; }; f"
 [branch]
 	autosetuprebase = always
 [rerere]

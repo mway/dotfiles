@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-exec gh release "$@"
+exec gh release create --title "$1" --notes="" "$@"
