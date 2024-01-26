@@ -65,6 +65,7 @@
 	spop = "!f() { git stash pop stash^{/$*}; }; f"
 	show-files = show --pretty="format:" --name-only
 	pr-and-merge = "!f() { git pr && git merge-pr; }; f"
+	prm = pr-and-merge
 	create-release = "!f() { release create --notes="$1" --title="$1" "$1" && git fetch -t; }; f"
 [branch]
 	autosetuprebase = always
