@@ -72,12 +72,33 @@
 	autosetuprebase = always
 [rerere]
 	enabled = true
-[http "https://gopkg.uberinternal.com"]
-	followRedirects = true
 [http "https://gopkg.in"]
 	followRedirects = true
 [url "ssh://git@github.com/mway/"]
 	insteadOf = https://github.com/mway/
+[credential]
+	helper = osxkeychain
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[init]
+	defaultBranch = main
+[farc "upload"]
+	add-repo-prefix = false
+[merge]
+	stat = false
+[rebase]
+	stat = false
+
+{{- if not .personal }}
+[credential "https://git.uberinternal.com"]
+	helper = usso
+[credential "https://vfs4g-cache.uberinternal.com"]
+	helper = usso
+[http "https://gopkg.uberinternal.com"]
+	followRedirects = true
 [url "ssh://config.uber.internal/"]
 	insteadOf = https://config.uber.internal/
 [url "ssh://gitolite@code.uber.internal:"]
@@ -88,24 +109,11 @@
 	insteadOf = git://code.uber.internal/
 [url "ssh://git@github.com/uber/"]
 	insteadOf = https://github.com/uber/
-[credential]
-	helper = osxkeychain
-[credential "https://git.uberinternal.com"]
-	helper = usso
-[credential "https://vfs4g-cache.uberinternal.com"]
-	helper = usso
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
 [farc "update"]
 	url = gitolite@code.uber.internal:community/farc
-[init]
-	defaultBranch = main
-[farc "upload"]
-	add-repo-prefix = false
-[merge]
-	stat = false
-[rebase]
-	stat = false
+[remote "origin"]
+	fetch = +refs/heads/mway/*:refs/remotes/origin/mway/*
+	fetch = ^refs/heads/phabricator/*
+	fetch = ^refs/tags/phabricator/*
+	tagOpt = --no-tags
+{{- end }}
