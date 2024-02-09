@@ -8,9 +8,8 @@ function PATH_add() {
     done
 }
 
-find "{{ .path.home }}/.profile.d" -type f -name "*.zsh" -o \! \( -name "*.*" \) |\
-    sort |\
-    while IFS= read -r f; do
-        # shellcheck disable=SC1090
-        source "$f" || echo "[{{ .path.home }}/.dotrc.zsh] Failed to source $f" >&2
-    done
+if [ ! -f .profile.d.all ]; then
+    echo "Warning: ${HOME}/.profile.d.all does not exist"
+else
+    . .profile.d.all
+fi
