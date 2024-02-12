@@ -8,8 +8,10 @@ function PATH_add() {
     done
 }
 
-if [ ! -f .profile.d.all ]; then
-    echo "Warning: ${HOME}/.profile.d.all does not exist"
+if [ ! -f "$HOME/.profile.d.zsh" ]; then
+    echo "Warning: ${HOME}/.profile.d.zsh does not exist"
+    alias update="echo 'Error: ${HOME}/.profile.d.zsh does not exist' >&2 && false"
 else
-    . .profile.d.all
+    alias update="source ${HOME}/.profile.d.zsh"
+    source "${HOME}/.profile.d.zsh"
 fi

@@ -13,9 +13,10 @@ function PATH_add() {
     export PATH
 }
 
-find "{{ .path.home }}/.profile.d" -type f -name "*.bash" -o \! \( -name "*.*" \) |\
-    sort |\
-    while IFS= read -r f; do
-        # shellcheck disable=SC1090
-        source "$f" || echo "[{{ .path.home }}/.dotrc.bash] Failed to source $f" >&2
-    done
+if [ ! -f "$HOME/.profile.d.bash" ]; then
+    echo "Warning: ${HOME}/.profile.d.bash does not exist"
+    alias update="echo 'Error: ${HOME}/.profile.d.bash does not exist' >&2 && false"
+else
+    alias update="source ${HOME}/.profile.d.bash"
+    update
+fi
