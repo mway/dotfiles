@@ -12,6 +12,7 @@ if [ ! -f "$HOME/.profile.d.zsh" ]; then
     echo "Warning: ${HOME}/.profile.d.zsh does not exist"
     alias update="echo 'Error: ${HOME}/.profile.d.zsh does not exist' >&2 && false"
 else
+    echo "Run 'update' to re-source dotfiles."
     alias update="source ${HOME}/.profile.d.zsh"
     source "${HOME}/.profile.d.zsh"
 fi

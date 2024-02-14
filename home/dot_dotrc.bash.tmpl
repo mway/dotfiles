@@ -13,10 +13,12 @@ function PATH_add() {
     export PATH
 }
 
+# shellcheck disable=SC2139
 if [ ! -f "$HOME/.profile.d.bash" ]; then
     echo "Warning: ${HOME}/.profile.d.bash does not exist"
     alias update="echo 'Error: ${HOME}/.profile.d.bash does not exist' >&2 && false"
 else
+    echo "Run 'update' to re-source dotfiles."
     alias update="source ${HOME}/.profile.d.bash"
-    update
+    source "${HOME}/.profile.d.bash"
 fi
