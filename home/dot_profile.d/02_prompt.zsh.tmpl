@@ -30,7 +30,5 @@ function truncated_pwd() {
 }
 
 precmd() {
-  # local lc=$'\e[' rc=m
-  # PROMPT="%{$fg_bold[grey]%}%*>%{$fg_no_bold[default]%} %{$lc${color[faint]}$rc$fg[blue]%}$(truncated_pwd 1)%{$fg[default]%} %{$lc${color[none]}$rc$fg_bold[blue]%}%}#%{$fg_no_bold[default]%} "
   PROMPT="%{$fg_bold[grey]%}%*>%{$fg_no_bold[default]%} %{$fg[blue]%}$(truncated_pwd 1)%{$fg[default]%} %{$fg_bold[green]%}#%{$fg_no_bold[default]%} "
 }
