@@ -32,8 +32,9 @@ __ensure_path() {
 }
 
 __get_latest_ensure_release_asset_url() {
-  readonly arch="$(uname -m)"
   readonly os="$(uname -o | tr '[:upper:]' '[:lower:]')"
+  local arch="$(uname -m)"
+  [[ "$arch" != "x86_64" ]] || arch="amd64"
 
   if command -v jq >/dev/null; then
     \curl -sL \
@@ -58,9 +59,10 @@ __install_ensure() {
   readonly dst="$1"
   local src;
   src="$(__get_latest_ensure_release_asset_url)"
+  [ $? -eq 0 ] || { echo "Error: failed to get release asset URL" >&2; exit 1; }
 
   mkdir -p "$(dirname "$dst")" || {
-    echo "Error: failed to mkdir -p '$dst'"
+    echo "Error: failed to mkdir -p '$dst'" >&2
     return 1
   }
 
@@ -69,7 +71,7 @@ __install_ensure() {
         -H 'Accept: application/octet-stream' \
         -o "$dst" \
         "${src}" || {
-    echo "Error: failed to fetch remote asset: ${src}"
+    echo "Error: failed to fetch remote asset: ${src}" >&2
     return 1
   }
 
@@ -82,7 +84,7 @@ ensure() {
     echo "Ensure not found, installing..."
     prog="$HOME/go/bin/ensure"
     __install_ensure "$prog" || {
-      echo "Error: ensure ($prog) could not be installed"
+      echo "Error: ensure ($prog) could not be installed" >&2
       return 1
     }
   }
@@ -90,7 +92,7 @@ ensure() {
   "$prog" --version 2>&1 | \grep "v${ENSURE_VERSION}" >/dev/null || {
     echo "Updating ensure..."
     __install_ensure "$prog" || {
-      echo "Error: ensure ($prog) could not be installed"
+      echo "Error: ensure ($prog) could not be installed" >&2
       return 1
     }
   }
