@@ -39,6 +39,9 @@
 [mergetool]
 	keepBackup = true
 [alias]
+	unstaged = "!f() { git --no-pager diff --name-only; }; f"
+	staged = "!f() { git --no-pager diff --name-only --cached; }; f"
+	changed = "!f() { git --no-pager show --pretty="" --name-only; }; f"
 	co = checkout
 	am = commit --amend
 	cascade = flow --cascade
@@ -53,7 +56,6 @@
 	ds = diff --staged
 	fadd = fuzzy-add
 	fdiff = fuzzy-diff
-	changed = show --pretty="" --name-only
 	curbranch = symbolic-ref --short HEAD
 	cur = curbranch
 	upstream = rev-parse --abbrev-ref HEAD@{upstream}

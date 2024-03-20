@@ -1,0 +1,8 @@
+#!/usr/bin/env just --justfile
+# Managed by chezmoi
+
+@default:
+    just --justfile {{ justfile() }} --list | grep -v default
+
+todo PATH NAME=".+":
+    rg -U '(//|#) TODO\({{ NAME }}\).+\n(\s+(//|#).+$)*' src/code.uber.internal/{{ PATH }}
