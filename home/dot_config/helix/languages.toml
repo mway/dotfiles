@@ -1,12 +1,5 @@
-use-grammars = { except = ["gemini"] }
-
-[[language]]
-name = "go"
-language-servers = ["gopls"]
-
 [language-server.gopls.config]
 gofumpt = true
-memoryMode = "DegradeClosed"
 deepCompletion = true
 staticcheck = true
 
@@ -29,20 +22,7 @@ Index.StandardLibrary = "Yes"
 [[language]]
 name = "cpp"
 auto-format = true
-
-[language.formatter]
-command = "clang-format"
-args = [
-  "--sort-includes",
-  "--Werror",
-]
-
-[[language]]
-name = "yaml"
+formatter = { command = "clang-format", args = ["--sort-includes", "--Werror"] }
 
 [language-server.yaml-language-server.config]
 yaml.keyOrdering = false
-
-[[language]]
-name = "starlark"
-file-types = ["starlark", "BUILD", { suffix = ".star" }, { suffix = ".bazel"}, { suffix = ".bzl" }, { suffix = ".build" }]
