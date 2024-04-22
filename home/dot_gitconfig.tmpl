@@ -43,8 +43,10 @@
 	staged = "!f() { git --no-pager diff --name-only --cached; }; f"
 	changed = "!f() { git --no-pager show --pretty="" --name-only; }; f"
 	untracked = "!f() { git --no-pager ls-files . --exclude-standard --others; }; f"
+	amend = commit --amend
+	amendq = commit --amend -C HEAD
+	am = amend
 	co = checkout
-	am = commit --amend
 	cascade = flow --cascade
 	l = log --pretty=oneline -n 20 --graph --abbrev-commit
 	lg = log --graph --pretty=format:'%C(bold red)%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
