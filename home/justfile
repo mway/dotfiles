@@ -6,3 +6,48 @@
 
 todo PATH NAME=".+":
     rg -U '(//|#) TODO\({{ NAME }}\).+\n(\s+(//|#).+$)*' src/code.uber.internal/{{ PATH }}
+
+###
+# META HELPERS
+###
+
+prompt-default-no MESSAGE CONTEXT="":
+    #!/usr/bin/env bash
+    while true; do
+        echo -ne "$(ansi --yellow "{{ MESSAGE }}"){{ if CONTEXT != "" { "\n\n\t" + CONTEXT + ""} else { "" } }} [yN]: "
+        read -p "" yn
+        yn="$(echo "$yn" | tr '[:upper:]' '[:lower:]')"
+        case $yn in
+            y|yes)
+                exit 0;
+                ;;
+            *)
+                ansi --yellow "Canceled by user; aborting."
+                exit 1;
+                ;;
+        esac
+    done
+
+prompt-default-yes MESSAGE CONTEXT="":
+    #!/usr/bin/env bash
+    while true; do
+        echo -ne "$(ansi --yellow "{{ MESSAGE }}"){{ if CONTEXT != "" { "\n\n\t" + CONTEXT + ""} else { "" } }} [Yn]: "
+        read -p "" yn
+        yn="$(echo "$yn" | tr '[:upper:]' '[:lower:]')"
+        case $yn in
+            n|no)
+                ansi --yellow "Canceled by user; aborting."
+                exit 1;
+                ;;
+            *)
+                exit 0;
+                ;;
+        esac
+    done
+
+prompt-run-command COMMAND:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    command="$(ansi --red "{{ COMMAND }}" | fold -s -w 60 | tr '\n' '\r' | sed -e 's#\r#\\\\\n\t\t#g')"
+    command="${command::-4}"
+    just prompt-default-no "Run the following command?" "${command}\n\nResponse"
