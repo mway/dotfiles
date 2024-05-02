@@ -24,12 +24,12 @@
     url = "https://github.com/clvv/fasd/archive/refs/tags/1.0.1.tar.gz"
     exact = true
     stripComponents = 1
-    refreshPeriod = "168h"
 
 [".local/share/fzf"]
-    type = "git-repo"
-    url = "https://github.com/junegunn/fzf.git"
-    refreshPeriod = "168h"
+    type = "archive"
+    url = "https://github.com/junegunn/fzf/archive/refs/tags/0.51.0.tar.gz"
+    exact = true
+    stripComponents = 1
 
 [".config/zsh/funcs/_git"]
     type = "file"
