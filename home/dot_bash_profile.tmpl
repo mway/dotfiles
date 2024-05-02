@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 
-[ ! -f "$HOME/.dotrc" ] || source "$HOME/.dotrc"
-[ ! -f "$HOME/.dotrc.bash" ] || source "$HOME/.dotrc.bash"
+export FZF_BASE="{{ .path.local }}/share/fzf"
+[ ! -f "${FZF_BASE}/shell/key-bindings.bash" ] || source "${FZF_BASE}/shell/key-bindings.bash"
+[ ! -f "${FZF_BASE}/shell/completion.bash" ] || source "${FZF_BASE}/shell/completion.bash"
+
+[ ! -f "{{ .path.home }}/.dotrc" ] || source "{{ .path.home }}/.dotrc"
+[ ! -f "{{ .path.home }}/.dotrc.bash" ] || source "{{ .path.home }}/.dotrc.bash"

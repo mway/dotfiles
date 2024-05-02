@@ -26,27 +26,22 @@
     stripComponents = 1
     refreshPeriod = "168h"
 
-[".config/zsh/funcs/_git"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh"
-    refreshPeriod = "168h"
-
 [".local/share/fzf"]
     type = "git-repo"
     url = "https://github.com/junegunn/fzf.git"
     refreshPeriod = "168h"
 
-[".config/zsh/funcs/_fzf"]
+[".config/zsh/funcs/_git"]
     type = "file"
-    url = "https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh"
-    refreshPeriod = "168h"
-
-[".config/zsh/funcs/_just"]
-    type = "file"
-    url = "https://raw.githubusercontent.com/casey/just/master/completions/just.zsh"
+    url = "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh"
     refreshPeriod = "168h"
 
 [".config/zsh/funcs/_golang"]
     type = "file"
     url = "https://raw.githubusercontent.com/zsh-users/zsh-completions/master/src/_golang"
+    refreshPeriod = "168h"
+
+[".config/zsh/funcs/_just"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/casey/just/master/completions/just.zsh"
     refreshPeriod = "168h"

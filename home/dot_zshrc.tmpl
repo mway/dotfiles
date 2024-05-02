@@ -1,5 +1,10 @@
+#!/usr/bin/env zsh
+
 export ZSH="$HOME/.oh-my-zsh"
-export FZF_BASE="$HOME/.local/share/fzf"
+
+export FZF_BASE="{{ .path.local }}/share/fzf"
+[ ! -f "${FZF_BASE}/shell/key-bindings.zsh" ] || source "${FZF_BASE}/shell/key-bindings.zsh"
+[ ! -f "${FZF_BASE}/shell/completion.zsh" ] || source "${FZF_BASE}/shell/completion.zsh"
 
 # ZSH_THEME="dracula/dracula"
 HIST_STAMPS="yyyy-mm-dd"
