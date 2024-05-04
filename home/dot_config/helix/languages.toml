@@ -24,5 +24,18 @@ name = "cpp"
 auto-format = true
 formatter = { command = "clang-format", args = ["--sort-includes", "--Werror"] }
 
+[[language]]
+name = "python"
+auto-format = true
+
+[language-server.pylsp.config.pylsp]
+plugins.black.enabled = true
+plugins.pylint.enabled = true
+plugins.pyflakes.enabled = false
+plugins.pyls_mypy.enabled = true
+plugins.pyls_mypy.live_mode = false
+plugins.isort.enabled = true
+plugins.rope_autoimport.enabled = true
+
 [language-server.yaml-language-server.config]
 yaml.keyOrdering = false
