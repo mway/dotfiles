@@ -1,0 +1,6 @@
+{{ if eq .chezmoi.os "darwin" -}}
+[".config/iterm/dracula"]
+    type = "git-repo"
+    url = "https://github.com/dracula/iterm.git"
+    refreshPeriod = "168h"
+{{- end }}

@@ -2,6 +2,10 @@
 {{- $personal := and (lt (len .chezmoi.hostname) 15) (ne .chezmoi.hostname .chezmoi.username) -}}
 {{- $localRoot := print .chezmoi.homeDir "/.local" -}}
 {{- $localBin := print $localRoot "/bin" -}}
+{{- $localEtc := print $localRoot "/etc" }}
+{{- $localShare := print $localRoot "/share" }}
+{{- $localVar := print $localRoot "/var" }}
+{{- $localLog := print $localRoot "/log" }}
 {{- $userHome := .chezmoi.homeDir -}}
 {{- $userBin := print $userHome "/bin" }}
 {{- $userConfig := print $userHome "/.config" -}}
@@ -28,36 +32,60 @@ git:
   autoCommit: false
 
 data:
-  arch: {{ quote .chezmoi.arch }}
-  os: {{ quote .chezmoi.os }}
-  personal: {{ $personal }}
-  shell: {{ trim (output "which" "zsh") }}
-
-  path:
-    config: {{ $userConfig }}
-    profiled: {{ print $userHome "/.profile.d" }}
-    goroot: {{ $goRoot }}
-    gopath: {{ $goPath }}
-    local: {{ $localRoot }}
-    cargo: {{ $cargoHome }}
-    home: {{ $userHome }}
-    path: {{ $computedPath }}
-  
-  paths:
-    local:
-      bin: {{ quote $localBin }}
-      root: {{ quote $localRoot }}
-    user:
-      bin: {{ quote $userBin }}
-      config: {{ quote $userConfig }}
-      home: {{ quote $userHome }}
-    go:
-      gopath: {{ quote $goPath }}
-      gobin: {{ quote (print $goPath "/bin") }}
-      goroot: {{ quote $goRoot }}
-    cargo:
-      home: {{ quote $cargoHome }}
-      bin: {{ quote (print $cargoHome "/bin") }}
   user: {{ quote .chezmoi.username }}
+  shell: {{ trim (output "which" "zsh") }}
+  personal: {{ $personal }}
   cache:
     global: {{ $globalCache }}
+
+  arch: {{ quote .chezmoi.arch }}
+  os: {{ quote .chezmoi.os }}
+
+  path:
+    cargo: {{ quote $cargoHome }}
+    config: {{ quote $userConfig }}
+    gopath: {{ quote $goPath }}
+    goroot: {{ quote $goRoot }}
+    home: {{ quote $userHome }}
+    local: {{ quote $localRoot }}
+    path: {{ quote $computedPath }}
+    profiled: {{ quote (print $userHome "/.profile.d") }}
+
+    named:
+      cargoBin: {{ quote $cargoBin }}
+      goBin: {{ quote $goPathBin }}
+      gorootBin: {{ quote $goRootBin }}
+      localBin: {{ quote $localBin }}
+      localLog: {{ quote $localLog }}
+      localShare: {{ quote $localShare }}
+      localVar: {{ quote $localVar }}
+      userBin: {{ quote $userBin }}
+
+  versions:
+    ansi: "2c84a541a31d68a4d2779fbfb37a56fca29da4ab"
+    bat: "0.24.0"
+    btop: "1.3.1"
+    chezmoi: "2.48.0"
+    difftastic: "0.57.0"
+    direnv: "2.34.0"
+    ensure: "0.4.2"
+    eza: "0.18.13"
+    fasd: "1.0.1"
+    fd: "9.0.0"
+    fzf: "0.51.0"
+    gh: "2.45.0"
+    git_flow: "0.8.2"
+    go: "1.22.2"
+    golangci_lint: "1.58.0"
+    gopls: "0.15.3"
+    helix: "24.03"
+    helix_check: "24.3"
+    jq: "1.7.1"
+    just: "1.25.0"
+    mise: "v2024.5.2"
+    mockgen: "0.4.0"
+    ripgrep: "14.1.0"
+    rustup: "1.26.0"
+    staticcheck: "2023.1.7"
+    yq: "4.43.1"
+    zellij: "0.40.0"

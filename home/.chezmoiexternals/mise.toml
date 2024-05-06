@@ -1,0 +1,14 @@
+{{- $miseOS := .chezmoi.os -}}
+{{- if eq $miseOS "darwin" -}}
+    {{- $miseOS = "macos" -}}
+{{- end -}}
+
+{{- $miseArch := .chezmoi.arch -}}
+{{- if eq $miseArch "amd64" -}}
+  $miseArch = "x86"
+{{- end -}}
+
+["bin/mise"]
+    type = "file"
+    url = "https://github.com/jdx/mise/releases/download/{{ .versions.mise }}/mise-{{ .versions.mise }}-{{ $miseOS }}-{{ $miseArch }}"
+    executable = true

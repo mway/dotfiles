@@ -6,6 +6,9 @@ export FZF_BASE="{{ .path.local }}/share/fzf"
 [ ! -f "${FZF_BASE}/shell/key-bindings.zsh" ] || source "${FZF_BASE}/shell/key-bindings.zsh"
 [ ! -f "${FZF_BASE}/shell/completion.zsh" ] || source "${FZF_BASE}/shell/completion.zsh"
 
+export MISE="{{ .path.named.userBin }}/mise"
+[ ! -f "$MISE" ] || eval "$("$MISE" activate zsh)"
+
 # ZSH_THEME="dracula/dracula"
 HIST_STAMPS="yyyy-mm-dd"
 # DISABLE_AUTO_TITLE="true"

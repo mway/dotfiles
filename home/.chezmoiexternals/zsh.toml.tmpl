@@ -1,14 +1,3 @@
-["bin/ansi"]
-    type = "file"
-    url = "https://github.com/fidian/ansi/blob/2c84a541a31d68a4d2779fbfb37a56fca29da4ab/ansi"
-
-{{ if eq .chezmoi.os "darwin" -}}
-[".config/iterm/dracula"]
-    type = "git-repo"
-    url = "https://github.com/dracula/iterm.git"
-    refreshPeriod = "168h"
-{{- end }}
-
 [".oh-my-zsh/custom/plugins/zsh-syntax-highlighting"]
     type = "git-repo"
     url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
@@ -18,18 +7,6 @@
     type = "git-repo"
     url = "https://github.com/dracula/zsh"
     refreshPeriod = "168h"
-
-[".local/share/fasd"]
-    type = "archive"
-    url = "https://github.com/clvv/fasd/archive/refs/tags/1.0.1.tar.gz"
-    exact = true
-    stripComponents = 1
-
-[".local/share/fzf"]
-    type = "archive"
-    url = "https://github.com/junegunn/fzf/archive/refs/tags/0.51.0.tar.gz"
-    exact = true
-    stripComponents = 1
 
 [".config/zsh/funcs/_git"]
     type = "file"

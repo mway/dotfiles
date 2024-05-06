@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+_fn() {
+  local dirs=(
+    "{{ .path.named.userBin }}"
+    "{{ .path.named.localBin }}"
+    "{{ .path.named.goBin }}"
+    "{{ .path.named.gorootBin }}"
+    "{{ .path.named.cargoBin }}"
+  )
+
+  local output;
+  for dir in "${dirs[@]}"; do
+    output="$(mkdir -vp "$dir")"
+    [ -z "$output" ] || echo "Created ${output}"
+  done
+
+  read -ra bins <<< "$(find "{{ .path.named.userBin }}" "{{ .path.named.localBin }}" -type f -maxdepth 1)"
+  for bin in "${bins[@]}"; do
+    if ! [ -x "$bin" ]; then
+      echo "Warning: ${bin} is not executable"
+    fi
+  done
+}
+
+_fn "$@"
