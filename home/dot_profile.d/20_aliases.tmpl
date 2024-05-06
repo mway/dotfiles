@@ -97,35 +97,20 @@ overrides=""
 
 ###
 # Wrapper aliases around ensure
-# alias ansi="ensure file ansi --"
-# alias bat="ensure cargo bat --version='${BAT_VERSION}' --"
 alias btop="ensure archive btop --version='${BTOP_VERSION}' --"
-# alias chezmoi="ensure script chezmoi --version='${CHEZMOI_VERSION}' --"
-# alias difft="ensure cargo difft --version='${DIFFTASTIC_VERSION}' --"
-# alias direnv="ensure script direnv $overrides --version='${DIRENV_VERSION}' --"
-# alias ensure-ensure="ensure go ensure --version='${ENSURE_VERSION}' --"
+alias difft="ensure cargo difft --version='${DIFFTASTIC_VERSION}' --"
 alias eza="ensure cargo eza --version='${EZA_VERSION}' --"
 alias exa="eza"
-# alias fd="ensure cargo fd --version='${FD_VERSION}' -- --no-ignore --hidden"
-# alias fzf="ensure archive fzf $overrides --version='${FZF_VERSION}' --"
 alias gh="ensure archive gh --version='${GH_VERSION}' --"
-# export GOTOOLCHAIN="go${GO_VERSION}"
-# alias go="ensure archive go --version='${GO_VERSION}' --"
-# alias golangci-lint="ensure archive golangci-lint --version='${GOLANGCI_LINT_VERSION}' --"
 alias gopls="ensure go gopls --version='${GOPLS_VERSION}' --"
 alias hx="ensure cargo hx --version='${HELIX_VERSION}' --check-version='${HELIX_CHECK_VERSION}' --"
-# alias jq="ensure file jq --version='${JQ_VERSION}' --"
-# alias just="ensure cargo just --version='${JUST_VERSION}' -- --unstable"
 alias mockgen="ensure go mockgen --version='${MOCKGEN_VERSION}' --"
-# alias rg="ensure cargo rg --version='${RIPGREP_VERSION}' --"
 alias rustup="ensure script rustup --version='${RUSTUP_VERSION}' --"
-# alias staticcheck="ensure go staticcheck --version='${STATICCHECK_VERSION}' --"
-# alias yq="ensure go yq --version='${YQ_VERSION}' --"
-# alias zellij="ensure cargo zellij --version='${ZELLIJ_VERSION}' --"
 alias git-flow="ensure go git-flow --package='go.mway.dev/git/cmd/git-flow' --version='${GIT_FLOW_VERSION}' --"
 
 ###
 # Other aliases
+alias bazel='bazelisk'
 alias cm='chezmoi'
 alias grep='rg'
 alias htop='sudo htop'
