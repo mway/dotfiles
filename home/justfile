@@ -1,8 +1,8 @@
 #!/usr/bin/env just --justfile
 # Managed by chezmoi
 
-@default:
-    just --justfile {{ justfile() }} --list | grep -v default
+default:
+    @just --justfile {{ justfile() }} --list | grep -v default
 
 todo PATH NAME=".+":
     rg -U '(//|#) TODO\({{ NAME }}\).+\n(\s+(//|#).+$)*' src/code.uber.internal/{{ PATH }}
@@ -11,6 +11,7 @@ todo PATH NAME=".+":
 # META HELPERS
 ###
 
+[no-exit-message]
 prompt-default-no MESSAGE CONTEXT="":
     #!/usr/bin/env bash
     while true; do
@@ -28,6 +29,7 @@ prompt-default-no MESSAGE CONTEXT="":
         esac
     done
 
+[no-exit-message]
 prompt-default-yes MESSAGE CONTEXT="":
     #!/usr/bin/env bash
     while true; do
@@ -45,6 +47,7 @@ prompt-default-yes MESSAGE CONTEXT="":
         esac
     done
 
+[no-exit-message]
 prompt-run-command COMMAND:
     #!/usr/bin/env bash
     set -euo pipefail
