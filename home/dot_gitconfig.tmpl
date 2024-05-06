@@ -22,18 +22,39 @@
 	added = yellow
 	changed = green
 	untracked = cyan
-[diff]
-	external = difft
-	relative = true
-	renames = copies
 [help]
 	autocorrect = 1
 [push]
 	default = current
 	followTags = true
+[diff]
+	# external = difft
+	relative = true
+	renames = copies
 [core]
 	editor = hx
 	excludesfile = ~/.gitignore
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only --features=interactive
+[delta]
+	dark = true
+    features = decorations
+	line-numbers = true
+	syntax-theme = Dracula
+[delta "interactive"]
+	keep-plus-minus-markers = false
+[delta "line-numbers"]
+	line-numbers-left-style = cyan
+	line-numbers-right-style = cyan
+	line-numbers-minus-style = 124
+	line-numbers-plus-style = 28
+[delta "decorations"]
+    commit-decoration-style = blue ol
+	commit-style = raw
+	file-style = omit # bold yellow ul
+	hunk-header-decoration-style = blue
+	hunk-header-style = file line-number
 [merge]
 	conflictstyle = diff3
 [mergetool]
@@ -118,7 +139,5 @@
 	url = gitolite@code.uber.internal:community/farc
 [remote "origin"]
 	fetch = +refs/heads/mway/*:refs/remotes/origin/mway/*
-	fetch = ^refs/heads/phabricator/*
-	fetch = ^refs/tags/phabricator/*
 	tagOpt = --no-tags
 {{- end }}
