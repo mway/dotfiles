@@ -17,7 +17,7 @@ _fn() {
     [ -z "$output" ] || echo "Created ${output}"
   done
 
-  read -ra bins <<< "$(find "{{ .path.named.userBin }}" "{{ .path.named.localBin }}" -type f -maxdepth 1)"
+  read -ra bins <<< "$(find "{{ .path.named.userBin }}" "{{ .path.named.localBin }}" -maxdepth 1 -type f)"
   for bin in "${bins[@]}"; do
     if ! [ -x "$bin" ]; then
       echo "Warning: ${bin} is not executable"
