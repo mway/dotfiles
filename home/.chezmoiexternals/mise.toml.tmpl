@@ -5,7 +5,7 @@
 
 {{- $miseArch := .chezmoi.arch -}}
 {{- if eq $miseArch "amd64" -}}
-  {{ $miseArch = "x86" }}
+  {{ $miseArch = "x64" }}
 {{- end -}}
 
 ["bin/mise"]
