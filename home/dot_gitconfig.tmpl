@@ -60,10 +60,10 @@
 [mergetool]
 	keepBackup = true
 [alias]
-	unstaged = "!f() { git --no-pager diff --name-only; }; f"
-	staged = "!f() { git --no-pager diff --name-only --cached; }; f"
-	changed = "!f() { git --no-pager show --pretty="" --name-only; }; f"
-	untracked = "!f() { git --no-pager ls-files . --exclude-standard --others; }; f"
+	unstaged = "!f() { git --no-pager diff --name-only "$@"; }; f"
+	staged = "!f() { git --no-pager diff --name-only --cached "$@"; }; f"
+	changed = "!f() { git --no-pager show --pretty="" --name-only "$@"; }; f"
+	untracked = "!f() { git --no-pager ls-files . --exclude-standard --others "$@"; }; f"
 	amend = commit --amend
 	amendq = commit --amend -C HEAD
 	am = amend
