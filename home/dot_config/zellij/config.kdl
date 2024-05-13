@@ -35,6 +35,7 @@ keybinds clear-defaults=true {
         bind "w" { ToggleFloatingPanes; SwitchToMode "Normal"; }
         bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "Normal"; }
         bind "r" { SwitchToMode "RenamePane"; PaneNameInput 0;}
+        bind "c" { Clear; }
     }
     move {
         bind "Ctrl h" { SwitchToMode "Normal"; }
