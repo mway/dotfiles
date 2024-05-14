@@ -8,7 +8,6 @@ DIFFTASTIC_VERSION="${MW_DIFFTASTIC_VERSION:-"{{ .versions.difftastic }}"}"
 ENSURE_VERSION="${MW_ENSURE_VERSION:-"{{ .versions.ensure }}"}"
 EZA_VERSION="${MW_EZA_VERSION:-"{{ .versions.eza }}"}"
 GH_VERSION="${MW_GH_VERSION:-"{{ .versions.gh }}"}"
-GIT_FLOW_VERSION="${MW_GIT_FLOW_VERSION:-"{{ .versions.git_flow }}"}"
 GOPLS_VERSION="${MW_GOPLS_VERSION:-"{{ .versions.gopls }}"}"
 HELIX_CHECK_VERSION="${MW_HELIX_CHECK_VERSION:-"{{ .versions.helix_check }}"}"
 HELIX_VERSION="${MW_HELIX_VERSION:-"{{ .versions.helix }}"}"
@@ -107,7 +106,6 @@ alias gopls="ensure go gopls --version='${GOPLS_VERSION}' --"
 alias hx="ensure cargo hx --version='${HELIX_VERSION}' --check-version='${HELIX_CHECK_VERSION}' --"
 alias mockgen="ensure go mockgen --version='${MOCKGEN_VERSION}' --"
 alias rustup="ensure script rustup --version='${RUSTUP_VERSION}' --"
-alias git-flow="ensure go git-flow --package='go.mway.dev/git/cmd/git-flow' --version='${GIT_FLOW_VERSION}' --"
 
 ###
 # Other aliases
