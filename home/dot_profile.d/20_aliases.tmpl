@@ -4,7 +4,6 @@
 ###
 # Versions for ensure wrappers
 BTOP_VERSION="${MW_BTOP_VERSION:-"{{ .versions.btop }}"}"
-DELTA_VERSION="${MW_DELTA_VERSION:-"{{ .versions.delta }}"}"
 DIFFTASTIC_VERSION="${MW_DIFFTASTIC_VERSION:-"{{ .versions.difftastic }}"}"
 ENSURE_VERSION="${MW_ENSURE_VERSION:-"{{ .versions.ensure }}"}"
 EZA_VERSION="${MW_EZA_VERSION:-"{{ .versions.eza }}"}"
@@ -100,7 +99,6 @@ overrides=""
 ###
 # Wrapper aliases around ensure
 alias btop="ensure archive btop --version='${BTOP_VERSION}' --"
-alias delta="ensure cargo delta --crate='git-delta' --git='https://github.com/dandavison/delta.git' --version='${DELTA_VERSION}' --"
 alias difft="ensure cargo difft --version='${DIFFTASTIC_VERSION}' --"
 alias eza="ensure cargo eza --version='${EZA_VERSION}' --"
 alias exa="eza"
