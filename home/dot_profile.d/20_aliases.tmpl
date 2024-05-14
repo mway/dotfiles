@@ -4,90 +4,10 @@
 ###
 # Versions for ensure wrappers
 BTOP_VERSION="${MW_BTOP_VERSION:-"{{ .versions.btop }}"}"
-DIFFTASTIC_VERSION="${MW_DIFFTASTIC_VERSION:-"{{ .versions.difftastic }}"}"
-ENSURE_VERSION="${MW_ENSURE_VERSION:-"{{ .versions.ensure }}"}"
 EZA_VERSION="${MW_EZA_VERSION:-"{{ .versions.eza }}"}"
-GH_VERSION="${MW_GH_VERSION:-"{{ .versions.gh }}"}"
-GOPLS_VERSION="${MW_GOPLS_VERSION:-"{{ .versions.gopls }}"}"
 HELIX_CHECK_VERSION="${MW_HELIX_CHECK_VERSION:-"{{ .versions.helix_check }}"}"
 HELIX_VERSION="${MW_HELIX_VERSION:-"{{ .versions.helix }}"}"
-MOCKGEN_VERSION="${MW_MOCKGEN_VERSION:-"{{ .versions.mockgen }}"}"
 RUSTUP_VERSION="${MW_RUSTUP_VERSION:-"{{ .versions.rustup }}"}"
-
-__ensure_path() {
-  which -as ensure | \grep -E '^/' | \cut -d' ' -f1
-}
-
-__get_latest_ensure_release_asset_url() {
-  readonly os="$(uname -o | tr '[:upper:]' '[:lower:]')"
-  local arch="$(uname -m)"
-  [[ "$arch" != "x86_64" ]] || arch="amd64"
-
-  if command -v jq >/dev/null; then
-    \curl -sL \
-          -H "Authorization: Bearer ${MW_GITHUB_TOKEN}" \
-          https://api.github.com/repos/mway/ensure-go/releases | \
-      \jq ".[0].assets.[] | select(.name==\"ensure-${arch}-${os}\").url" | \
-      xargs
-  else
-    \curl -sL \
-          -H "Authorization: Bearer ${MW_GITHUB_TOKEN}" \
-          https://api.github.com/repos/mway/ensure-go/releases | \
-      \grep ensure-arm64-darwin -B 3 | \
-      \grep '"url"' | \
-      \head -n1 | \
-      \cut -d, -f1 | \
-      \awk '{print $NF}' | \
-      xargs
-  fi
-}
-
-__install_ensure() {
-  readonly dst="$1"
-  local src;
-  src="$(__get_latest_ensure_release_asset_url)"
-  [ $? -eq 0 ] || { echo "Error: failed to get release asset URL" >&2; exit 1; }
-
-  mkdir -p "$(dirname "$dst")" || {
-    echo "Error: failed to mkdir -p '$dst'" >&2
-    return 1
-  }
-
-  \curl -sL \
-        -H "Authorization: Bearer ${MW_GITHUB_TOKEN}" \
-        -H 'Accept: application/octet-stream' \
-        -o "$dst" \
-        "${src}" || {
-    echo "Error: failed to fetch remote asset: ${src}" >&2
-    return 1
-  }
-
-  chmod +x "$dst"
-}
-
-ensure() {
-  local prog="$(__ensure_path)"
-  [ -n "$prog" ] || {
-    echo "Ensure not found, installing..."
-    prog="$HOME/go/bin/ensure"
-    __install_ensure "$prog" || {
-      echo "Error: ensure ($prog) could not be installed" >&2
-      return 1
-    }
-  }
-
-  "$prog" --version 2>&1 | \grep "v${ENSURE_VERSION}" >/dev/null || {
-    echo "Updating ensure..."
-    __install_ensure "$prog" || {
-      echo "Error: ensure ($prog) could not be installed" >&2
-      return 1
-    }
-  }
-
-  local debug;
-  [ -z "$ENSURE_DEBUG" ] || debug="--debug"
-  "$prog" $debug "$@"
-}
 
 {{ if eq .chezmoi.os "linux" -}}
 overrides="--config='$HOME/.config/ensure/overrides.yml'"
@@ -98,19 +18,15 @@ overrides=""
 ###
 # Wrapper aliases around ensure
 alias btop="ensure archive btop --version='${BTOP_VERSION}' --"
-alias difft="ensure cargo difft --version='${DIFFTASTIC_VERSION}' --"
 alias eza="ensure cargo eza --version='${EZA_VERSION}' --"
-alias exa="eza"
-alias gh="ensure archive gh --version='${GH_VERSION}' --"
-alias gopls="ensure go gopls --version='${GOPLS_VERSION}' --"
 alias hx="ensure cargo hx --version='${HELIX_VERSION}' --check-version='${HELIX_CHECK_VERSION}' --"
-alias mockgen="ensure go mockgen --version='${MOCKGEN_VERSION}' --"
 alias rustup="ensure script rustup --version='${RUSTUP_VERSION}' --"
 
 ###
 # Other aliases
 alias bazel='bazelisk'
 alias cm='chezmoi'
+alias exa="eza"
 alias grep='rg'
 alias htop='sudo htop'
 alias ls='eza -al'
