@@ -1,5 +1,0 @@
-{{- if .personal }}
-export MW_GITHUB_TOKEN="{{ onepasswordRead "op://Infra/repo-read-all/password" }}"
-{{- else }}
-export MW_GITHUB_TOKEN="{{ onepasswordRead "op://Infra/repo-read-all-uber/password" }}"
-{{- end }}

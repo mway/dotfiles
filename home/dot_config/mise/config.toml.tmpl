@@ -2,7 +2,6 @@
 bat = {{ quote .versions.bat }}
 bazelisk = {{ quote .versions.bazelisk }}
 chezmoi = {{ quote .versions.chezmoi }}
-delta = {{ quote .versions.delta }}
 difftastic = {{ quote .versions.difftastic }}
 direnv = {{ quote .versions.direnv }}
 fd = {{ quote .versions.fd }}
@@ -16,10 +15,14 @@ ripgrep = {{ quote .versions.ripgrep }}
 staticcheck = {{ quote .versions.staticcheck }}
 yq = {{ quote .versions.yq }}
 zellij = {{ quote .versions.zellij }}
+"cargo:git-delta" = {{ quote .versions.delta }}
 "go:go.mway.dev/ensure" = {{ quote .versions.ensure }}
 "go:go.mway.dev/git/cmd/git-flow" = {{ quote .versions.git_flow }}
 "go:go.uber.org/mock/mockgen" = {{ quote .versions.mockgen }}
 "go:golang.org/x/tools/gopls" = {{ quote .versions.gopls }}
+
+[env]
+GOTOOLCHAIN = "go{{ .versions.go }}"
 
 [settings]
 experimental = true
