@@ -32,34 +32,35 @@ git:
   autoCommit: false
 
 data:
-  user: {{ quote .chezmoi.username }}
+  user: {{ .chezmoi.username }}
   shell: {{ trim (output "which" "zsh") }}
   personal: {{ $personal }}
   cache:
     global: {{ $globalCache }}
 
-  arch: {{ quote .chezmoi.arch }}
-  os: {{ quote .chezmoi.os }}
+  arch: {{ .chezmoi.arch }}
+  os: {{ .chezmoi.os }}
 
   path:
-    cargo: {{ quote $cargoHome }}
-    config: {{ quote $userConfig }}
-    gopath: {{ quote $goPath }}
-    goroot: {{ quote $goRoot }}
-    home: {{ quote $userHome }}
-    local: {{ quote $localRoot }}
-    path: {{ quote $computedPath }}
-    profiled: {{ quote (print $userHome "/.profile.d") }}
+    cargo: {{ $cargoHome }}
+    config: {{ $userConfig }}
+    gopath: {{ $goPath }}
+    goroot: {{ $goRoot }}
+    home: {{ $userHome }}
+    local: {{ $localRoot }}
+    path: {{ $computedPath }}
+    profiled: {{ joinPath $userHome ".profile.d" }}
 
     named:
-      cargoBin: {{ quote $cargoBin }}
-      goBin: {{ quote $goPathBin }}
-      gorootBin: {{ quote $goRootBin }}
-      localBin: {{ quote $localBin }}
-      localLog: {{ quote $localLog }}
-      localShare: {{ quote $localShare }}
-      localVar: {{ quote $localVar }}
-      userBin: {{ quote $userBin }}
+      cargoBin: {{ $cargoBin }}
+      goBin: {{ $goPathBin }}
+      gorootBin: {{ $goRootBin }}
+      localBin: {{ $localBin }}
+      localLog: {{ $localLog }}
+      localShare: {{ $localShare }}
+      localVar: {{ $localVar }}
+      mise: {{ joinPath $userBin "mise" }}
+      userBin: {{ $userBin }}
 
   versions:
     ansi: "2c84a541a31d68a4d2779fbfb37a56fca29da4ab"

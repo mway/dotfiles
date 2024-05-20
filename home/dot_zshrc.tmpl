@@ -2,17 +2,15 @@
 
 export ZSH="$HOME/.oh-my-zsh"
 
-export FZF_BASE="{{ .path.local }}/share/fzf"
+export FZF_BASE="{{ joinPath .path.local "share/fzf" }}"
 [ ! -f "${FZF_BASE}/shell/key-bindings.zsh" ] || source "${FZF_BASE}/shell/key-bindings.zsh"
 [ ! -f "${FZF_BASE}/shell/completion.zsh" ] || source "${FZF_BASE}/shell/completion.zsh"
 
-export MISE="{{ .path.named.userBin }}/mise"
+export MISE="{{ .path.named.mise }}"
 [ ! -f "$MISE" ] || eval "$("$MISE" activate zsh)"
 
-# ZSH_THEME="dracula/dracula"
+ZSH_THEME="dracula"
 HIST_STAMPS="yyyy-mm-dd"
-# DISABLE_AUTO_TITLE="true"
-# ENABLE_CORRECTION="true"
 
 plugins=(
   bazel
@@ -29,8 +27,6 @@ plugins=(
   z
 )
 
-source "$ZSH/oh-my-zsh.sh"
-
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
@@ -43,6 +39,13 @@ export HISTTIMEFORMAT="[%F %T] "
 export HISTSIZE=100000000
 export LANG=en_US.UTF-8
 
-[ ! -f '{{ .path.home }}/.dotrc' ] || source '{{ .path.home }}/.dotrc'
-[ ! -f '{{ .path.home }}/.dotrc.zsh' ] || source '{{ .path.home }}/.dotrc.zsh'
-[ ! -f '{{ .path.home }}/.zshrc.local' ] || source '{{ .path.home }}/.zshrc.local'
+sources=(
+  "$ZSH/oh-my-zsh.sh"
+  '{{ joinPath .path.home ".dotrc" }}'
+  '{{ joinPath .path.home ".dotrc.zsh" }}'
+  '{{ joinPath .path.home ".dotrc.local" }}'
+)
+
+for src in "${sources[@]}"; do
+  [ ! -f "$src" ] || source "$src"
+done

@@ -4,5 +4,12 @@ export FZF_BASE="{{ .path.local }}/share/fzf"
 [ ! -f "${FZF_BASE}/shell/key-bindings.bash" ] || source "${FZF_BASE}/shell/key-bindings.bash"
 [ ! -f "${FZF_BASE}/shell/completion.bash" ] || source "${FZF_BASE}/shell/completion.bash"
 
-[ ! -f "{{ .path.home }}/.dotrc" ] || source "{{ .path.home }}/.dotrc"
-[ ! -f "{{ .path.home }}/.dotrc.bash" ] || source "{{ .path.home }}/.dotrc.bash"
+sources=(
+  '{{ joinPath .path.home ".dotrc" }}'
+  '{{ joinPath .path.home ".dotrc.bash" }}'
+)
+
+for src in "${sources[@]}"; do
+  # shellcheck disable=SC1090
+  [ ! -f "$src" ] || source "$src"
+done
