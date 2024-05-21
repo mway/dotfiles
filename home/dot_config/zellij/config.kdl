@@ -163,7 +163,7 @@ plugins {
 }
 
 mirror_session true
-on_force_close "quit"
+on_force_close "detach"
 pane_frames false
 scroll_buffer_size 100000
 session_serialization false
