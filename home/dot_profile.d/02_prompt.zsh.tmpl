@@ -30,8 +30,5 @@ function truncated_pwd() {
 }
 
 precmd() {
-  PROMPT="$(dirfmt -f 1 -c magenta -p blue -s blue) %{$fg_bold[green]%}#%{$fg_no_bold[default]%} "
-  # PROMPT="%{$fg_bold[grey]%}%*>%{$fg_no_bold[default]%} %{$fg[blue]%}$(truncated_pwd 1)%{$fg[default]%} %{$fg_bold[green]%}#%{$fg_no_bold[default]%} "
-  # PROMPT="%{${fg[blue]}%}$(truncated_pwd 1)%{${fg[default]}%} %{${fg_bold[green]}%}#%{${fg_no_bold[default]}%} "
-  # PROMPT="${fg_bold[green]}#${fg_no_bold[default]} "
+  PROMPT="${FG[004]}$(truncated_pwd 1) $FG[010]#%{$reset_color%} "
 }

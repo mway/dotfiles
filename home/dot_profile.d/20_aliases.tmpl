@@ -4,7 +4,6 @@
 ###
 # Versions for ensure wrappers
 BTOP_VERSION="${MW_BTOP_VERSION:-"{{ .versions.btop }}"}"
-EZA_VERSION="${MW_EZA_VERSION:-"{{ .versions.eza }}"}"
 HELIX_CHECK_VERSION="${MW_HELIX_CHECK_VERSION:-"{{ .versions.helix_check }}"}"
 HELIX_VERSION="${MW_HELIX_VERSION:-"{{ .versions.helix }}"}"
 RUSTUP_VERSION="${MW_RUSTUP_VERSION:-"{{ .versions.rustup }}"}"
@@ -18,7 +17,6 @@ overrides=""
 ###
 # Wrapper aliases around ensure
 alias btop="ensure archive btop --version='${BTOP_VERSION}' --"
-alias eza="ensure cargo eza --version='${EZA_VERSION}' --"
 alias hx="ensure cargo hx --version='${HELIX_VERSION}' --check-version='${HELIX_CHECK_VERSION}' --"
 alias rustup="ensure script rustup --version='${RUSTUP_VERSION}' --"
 
