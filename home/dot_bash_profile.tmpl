@@ -1,8 +1,18 @@
 #!/usr/bin/env bash
 
-export FZF_BASE="{{ .path.local }}/share/fzf"
-[ ! -f "${FZF_BASE}/shell/key-bindings.bash" ] || source "${FZF_BASE}/shell/key-bindings.bash"
-[ ! -f "${FZF_BASE}/shell/completion.bash" ] || source "${FZF_BASE}/shell/completion.bash"
+{{ $fzfBase := joinPath .path.local "share" "fzf" -}}
+{{ $fzfCompletion := joinPath $fzfBase "shell" "completion.bash" -}}
+{{ $fzfBindings := joinPath $fzfBase "shell" " key-bindings.bash" -}}
+{{ $dotFzf := joinPath .path.home ".fzf.bash" -}}
+export FZF_BASE="{{ $fzfBase }}"
+[ ! -f "{{ $fzfCompletion }}" ] || source "{{ $fzfCompletion }}"
+[ ! -f "{{ $fzfBindings }}" ] || source "{{ $fzfBindings }}"
+[ ! -f "{{ $dotFzf }}" ] || source "{{ $dotFzf }}"
+
+{{ $justBase := joinPath .path.local "share" "just" -}}
+{{ $justCompletions := joinPath $justBase "completions" "just.bash" -}}
+export JUST_BASE="{{ $justBase }}"
+[ ! -f "{{ $justCompletions }}" ] || source "{{ $justCompletions }}"
 
 sources=(
   '{{ joinPath .path.home ".dotrc" }}'

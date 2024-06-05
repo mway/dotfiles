@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+base="${FZF_BASE:-"{{ joinPath .path.local "share/fzf" }}"}"
+# mkdir -p "${base}/shell"
+
+# fzf --zsh >> "${base}/shell/fzf.zsh"
+# fzf --bash >> "${base}/shell/fzf.bash"
+
+[[ ! -f "${FZF_BASE}/install" ]] || {
+	"${FZF_BASE}/install"  --key-bindings --completion --no-update-rc --no-fish
+}

@@ -2,9 +2,19 @@
 
 export ZSH="$HOME/.oh-my-zsh"
 
-export FZF_BASE="{{ joinPath .path.local "share/fzf" }}"
-[ ! -f "${FZF_BASE}/shell/key-bindings.zsh" ] || source "${FZF_BASE}/shell/key-bindings.zsh"
-[ ! -f "${FZF_BASE}/shell/completion.zsh" ] || source "${FZF_BASE}/shell/completion.zsh"
+{{ $fzfBase := joinPath .path.local "share" "fzf" -}}
+{{ $fzfCompletion := joinPath $fzfBase "shell" "completion.zsh" -}}
+{{ $fzfBindings := joinPath $fzfBase "shell" " key-bindings.zsh" -}}
+{{ $dotFzf := joinPath .path.home ".fzf.zsh" -}}
+export FZF_BASE="{{ $fzfBase }}"
+[ ! -f "{{ $fzfCompletion }}" ] || source "{{ $fzfCompletion }}"
+[ ! -f "{{ $fzfBindings }}" ] || source "{{ $fzfBindings }}"
+[ ! -f "{{ $dotFzf }}" ] || source "{{ $dotFzf }}"
+
+{{ $justBase := joinPath .path.local "share" "just" -}}
+{{ $justCompletions := joinPath $justBase "completions" "just.zsh" -}}
+export JUST_BASE="{{ $justBase }}"
+[ ! -f "{{ $justCompletions }}" ] || source "{{ $justCompletions }}"
 
 export MISE="{{ .path.named.mise }}"
 [ ! -f "$MISE" ] || eval "$("$MISE" activate zsh)"
