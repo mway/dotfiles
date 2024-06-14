@@ -81,9 +81,11 @@
 	ds = diff --staged
 	fadd = fuzzy-add
 	fdiff = fuzzy-diff
-	curbranch = symbolic-ref --short HEAD
-	cur = curbranch
-	upstream = rev-parse --abbrev-ref HEAD@{upstream}
+	current-branch = symbolic-ref --short HEAD
+	curbranch = current-branch
+	cur = current-branch
+	upstream = "!f() { git rev-parse --abbrev-ref "${1:-"HEAD"}"@{upstream}; }; f"
+	parent = upstream
 	branch-commit = "!f() { git l "$1" | head -n1; }; f"
 	bc = branch-commit
 	tags = tag -l

@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+_fzf() {
+	GIT_EXTERNAL_DIFF='difft --color=always --display=inline' \
+  	fzf -0 -1 -m --height=50% -q "${1:-}" --preview 'git diff --color=always --minimal {}'
+}
+
+_fn() {
+	local branch="${1:-}"
+	[ -n "$branch" ] || branch="$(git curbranch)"
+
+	local refs;
+	refs=($(git branch --contains "$branch" | grep -v "$branch"))
+
+	case ${#refs[@]} in
+		0)
+			;;
+		1)
+			git checkout "$refs"
+			;;
+		*)
+			local chosen;
+			chosen="$(printf '%s\n' ${refs[@]} | _fzf)"
+			if [ -n "$chosen" ]; then
+				git checkout "$chosen"
+			fi
+			;;
+	esac
+}
+
+_fn "$@"

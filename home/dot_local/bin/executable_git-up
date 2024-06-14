@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+_fn() {
+	local branch="${1:-}"
+	[ -n "$branch" ] || branch="$(git curbranch)"
+
+	local default_branch="";
+	if [[ "$branch" == "detect" ]]; then
+	  default_branch="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')"
+	fi
+
+	if [[ "$branch" =~ ^(main|master|$default_branch)$ ]]; then
+	  exit 0
+	fi
+
+  local upstream;
+  upstream="$(git upstream "$branch")"
+	git checkout "$upstream"
+}
+
+_fn "$@"
