@@ -22,7 +22,7 @@ Index.StandardLibrary = "Yes"
 [[language]]
 name = "cpp"
 auto-format = true
-formatter = { command = "clang-format", args = ["--sort-includes", "--Werror"] }
+formatter = { command = "clang-format", args = ["--Werror"] }
 
 [[language]]
 name = "python"
