@@ -5,9 +5,10 @@ function maybe_source() {
     [ -z "$1" ] || [ ! -f "$1" ] || source "$1"
 }
 
-export PATH="{{ .path.path }}"
 {{ if isExecutable .path.named.mise -}}
 {{ output .path.named.mise "env" | trim }}
+{{- else -}}
+export PATH="{{ .path.path }}"
 {{- end }}
 
 maybe_source "{{ joinPath .path.local "etc/homebrew/env" }}
