@@ -10,6 +10,11 @@ shadow = true
 unusedparams = true
 unreachable = true
 
+[[language]]
+name = "cpp"
+auto-format = true
+formatter = { command = "clang-format", args = ["--Werror"] }
+
 [language-server.clangd]
 command = "clangd"
 args = ["--clang-tidy", "--completion-style=detailed", "--header-insertion=iwyu"] 
@@ -18,11 +23,6 @@ args = ["--clang-tidy", "--completion-style=detailed", "--header-insertion=iwyu"
 Completion.AllScopes = "Yes"
 Diagnostics.UnusedIncludes = "Strict"
 Index.StandardLibrary = "Yes"
-
-[[language]]
-name = "cpp"
-auto-format = true
-formatter = { command = "clang-format", args = ["--Werror"] }
 
 [[language]]
 name = "python"
@@ -37,6 +37,12 @@ plugins.pyls_mypy.enabled = true
 plugins.pyls_mypy.live_mode = false
 plugins.isort.enabled = true
 plugins.rope_autoimport.enabled = true
+
+[[language]]
+name = "bash"
+indent = { tab-width = 2, unit = "  " }
+formatter = { command = 'shfmt', args = ["-i", "2"] }
+auto-format = true
 
 [language-server.yaml-language-server.config]
 yaml.keyOrdering = false
