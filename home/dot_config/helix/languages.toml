@@ -26,6 +26,7 @@ formatter = { command = "clang-format", args = ["--Werror"] }
 
 [[language]]
 name = "python"
+formatter = { command = "black", args = ["--quiet", "--line-length=79", "-"] }
 auto-format = true
 
 [language-server.pylsp.config.pylsp]
