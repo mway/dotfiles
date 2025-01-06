@@ -25,6 +25,10 @@ Diagnostics.UnusedIncludes = "Strict"
 Index.StandardLibrary = "Yes"
 
 [[language]]
+name = "rust"
+formatter = { command = "rustfmt" }
+
+[[language]]
 name = "python"
 formatter = { command = "sh", args = ["-c", "black --quiet --line-length=79 - | isort -"] }
 auto-format = true
