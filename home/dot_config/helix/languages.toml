@@ -4,7 +4,6 @@ deepCompletion = true
 staticcheck = true
 
 [language-server.gopls.config.analyses]
-fieldalignment = true
 nilness = true
 shadow = true
 unusedparams = true
