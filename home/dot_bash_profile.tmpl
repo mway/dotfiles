@@ -1,20 +1,6 @@
 #!/usr/bin/env bash
 # Managed by chezmoi
 
-{{ $fzfBase := joinPath .path.local "share" "fzf" -}}
-{{ $fzfCompletion := joinPath $fzfBase "shell" "completion.bash" -}}
-{{ $fzfBindings := joinPath $fzfBase "shell" " key-bindings.bash" -}}
-{{ $dotFzf := joinPath .path.home ".fzf.bash" -}}
-export FZF_BASE="{{ $fzfBase }}"
-[ ! -f "{{ $fzfCompletion }}" ] || source "{{ $fzfCompletion }}"
-[ ! -f "{{ $fzfBindings }}" ] || source "{{ $fzfBindings }}"
-[ ! -f "{{ $dotFzf }}" ] || source "{{ $dotFzf }}"
-
-{{ $justBase := joinPath .path.local "share" "just" -}}
-{{ $justCompletions := joinPath $justBase "completions" "just.bash" -}}
-export JUST_BASE="{{ $justBase }}"
-[ ! -f "{{ $justCompletions }}" ] || source "{{ $justCompletions }}"
-
 sources=(
   '{{ joinPath .path.home ".dotrc" }}'
   '{{ joinPath .path.home ".dotrc.bash" }}'
@@ -24,3 +10,9 @@ for src in "${sources[@]}"; do
   # shellcheck disable=SC1090
   [ ! -f "$src" ] || source "$src"
 done
+
+export MISE="{{ .path.named.mise }}"
+[ -f "$MISE" ] && eval "$("$MISE" activate bash)"
+
+eval "$(fzf --bash)"
+eval "$(just --completions bash)"

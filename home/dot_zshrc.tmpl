@@ -3,26 +3,8 @@
 
 autoload -U +X compinit && compinit
 
-{{ $fzfBase := joinPath .path.local "share" "fzf" -}}
-{{ $fzfCompletion := joinPath $fzfBase "shell" "completion.zsh" -}}
-{{ $fzfBindings := joinPath $fzfBase "shell" "key-bindings.zsh" -}}
-{{ $dotFzf := joinPath .path.home ".fzf.zsh" -}}
-export FZF_BASE="{{ $fzfBase }}"
-[ ! -f "{{ $fzfCompletion }}" ] || source "{{ $fzfCompletion }}"
-[ ! -f "{{ $fzfBindings }}" ] || source "{{ $fzfBindings }}"
-[ ! -f "{{ $dotFzf }}" ] || source "{{ $dotFzf }}"
-
-{{ $justBase := joinPath .path.local "share" "just" -}}
-{{ $justCompletions := joinPath $justBase "completions" "just.zsh" -}}
-export JUST_BASE="{{ $justBase }}"
-[ ! -f "{{ $justCompletions }}" ] || source "{{ $justCompletions }}"
-
-export MISE="{{ .path.named.mise }}"
-[ ! -f "$MISE" ] || eval "$("$MISE" activate zsh)"
-
 ZSH_THEME="dracula"
 HIST_STAMPS="yyyy-mm-dd"
-
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
@@ -34,8 +16,14 @@ setopt INC_APPEND_HISTORY
 export HISTTIMEFORMAT="[%F %T] "
 export HISTSIZE=100000000
 export LANG=en_US.UTF-8
-
 export ZSH="{{ .path.home }}/.oh-my-zsh"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:{{ joinPath .path.home ".cache/lm-studio/bin" }}"
+
+export MISE="{{ .path.named.mise }}"
+[ -f "$MISE" ] && eval "$("$MISE" activate zsh)"
+
 sources=(
   '{{ joinPath .path.home ".dotrc" }}'
   '{{ joinPath .path.home ".dotrc.zsh" }}'
@@ -46,8 +34,8 @@ for src in "${sources[@]}"; do
   [ ! -f "$src" ] || source "$src"
 done
 
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:{{ joinPath .path.home ".cache/lm-studio/bin" }}"
+eval "$(fzf --zsh)"
+eval "$(just --completions zsh)"
 
 plugins=(
   bazel
@@ -61,3 +49,6 @@ plugins=(
   rust
   z
 )
+
+# Extra
+[ -s "{{ .path.home }}/.bun/_bun" ] && source "{{ .path.home }}/.bun/_bun"
