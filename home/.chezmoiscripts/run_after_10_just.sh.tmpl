@@ -2,8 +2,7 @@
 
 set -euo pipefail
 
-base="${JUST_BASE:-"{{ joinPath .path.local "share/fzf" }}"}"
+base="${JUST_BASE:-"{{ joinPath .path.local "share/just" }}"}"
 mkdir -p "${base}/completions"
-
-just --completions zsh >> "${base}/completions/just.zsh"
-just --completions bash >> "${base}/completions/just.bash"
+just --completions zsh >>"${base}/completions/just.zsh"
+just --completions bash >>"${base}/completions/just.bash"
