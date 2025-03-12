@@ -16,3 +16,6 @@ export MISE="{{ .path.named.mise }}"
 
 eval "$(fzf --bash)"
 eval "$(just --completions bash)"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:{{ joinPath .path.home ".lmstudio/bin" }}"

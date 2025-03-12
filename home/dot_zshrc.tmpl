@@ -21,9 +21,6 @@ export ZSH="{{ .path.home }}/.oh-my-zsh"
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:{{ joinPath .path.home ".cache/lm-studio/bin" }}"
 
-export MISE="{{ .path.named.mise }}"
-[ -f "$MISE" ] && eval "$("$MISE" activate zsh)"
-
 sources=(
   '{{ joinPath .path.home ".dotrc" }}'
   '{{ joinPath .path.home ".dotrc.zsh" }}'
@@ -33,6 +30,13 @@ sources=(
 for src in "${sources[@]}"; do
   [ ! -f "$src" ] || source "$src"
 done
+
+if [[ -f /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+export MISE="{{ .path.named.mise }}"
+[ ! -f "$MISE" ] || eval "$("$MISE" activate zsh)"
 
 eval "$(fzf --zsh)"
 eval "$(just --completions zsh)"
@@ -45,6 +49,7 @@ plugins=(
   gitfast
   gpg-agent
   golang
+  homebrew
   keychain
   rust
   z
