@@ -25,6 +25,7 @@ zellij = {{ quote .versions.zellij }}
 "go:go.mway.dev/git/cmd/git-flow" = {{ quote .versions.git_flow }}
 "go:go.uber.org/mock/mockgen" = {{ quote .versions.mockgen }}
 "go:golang.org/x/tools/gopls" = {{ quote .versions.gopls }}
+golangci-lint-langserver = {{ quote .versions.golangci_lsp }}
 
 [env]
 GOTOOLCHAIN = "go{{ .versions.go }}"
