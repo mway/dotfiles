@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-sudo chsh -s {{ quote .shell }} {{ trim (output "whoami") }}
+echo "$(ansi --white-intense --faint chsh) setting shell ({{ .shell }})"
+sudo chsh -s {{ quote .shell }} {{ trim (output "whoami") }} >/dev/null 2>&1
