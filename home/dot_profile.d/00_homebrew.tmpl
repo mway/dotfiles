@@ -1,0 +1,13 @@
+# Managed by chezmoi
+
+maybe_source "{{ joinPath .path.local "etc/homebrew/env" }}"
+
+MW_HOMEBREW="$(which -a brew 2>/dev/null)"
+if [[ -z "$MW_HOMEBREW" ]]; then
+	MW_HOMEBREW="/opt/homebrew/bin/brew"
+fi
+if [[ -x "$MW_HOMEBREW" ]]; then
+	eval "$("$MW_HOMEBREW" shellenv)"
+fi
+
+maybe_source "{{ joinPath .path.local "etc/homebrew/env" }}"

@@ -11,8 +11,8 @@ function maybe_source() {
 export PATH="{{ .path.path }}"
 {{- end }}
 
-maybe_source "{{ joinPath .path.local "etc/homebrew/env" }}
-maybe_source "{{ joinPath .path.home ".config/op/plugins.sh" }}
+maybe_source "{{ joinPath .path.home ".config/op/plugins.sh" }}"
+export PATH="${HOME}/.local/bin:${PATH}"
 
 # source "{{ joinPath .path.local "share/fasd/fasd" }}"
 # eval "$(fasd --init auto)"
