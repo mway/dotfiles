@@ -46,6 +46,11 @@ plugins.pyls_mypy.live_mode = false
 plugins.isort.enabled = true
 plugins.rope_autoimport.enabled = true
 
+[language-server.pylsp.config.pylsp.plugins.ruff]
+enabled = true
+formatEnabled = true
+lineLength = 79
+
 [[language]]
 name = "bash"
 indent = { tab-width = 2, unit = "  " }
