@@ -1,0 +1,17 @@
+{{ $url := printf "https://github.com/helix-editor/helix/archive/refs/tags/%s.tar.gz" .versions.helix -}}
+
+[".config/helix/runtime/queries"]
+    type = "archive"
+    url = "{{ $url }}"
+    exact = true
+    stripComponents = 3
+    refreshPeriod = "168h"
+    include = ["*/runtime/queries/*"]
+
+[".config/helix/runtime/themes/"]
+    type = "archive"
+    url = "{{ $url }}"
+    exact = true
+    stripComponents = 3
+    refreshPeriod = "168h"
+    include = ["*/runtime/themes/*"]
