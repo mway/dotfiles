@@ -14,6 +14,7 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
 setopt EXTENDED_HISTORY
 setopt INC_APPEND_HISTORY
+setopt interactivecomments
 export HISTTIMEFORMAT="[%F %T] "
 export HISTSIZE=100000000
 export LANG=en_US.UTF-8
@@ -27,7 +28,7 @@ export PATH="$PATH:{{ joinPath .path.home ".cache/lm-studio/bin" }}"
 [ -s "{{ .path.home }}/.bun/_bun" ] && source "{{ .path.home }}/.bun/_bun"
 {{ else -}}
 eval "$(test -x $(brew --prefix)/bin/hermit && $(brew --prefix)/bin/hermit shell-hooks --print --zsh)"
-source "{{ joinPath .path.config "groq-bootstrap/groq-gootstrap.zsh" }}"
+source "{{ joinPath .path.config "groq-bootstrap/groq-bootstrap.zsh" }}"
 {{- end }}
 
 sources=(
