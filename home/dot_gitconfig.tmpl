@@ -3,7 +3,7 @@
 	{{- if .personal }}
 	email = mway@mway.id
 	{{- else }}
-	email = mway@uber.com
+	email = mway@groq.com
 	{{- end }}
 [github]
 	user = mway
@@ -121,26 +121,13 @@
 [rebase]
 	stat = false
 
-{{- if not .personal }}
-[credential "https://git.uberinternal.com"]
-	helper = usso
-[credential "https://vfs4g-cache.uberinternal.com"]
-	helper = usso
-[http "https://gopkg.uberinternal.com"]
-	followRedirects = true
-[url "ssh://config.uber.internal/"]
-	insteadOf = https://config.uber.internal/
-[url "ssh://gitolite@code.uber.internal:"]
-	insteadof = https://code.uber.internal/
-[url "ssh://code.uber.internal/"]
-	insteadOf = https://code.uber.internal/
-[url "ssh://gitolite@code.uber.internal/"]
-	insteadOf = git://code.uber.internal/
-[url "ssh://git@github.com/uber/"]
-	insteadOf = https://github.com/uber/
-[farc "update"]
-	url = gitolite@code.uber.internal:community/farc
 [remote "origin"]
 	fetch = +refs/heads/mway/*:refs/remotes/origin/mway/*
 	tagOpt = --no-tags
+[url "ssh://git@github.com/uber/"]
+	insteadOf = https://github.com/uber/
+
+{{- if not .personal }}
+[url "ssh://git@github.com/groq/"]
+	insteadOf = https://github.com/groq/
 {{- end }}

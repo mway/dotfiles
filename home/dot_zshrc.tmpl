@@ -2,6 +2,7 @@
 # Managed by chezmoi
 
 autoload -U +X compinit && compinit
+autoload -U colors && colors
 
 ZSH_THEME="dracula"
 HIST_STAMPS="yyyy-mm-dd"
@@ -18,11 +19,16 @@ export HISTSIZE=100000000
 export LANG=en_US.UTF-8
 export ZSH="{{ .path.home }}/.oh-my-zsh"
 
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:{{ joinPath .path.home ".cache/lm-studio/bin" }}"
-
 export MISE="{{ .path.named.mise }}"
 [ ! -f "$MISE" ] || eval "$("$MISE" activate zsh)"
+
+{{ if .personal -}}
+export PATH="$PATH:{{ joinPath .path.home ".cache/lm-studio/bin" }}"
+[ -s "{{ .path.home }}/.bun/_bun" ] && source "{{ .path.home }}/.bun/_bun"
+{{ else -}}
+eval "$(test -x $(brew --prefix)/bin/hermit && $(brew --prefix)/bin/hermit shell-hooks --print --zsh)"
+source "{{ joinPath .path.config "groq-bootstrap/groq-gootstrap.zsh" }}"
+{{- end }}
 
 sources=(
   '{{ joinPath .path.home ".dotrc" }}'
@@ -50,6 +56,3 @@ plugins=(
   rust
   z
 )
-
-# Extra
-[ -s "{{ .path.home }}/.bun/_bun" ] && source "{{ .path.home }}/.bun/_bun"

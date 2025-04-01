@@ -1,8 +1,5 @@
 [tools]
-ansible = {{ quote .versions.ansible }}
 bat = {{ quote .versions.bat }}
-bazel = {{ quote .versions.bazel }}
-bazelisk = {{ quote .versions.bazelisk }}
 black = {{ quote .versions.black }}
 btop = {{ quote .versions.btop }}
 chezmoi = {{ quote .versions.chezmoi }}
@@ -19,26 +16,38 @@ golangci-lint-langserver = {{ quote .versions.golangci_lint_langserver }}
 helix = {{ quote .versions.helix }}
 jq = {{ quote .versions.jq }}
 just = {{ quote .versions.just }}
-lefthook = {{ quote .versions.lefthook }}
 ninja = {{ quote .versions.ninja }}
-nomad = {{ quote .versions.nomad }}
 pipx = {{ quote .versions.pipx }}
-pre-commit = {{ quote .versions.pre_commit }}
 ripgrep = {{ quote .versions.ripgrep }}
 ruff = {{ quote .versions.ruff }}
 shfmt = {{ quote .versions.shfmt }}
 staticcheck = {{ quote .versions.staticcheck }}
 terraform = {{ quote .versions.terraform }}
 yq = {{ quote .versions.yq }}
-yt-dlp = {{ quote .versions.yt_dlp }}
 zellij = {{ quote .versions.zellij }}
 "cargo:difftastic" = {{ quote .versions.difftastic }}
 "cargo:eza" = {{ quote .versions.eza }}
-"go:go.mway.dev/dirfmt" = {{ quote .versions.dirfmt }}
-"go:go.mway.dev/ensure" = {{ quote .versions.ensure }}
 "go:go.mway.dev/git/cmd/git-flow" = {{ quote .versions.git_flow }}
 "go:go.uber.org/mock/mockgen" = {{ quote .versions.mockgen }}
 "go:golang.org/x/tools/gopls" = {{ quote .versions.gopls }}
+
+{{ if .personal -}}
+# Personal
+ansible = {{ quote .versions.ansible }}
+bazel = {{ quote .versions.bazel }}
+bazelisk = {{ quote .versions.bazelisk }}
+lefthook = {{ quote .versions.lefthook }}
+nomad = {{ quote .versions.nomad }}
+pre-commit = {{ quote .versions.pre_commit }}
+yt-dlp = {{ quote .versions.yt_dlp }}
+"go:go.mway.dev/dirfmt" = {{ quote .versions.dirfmt }}
+"go:go.mway.dev/ensure" = {{ quote .versions.ensure }}
+{{ else -}}
+# Groq
+mask = {{ quote .versions.mask }}
+kubectl = "latest"
+kubectx = "latest"
+{{- end }}
 
 [env]
 GOTOOLCHAIN = "go{{ .versions.go }}"

@@ -1,5 +1,5 @@
 {{- $globalCache := "1" -}}
-{{- $personal := and (lt (len .chezmoi.hostname) 15) (ne .chezmoi.hostname .chezmoi.username) -}}
+{{- $personal := and (lt (len .chezmoi.hostname) 15) (ne .chezmoi.hostname .chezmoi.username) (not (contains "groq" .chezmoi.hostname)) -}}
 {{- $localRoot := print .chezmoi.homeDir "/.local" -}}
 {{- $localBin := print $localRoot "/bin" -}}
 {{- $localEtc := print $localRoot "/etc" }}
@@ -94,6 +94,7 @@ data:
     jq: "1.7.1"
     just: "1.40.0"
     lefthook: "1.11.3"
+    mask: "0.11.6"
     mise: "v2025.3.2"
     mockgen: "0.5.0"
     ninja: "1.12.1"

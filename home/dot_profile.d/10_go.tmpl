@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-export GOPRIVATE='go.mway.dev/*'
+export GOPRIVATE='go.mway.dev/*{{ if not .personal -}},github.com/groq/*{{- end }}'
 export GOTOOLCHAIN='go{{ .versions.go }}'
