@@ -97,6 +97,8 @@
 	pr-merge = "merge-pr"
 	prm = pr-and-merge
 	create-release = "!f() { release create --notes="$1" --title="$1" "$1" && git fetch -t; }; f"
+	commit-msg = "!f() { git log --format="%B" -n 1 | perl -pe 'chomp if eof'; }; f"
+	msg = commit-msg
 [branch]
 	autosetuprebase = always
 [rerere]
