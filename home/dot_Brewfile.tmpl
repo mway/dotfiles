@@ -66,6 +66,9 @@ brew "lua"
 brew "luajit"
 brew "rbenv"
 brew "ruby"
+{{ else -}}
+brew "livekit"
+brew "livekit-cli"
 {{ end -}}
 
 cask "1password"
