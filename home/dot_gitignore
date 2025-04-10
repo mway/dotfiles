@@ -3,6 +3,7 @@
 !.vim/bundle/.gitkeep
 /.justfile
 /justfile
+/_attic
 cover.html
 cover.html.raw
 cover.out
