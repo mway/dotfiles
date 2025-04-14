@@ -22,7 +22,6 @@ pipx = {{ quote .versions.pipx }}
 pnpm = {{ quote .versions.pnpm }}
 python = {{ quote .versions.python }}  # run mise settings python.compile=1 if issues
 ripgrep = {{ quote .versions.ripgrep }}
-ruff = {{ quote .versions.ruff }}
 shfmt = {{ quote .versions.shfmt }}
 staticcheck = {{ quote .versions.staticcheck }}
 terraform = {{ quote .versions.terraform }}
@@ -30,14 +29,20 @@ uv = {{ quote .versions.uv }}
 watchexec = {{ quote .versions.watchexec }}
 yq = {{ quote .versions.yq }}
 zellij = {{ quote .versions.zellij }}
+
 "cargo:difftastic" = {{ quote .versions.difftastic }}
 "cargo:eza" = {{ quote .versions.eza }}
+
 "go:go.mway.dev/git/cmd/git-flow" = {{ quote .versions.git_flow }}
 "go:go.uber.org/mock/mockgen" = {{ quote .versions.mockgen }}
 "go:github.com/cashapp/hermit/cmd/hermit" = {{ quote .versions.hermit }}
 "go:golang.org/x/tools/cmd/deadcode" = {{ quote .versions.deadcode }}
 "go:golang.org/x/tools/cmd/goimports" = {{ quote .versions.goimports }}
 "go:golang.org/x/tools/gopls" = {{ quote .versions.gopls }}
+
+"pipx:psf/black" = {{ quote .versions.black }}
+"pipx:python-lsp-server" = {{ quote .versions.pylsp }}
+"pipx:ruff" = {{ quote .versions.ruff }}
 
 {{ if .personal -}}
 # Personal
