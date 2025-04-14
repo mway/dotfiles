@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if which python3 >/dev/null 2>&1; then
+  req="${HOME}/.requirements.tools.txt"
+  echo "$(ansi --white-intense --faint python) installing global tools (${req})"
+  python3 -m pip install -r "$req"
+fi
