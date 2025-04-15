@@ -27,7 +27,7 @@ export MISE="{{ .path.named.mise }}"
 export PATH="$PATH:{{ joinPath .path.home ".cache/lm-studio/bin" }}"
 [ -s "{{ .path.home }}/.bun/_bun" ] && source "{{ .path.home }}/.bun/_bun"
 {{ else -}}
-eval "$(test -x $(brew --prefix)/bin/hermit && $(brew --prefix)/bin/hermit shell-hooks --print --zsh)"
+eval "$(test -x hermit && hermit shell-hooks --print --zsh)"
 source "{{ joinPath .path.config "groq-bootstrap/groq-bootstrap.zsh" }}"
 {{- end }}
 

@@ -34,18 +34,18 @@ formatter = { command = "rustfmt" }
 [[language]]
 name = "python"
 language-servers = ["pylsp"]
-formatter = { command = "sh", args = ["-c", "black --quiet --line-length=79 - | isort -"] }
+formatter = { command = "sh", args = ["-c", "black --quiet --line-length=79 - | isort --multi-line=VERTICAL_HANGING_INDENT --profile=black -"] }
 auto-format = true
 
 [language-server.pylsp.config.pylsp.plugins]
 jedi_completion = { enabled = true, include_params = true, include_class_objects = true, include_function_objects = true }
 black = { enabled = false }
-ruff = { enabled = true }
+ruff = { enabled = false }
 flake8 = { enabled = false }
 pylint = { enabled = false }
 pyflakes = { enabled = false }
-pyls_mypy = { enabled = false, live_mode = false }
-isort = { enabled = true, profile = "black" }
+pyls_mypy = { enabled = false, follow_untyped_imports = true, live_mode = false }
+isort = { enabled = false, profile = "black" }
 rope_autoimport = { enabled = false }
 
 [[language]]
