@@ -33,23 +33,20 @@ formatter = { command = "rustfmt" }
 
 [[language]]
 name = "python"
+language-servers = ["pylsp"]
 formatter = { command = "sh", args = ["-c", "black --quiet --line-length=79 - | isort -"] }
 auto-format = true
 
-[language-server.pylsp.config.pylsp]
-plugins.black.enabled = true
-plugins.flake8.enabled = true
-plugins.pylint.enabled = true
-plugins.pyflakes.enabled = false
-plugins.pyls_mypy.enabled = true
-plugins.pyls_mypy.live_mode = false
-plugins.isort.enabled = true
-plugins.rope_autoimport.enabled = true
-
-[language-server.pylsp.config.pylsp.plugins.ruff]
-enabled = true
-formatEnabled = true
-lineLength = 79
+[language-server.pylsp.config.pylsp.plugins]
+jedi_completion = { enabled = true, include_params = true, include_class_objects = true, include_function_objects = true }
+black = { enabled = false }
+ruff = { enabled = true }
+flake8 = { enabled = false }
+pylint = { enabled = false }
+pyflakes = { enabled = false }
+pyls_mypy = { enabled = false, live_mode = false }
+isort = { enabled = true, profile = "black" }
+rope_autoimport = { enabled = false }
 
 [[language]]
 name = "bash"

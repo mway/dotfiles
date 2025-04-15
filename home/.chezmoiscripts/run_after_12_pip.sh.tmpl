@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+if which uv >/dev/null 2>&1; then
+  echo "$(ansi --white-intense --faint uv pip) installing (${HOME}/.requirements.txt)"
+  uv pip install --system -Uqr "${HOME}/.requirements.txt"
+elif which python3 >/dev/null 2>&1; then
+  echo "$(ansi --white-intense --faint pip) installing (${HOME}/.requirements.txt)"
+  python3 -m pip install -Uqr "${HOME}/.requirements.txt"
+else
+  echo "$(ansi --red-intense pip) cannot install without uv or python3"
+  exit 1
+fi
