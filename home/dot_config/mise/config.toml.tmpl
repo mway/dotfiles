@@ -55,7 +55,7 @@ pre-commit = {{ quote .versions.pre_commit }}
 yt-dlp = {{ quote .versions.yt_dlp }}
 "go:go.mway.dev/dirfmt" = {{ quote .versions.dirfmt }}
 "go:go.mway.dev/ensure" = {{ quote .versions.ensure }}
-{{ else -}}
+{{- else -}}
 # Groq
 mask = {{ quote .versions.mask }}
 kubectl = "latest"
