@@ -1,11 +1,13 @@
 .config/nvim/autoload/*
 .vim/bundle/*
 !.vim/bundle/.gitkeep
-/.justfile
-/justfile
-/_attic
+.envrc.local
+.justfile
+justfile
+_attic
 cover.html
 cover.html.raw
 cover.out
 cover.tmp
+profile[0-9]{3}.pdf
 tmp/
