@@ -26,12 +26,6 @@ export MISE="{{ .path.named.mise }}"
 {{ if .personal -}}
 export PATH="$PATH:{{ joinPath .path.home ".cache/lm-studio/bin" }}"
 [ -s "{{ .path.home }}/.bun/_bun" ] && source "{{ .path.home }}/.bun/_bun"
-{{ else -}}
-if command -v hermit >/dev/null 2>&1; then
-  export HERMIT_ROOT_BIN="$(which -a hermit | \grep '/bin' | head -n1)"
-  eval "$(hermit shell-hooks --print --zsh)"
-  source "{{ joinPath .path.config "groq-bootstrap/groq-bootstrap.zsh" }}"
-fi
 {{- end }}
 
 sources=(

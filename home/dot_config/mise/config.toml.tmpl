@@ -1,7 +1,9 @@
 [tools]
+aqua = {{ quote .versions.aqua }}
 bat = {{ quote .versions.bat }}
 btop = {{ quote .versions.btop }}
 chezmoi = {{ quote .versions.chezmoi }}
+cosign = {{ quote .versions.cosign }}
 ctop = {{ quote .versions.ctop }}
 delta = {{ quote .versions.delta }}
 direnv = {{ quote .versions.direnv }}
@@ -26,8 +28,10 @@ ripgrep = {{ quote .versions.ripgrep }}
 shfmt = {{ quote .versions.shfmt }}
 staticcheck = {{ quote .versions.staticcheck }}
 terraform = {{ quote .versions.terraform }}
+ubi = {{ quote .versions.ubi }}
 uv = {{ quote .versions.uv }}
 watchexec = {{ quote .versions.watchexec }}
+yamlfmt = {{ quote .versions.yamlfmt }}
 yq = {{ quote .versions.yq }}
 zellij = {{ quote .versions.zellij }}
 
@@ -49,6 +53,7 @@ zellij = {{ quote .versions.zellij }}
 "pipx:pylint" = {{ quote .versions.pylint }}
 "pipx:python-lsp-server" = {{ quote .versions.pylsp }}
 "pipx:ruff" = {{ quote .versions.ruff }}
+"npm:yaml-language-server" = {{ quote .versions.yaml_lsp }}
 
 {{ if .personal -}}
 # Personal
