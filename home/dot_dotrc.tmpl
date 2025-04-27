@@ -5,14 +5,4 @@ function maybe_source() {
     [ -z "$1" ] || [ ! -f "$1" ] || source "$1"
 }
 
-{{ if isExecutable .path.named.mise -}}
-{{ output .path.named.mise "env" | trim }}
-{{- else -}}
-export PATH="{{ .path.path }}"
-{{- end }}
-
 maybe_source "{{ joinPath .path.home ".config/op/plugins.sh" }}"
-export PATH="${HOME}/.local/bin:${PATH}"
-
-# source "{{ joinPath .path.local "share/fasd/fasd" }}"
-# eval "$(fasd --init auto)"
