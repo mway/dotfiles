@@ -122,14 +122,14 @@
 	stat = false
 [rebase]
 	stat = false
-
+[pager]
+	branch = false
 [remote "origin"]
 	fetch = +refs/heads/mway/*:refs/remotes/origin/mway/*
 	tagOpt = --no-tags
 [url "ssh://git@github.com/uber/"]
 	insteadOf = https://github.com/uber/
-
-{{- if not .personal }}
+{{ if not .personal -}}
 [url "ssh://git@github.com/groq/"]
 	insteadOf = https://github.com/groq/
 {{- end }}
