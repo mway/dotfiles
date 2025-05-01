@@ -1,2 +1,10 @@
 #!/usr/bin/env bash
-exec gh pr create --fill "$@"
+
+_fn() {
+  local parent
+  parent="$(git parent)"
+
+  gh pr create --fill "$@" && git branch -u "$parent" && git rebase
+}
+
+_fn "$@"
