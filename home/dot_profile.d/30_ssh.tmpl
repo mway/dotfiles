@@ -2,5 +2,5 @@
 
 # Keychain: http://www.funtoo.org
 if command -v keychain >/dev/null; then
-  eval "$(keychain --quiet --eval --agents ssh id_ed25519)"
+  eval "$(keychain --quiet --eval id_ed25519)"
 fi
