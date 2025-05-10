@@ -23,6 +23,7 @@ just = {{ quote .versions.just }}
 ninja = {{ quote .versions.ninja }}
 pipx = {{ quote .versions.pipx }}
 pnpm = {{ quote .versions.pnpm }}
+pre-commit = {{ quote .versions.pre_commit }}
 python = {{ quote .versions.python }}  # run mise settings python.compile=1 if issues
 ripgrep = {{ quote .versions.ripgrep }}
 shfmt = {{ quote .versions.shfmt }}
@@ -46,6 +47,8 @@ zellij = {{ quote .versions.zellij }}
 "go:golang.org/x/tools/cmd/goimports" = {{ quote .versions.goimports }}
 "go:golang.org/x/tools/gopls" = {{ quote .versions.gopls }}
 
+"npm:yaml-language-server" = {{ quote .versions.yaml_lsp }}
+
 "pipx:flake8" = {{ quote .versions.flake8 }}
 "pipx:isort" = {{ quote .versions.isort }}
 "pipx:jedi-language-server" = {{ quote .versions.jedi }}
@@ -54,16 +57,13 @@ zellij = {{ quote .versions.zellij }}
 "pipx:pylint" = {{ quote .versions.pylint }}
 "pipx:python-lsp-server" = {{ quote .versions.pylsp }}
 "pipx:ruff" = {{ quote .versions.ruff }}
-"npm:yaml-language-server" = {{ quote .versions.yaml_lsp }}
 
 {{ if .personal -}}
 # Personal
 ansible = {{ quote .versions.ansible }}
 bazel = {{ quote .versions.bazel }}
-bazelisk = {{ quote .versions.bazelisk }}
 lefthook = {{ quote .versions.lefthook }}
 nomad = {{ quote .versions.nomad }}
-pre-commit = {{ quote .versions.pre_commit }}
 yt-dlp = {{ quote .versions.yt_dlp }}
 "go:go.mway.dev/dirfmt" = {{ quote .versions.dirfmt }}
 "go:go.mway.dev/ensure" = {{ quote .versions.ensure }}
