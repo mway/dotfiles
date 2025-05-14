@@ -20,6 +20,7 @@ gotestsum = {{ quote .versions.gotestsum }}
 helix = {{ quote .versions.helix }}
 jq = {{ quote .versions.jq }}
 just = {{ quote .versions.just }}
+mask = {{ quote .versions.mask }}
 ninja = {{ quote .versions.ninja }}
 pipx = {{ quote .versions.pipx }}
 pnpm = {{ quote .versions.pnpm }}
@@ -60,16 +61,15 @@ zellij = {{ quote .versions.zellij }}
 
 {{ if .personal -}}
 # Personal
-ansible = {{ quote .versions.ansible }}
 bazel = {{ quote .versions.bazel }}
 lefthook = {{ quote .versions.lefthook }}
 nomad = {{ quote .versions.nomad }}
 yt-dlp = {{ quote .versions.yt_dlp }}
 "go:go.mway.dev/dirfmt" = {{ quote .versions.dirfmt }}
 "go:go.mway.dev/ensure" = {{ quote .versions.ensure }}
+"pipx:ansible" = { version = {{ quote .versions.ansible }}, uvx = "false", pipx_args = "--include-deps" }
 {{- else -}}
 # Groq
-mask = {{ quote .versions.mask }}
 kubectl = "latest"
 kubectx = "latest"
 {{- end }}
