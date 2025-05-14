@@ -43,7 +43,7 @@ auto-format = true
 [language-server.pylsp.config.pylsp.plugins]
 jedi_completion = { enabled = true, include_params = true, include_class_objects = true, include_function_objects = true }
 black = { enabled = false }
-ruff = { enabled = false }
+ruff = { enabled = true }
 flake8 = { enabled = false }
 pylint = { enabled = false }
 pyflakes = { enabled = false }
