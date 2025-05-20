@@ -2,10 +2,6 @@
 {{- $personal := and (lt (len .chezmoi.hostname) 15) (ne .chezmoi.hostname .chezmoi.username) (not (contains "groq" .chezmoi.hostname)) -}}
 {{- $localRoot := print .chezmoi.homeDir "/.local" -}}
 {{- $localBin := print $localRoot "/bin" -}}
-{{- $localEtc := print $localRoot "/etc" }}
-{{- $localShare := print $localRoot "/share" }}
-{{- $localVar := print $localRoot "/var" }}
-{{- $localLog := print $localRoot "/log" }}
 {{- $userHome := .chezmoi.homeDir -}}
 {{- $userBin := print $userHome "/bin" }}
 {{- $userConfig := print $userHome "/.config" -}}
@@ -35,30 +31,20 @@ data:
   user: {{ .chezmoi.username }}
   shell: {{ trim (output "which" "zsh") }}
   personal: {{ $personal }}
-  cache:
-    global: {{ $globalCache }}
 
   arch: {{ .chezmoi.arch }}
   os: {{ .chezmoi.os }}
 
   path:
-    cargo: {{ $cargoHome }}
-    config: {{ $userConfig }}
-    gopath: {{ $goPath }}
-    goroot: {{ $goRoot }}
     home: {{ $userHome }}
     local: {{ $localRoot }}
     path: {{ $computedPath }}
-    profiled: {{ joinPath $userHome ".profile.d" }}
 
     named:
       cargoBin: {{ $cargoBin }}
       goBin: {{ $goPathBin }}
       gorootBin: {{ $goRootBin }}
       localBin: {{ $localBin }}
-      localLog: {{ $localLog }}
-      localShare: {{ $localShare }}
-      localVar: {{ $localVar }}
       mise: {{ joinPath $userBin "mise" }}
       userBin: {{ $userBin }}
 
