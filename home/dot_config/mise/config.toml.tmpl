@@ -29,7 +29,6 @@ python = {{ quote .versions.python }}  # run mise settings python.compile=1 if i
 ripgrep = {{ quote .versions.ripgrep }}
 shfmt = {{ quote .versions.shfmt }}
 staticcheck = {{ quote .versions.staticcheck }}
-taplo = {{ quote .versions.taplo }}
 terraform = {{ quote .versions.terraform }}
 ubi = {{ quote .versions.ubi }}
 uv = {{ quote .versions.uv }}
@@ -40,6 +39,7 @@ zellij = {{ quote .versions.zellij }}
 
 "cargo:difftastic" = {{ quote .versions.difftastic }}
 "cargo:eza" = {{ quote .versions.eza }}
+"cargo:taplo-cli" = { version = {{ quote .versions.taplo }}, features = "lsp" }
 
 "go:go.mway.dev/git/cmd/git-flow" = {{ quote .versions.git_flow }}
 "go:go.uber.org/mock/mockgen" = {{ quote .versions.mockgen }}
