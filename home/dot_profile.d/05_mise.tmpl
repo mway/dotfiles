@@ -1,8 +1,7 @@
 # Managed by Chezmoi
 
-export PATH="${HOME}/.local/bin:${PATH}"
 {{ if isExecutable .path.named.mise -}}
-{{ output .path.named.mise "env" | trim }}
+eval "$({{ .path.named.mise }} env)"
 {{- else -}}
 export PATH="{{ .path.path }}"
 {{- end }}
