@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+_main() {
+  git rev-parse --abbrev-ref "${1:-"HEAD"}@{upstream}"
+}
+
+_main "$@"

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+_main() {
+  local upstream
+  upstream="$(git upstream)"
+
+  gh pr create --fill -B "$upstream" "$@" && git branch -u "$upstream"
+}
+
+_main "$@"

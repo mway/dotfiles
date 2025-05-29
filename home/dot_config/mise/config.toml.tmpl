@@ -38,9 +38,13 @@ yamlfmt = {{ quote .versions.yamlfmt }}
 yq = {{ quote .versions.yq }}
 zellij = {{ quote .versions.zellij }}
 
+"cargo:bindgen-cli" = {{ quote .versions.bindgen }}
+"cargo:cargo-expand" = {{ quote .versions.cargo_expand }}
+"cargo:cbindgen" = {{ quote .versions.cbindgen }}
 "cargo:difftastic" = {{ quote .versions.difftastic }}
-"cargo:gping" = {{ quote .versions.gping }}
 "cargo:eza" = {{ quote .versions.eza }}
+"cargo:gping" = {{ quote .versions.gping }}
+"cargo:minijinja-cli" = {{ quote .versions.minijinja }}
 "cargo:taplo-cli" = { version = {{ quote .versions.taplo }}, features = "lsp" }
 "cargo:trippy" = {{ quote .versions.trippy }}
 
@@ -49,6 +53,7 @@ zellij = {{ quote .versions.zellij }}
 "go:github.com/ymtdzzz/otel-tui" = {{ quote .versions.otel_tui }}
 "go:go.mway.dev/git/cmd/git-flow" = {{ quote .versions.git_flow }}
 "go:go.uber.org/mock/mockgen" = {{ quote .versions.mockgen }}
+"go:golang.org/x/perf/cmd/benchstat" = {{ quote .versions.benchstat }}
 "go:golang.org/x/tools/cmd/deadcode" = {{ quote .versions.deadcode }}
 "go:golang.org/x/tools/cmd/goimports" = {{ quote .versions.goimports }}
 "go:golang.org/x/tools/gopls" = {{ quote .versions.gopls }}

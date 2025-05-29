@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+gh pr checks --watch --interval 2 --fail-fast

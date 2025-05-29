@@ -84,7 +84,6 @@
 	current-branch = symbolic-ref --short HEAD
 	curbranch = current-branch
 	cur = current-branch
-	upstream = "!f() { git rev-parse --abbrev-ref "${1:-"HEAD"}"@{upstream}; }; f"
 	parent = upstream
 	branch-commit = "!f() { git l "$1" | head -n1; }; f"
 	bc = branch-commit
@@ -125,7 +124,7 @@
 [pager]
 	branch = false
 [remote "origin"]
-	fetch = +refs/heads/mway/*:refs/remotes/origin/mway/*
+	fetch = +refs/archive/mway/*:refs/archive/mway/*
 	tagOpt = --no-tags
 [url "ssh://git@github.com/uber/"]
 	insteadOf = https://github.com/uber/
