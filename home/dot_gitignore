@@ -2,6 +2,7 @@
 .envrc.local
 .justfile
 .mise/
+.mise/tasks/
 _attic
 cover.html
 cover.html.raw
