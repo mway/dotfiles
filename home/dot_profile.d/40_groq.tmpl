@@ -1,0 +1,8 @@
+# Managed by chezmoi
+
+{{ range (onepassword "groq:zed" "infra").fields }}
+{{-  if eq .label "token" -}}
+export OPENAI_API_KEY={{ quote .value }} # Zed
+export GROQ_LSP_API_KEY={{ quote .value }} # lsp-ai
+{{-  end -}}
+{{ end }}

@@ -1,13 +1,11 @@
 # Managed by chezmoi
 
-maybe_source "{{ joinPath .path.local "etc/homebrew/env" }}"
+{{ range (onepassword "homebrew" "infra").fields }}
+{{-  if eq .label "token" -}}
+export HOMEBREW_GITHUB_API_TOKEN="{{ .value }}"
+{{-  end -}}
+{{ end }}
 
-MW_HOMEBREW="$(which -a brew 2>/dev/null)"
-if [[ -z "$MW_HOMEBREW" ]]; then
-	MW_HOMEBREW="/opt/homebrew/bin/brew"
+if command -v brew >/dev/null 2>&1; then
+	eval "$(brew shellenv)"
 fi
-if [[ -x "$MW_HOMEBREW" ]]; then
-	eval "$("$MW_HOMEBREW" shellenv)"
-fi
-
-maybe_source "{{ joinPath .path.local "etc/homebrew/env" }}"
