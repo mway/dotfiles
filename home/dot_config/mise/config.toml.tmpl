@@ -23,6 +23,7 @@ jq = {{ quote .versions.jq }}
 just = {{ quote .versions.just }}
 mask = {{ quote .versions.mask }}
 ninja = {{ quote .versions.ninja }}
+node = {{ quote .versions.node }}
 pipx = {{ quote .versions.pipx }}
 pnpm = {{ quote .versions.pnpm }}
 pre-commit = {{ quote .versions.pre_commit }}
@@ -92,4 +93,7 @@ kubectx = "latest"
 GOTOOLCHAIN = "go{{ .versions.go }}"
 
 [settings]
+auto_install = true
+not_found_auto_install = true
 experimental = true
+jobs = 4
