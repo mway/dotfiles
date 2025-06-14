@@ -52,19 +52,19 @@
 ## Code Style
 - **General**: ALWAYS follow the Uber Go Style Guide (https://github.com/uber-go/guide/blob/master/style.md) whenever possible
 - **Go fundamentals**: Effective Go (https://go.dev/doc/effective_go), Go Language Spec (https://tip.golang.org/ref/spec), Go Memory Model (https://tip.golang.org/ref/mem)
-- **Imports**: Standard library first, third-party (grouped), then local `github.com/groq/orion/...`
+- **Imports**: Standard library first, third-party (grouped), then local `github.com/user/repo/...`
   ```
   // Good
   import (
     "sync"
     "unsafe"
 
-    "github.com/groq/minijinja"
+    "github.com/some/other/path"
     zlog "github.com/rs/zerolog/log"
 
-    "github.com/groq/orion/internal/must"
-    "github.com/groq/orion/internal/ptr"
-    "github.com/groq/orion/models"
+    "github.com/this/repo/package-a"
+    "github.com/this/repo/package-b"
+    "github.com/this/repo/package-c"
   )
 
   // Bad
@@ -72,10 +72,10 @@
     "sync"
     "unsafe"
 
-    "github.com/groq/minijinja"
-    "github.com/groq/orion/internal/must"
-    "github.com/groq/orion/internal/ptr"
-    "github.com/groq/orion/models"
+    "github.com/some/other/path"
+    "github.com/this/repo/package-a"
+    "github.com/this/repo/package-b"
+    "github.com/this/repo/package-c"
     zlog "github.com/rs/zerolog/log"
   )
   ```
