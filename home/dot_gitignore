@@ -1,9 +1,10 @@
+_attic
 .config/nvim/autoload/*
+.DS_Store
 .envrc.local
 .justfile
 .mise/
 .mise/tasks/
-_attic
 cover.html
 cover.html.raw
 cover.out
