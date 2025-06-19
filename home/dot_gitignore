@@ -6,6 +6,7 @@ _attic
 .justfile
 .mise/
 .mise/tasks/
+.opencode/
 *.out
 *.test
 *.tmp

@@ -1,0 +1,7 @@
+# Managed by chezmoi
+
+{{ range (onepassword "gemini:personal" "infra").fields }}
+{{-  if eq .label "token" -}}
+export GEMINI_API_KEY={{ quote .value }} # general purpose
+{{-  end -}}
+{{ end }}

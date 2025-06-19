@@ -4,5 +4,6 @@
 {{-  if eq .label "token" -}}
 export OPENAI_API_KEY={{ quote .value }} # Zed
 export GROQ_LSP_API_KEY={{ quote .value }} # lsp-ai
+export GROQ_API_KEY={{ quote .value }} # general purpose
 {{-  end -}}
 {{ end }}
