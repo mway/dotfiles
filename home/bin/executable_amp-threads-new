@@ -3,7 +3,8 @@
 _main() {
   local thread_id=""
   thread_id="$(amp threads new)"
-  amp threads share "$thread_id" --visibility private
+  amp threads share "$thread_id" --visibility private >/dev/null
+  echo "✅ Thread ID: $(ansi --bold --yellow "$thread_id")"
   amp threads continue "$thread_id"
 }
 
