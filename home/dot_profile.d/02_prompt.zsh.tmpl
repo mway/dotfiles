@@ -31,5 +31,5 @@ function truncated_pwd() {
 }
 
 precmd() {
-  PROMPT="${fg[blue]}$(truncated_pwd 1) $fg[green]#%{$reset_color%} "
+  PROMPT="%F{blue}$(truncated_pwd 1)%F{reset} %F{green}#%F{reset} "
 }
