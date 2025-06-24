@@ -1,3 +1,7 @@
+[env]
+GOTOOLCHAIN = "go{{ .versions.go }}"
+JUST_UNSTABLE = 1
+
 [tools]
 1password = {{ quote .versions.onepassword }}
 aqua = {{ quote .versions.aqua }}
@@ -89,9 +93,6 @@ yt-dlp = {{ quote .versions.yt_dlp }}
 kubectl = "latest"
 kubectx = "latest"
 {{- end }}
-
-[env]
-GOTOOLCHAIN = "go{{ .versions.go }}"
 
 [settings]
 auto_install = true

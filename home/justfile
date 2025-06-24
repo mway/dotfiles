@@ -32,7 +32,6 @@ lint +ARGS="./...":
 [no-cd]
 lint-fix +ARGS="./...": (lint "--fix" ARGS)
 
-
 ###
 # META HELPERS
 ###
@@ -41,7 +40,7 @@ lint-fix +ARGS="./...": (lint "--fix" ARGS)
 prompt-default-no MESSAGE CONTEXT="":
     #!/usr/bin/env bash
     while true; do
-        echo -ne "$(ansi --yellow "{{ MESSAGE }}"){{ if CONTEXT != "" { "\n\n\t" + CONTEXT + ""} else { "" } }} [yN]: "
+        echo -ne "$(ansi --yellow "{{ MESSAGE }}"){{ if CONTEXT != "" { "\n\n\t" + CONTEXT + "" } else { "" } }} [yN]: "
         read -p "" yn
         yn="$(echo "$yn" | tr '[:upper:]' '[:lower:]')"
         case $yn in
@@ -59,7 +58,7 @@ prompt-default-no MESSAGE CONTEXT="":
 prompt-default-yes MESSAGE CONTEXT="":
     #!/usr/bin/env bash
     while true; do
-        echo -ne "$(ansi --yellow "{{ MESSAGE }}"){{ if CONTEXT != "" { "\n\n\t" + CONTEXT + ""} else { "" } }} [Yn]: "
+        echo -ne "$(ansi --yellow "{{ MESSAGE }}"){{ if CONTEXT != "" { "\n\n\t" + CONTEXT + "" } else { "" } }} [Yn]: "
         read -p "" yn
         yn="$(echo "$yn" | tr '[:upper:]' '[:lower:]')"
         case $yn in
