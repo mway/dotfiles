@@ -168,6 +168,15 @@ plugins {
     }
 }
 
+load_plugins {
+    "~/.config/zellij/plugins/zjframes.wasm" {
+        // hide_frame_for_single_pane       "true"
+        // hide_frame_except_for_search     "true"
+        // hide_frame_except_for_scroll     "true"
+        // hide_frame_except_for_fullscreen "true"
+    }
+}
+
 mirror_session true
 on_force_close "detach"
 pane_frames false
