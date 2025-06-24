@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Managed by chezmoi
+
+if [[ -d "{{ .path.home }}/.lmstudio/bin" ]]; then
+  export PATH="${PATH}:{{ .path.home }}/.lmstudio/bin"
+fi

@@ -1,4 +1,5 @@
-# Managed by chezmoi
+#!/usr/bin/env bash
+# Managed by Chezmoi
 
 {{ range (onepassword "homebrew" "infra").fields }}
 {{-  if eq .label "token" -}}
