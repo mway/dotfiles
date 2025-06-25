@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 # Managed by Chezmoi
 
-[ ! -d "$HOME/.docker/bin" ] || PATH_add "$HOME/.docker/bin"
+if [[ -d "${HOME}/.docker/bin" ]]; then
+  PATH_add "${HOME}/.docker/bin"
+elif [[ -d "${HOME}/.orbstack/bin" ]]; then
+  PATH_add "${HOME}/.orbstack/bin"
+fi
