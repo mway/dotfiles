@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+_main() {
+  # pick a model alias from your config
+  model=$(yq -r .apis[].models[].aliases[0] ~/.config/mods/mods.yml |
+    gum choose --height 8 --header "Choose a model:" --no-show-help)
+  if [[ -z $model ]]; then
+    gum format "  :pensive:  cancelled, no model picked." -t emoji
+    return 1
+  fi
+  # gum confirm "Use '${model}'?" || return $?
+  # first invocation starts a new conversation
+  mods --model "$model" --prompt-args || return $?
+  # after that enter a loop until user quits
+  while mods --model "$model" --prompt-args --continue-last; do :; done
+  return $?
+}
+
+_main "$@"
