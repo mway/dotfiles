@@ -2,6 +2,7 @@
 
 ## Behavior
 - **Concurrency**: Always use subagents wherever possible to speed up work.
+- **Communication**: Be concise in responses. Summarize actions and results briefly unless detailed explanation is requested.
 
 ## Commands
 - **Build**: `go build -o /dev/null ./...` or `just build-lint ./...`
@@ -23,6 +24,7 @@
   - Prompt for confirmation before making changes unless otherwise directed
 - **Pre-commit**:
   - Before committing code, code must be formatted, all tests must pass, and lint must not return issues
+  - NEVER create commits without prompting the user with the files staged for commit (and give the user the option to view the diff before approving).
   - Prefer running specific test packages over the full suite for performance
 - **Commit messages**: Follow conventional commits (https://www.conventionalcommits.org/en/v1.0.0/); prefixes like `feat: `, `fix: `, `chore: `, etc are required
 - **Pull requests**: When creating pull requests, always include the following `gh pr new` flags:
