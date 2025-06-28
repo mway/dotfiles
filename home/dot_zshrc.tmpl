@@ -19,7 +19,6 @@ setopt interactivecomments
 export HISTTIMEFORMAT="[%F %T] "
 export HISTSIZE=100000000
 export LANG=en_US.UTF-8
-export ZSH="{{ .path.home }}/.oh-my-zsh"
 
 export MISE="{{ .path.named.mise }}"
 [ ! -f "$MISE" ] || eval "$("$MISE" activate zsh)"
@@ -33,7 +32,6 @@ sources=(
   '{{ joinPath .path.home ".dotrc" }}'
   '{{ joinPath .path.home ".dotrc.zsh" }}'
   '{{ joinPath .path.home ".dotrc.local" }}'
-  "$ZSH/oh-my-zsh.sh"
 )
 for src in "${sources[@]}"; do
   [ ! -f "$src" ] || source "$src"
