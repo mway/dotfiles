@@ -1,5 +1,6 @@
 ---
-default-model: deepseek
+default-api: groq
+default-model: qwen/qwen3-32b
 # Text to append when using the -f flag.
 format-text:
   markdown: 'Format the response as markdown without enclosing backticks.'
@@ -66,55 +67,55 @@ apis:
         aliases: ["deepseek"]
         max-input-chars: 90112
         max-completion-tokens: 40960
-      qwen-qwq-32b:
-        aliases: ["qwen", "qwq", "qwen-qwq"]
-        max-input-chars: 65536
-        max-completion-tokens: 65536
       qwen/qwen3-32b:
         aliases: ["qwen3"]
         max-input-chars: 90112
         max-completion-tokens: 40960
-      compound-beta:
-        aliases: ["compound-beta"]
-        max-input-chars: 122880
-        max-completion-tokens: 8192
-      compound-beta-mini:
-        aliases: ["compound-beta-mini"]
-        max-input-chars: 122880
-        max-completion-tokens: 8192
-      llama-3.1-8b-instant:
-        aliases: ["llama31", "llama3.1", "llama3.1-8b", "llama3.1-instant"]
-        max-input-chars: 65536
-        max-completion-tokens: 65536
-      llama-3.3-70b-versatile:
-        aliases: ["llama33", "llama3.3", "llama3.3-70b", "llama3.3-versatile"]
-        max-input-chars: 98304
-        max-completion-tokens: 32768
-      llama3-70b-8192:
-        aliases: ["llama3", "llama3-70b"]
-        max-input-chars: 4096
-        max-completion-tokens: 4096
-        fallback: llama3-8b-8192
-      llama3-8b-8192:
-        aliases: ["llama3-8b"]
-        max-input-chars: 4096
-        max-completion-tokens: 4096
-      meta-llama/llama-4-maverick-17b-128e-instruct:
-        aliases: ["llama-4-maverick-17b-128e-instruct", "maverick"]
-        max-input-chars: 122880
-        max-completion-tokens: 8192
-      meta-llama/llama-4-scout-17b-16e-instruct:
-        aliases: ["llama-4-scout-17b-16e-instruct", "scout"]
-        max-input-chars: 122880
-        max-completion-tokens: 8192
-      gemma2-9b-it:
-        aliases: ["gemma2"]
-        max-input-chars: 4096
-        max-completion-tokens: 4096
-      mistral-saba-24b:
-        aliases: ["mistral"]
-        max-input-chars: 16384
-        max-completion-tokens: 16384
+    qwen-qwq-32b:
+      aliases: ["qwen", "qwq", "qwen-qwq"]
+      max-input-chars: 65536
+      max-completion-tokens: 65536
+    compound-beta:
+      aliases: ["compound-beta"]
+      max-input-chars: 122880
+      max-completion-tokens: 8192
+    compound-beta-mini:
+      aliases: ["compound-beta-mini"]
+      max-input-chars: 122880
+      max-completion-tokens: 8192
+    llama-3.1-8b-instant:
+      aliases: ["llama31", "llama3.1", "llama3.1-8b", "llama3.1-instant"]
+      max-input-chars: 65536
+      max-completion-tokens: 65536
+    llama-3.3-70b-versatile:
+      aliases: ["llama33", "llama3.3", "llama3.3-70b", "llama3.3-versatile"]
+      max-input-chars: 98304
+      max-completion-tokens: 32768
+    llama3-70b-8192:
+      aliases: ["llama3", "llama3-70b"]
+      max-input-chars: 4096
+      max-completion-tokens: 4096
+      fallback: llama3-8b-8192
+    llama3-8b-8192:
+      aliases: ["llama3-8b"]
+      max-input-chars: 4096
+      max-completion-tokens: 4096
+    meta-llama/llama-4-maverick-17b-128e-instruct:
+      aliases: ["llama-4-maverick-17b-128e-instruct", "maverick"]
+      max-input-chars: 122880
+      max-completion-tokens: 8192
+    meta-llama/llama-4-scout-17b-16e-instruct:
+      aliases: ["llama-4-scout-17b-16e-instruct", "scout"]
+      max-input-chars: 122880
+      max-completion-tokens: 8192
+    gemma2-9b-it:
+      aliases: ["gemma2"]
+      max-input-chars: 4096
+      max-completion-tokens: 4096
+    mistral-saba-24b:
+      aliases: ["mistral"]
+      max-input-chars: 16384
+      max-completion-tokens: 16384
   google:
     api-key-env: GEMINI_API_KEY
     models:
@@ -153,6 +154,7 @@ mcp-servers:
   filesystem:
     command: "mcp-server-filesystem"
     args:
+      - "."
       - "{{ .path.config }}/agent"
       - "{{ .path.home }}/go/src"
   git:
