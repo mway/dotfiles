@@ -1,0 +1,16 @@
+{
+  "groq/qwen-qwq-32b": {
+    "max_tokens": 131072,
+    "max_input_tokens": 90112,
+    "max_output_tokens": 40960,
+{{- range (onepassword "models:groq:config" "infra").fields }}
+{{-  if eq .label "input_token_cost" }}
+    "input_cost_per_token": {{ .value }},
+{{-  else if eq .label "output_token_cost" }}
+    "output_cost_per_token": {{ .value }},
+{{-  end }}
+{{- end }}
+    "litellm_provider": "groq",
+    "mode": "chat"
+  }
+}

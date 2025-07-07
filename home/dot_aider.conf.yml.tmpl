@@ -1,0 +1,10 @@
+{{- $model := "groq/deepseek-r1-distill-llama-70b" -}}
+{{- $model := "groq/qwen-qwq-32b" -}}
+{{- "---" }}
+model: {{ quote $model }}
+weak-model: {{ quote $model }}
+editor-model: {{ quote $model }}
+dark-mode: true
+read:
+  - ~/AGENT.md
+  - AGENT.md
