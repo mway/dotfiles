@@ -1,0 +1,3 @@
+---
+model: "groq/deepseek-r1-distill-llama-70b"
+dark-mode: true

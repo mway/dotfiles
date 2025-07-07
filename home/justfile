@@ -19,6 +19,14 @@ test +ARGS="./...":
 vtest +ARGS="./...": (test "-v" ARGS)
 
 [no-cd]
+cover-html +ARGS="./...": (test ARGS)
+    go tool cover -html cover.out
+
+[no-cd]
+cover-text +ARGS="./...": (test ARGS)
+    go tool cover -func cover.out
+
+[no-cd]
 bench +ARGS="./...":
     go test -count 1 -run xxx -benchmem -bench . {{ ARGS }}
 

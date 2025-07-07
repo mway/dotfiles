@@ -1,4 +1,6 @@
 _attic
+.aider.*
+!.aider.conf.yml
 .build/
 .config/nvim/autoload/*
 .DS_Store
