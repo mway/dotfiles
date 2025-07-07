@@ -31,6 +31,7 @@ hurl = {{ quote .versions.hurl }}
 jq = {{ quote .versions.jq }}
 just = {{ quote .versions.just }}
 mask = {{ quote .versions.mask }}
+mprocs = {{ quote .versions.mprocs }}
 ninja = {{ quote .versions.ninja }}
 node = {{ quote .versions.node }}
 pipx = {{ quote .versions.pipx }}
@@ -49,6 +50,10 @@ yamlfmt = {{ quote .versions.yamlfmt }}
 yq = {{ quote .versions.yq }}
 zellij = {{ quote .versions.zellij }}
 
+"ubi:brandonyoungdev/tldx" = {{ quote .versions.tldx }}
+"ubi:opencode-ai/opencode" = {{ quote .versions.opencode }}
+"ubi:smtg-ai/claude-squad" = {{ quote .versions.claude_squad }}
+
 "cargo:bindgen-cli" = {{ quote .versions.bindgen }}
 "cargo:cargo-expand" = {{ quote .versions.cargo_expand }}
 "cargo:cbindgen" = {{ quote .versions.cbindgen }}
@@ -61,11 +66,9 @@ zellij = {{ quote .versions.zellij }}
 "cargo:taplo-cli" = { version = {{ quote .versions.taplo }}, features = "lsp" }
 "cargo:trippy" = {{ quote .versions.trippy }}
 
-"go:github.com/github/github-mcp-server/cmd/github-mcp-server" = {{ quote .versions.github_mcp_server }}
-"go:github.com/brandonyoungdev/tldx" = {{ quote .versions.tldx }}
 "go:github.com/cashapp/hermit/cmd/hermit" = {{ quote .versions.hermit }}
 "go:github.com/charmbracelet/mods" = {{ quote .versions.mods }}
-"go:github.com/opencode-ai/opencode" = {{ quote .versions.opencode }}
+"go:github.com/github/github-mcp-server/cmd/github-mcp-server" = {{ quote .versions.github_mcp_server }}
 "go:github.com/orlangure/gocovsh" = {{ quote .versions.gocovsh }}
 "go:github.com/ymtdzzz/otel-tui" = {{ quote .versions.otel_tui }}
 "go:go.mway.dev/dirfmt" = {{ quote .versions.dirfmt }}
