@@ -2,10 +2,16 @@
 {{- $model := "groq/qwen-qwq-32b" -}}
 {{- $model := "groq/qwen/qwen3-32b" -}}
 {{- "---" }}
+analytics-disable: true
+auto-commits: false
+commit: false
+dark-mode: true
+dirty-commits: false
+editor-model: {{ quote $model }}
+editor: hx
+gitignore: false
 model: {{ quote $model }}
 weak-model: {{ quote $model }}
-editor-model: {{ quote $model }}
-dark-mode: true
 read:
   - ~/AGENT.md
   - AGENT.md
