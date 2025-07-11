@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 
-mise install -y
-mise upgrade
+echo "$(ansi --white-intense --faint mise) installing"
+mise install -yq
+echo "$(ansi --white-intense --faint mise) upgrading"
+mise upgrade -yq

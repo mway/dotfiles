@@ -106,6 +106,10 @@
 	followRedirects = true
 [url "ssh://git@github.com/mway/"]
 	insteadOf = https://github.com/mway/
+[url "ssh://git@github.com/uber/"]
+	insteadOf = https://github.com/uber/
+[url "ssh://git@github.com/groq/"]
+	insteadOf = https://github.com/groq/
 [credential]
 	helper = osxkeychain
 [filter "lfs"]
@@ -126,9 +130,5 @@
 [remote "origin"]
 	fetch = +refs/archive/mway/*:refs/archive/mway/*
 	tagOpt = --no-tags
-[url "ssh://git@github.com/uber/"]
-	insteadOf = https://github.com/uber/
-{{ if not .personal -}}
-[url "ssh://git@github.com/groq/"]
-	insteadOf = https://github.com/groq/
-{{- end }}
+[pull]
+	rebase = true
