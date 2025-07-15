@@ -26,5 +26,47 @@
 {{- end }}
     "litellm_provider": "groq",
     "mode": "chat"
+  },
+  "groq/moonshotai/kimi-k2-instruct": {
+    "max_tokens": 131072,
+    "max_input_tokens": 114688,
+    "max_output_tokens": 16384,
+{{- range (onepassword "models:groq:config" "infra").fields }}
+{{-  if eq .label "kimi_k2_input_token_cost" }}
+    "input_cost_per_token": {{ .value }},
+{{-  else if eq .label "kimi_k2_output_token_cost" }}
+    "output_cost_per_token": {{ .value }},
+{{-  end }}
+{{- end }}
+    "litellm_provider": "groq",
+    "mode": "chat"
+  },
+  "groq/meta-llama/llama-4-maverick-17b-128e-instruct": {
+    "max_tokens": 131072,
+    "max_input_tokens": 114688,
+    "max_output_tokens": 16384,
+{{- range (onepassword "models:groq:config" "infra").fields }}
+{{-  if eq .label "llama_maverick_input_token_cost" }}
+    "input_cost_per_token": {{ .value }},
+{{-  else if eq .label "llama_maverick_output_token_cost" }}
+    "output_cost_per_token": {{ .value }},
+{{-  end }}
+{{- end }}
+    "litellm_provider": "groq",
+    "mode": "chat"
+  },
+  "groq/deepseek-r1-distill-llama-70b": {
+    "max_tokens": 131072,
+    "max_input_tokens": 114688,
+    "max_output_tokens": 16384,
+{{- range (onepassword "models:groq:config" "infra").fields }}
+{{-  if eq .label "deepseek_r1_input_token_cost" }}
+    "input_cost_per_token": {{ .value }},
+{{-  else if eq .label "deepseek_r1_output_token_cost" }}
+    "output_cost_per_token": {{ .value }},
+{{-  end }}
+{{- end }}
+    "litellm_provider": "groq",
+    "mode": "chat"
   }
 }
