@@ -52,7 +52,7 @@ zellij = {{ quote .versions.zellij }}
 
 "ubi:brandonyoungdev/tldx" = {{ quote .versions.tldx }}
 "ubi:opencode-ai/opencode" = {{ quote .versions.opencode }}
-"ubi:smtg-ai/claude-squad" = {{ quote .versions.claude_squad }}
+"ubi:smtg-ai/claude-squad" = "latest"
 
 "cargo:bindgen-cli" = {{ quote .versions.bindgen }}
 "cargo:cargo-expand" = {{ quote .versions.cargo_expand }}
@@ -80,12 +80,15 @@ zellij = {{ quote .versions.zellij }}
 "go:golang.org/x/tools/cmd/goimports" = {{ quote .versions.goimports }}
 "go:golang.org/x/tools/gopls" = {{ quote .versions.gopls }}
 
-"npm:@google/gemini-cli" = {{ quote .versions.gemini_cli }}
+"npm:@anthropic-ai/claude-code" = "latest"
+"npm:@google/gemini-cli" = "latest"
 "npm:@modelcontextprotocol/server-filesystem" = "latest"
 "npm:@modelcontextprotocol/server-memory" = "latest"
 "npm:@modelcontextprotocol/server-sequential-thinking" = "latest"
-"npm:yaml-language-server" = {{ quote .versions.yaml_lsp }}
+"npm:@sourcegraph/amp" = "latest"
+"npm:yaml-language-server" = "latest"
 
+"pipx:aider-chat" = { version = "latest", uvx_args = "--force --python python3.12 --with pip" }
 "pipx:flake8" = {{ quote .versions.flake8 }}
 "pipx:isort" = {{ quote .versions.isort }}
 "pipx:jedi-language-server" = {{ quote .versions.jedi }}
