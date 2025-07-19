@@ -4,6 +4,19 @@ _.source = [".envrc", ".envrc.local"]
 GOTOOLCHAIN = "go{{ .versions.go }}"
 JUST_UNSTABLE = 1
 
+[tasks."go:build"]
+run = "go build"
+[tasks."go:test"]
+run = "gotestsum -f dots -- -race -coverprofile cover.out -count 1"
+[tasks."go:vtest"]
+run = "go test -v -race -count 1 -coverprofile cover.out"
+[tasks."go:cover:text"]
+run = "go tool cover -func cover.out"
+depends = ["go:test"]
+[tasks."go:cover:html"]
+run = "go tool cover -html cover.out"
+depends = ["go:test"]
+
 [tools]
 1password = {{ quote .versions.onepassword }}
 aqua = {{ quote .versions.aqua }}

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Managed by Chezmoi
+
+{{- range (onepassword "anthropic:claude" "infra").fields }}
+{{-  if eq .label "base_url" }}
+export ANTHROPIC_BASE_URL={{ quote .value }}
+{{-  end -}}
+{{-  if eq .label "api_key" }}
+export ANTHROPIC_API_KEY={{ quote .value }}
+{{-  end -}}
+{{-  if eq .label "model" }}
+export ANTHROPIC_MODEL={{ quote .value }}
+{{-  end -}}
+{{-  if eq .label "small_fast_model" }}
+export ANTHROPIC_SMALL_FAST_MODEL={{ quote .value }}
+{{-  end -}}
+{{ end }}
