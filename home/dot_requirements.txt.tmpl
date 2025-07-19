@@ -1,9 +1,1 @@
-# Common
-python-lsp-black{{- if ne .versions.pylsp_black "latest" -}}=={{ quote .versions.pylsp_black }}{{- end }}
-
-# AI
-llm{{- if ne .versions.llm "latest" -}}=={{ quote .versions.llm }}{{- end }}
-pylsp-mypy{{- if ne .versions.pylsp_mypy "latest" -}}=={{ quote .versions.pylsp_mypy }}{{- end }}
-mcp-server-fetch
-mcp-server-git
-mcp-server-time
+pylsp-mypy

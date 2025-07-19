@@ -18,80 +18,82 @@ run = "go tool cover -html cover.out"
 depends = ["go:test"]
 
 [tools]
-1password = {{ quote .versions.onepassword }}
-aqua = {{ quote .versions.aqua }}
-bat = {{ quote .versions.bat }}
+1password = "latest"
+aqua = "latest"
+bat = "latest"
 btop = {{ quote .versions.btop }}
-chezmoi = {{ quote .versions.chezmoi }}
-cosign = {{ quote .versions.cosign }}
-ctop = {{ quote .versions.ctop }}
-delta = {{ quote .versions.delta }}
-direnv = {{ quote .versions.direnv }}
-fd = {{ quote .versions.fd }}
-ffmpeg = {{ quote .versions.ffmpeg }}
+chezmoi = "latest"
+cosign = "latest"
+ctop = "latest"
+delta = "latest"
+direnv = "latest"
+fd = "latest"
+ffmpeg = "latest"
 fzf = {{ quote .versions.fzf }}
-github-cli = {{ quote .versions.gh }}
-glow = {{ quote .versions.glow }}
+github-cli = "latest"
+glow = "latest"
 go = {{ quote .versions.go }}
-gofumpt = {{ quote .versions.gofumpt }}
-golangci-lint = {{ quote .versions.golangci_lint }}
-golangci-lint-langserver = {{ quote .versions.golangci_lint_langserver }}
-golines = {{ quote .versions.golines }}
-gotestsum = {{ quote .versions.gotestsum }}
-gum = {{ quote .versions.gum }}
+gofumpt = "latest"
+golangci-lint = "latest"
+golangci-lint-langserver = "latest"
+golines = "latest"
+gotestsum = "latest"
+gum = "latest"
 helix = {{ quote .versions.helix }}
-hurl = {{ quote .versions.hurl }}
-jq = {{ quote .versions.jq }}
-just = {{ quote .versions.just }}
-mask = {{ quote .versions.mask }}
-mprocs = {{ quote .versions.mprocs }}
-ninja = {{ quote .versions.ninja }}
-node = {{ quote .versions.node }}
-pipx = {{ quote .versions.pipx }}
-pnpm = {{ quote .versions.pnpm }}
+hurl = "latest"
+jq = "latest"
+just = "latest"
+mask = "latest"
+mprocs = "latest"
+ninja = "latest"
+node = "latest"
+pipx = "latest"
+pnpm = "latest"
 pre-commit = {{ quote .versions.pre_commit }}
 python = {{ quote .versions.python }}  # run mise settings python.compile=1 if issues
-ripgrep = {{ quote .versions.ripgrep }}
-shfmt = {{ quote .versions.shfmt }}
-staticcheck = {{ quote .versions.staticcheck }}
-terraform = {{ quote .versions.terraform }}
-ubi = {{ quote .versions.ubi }}
-uv = {{ quote .versions.uv }}
-watchexec = {{ quote .versions.watchexec }}
-wtfutil = {{ quote .versions.wtfutil }}
-yamlfmt = {{ quote .versions.yamlfmt }}
-yq = {{ quote .versions.yq }}
+ripgrep = "latest"
+shfmt = "latest"
+sops = "latest"
+staticcheck = "latest"
+terraform = "latest"
+ubi = "latest"
+uv = "latest"
+watchexec = "latest"
+wtfutil = "latest"
+yamlfmt = "latest"
+yq = "latest"
 zellij = {{ quote .versions.zellij }}
 
-"ubi:brandonyoungdev/tldx" = {{ quote .versions.tldx }}
-"ubi:opencode-ai/opencode" = {{ quote .versions.opencode }}
+"ubi:brandonyoungdev/tldx" = "latest"
+"ubi:opencode-ai/opencode" = "latest"
 "ubi:smtg-ai/claude-squad" = "latest"
 
-"cargo:bindgen-cli" = {{ quote .versions.bindgen }}
-"cargo:cargo-expand" = {{ quote .versions.cargo_expand }}
-"cargo:cbindgen" = {{ quote .versions.cbindgen }}
-"cargo:difftastic" = {{ quote .versions.difftastic }}
-"cargo:eza" = {{ quote .versions.eza }}
-"cargo:gping" = {{ quote .versions.gping }}
-"cargo:lsp-ai" = {{ quote .versions.lsp_ai }}
-"cargo:lstr" = {{ quote .versions.lstr }}
-"cargo:minijinja-cli" = {{ quote .versions.minijinja }}
-"cargo:taplo-cli" = { version = {{ quote .versions.taplo }}, features = "lsp" }
-"cargo:trippy" = {{ quote .versions.trippy }}
+"cargo:bindgen-cli" = "latest"
+"cargo:cargo-expand" = "latest"
+"cargo:cbindgen" = "latest"
+"cargo:difftastic" = "latest"
+"cargo:eza" = "latest"
+"cargo:git-branchless" = { version = "latest", locked = true }
+"cargo:gping" = "latest"
+"cargo:lsp-ai" = "latest"
+"cargo:lstr" = "latest"
+"cargo:minijinja-cli" = "latest"
+"cargo:taplo-cli" = { version = "latest", features = "lsp" }
+"cargo:trippy" = "latest"
 
-"go:github.com/cashapp/hermit/cmd/hermit" = {{ quote .versions.hermit }}
-"go:github.com/charmbracelet/mods" = {{ quote .versions.mods }}
-"go:github.com/github/github-mcp-server/cmd/github-mcp-server" = {{ quote .versions.github_mcp_server }}
-"go:github.com/orlangure/gocovsh" = {{ quote .versions.gocovsh }}
-"go:github.com/ymtdzzz/otel-tui" = {{ quote .versions.otel_tui }}
-"go:go.mway.dev/dirfmt" = {{ quote .versions.dirfmt }}
-"go:go.mway.dev/git/cmd/git-flow" = {{ quote .versions.git_flow }}
-"go:go.uber.org/mock/mockgen" = {{ quote .versions.mockgen }}
-"go:golang.org/x/perf/cmd/benchstat" = {{ quote .versions.benchstat }}
-"go:golang.org/x/tools/cmd/benchcmp" = {{ quote .versions.benchcmp }}
-"go:golang.org/x/tools/cmd/deadcode" = {{ quote .versions.deadcode }}
-"go:golang.org/x/tools/cmd/goimports" = {{ quote .versions.goimports }}
-"go:golang.org/x/tools/gopls" = {{ quote .versions.gopls }}
+"go:github.com/cashapp/hermit/cmd/hermit" = "latest"
+"go:github.com/charmbracelet/mods" = "latest"
+"go:github.com/github/github-mcp-server/cmd/github-mcp-server" = "latest"
+"go:github.com/orlangure/gocovsh" = "latest"
+"go:github.com/ymtdzzz/otel-tui" = "latest"
+"go:go.mway.dev/dirfmt" = "latest"
+"go:go.mway.dev/git/cmd/git-flow" = "latest"
+"go:go.uber.org/mock/mockgen" = "latest"
+"go:golang.org/x/perf/cmd/benchstat" = "latest"
+"go:golang.org/x/tools/cmd/benchcmp" = "latest"
+"go:golang.org/x/tools/cmd/deadcode" = "latest"
+"go:golang.org/x/tools/cmd/goimports" = "latest"
+"go:golang.org/x/tools/gopls" = "latest"
 
 "npm:@anthropic-ai/claude-code" = "latest"
 "npm:@google/gemini-cli" = "latest"
@@ -102,23 +104,28 @@ zellij = {{ quote .versions.zellij }}
 "npm:yaml-language-server" = "latest"
 
 "pipx:aider-chat" = { version = "latest", uvx_args = "--force --python python3.12 --with pip" }
-"pipx:flake8" = {{ quote .versions.flake8 }}
-"pipx:isort" = {{ quote .versions.isort }}
-"pipx:jedi-language-server" = {{ quote .versions.jedi }}
-"pipx:psf/black" = {{ quote .versions.black }}
-"pipx:pyflakes" = {{ quote .versions.pyflakes }}
-"pipx:pylint" = {{ quote .versions.pylint }}
-"pipx:python-lsp-server" = {{ quote .versions.pylsp }}
-"pipx:ruff" = {{ quote .versions.ruff }}
+"pipx:flake8" = "latest"
+"pipx:isort" = "latest"
+"pipx:jedi-language-server" = "latest"
+"pipx:psf/black" = "latest"
+"pipx:pyflakes" = "latest"
+"pipx:pylint" = "latest"
+"pipx:python-lsp-server" = "latest"
+"pipx:ruff" = "latest"
+"pipx:llm" = "latest"
+"pipx:python-lsp-black" = "latest"
+"pipx:mcp-server-fetch" = "latest"
+"pipx:mcp-server-git" = "latest"
+"pipx:mcp-server-time" = "latest"
 
 {{ if .personal -}}
 # Personal
 bazel = {{ quote .versions.bazel }}
-lefthook = {{ quote .versions.lefthook }}
-nomad = {{ quote .versions.nomad }}
-yt-dlp = {{ quote .versions.yt_dlp }}
-"go:go.mway.dev/ensure" = {{ quote .versions.ensure }}
-"pipx:ansible" = { version = {{ quote .versions.ansible }}, uvx = "false", pipx_args = "--include-deps" }
+lefthook = "latest"
+nomad = "latest"
+yt-dlp = "latest"
+"go:go.mway.dev/ensure" = "latest"
+"pipx:ansible" = { version = "latest", uvx = "false", pipx_args = "--include-deps" }
 {{- else -}}
 # Groq
 kubectl = "latest"
