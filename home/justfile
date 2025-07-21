@@ -41,6 +41,17 @@ lint +ARGS="./...":
 lint-fix +ARGS="./...": (lint "--fix" ARGS)
 
 ###
+# HERMIT
+###
+
+[no-cd]
+hermit-upgrade TOOL VERSION:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    hermit uninstall "{{ TOOL }}" || true
+    hermit install "{{ TOOL }}-{{ VERSION }}"
+
+###
 # META HELPERS
 ###
 
