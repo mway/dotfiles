@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Managed by Chezmoi
+
+_main() {
+	set -euo pipefail
+
+	local next=""
+	next="$(\which -a lolcat | \grep '\/' | \grep -v "${BASH_SOURCE[0]}" | \head -n1 || true)"
+	if [[ -n "$next" ]]; then
+		exec "$next" "$@"
+	else
+		while read line
+		do
+		  echo "$line"
+		done </dev/stdin
+	fi
+}
+
+_main "$@"
