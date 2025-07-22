@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if which brew >/dev/null 2>&1; then
-  echo "$(ansi --white-intense --faint homebrew) bundling (${HOME}/.Brewfile)"
+  echo "$(ansi --white-intense --faint --bold homebrew) bundling (${HOME}/.Brewfile)"
   brew bundle install --quiet --file "${HOME}/.Brewfile"
   brew upgrade
 fi

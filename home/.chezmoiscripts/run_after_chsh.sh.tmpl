@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-echo "$(ansi --white-intense --faint chsh) setting shell ({{ .shell }})"
+echo "$(ansi --white-intense --faint --bold chsh) setting shell ({{ .shell }})"
 sudo chsh -s {{ quote .shell }} {{ trim (output "whoami") }} >/dev/null 2>&1

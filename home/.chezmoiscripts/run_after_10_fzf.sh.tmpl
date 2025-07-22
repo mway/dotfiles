@@ -2,5 +2,6 @@
 
 set -euo pipefail
 
-fzf --zsh >> "${HOME}/.fzf.zsh"
-fzf --bash >> "${HOME}/.fzf.bash"
+echo "$(ansi --white-intense --faint --bold fzf) writing shell completion scripts"
+fzf --zsh >>"${HOME}/.fzf.zsh"
+fzf --bash >>"${HOME}/.fzf.bash"
