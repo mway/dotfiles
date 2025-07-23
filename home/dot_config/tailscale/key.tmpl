@@ -1,5 +1,4 @@
-{{ range (onepassword "tailscale" "infra").fields -}}
-{{   if eq .label "auth_key" -}}
-{{ .value }}
-{{   end -}}
-{{ end -}}
+#!/usr/bin/env bash
+# Managed by Chezmoi
+
+export TS_AUTH_KEY={{ quote (onepasswordRead "op://infra/tailscale/auth_key") }}

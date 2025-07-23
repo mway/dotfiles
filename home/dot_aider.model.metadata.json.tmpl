@@ -3,13 +3,8 @@
     "max_tokens": 131072,
     "max_input_tokens": 90112,
     "max_output_tokens": 40960,
-{{- range (onepassword "models:groq:config" "infra").fields }}
-{{-  if eq .label "qwen_qwq_input_token_cost" }}
-    "input_cost_per_token": {{ .value }},
-{{-  else if eq .label "qwen_qwq_output_token_cost" }}
-    "output_cost_per_token": {{ .value }},
-{{-  end }}
-{{- end }}
+    "input_cost_per_token": {{ onepasswordRead "op://infra/groq.models.config/qwen_qwq_input_token_cost" }},
+    "output_cost_per_token": {{ onepasswordRead "op://infra/groq.models.config/qwen_qwq_output_token_cost" }},
     "litellm_provider": "groq",
     "mode": "chat"
   },
@@ -17,13 +12,8 @@
     "max_tokens": 131072,
     "max_input_tokens": 90112,
     "max_output_tokens": 40960,
-{{- range (onepassword "models:groq:config" "infra").fields }}
-{{-  if eq .label "qwen3_input_token_cost" }}
-    "input_cost_per_token": {{ .value }},
-{{-  else if eq .label "qwen3_output_token_cost" }}
-    "output_cost_per_token": {{ .value }},
-{{-  end }}
-{{- end }}
+    "input_cost_per_token": {{ onepasswordRead "op://infra/groq.models.config/qwen3_input_token_cost" }},
+    "output_cost_per_token": {{ onepasswordRead "op://infra/groq.models.config/qwen3_output_token_cost" }},
     "litellm_provider": "groq",
     "mode": "chat"
   },
@@ -31,13 +21,8 @@
     "max_tokens": 131072,
     "max_input_tokens": 114688,
     "max_output_tokens": 16384,
-{{- range (onepassword "models:groq:config" "infra").fields }}
-{{-  if eq .label "kimi_k2_input_token_cost" }}
-    "input_cost_per_token": {{ .value }},
-{{-  else if eq .label "kimi_k2_output_token_cost" }}
-    "output_cost_per_token": {{ .value }},
-{{-  end }}
-{{- end }}
+    "input_cost_per_token": {{ onepasswordRead "op://infra/groq.models.config/kimi_k2_input_token_cost" }},
+    "output_cost_per_token": {{ onepasswordRead "op://infra/groq.models.config/kimi_k2_output_token_cost" }},
     "litellm_provider": "groq",
     "mode": "chat"
   },
@@ -45,13 +30,8 @@
     "max_tokens": 131072,
     "max_input_tokens": 114688,
     "max_output_tokens": 16384,
-{{- range (onepassword "models:groq:config" "infra").fields }}
-{{-  if eq .label "kimi_k2_input_token_cost" }}
-    "input_cost_per_token": {{ .value }},
-{{-  else if eq .label "kimi_k2_output_token_cost" }}
-    "output_cost_per_token": {{ .value }},
-{{-  end }}
-{{- end }}
+    "input_cost_per_token": {{ onepasswordRead "op://infra/groq.models.config/kimi_k2_input_token_cost" }},
+    "output_cost_per_token": {{ onepasswordRead "op://infra/groq.models.config/kimi_k2_output_token_cost" }},
     "litellm_provider": "groq",
     "mode": "chat"
   },
@@ -59,13 +39,8 @@
     "max_tokens": 131072,
     "max_input_tokens": 114688,
     "max_output_tokens": 16384,
-{{- range (onepassword "models:groq:config" "infra").fields }}
-{{-  if eq .label "llama_maverick_input_token_cost" }}
-    "input_cost_per_token": {{ .value }},
-{{-  else if eq .label "llama_maverick_output_token_cost" }}
-    "output_cost_per_token": {{ .value }},
-{{-  end }}
-{{- end }}
+    "input_cost_per_token": {{ onepasswordRead "op://infra/groq.models.config/llama_maverick_input_token_cost" }},
+    "output_cost_per_token": {{ onepasswordRead "op://infra/groq.models.config/llama_maverick_output_token_cost" }},
     "litellm_provider": "groq",
     "mode": "chat"
   },
@@ -73,13 +48,8 @@
     "max_tokens": 131072,
     "max_input_tokens": 114688,
     "max_output_tokens": 16384,
-{{- range (onepassword "models:groq:config" "infra").fields }}
-{{-  if eq .label "deepseek_r1_input_token_cost" }}
-    "input_cost_per_token": {{ .value }},
-{{-  else if eq .label "deepseek_r1_output_token_cost" }}
-    "output_cost_per_token": {{ .value }},
-{{-  end }}
-{{- end }}
+    "input_cost_per_token": {{ onepasswordRead "op://infra/groq.models.config/deepseek_r1_input_token_cost" }},
+    "output_cost_per_token": {{ onepasswordRead "op://infra/groq.models.config/deepseek_r1_output_token_cost" }},
     "litellm_provider": "groq",
     "mode": "chat"
   }

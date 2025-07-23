@@ -1,6 +1,2 @@
 # This file is managed by chezmoi.
-{{ range (onepassword "cloudflare" "infra").fields -}}
-{{   if eq .label "auth_key" -}}
-dns_cloudflare_api_token = {{ .value }}
-{{   end -}}
-{{ end -}}
+dns_cloudflare_api_token = {{ onepasswordRead "op://infra/cloudflare/auth_key" }}

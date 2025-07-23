@@ -1,9 +1,4 @@
 #!/usr/bin/env bash
 # Managed by chezmoi
 
-{{ range (onepassword "groq:zed" "infra").fields }}
-{{-  if eq .label "token" -}}
-export GROQ_LSP_API_KEY={{ quote .value }} # lsp-ai
-export GROQ_API_KEY={{ quote .value }} # general purpose
-{{-  end -}}
-{{ end }}
+export GROQ_API_KEY={{ quote (onepasswordRead "op://groq/api.tokens/common") }}

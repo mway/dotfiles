@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
 # Managed by chezmoi
 
-{{ range (onepassword "github:personal:readonly" "infra").fields }}
-{{-  if eq .label "token" -}}
-export GITHUB_PERSONAL_ACCESS_TOKEN={{ quote .value }}
-{{-  end -}}
-{{ end }}
+export GITHUB_PERSONAL_ACCESS_TOKEN={{ quote (onepasswordRead "op://infra/github/readonly_token") }}

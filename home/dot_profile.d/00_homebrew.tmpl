@@ -1,11 +1,7 @@
 #!/usr/bin/env bash
 # Managed by Chezmoi
 
-{{ range (onepassword "homebrew" "infra").fields }}
-{{-  if eq .label "token" -}}
-export HOMEBREW_GITHUB_API_TOKEN="{{ .value }}"
-{{-  end -}}
-{{ end }}
+export HOMEBREW_GITHUB_API_TOKEN={{ quote (onepasswordRead "op://infra/homebrew/token") }}
 
 _homebrew_bin="/opt/homebrew/bin"
 _homebrew_sbin="/opt/homebrew/bin"
@@ -21,5 +17,5 @@ case ":$PATH:" in
 esac
 
 if command -v brew >/dev/null 2>&1; then
-	eval "$(brew shellenv)"
+  eval "$(brew shellenv)"
 fi

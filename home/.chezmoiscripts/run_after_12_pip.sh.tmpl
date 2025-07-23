@@ -10,7 +10,7 @@ _main() {
   elif which python3 >/dev/null 2>&1; then
     echo "$(ansi --white-intense --faint --bold pip) installing (${HOME}/.requirements.txt)"
     [[ -d "${venv}/bin" ]] || python3 -m venv "${venv}"
-    source "${venv}/bin/activate"
+    export PATH="${venv}/bin:${PATH}"
     python3 -m pip install -Uqr "${HOME}/.requirements.txt"
   else
     echo "$(ansi --red-intense --bold pip) cannot install without uv or python3"

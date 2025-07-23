@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
 # Managed by chezmoi
 
-{{ range (onepassword "gemini:personal" "infra").fields }}
-{{-  if eq .label "token" -}}
-export GEMINI_API_KEY={{ quote .value }} # general purpose
-{{-  end -}}
-{{ end }}
+export GEMINI_API_KEY={{ quote (onepasswordRead "op://infra/gemini.personal/api_key") }}
