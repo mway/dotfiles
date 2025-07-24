@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Managed by Chezmoi
+
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+_main() {
+  readonly hi="$1"
+  readonly lo="$2"
+  readonly badge="$3"
+  readonly msg=("${@:4}")
+  echo "$(ansi --bg-color="$hi" --white-intense --bold " ${badge} ")$(ansi --bg-color="$lo" --white-intense " ${msg[*]} ")"
+}
+
+_main "$@"

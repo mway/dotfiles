@@ -26,4 +26,16 @@ fi
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # Paths
-export PATH="${HOME}/.local/bin:${PATH}"
+export PATH="${HOME}/bin:${HOME}/.local/bin:${PATH}"
+
+# Core aliases
+alias ansi-error-custom="ansi-badge 160 88"
+alias ansi-error="ansi-error-custom ERROR"
+alias ansi-important-custom="ansi-badge 129 54"
+alias ansi-important="ansi-important-custom IMPORTANT"
+alias ansi-info-custom="ansi-badge 33 25"
+alias ansi-info="ansi-info-custom INFO"
+alias ansi-ok-custom="ansi-badge 34 22"
+alias ansi-ok="ansi-ok-custom OK"
+alias ansi-warning-custom="ansi-badge 208 130"
+alias ansi-warning="ansi-warning-custom WARNING"
