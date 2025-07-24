@@ -29,15 +29,21 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 export PATH="${HOME}/bin:${HOME}/.local/bin:${PATH}"
 
 # Core aliases
-alias ansi-error-custom="ansi-badge 160 88"
-alias ansi-error="ansi-error-custom ERROR"
-alias ansi-important-custom="ansi-badge 129 54"
-alias ansi-important="ansi-important-custom IMPORTANT"
-alias ansi-info-custom="ansi-badge 33 25"
-alias ansi-info="ansi-info-custom INFO"
-alias ansi-ok-custom="ansi-badge 34 22"
-alias ansi-ok="ansi-ok-custom OK"
-alias ansi-warning-custom="ansi-badge 208 130"
-alias ansi-warning="ansi-warning-custom WARNING"
-alias ansi-debug="ansi-debug-custom DEBUG"
-alias ansi-debug-custom="ansi-badge 240 237"
+alias ansi-badge-blue="ansi-badge 33 25"
+alias ansi-badge-cyan="ansi-badge 30 23"
+alias ansi-badge-green="ansi-badge 34 22"
+alias ansi-badge-grey="ansi-badge 240 237"
+alias ansi-badge-magenta="ansi-badge 162 89"
+alias ansi-badge-orange="ansi-badge 208 130"
+alias ansi-badge-purple="ansi-badge 129 54"
+alias ansi-badge-red="ansi-badge 160 88"
+alias ansi-debug="ansi-badge-grey DEBUG"
+alias ansi-error="ansi-badge-red ERROR"
+alias ansi-important="ansi-badge-purple IMPORTANT"
+alias ansi-info="ansi-badge-blue INFO"
+alias ansi-ok="ansi-badge-green OK"
+alias ansi-warning="ansi-badge-orange WARNING"
+
+_ansi_badges=(blue cyan green grey magenta orange purple red)
+_ansi_named_badges=(debug error important info ok warning)
+alias ansi-badge-list-all='for b in "${_ansi_badges[@]}"; do echo "ansi-badge-${b}"; done; for b in "${_ansi_named_badges[@]}"; do echo "ansi-${b}"; done'
