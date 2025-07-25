@@ -1,0 +1,40 @@
+{
+  "$schema": "https://opencode.dev/schema/config.json",
+  "data": {
+    "directory": "{{ .path.local }}/share/opencode"
+  },
+  "providers": {
+    "groq": {
+      "disabled": false
+    }
+  },
+  "agents": {
+    "general": {
+      "model": "deepseek-r1-distill-llama-70b"
+    },
+    "coder": {
+      "model": "moonshotai/kimi-k2-instruct",
+      "maxTokens": 50000,
+      "reasoningEffort": "default"
+    },
+    "task": {
+      "model": "qwen/qwen3-32b",
+      "maxTokens": 50000,
+      "reasoningEffort": "default"
+    },
+    "summarizer": {
+      "model": "qwen/qwen3-32b",
+      "maxTokens": 50000,
+      "reasoningEffort": "default"
+    },
+    "title": {
+      "model": "qwen/qwen3-32b",
+      "maxTokens": 256,
+      "reasoningEffort": "default"
+    }
+  },
+  "tui": {
+    "theme": "dracula"
+  },
+  "shell": {}
+}
