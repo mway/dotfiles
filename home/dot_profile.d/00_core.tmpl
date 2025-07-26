@@ -29,22 +29,28 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 export PATH="${HOME}/bin:${HOME}/.local/bin:${PATH}"
 
 # Core aliases
-alias ansi-badge-blue="ansi-badge 33 25"
-alias ansi-badge-cyan="ansi-badge 30 23"
-alias ansi-badge-green="ansi-badge 34 22"
-alias ansi-badge-grey="ansi-badge 240 237"
-alias ansi-badge-lavender="ansi-badge 177 98"
-alias ansi-badge-magenta="ansi-badge 162 89"
-alias ansi-badge-orange="ansi-badge 208 130"
-alias ansi-badge-purple="ansi-badge 129 54"
-alias ansi-badge-red="ansi-badge 160 88"
-alias ansi-debug="ansi-badge-grey DEBUG"
-alias ansi-error="ansi-badge-red ERROR"
-alias ansi-important="ansi-badge-purple IMPORTANT"
-alias ansi-info="ansi-badge-blue INFO"
-alias ansi-ok="ansi-badge-green OK"
-alias ansi-warning="ansi-badge-orange WARNING"
-
-_ansi_badges=(blue cyan green grey magenta orange purple red)
-_ansi_named_badges=(debug error important info ok warning)
-alias ansi-badge-list-all='for b in "${_ansi_badges[@]}"; do echo "ansi-badge-${b}"; done; for b in "${_ansi_named_badges[@]}"; do echo "ansi-${b}"; done'
+ansi-badge-blue() { ansi-badge 33 25 "$@"; }
+ansi-badge-cyan() { ansi-badge 30 23 "$@"; }
+ansi-badge-green() { ansi-badge 34 22 "$@"; }
+ansi-badge-grey() { ansi-badge 240 237 "$@"; }
+ansi-badge-lavender() { ansi-badge 177 98 "$@"; }
+ansi-badge-magenta() { ansi-badge 162 89 "$@"; }
+ansi-badge-orange() { ansi-badge 208 130 "$@"; }
+ansi-badge-purple() { ansi-badge 129 54 "$@"; }
+ansi-badge-red() { ansi-badge 160 88 "$@"; }
+ansi-debug() { ansi-badge-grey DEBUG "$@"; }
+ansi-error() { ansi-badge-red ERROR "$@"; }
+ansi-important() { ansi-badge-purple IMPORTANT "$@"; }
+ansi-info() { ansi-badge-blue INFO "$@"; }
+ansi-ok() { ansi-badge-green OK "$@"; }
+ansi-warning() { ansi-badge-orange WARNING "$@"; }
+ansi-badge-list-all() {
+  readonly _ansi_badges=(blue cyan green grey magenta orange purple red)
+  readonly _ansi_named_badges=(debug error important info ok warning)
+  for b in "${_ansi_badges[@]}"; do
+    echo "ansi-badge-${b}"
+  done
+  for b in "${_ansi_named_badges[@]}"; do
+    echo "ansi-${b}"
+  done
+}
