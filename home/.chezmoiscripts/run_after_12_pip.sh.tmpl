@@ -2,18 +2,19 @@
 
 _main() {
   local venv="${HOME}/.local/share/uv/venv"
+  source "${HOME}/.profile.d/00_core"
 
   if which uv >/dev/null 2>&1; then
-    echo "$(ansi --white-intense --faint --bold uv pip) installing (${HOME}/.requirements.txt)"
+    ansi-badge-blue "uv pip" "Installing (${HOME}/.requirements.txt)"
     uv venv -q --allow-existing "${venv}"
     uv pip install --python "${venv}" -Uqr "${HOME}/.requirements.txt"
   elif which python3 >/dev/null 2>&1; then
-    echo "$(ansi --white-intense --faint --bold pip) installing (${HOME}/.requirements.txt)"
+    ansi-badge-blue "   pip" "Installing (${HOME}/.requirements.txt)"
     [[ -d "${venv}/bin" ]] || python3 -m venv "${venv}"
     export PATH="${venv}/bin:${PATH}"
     python3 -m pip install -Uqr "${HOME}/.requirements.txt"
   else
-    echo "$(ansi --red-intense --bold pip) cannot install without uv or python3"
+    ansi-error "Cannot install Python dependencies without uv or python3 on \$PATH"
     exit 1
   fi
 }

@@ -2,6 +2,7 @@
 
 set -euo pipefail
 
-echo "$(ansi --white-intense --faint --bold fzf) writing shell completion scripts"
+source "${HOME}/.profile.d/00_core"
+ansi-badge-blue "   fzf" "Writing shell completion scripts"
 fzf --zsh >>"${HOME}/.fzf.zsh"
 fzf --bash >>"${HOME}/.fzf.bash"

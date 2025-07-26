@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-echo "$(ansi --white-intense --faint --bold mise) installing"
+source "${HOME}/.profile.d/00_core"
+ansi-badge-blue "  mise" "Installing"
 mise install -yq
-echo "$(ansi --white-intense --faint --bold mise) upgrading"
+ansi-badge-blue "  mise" "Upgrading"
 mise upgrade -yq
