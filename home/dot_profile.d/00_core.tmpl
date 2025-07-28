@@ -29,6 +29,13 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 export PATH="${HOME}/bin:${HOME}/.local/bin:${PATH}"
 
 # Core aliases
+
+# Temporary: for simplicity, unset any `ansi-*` aliases that might still be
+#            lingering in old sessions.
+for x in $(alias | grep ansi | cut -d= -f1 || true); do
+  unalias "$x" || true
+done
+
 ansi-badge-blue() { ansi-badge 33 25 "$@"; }
 ansi-badge-cyan() { ansi-badge 30 23 "$@"; }
 ansi-badge-green() { ansi-badge 34 22 "$@"; }
