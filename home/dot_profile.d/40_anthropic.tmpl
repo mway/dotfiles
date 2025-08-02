@@ -5,3 +5,9 @@ export ANTHROPIC_BASE_URL={{ quote (onepasswordRead "op://infra/anthropic.claude
 export ANTHROPIC_API_KEY={{ quote (onepasswordRead "op://infra/anthropic.claude/api_key") }}
 export ANTHROPIC_MODEL={{ quote (onepasswordRead "op://infra/anthropic.claude/model") }}
 export ANTHROPIC_SMALL_FAST_MODEL={{ quote (onepasswordRead "op://infra/anthropic.claude/small_fast_model") }}
+
+unset-anthropic() {
+  for var in $(env | grep ANTHROPIC | cut -d= -f1); do
+    unset "$var"
+  done
+}
