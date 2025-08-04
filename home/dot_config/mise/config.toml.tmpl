@@ -46,7 +46,7 @@ just = "latest"
 mask = "latest"
 mprocs = "latest"
 ninja = "latest"
-node = "latest"
+node = {{ quote .versions.node }}
 pipx = "latest"
 pnpm = "latest"
 pre-commit = {{ quote .versions.pre_commit }}
@@ -85,6 +85,7 @@ zellij = {{ quote .versions.zellij }}
 "cargo:minijinja-cli" = "latest"
 "cargo:taplo-cli" = { version = "latest", features = "lsp" }
 "cargo:trippy" = "latest"
+"cargo:https://github.com/NordSecurity/uniffi-bindgen-go" = { version = "latest", crate = "uniffi-bindgen-go" }
 
 "go:github.com/cashapp/hermit/cmd/hermit" = "latest"
 "go:github.com/charmbracelet/mods" = "latest"
