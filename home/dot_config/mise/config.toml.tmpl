@@ -16,6 +16,14 @@ depends = ["go:test"]
 [tasks."go:cover:html"]
 run = "go tool cover -html cover.out"
 depends = ["go:test"]
+[tasks."go:lint"]
+run = "golangci-lint run"
+[tasks."go:lint-all"]
+run = "golangci-lint run --new=false"
+[tasks."go:fix"]
+run = "golangci-lint run --fix"
+[tasks."go:fix-all"]
+run = "golangci-lint run --fix --new=false"
 
 [tools]
 1password = "latest"
