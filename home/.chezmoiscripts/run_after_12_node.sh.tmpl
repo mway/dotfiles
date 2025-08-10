@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+_main() {
+  source "${HOME}/.profile.d/00_core"
+  local pkgs=(yaml-language-server)
+  local msg="Installing ${#pkgs[@]} package"
+  if [[ ${#pkgs[@]} -ne 1 ]]; then
+    msg="${msg}s"
+  fi
+
+  if which bun >/dev/null 2>&1; then
+    ansi-badge-blue "   bun" "$msg"
+    for pkg in "${pkgs[@]}"; do
+      bun install -g --silent "${pkg}@latest"
+    done
+  elif which pnpm >/dev/null 2>&1; then
+    ansi-badge-blue "  pnpm" "$msg"
+    for pkg in "${pkgs[@]}"; do
+      pnpm install -g --silent "${pkg}@latest"
+    done
+  elif which npm >/dev/null 2>&1; then
+    ansi-badge-blue "   npm" "$msg"
+    for pkg in "${pkgs[@]}"; do
+      npm install -g --silent "${pkg}@latest"
+    done
+  else
+    ansi-error "Cannot install Node dependencies without \`bun\`, \`pnpm\`, or \`npm\` on \$PATH"
+    exit 1
+  fi
+}
+
+_main "$@"

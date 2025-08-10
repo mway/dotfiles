@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 source "${HOME}/.profile.d/00_core"
-ansi-badge-blue "  chsh" "Setting shell to $(ansi --bold {{ quote .shell }})"
+ansi-badge-blue "  chsh" "Setting shell"
 sudo chsh -s {{ quote .shell }} {{ trim (output "whoami") }} >/dev/null 2>&1

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://charm.land/crush.json",
+  "lsp": {
+    "go": {
+      "command": "gopls"
+    },
+    "rust": {
+      "command": "rust-analyzer"
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"]
+    }
+  },
+  "mcp": {
+    "github": {
+      "type": "stdio",
+      "command": "github-mcp-server",
+      "args": ["stdio"]
+    }
+  }
+}

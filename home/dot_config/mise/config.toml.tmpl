@@ -4,6 +4,12 @@ _.source = [".envrc", ".envrc.local"]
 GOTOOLCHAIN = "go{{ .versions.go }}"
 JUST_UNSTABLE = 1
 
+[settings]
+auto_install = true
+not_found_auto_install = true
+experimental = true
+jobs = 4
+
 [tasks."go:build"]
 run = "go build"
 [tasks."go:test"]
@@ -29,7 +35,10 @@ run = "golangci-lint run --fix --new=false"
 1password = "latest"
 aqua = "latest"
 bat = "latest"
+bazel = {{ quote .versions.bazel }}
 btop = {{ quote .versions.btop }}
+bun = "latest"
+cheat = "latest"
 chezmoi = "latest"
 cosign = "latest"
 ctop = "latest"
@@ -51,6 +60,8 @@ helix = {{ quote .versions.helix }}
 hurl = "latest"
 jq = "latest"
 just = "latest"
+kubectl = "latest"
+kubectx = "latest"
 mask = "latest"
 mprocs = "latest"
 ninja = "latest"
@@ -73,13 +84,6 @@ yamlfmt = "latest"
 yq = "latest"
 zellij = {{ quote .versions.zellij }}
 
-"ubi:block/goose" = "latest"
-"ubi:brandonyoungdev/tldx" = "latest"
-"ubi:charmbracelet/crush" = "latest"
-"ubi:opencode-ai/opencode" = "latest"
-"ubi:sigoden/aichat" = "latest"
-"ubi:smtg-ai/claude-squad" = "latest"
-
 "cargo:bindgen-cli" = "latest"
 "cargo:cargo-expand" = "latest"
 "cargo:cargo-nextest" = "latest"
@@ -90,16 +94,13 @@ zellij = {{ quote .versions.zellij }}
 "cargo:flamegraph" = "latest"
 "cargo:git-branchless" = { version = "latest", locked = true }
 "cargo:gping" = "latest"
-"cargo:lsp-ai" = "latest"
+"cargo:https://github.com/denisidoro/navi" = { version = "latest" }
+"cargo:https://github.com/NordSecurity/uniffi-bindgen-go" = { version = "latest", crate = "uniffi-bindgen-go" }
 "cargo:lstr" = "latest"
 "cargo:minijinja-cli" = "latest"
 "cargo:taplo-cli" = { version = "latest", features = "lsp" }
 "cargo:trippy" = "latest"
-"cargo:https://github.com/NordSecurity/uniffi-bindgen-go" = { version = "latest", crate = "uniffi-bindgen-go" }
-
 "go:github.com/cashapp/hermit/cmd/hermit" = "latest"
-"go:github.com/charmbracelet/mods" = "latest"
-"go:github.com/github/github-mcp-server/cmd/github-mcp-server" = "latest"
 "go:github.com/orlangure/gocovsh" = "latest"
 "go:github.com/ymtdzzz/otel-tui" = "latest"
 "go:go.mway.dev/dirfmt" = "latest"
@@ -110,46 +111,42 @@ zellij = {{ quote .versions.zellij }}
 "go:golang.org/x/tools/cmd/deadcode" = "latest"
 "go:golang.org/x/tools/cmd/goimports" = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
-
-"npm:@anthropic-ai/claude-code" = "latest"
-"npm:@google/gemini-cli" = "latest"
-"npm:@modelcontextprotocol/server-filesystem" = "latest"
-"npm:@modelcontextprotocol/server-memory" = "latest"
-"npm:@modelcontextprotocol/server-sequential-thinking" = "latest"
-"npm:@sourcegraph/amp" = "latest"
-"npm:yaml-language-server" = "latest"
-
-"pipx:aider-chat" = { version = "latest", uvx_args = "--force --python python3.12 --with pip" }
 "pipx:flake8" = "latest"
 "pipx:isort" = "latest"
 "pipx:jedi-language-server" = "latest"
+"pipx:llm" = "latest"
 "pipx:psf/black" = "latest"
 "pipx:pyflakes" = "latest"
 "pipx:pylint" = "latest"
 "pipx:python-lsp-server" = "latest"
 "pipx:ruff" = "latest"
-"pipx:llm" = "latest"
-"pipx:python-lsp-black" = "latest"
+"ubi:brandonyoungdev/tldx" = "latest"
+"ubi:knqyf263/pet" = "latest"
+
+# AI
+"cargo:lsp-ai" = "latest"
+"go:github.com/charmbracelet/mods" = "latest"
+"go:github.com/github/github-mcp-server/cmd/github-mcp-server" = "latest"
+"npm:@anthropic-ai/claude-code" = "latest"
+"npm:@google/gemini-cli" = "latest"
+"npm:@modelcontextprotocol/server-filesystem" = "latest"
+"npm:@modelcontextprotocol/server-memory" = "latest"
+"npm:@modelcontextprotocol/server-sequential-thinking" = "latest"
+"npm:@playwright/mcp" = "latest"
+"npm:@sourcegraph/amp" = "latest"
+"npm:groq-code-cli" = "latest"
+"pipx:aider-chat" = { version = "latest", uvx_args = "--force --python python3.12 --with pip" }
 "pipx:mcp-server-fetch" = "latest"
 "pipx:mcp-server-git" = "latest"
 "pipx:mcp-server-time" = "latest"
+"ubi:block/goose" = "latest"
+"ubi:charmbracelet/crush" = "latest"
+"ubi:opencode-ai/opencode" = "latest"
+"ubi:sigoden/aichat" = "latest"
+"ubi:smtg-ai/claude-squad" = "latest"
 
 {{ if .personal -}}
 # Personal
-bazel = {{ quote .versions.bazel }}
-lefthook = "latest"
-nomad = "latest"
 yt-dlp = "latest"
-"go:go.mway.dev/ensure" = "latest"
 "pipx:ansible" = { version = "latest", uvx = "false", pipx_args = "--include-deps" }
-{{- else -}}
-# Groq
-kubectl = "latest"
-kubectx = "latest"
 {{- end }}
-
-[settings]
-auto_install = true
-not_found_auto_install = true
-experimental = true
-jobs = 4

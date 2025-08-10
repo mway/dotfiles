@@ -3,7 +3,7 @@
 set -euo pipefail
 
 source "${HOME}/.profile.d/00_core"
-ansi-badge-blue "  just" "Writing $(ansi --bold "shell completion scripts")"
+ansi-badge-blue "  just" "Writing shell completion scripts"
 base="${JUST_BASE:-"{{ joinPath .path.local "share/just" }}"}"
 mkdir -p "${base}/completions"
 just --completions zsh >>"${base}/completions/just.zsh"

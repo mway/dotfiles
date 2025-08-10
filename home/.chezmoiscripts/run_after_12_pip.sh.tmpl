@@ -5,11 +5,11 @@ _main() {
   source "${HOME}/.profile.d/00_core"
 
   if which uv >/dev/null 2>&1; then
-    ansi-badge-blue "uv pip" "Installing $(ansi --bold "${HOME}/.requirements.txt")"
+    ansi-badge-blue "uv pip" "Installing ${HOME}/.requirements.txt"
     uv venv -q --allow-existing "${venv}"
     uv pip install --python "${venv}" -Uqr "${HOME}/.requirements.txt"
   elif which python3 >/dev/null 2>&1; then
-    ansi-badge-blue "   pip" "Installing $(ansi --bold "${HOME}/.requirements.txt")"
+    ansi-badge-blue "   pip" "Installing ${HOME}/.requirements.txt"
     [[ -d "${venv}/bin" ]] || python3 -m venv "${venv}"
     export PATH="${venv}/bin:${PATH}"
     python3 -m pip install -Uqr "${HOME}/.requirements.txt"

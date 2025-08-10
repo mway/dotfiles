@@ -2,7 +2,7 @@
 
 if which brew >/dev/null 2>&1; then
   source "${HOME}/.profile.d/00_core"
-  ansi-badge-blue "  brew" "Bundling $(ansi --bold "${HOME}/.Brewfile")"
+  ansi-badge-blue "  brew" "Bundling ${HOME}/.Brewfile"
   brew bundle install --quiet --file "${HOME}/.Brewfile"
   brew upgrade
 fi

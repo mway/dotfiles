@@ -1,5 +1,6 @@
 # Ignore everything by default.
 *
+.crush/
 
 !.aider.conf.yml
 !.aider.model.metadata.json
@@ -37,6 +38,9 @@ bin/*
 !bin/mods-chat
 !bin/src
 
+!.claude.json
+!.claude/
+!.claude/settings.json
 !.config
 .config/*
 !.config/agent
@@ -45,6 +49,7 @@ bin/*
 .config/btop/btop.log
 .config/btop/themes/*
 !.config/btop/themes/dracula.theme
+!.config/crush
 !.config/ensure
 !.config/helix
 .config/helix/runtime

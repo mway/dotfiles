@@ -3,6 +3,6 @@
 set -euo pipefail
 
 source "${HOME}/.profile.d/00_core"
-ansi-badge-blue "   fzf" "Writing $(ansi --bold "shell completion scripts")"
+ansi-badge-blue "   fzf" "Writing shell completion scripts"
 fzf --zsh >>"${HOME}/.fzf.zsh"
 fzf --bash >>"${HOME}/.fzf.bash"
