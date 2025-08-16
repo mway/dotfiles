@@ -1,59 +1,8 @@
-{
-  "numStartups": 19,
-  "installMethod": "unknown",
-  "autoUpdates": true,
-  "userID": {{ quote (onepasswordRead "op://infra/anthropic.claude/user_id") }},
-  "projects": {},
-  "mcpServers": {
-    "github": {
-      "command": "github-mcp-server",
-      "args": [
-        "stdio"
-      ]
-    },
-    "git": {
-      "command": "mcp-server-git"
-    },
-    "sequentialthinking": {
-      "command": "mcp-server-sequential-thinking"
-    },
-    "memory": {
-      "command": "mcp-server-memory"
-    },
-    "filesystem": {
-      "command": "mcp-server-filesystem",
-      "args": [
-        "."
-      ]
-    },
-    "fetch": {
-      "command": "mcp-server-fetch"
-    },
-    "time": {
-      "command": "mcp-server-time"
-    },
-    "browser": {
-      "command": "mcp-server-playwright"
-    }
-  },
-  "settings": {
-    "claudeCode": {
-      "hooks": {
-        "preCommand": [
-          "gofmt -w ."
-        ],
-        "postCommand": [
-          "go test ./..."
-        ]
-      },
-      "maxTokens": 4000,
-      "temperature": 0.4
-    }
-  },
-  "oauthAccount": {{ onepasswordRead "op://infra/anthropic.claude/oauth_account" }},
-  "isQualifiedForDataSharing": false,
-  "iterm2SetupInProgress": false,
-  "shiftEnterKeyBindingInstalled": true,
-  "hasCompletedOnboarding": true,
-  "recommendedSubscription": ""
-}
+{{- $sharedConfig := .claude -}}
+{{- $localConfigPath := joinPath .path.home ".claude.local.json" -}}
+{{- $localConfig := dict "projects" (dict) -}}
+{{- if stat $localConfigPath -}}
+{{-   $localConfig = $localConfigPath | include | fromJson -}}
+{{- end -}}
+{{- $mergedConfig := merge $localConfig $sharedConfig -}}
+{{ $mergedConfig | toPrettyJson "  " }}

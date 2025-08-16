@@ -26,21 +26,20 @@ diff:
     - scripts
 git:
   autoCommit: false
-
+secret:
+  command: op
+  cache: true
 data:
   user: {{ .chezmoi.username }}
   shell: {{ trim (output "which" "zsh") }}
   personal: {{ $personal }}
-
   arch: {{ .chezmoi.arch }}
   os: {{ .chezmoi.os }}
-
   path:
     home: {{ $userHome }}
     config: {{ $userConfig }}
     local: {{ $localRoot }}
     path: {{ $computedPath }}
-
     named:
       cargoBin: {{ $cargoBin }}
       goBin: {{ $goPathBin }}
@@ -48,7 +47,6 @@ data:
       localBin: {{ $localBin }}
       mise: {{ joinPath $userBin "mise" }}
       userBin: {{ $userBin }}
-
   versions:
     ansi: "2c84a541a31d68a4d2779fbfb37a56fca29da4ab"
     bazel: "8"
@@ -64,3 +62,37 @@ data:
     shflags: "v1.3.0"
     sourcegraph: "6.2.0"
     zellij: "0.42.2"
+  claude:
+    autoUpdates: true
+    firstStartTime: 2025-01-01T00:00:00.000Z
+    iterm2SetupInProgress: false
+    shiftEnterKeyBindingInstalled: true
+    hasCompletedOnboarding: true
+    lastOnboardingVersion: 1.0.72
+    userID: {{ quote (onepasswordRead "op://infra/anthropic.claude/user_id") }}
+    oauthAccount: {{ onepasswordRead "op://infra/anthropic.claude/oauth_account" }}
+    mcpServers:
+      github:
+        command: github-mcp-server
+        args: [stdio]
+      git:
+        command: mcp-server-git
+        args: []
+      sequentialthinking:
+        command: mcp-server-sequential-thinking
+        args: []
+      memory:
+        command: mcp-server-memory
+        args: []
+      filesystem:
+        command: mcp-server-filesystem
+        args: [.]
+      fetch:
+        command: mcp-server-fetch
+        args: []
+      time:
+        command: mcp-server-time
+        args: []
+      browser:
+        command: mcp-server-playwright
+        args: []
