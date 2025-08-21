@@ -1,8 +1,0 @@
-{{- $sharedConfig := .claude -}}
-{{- $localConfigPath := joinPath .path.home ".claude.local.json" -}}
-{{- $localConfig := dict "projects" (dict) -}}
-{{- if stat $localConfigPath -}}
-{{-   $localConfig = $localConfigPath | include | fromJson -}}
-{{- end -}}
-{{- $mergedConfig := merge $localConfig $sharedConfig -}}
-{{ $mergedConfig | toPrettyJson "  " }}
