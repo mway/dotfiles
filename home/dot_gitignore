@@ -2,6 +2,9 @@ _attic
 .aider.*
 !.aider.conf.yml
 .build/
+.claude/settings.local.json
+*.local
+*.local.*
 .config/nvim/autoload/*
 .DS_Store
 .envrc.local
