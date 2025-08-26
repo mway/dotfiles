@@ -1,7 +1,12 @@
 theme = dracula
+copy-on-select = clipboard
 
 font-family = "Consolas"
 font-size = 13
+font-thicken = true
+font-thicken-strength = 128
+font-synthetic-style = false
+alpha-blending = linear-corrected
 
 # Word navigation keybindings
 keybind = ctrl+left=esc:b
@@ -12,3 +17,6 @@ keybind = alt+left=unbind
 keybind = alt+right=unbind
 keybind = alt+up=unbind
 keybind = alt+down=unbind
+
+# Misc bindings
+keybind = shift+enter=text:\x1b\r
