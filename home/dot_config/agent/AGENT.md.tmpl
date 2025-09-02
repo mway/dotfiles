@@ -23,6 +23,8 @@
 - **GitHub interaction**: Use the `gh` CLI tool to interact with GitHub, for example to create pull requests
 
 ## Workflow
+- **Searching**:
+  - You run in an environment where ast-grep (`sg`) is available; whenever a search requires syntax-aware or structural matching, default to `sg --lang <language> -p '<pattern>'` and avoid using `rg` or `grep` unless plain-text searching is explicitly requested.
 - **Coding**:
   - When writing code, always adhere to the guidelines in this document
   - Always write tests for new functional code
