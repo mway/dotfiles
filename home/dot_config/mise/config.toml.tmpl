@@ -9,6 +9,7 @@ auto_install = true
 not_found_auto_install = true
 experimental = true
 jobs = 4
+idiomatic_version_file_enable_tools = ["rust"]
 
 [tasks."go:build"]
 run = "go build"
@@ -128,6 +129,7 @@ zellij = {{ quote .versions.zellij }}
 
 # AI
 "cargo:lsp-ai" = "latest"
+"cargo:rust-analyzer-mcp" = "latest"
 "go:github.com/charmbracelet/mods" = "latest"
 "go:github.com/github/github-mcp-server/cmd/github-mcp-server" = "latest"
 "npm:@anthropic-ai/claude-code" = "latest"
@@ -141,6 +143,7 @@ zellij = {{ quote .versions.zellij }}
 "npm:ccusage" = "latest"
 "npm:groq-code-cli" = "latest"
 "pipx:aider-chat" = { version = "latest", uvx_args = "--force --python python3.12 --with pip" }
+"pipx:ast-grep/ast-grep-mcp" = "main"
 "pipx:mcp-server-fetch" = "latest"
 "pipx:mcp-server-git" = "latest"
 "pipx:mcp-server-time" = "latest"
