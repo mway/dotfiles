@@ -4,8 +4,9 @@
 set-anthropic() {
   export ANTHROPIC_BASE_URL={{ quote (onepasswordRead "op://infra/anthropic.claude/base_url") }}
   export ANTHROPIC_API_KEY={{ quote (onepasswordRead "op://infra/anthropic.claude/api_key") }}
-  export ANTHROPIC_MODEL={{ quote (onepasswordRead "op://infra/anthropic.claude/model") }}
-  export ANTHROPIC_SMALL_FAST_MODEL={{ quote (onepasswordRead "op://infra/anthropic.claude/small_fast_model") }}
+  export ANTHROPIC_DEFAULT_HAIKU_MODEL={{ quote (onepasswordRead "op://infra/anthropic.claude/default_haiku_model") }}
+  export ANTHROPIC_DEFAULT_OPUS_MODEL={{ quote (onepasswordRead "op://infra/anthropic.claude/default_opus_model") }}
+  export ANTHROPIC_DEFAULT_SONNET_MODEL={{ quote (onepasswordRead "op://infra/anthropic.claude/default_sonnet_model") }}
 }
 
 unset-anthropic() {
