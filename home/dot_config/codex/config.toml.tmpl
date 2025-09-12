@@ -1,0 +1,100 @@
+version = 1
+
+[profiles.default]
+provider = "openai"
+model = "gpt-5"
+
+[profiles.default.model_options]
+temperature = 0.2
+top_p = 1.0
+max_output_tokens = 32000
+
+[profiles.default.persona]
+tone = "concise"
+style = "friendly"
+
+[profiles.default.prompts]
+system = """
+You are a coding agent running in the Codex CLI. Be concise, precise, and safe.
+"""
+developer = """
+Read both @~/AGENTS.md and @AGENTS.md, if they exist, and internalize their instructions. Make minimal, targeted changes. Use apply_patch for edits.
+"""
+
+[profiles.default.tools.shell]
+enabled = true
+default_timeout_ms = 120000
+read_max_lines = 250
+prefer_rg = true
+
+[profiles.default.tools.shell.policy]
+allow_read_only_in_workspace = true
+allowed_commands = [
+  "rg", "grep", "fd", "find", "ls", "tree", "cat", "bat", "head", "tail",
+  "sed", "awk", "sort", "uniq", "cut", "wc", "stat", "file", "strings",
+  "jq", "yq", "env", "printenv", "git", "go", "cargo", "python", "node",
+]
+
+[profiles.default.tools.shell.policy.allowed_subcommands]
+git = ["status", "log", "show", "diff", "blame", "describe", "rev-parse", "branch", "tag"]
+go = ["list", "env", "test", "vet"]
+cargo = ["check", "metadata"]
+
+[profiles.default.tools.apply_patch]
+enabled = true
+confirm_before_write = true
+
+[profiles.default.tools.update_plan]
+enabled = true
+auto_show = true
+
+[profiles.default.sandbox]
+filesystem = "workspace-write" # read-only | workspace-write | danger-full-access
+network = "enabled"            # restricted | enabled
+approvals = "on-request"       # untrusted | on-failure | on-request | never
+
+[profiles.default.safety]
+confirm_destructive = true
+block_gui_commands = true
+require_confirmation_for_non_allowlisted_commands = true
+
+[profiles.default.ui]
+preamble_on_tool_calls = true
+progress_updates = true
+suppress_repo_trust_prompt = true
+
+[profiles.default.paths]
+workspace_root = "."
+ignore = [".git/**", "node_modules/**", "vendor/**", "dist/**"]
+
+[profiles.default.auth]
+env = "OPENAI_API_KEY"
+
+[profiles.default.telemetry]
+enabled = false
+
+# MCP servers
+#[mcp_servers.github]
+#command = "github-mcp-server"
+#args = ["stdio"]
+
+[mcp_servers.astgrep]
+command = "ast-grep-server"
+args = []
+
+[mcp_servers.gopls]
+command = "gopls"
+args = ["mcp"]
+
+[mcp_servers.rust]
+command = "rust-analyzer-mcp"
+args = []
+
+[mcp_servers.time]
+command = "mcp-server-time"
+args = ["--local-timezone", "America/New_York"]
+
+[mcp_servers.playwright]
+command = "mcp-server-playwright"
+args = []
+
