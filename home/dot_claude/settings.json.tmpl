@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch",
+      "Read(**)",
+      "Bash(go test *)",
+      "Bash(go build *)",
+      "Bash(go vet *)",
+      "Bash(go mod *)",
+      "Bash(mask test *)",
+      "Bash(mask lint *)",
+      "Bash(mask fmt *)",
+      "Bash(mask cover *)",
+      "Bash(mask build-lint *)",
+      "Bash(golangci-lint *)",
+      "Bash(golines *)",
+      "Bash(gofumpt *)",
+      "Bash(git status)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(git show *)",
+      "Bash(git branch *)",
+      "Bash(find . -name *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(wc *)",
+      "Bash(grep *)",
+      "Bash(rg *)",
+      "Bash(ast-grep *)",
+      "Bash(sg *)",
+      "Bash(pwd)",
+      "Bash(which *)",
+      "Bash(echo *)",
+      "Bash(tree *)",
+      "Bash(gh *)",
+      "Glob",
+      "Grep",
+      "LS",
+      "Edit(**)",
+      "MultiEdit(**)",
+      "Write(**)"
+    ],
+    "deny": [
+      "Bash(rm *)",
+      "Bash(rmdir *)",
+      "Bash(mv * /dev/null)",
+      "Bash(> *)",
+      "Bash(sudo *)",
+      "Bash(su *)",
+      "Bash(chmod *)",
+      "Bash(chown *)",
+      "Bash(kill *)",
+      "Bash(killall *)",
+      "Bash(pkill *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Read(.env*)",
+      "Read(**/.env*)",
+      "Read(secrets/**)",
+      "Read(**/*secret*)",
+      "Read(**/*key*)",
+      "Read(**/*password*)",
+      "Read(**/*token*)"
+    ]
+  },
+  "model": "opus",
+  "feedbackSurveyState": {
+    "lastShownTime": 1754097502641
+  },
+  "mcpServers": {
+    "ast-grep-mcp": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/ast-grep/ast-grep-mcp",
+        "ast-grep-server"
+      ],
+      "env": {}
+    },
+    "gopls": {
+      "type": "stdio",
+      "command": "gopls",
+      "args": [
+        "mcp"
+      ],
+      "env": {}
+    },
+    "git": {
+      "args": [],
+      "command": "mcp-server-git"
+    },
+    "github": {
+      "args": [
+        "stdio"
+      ],
+      "command": "github-mcp-server"
+    },
+    "time": {
+      "args": [],
+      "command": "mcp-server-time"
+    }
+  }
+}
