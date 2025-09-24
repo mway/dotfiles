@@ -31,5 +31,9 @@ function truncated_pwd() {
 }
 
 precmd() {
-  PROMPT="%F{blue}$(truncated_pwd 1)%F{reset} %F{green}#%F{reset} "
+  if [[ -z "$MWAY_ZSH_TERSE_PROMPT" ]]; then
+    PROMPT="%F{blue}$(truncated_pwd 1)%F{reset} %F{green}#%F{reset} "
+  else
+    PROMPT="%F{blue}#%F{magenta}>%F{reset} "
+  fi
 }
