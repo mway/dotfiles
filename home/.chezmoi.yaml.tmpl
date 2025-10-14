@@ -39,6 +39,7 @@ data:
     home: {{ $userHome }}
     config: {{ $userConfig }}
     local: {{ $localRoot }}
+    share: {{ joinPath $localRoot "share" }}
     path: {{ $computedPath }}
     named:
       cargoBin: {{ $cargoBin }}
