@@ -9,8 +9,6 @@ _attic
 .DS_Store
 .envrc.local
 .justfile
-.mise/
-.mise/tasks/
 .opencode/
 *.out
 *.test
