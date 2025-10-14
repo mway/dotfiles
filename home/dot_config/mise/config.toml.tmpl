@@ -11,27 +11,6 @@ experimental = true
 jobs = 4
 idiomatic_version_file_enable_tools = ["rust"]
 
-[tasks."go:build"]
-run = "go build"
-[tasks."go:test"]
-run = "gotestsum -f dots -- -race -coverprofile cover.out -count 1"
-[tasks."go:vtest"]
-run = "go test -v -race -count 1 -coverprofile cover.out"
-[tasks."go:cover:text"]
-run = "go tool cover -func cover.out"
-depends = ["go:test"]
-[tasks."go:cover:html"]
-run = "go tool cover -html cover.out"
-depends = ["go:test"]
-[tasks."go:lint"]
-run = "golangci-lint run"
-[tasks."go:lint-all"]
-run = "golangci-lint run --new=false"
-[tasks."go:fix"]
-run = "golangci-lint run --fix"
-[tasks."go:fix-all"]
-run = "golangci-lint run --fix --new=false"
-
 [tools]
 1password = "latest"
 aqua = "latest"

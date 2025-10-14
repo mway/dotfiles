@@ -7,38 +7,17 @@ default:
 todo PATH NAME=".+":
     rg -U '(//|#) TODO\({{ NAME }}\).+\n(\s+(//|#).+$)*' src/code.uber.internal/{{ PATH }}
 
-###
-# Go
-###
-
-[no-cd]
-test +ARGS="./...":
-    go test -race -failfast -count 1 -coverprofile cover.out -run . {{ ARGS }}
-
-[no-cd]
-vtest +ARGS="./...": (test "-v" ARGS)
-
-[no-cd]
-cover-html +ARGS="./...": (test ARGS)
-    go tool cover -html cover.out
-
-[no-cd]
-cover-text +ARGS="./...": (test ARGS)
-    go tool cover -func cover.out
-
-[no-cd]
-bench +ARGS="./...":
-    go test -count 1 -run xxx -benchmem -bench . {{ ARGS }}
-
-[no-cd]
-vbench +ARGS="./...": (bench "-v" ARGS)
-
-[no-cd]
-lint +ARGS="./...":
-    golangci-lint run --new=false {{ ARGS }}
-
-[no-cd]
-lint-fix +ARGS="./...": (lint "--fix" ARGS)
+pull:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    prev="$(git cur)"
+    true \
+        && git checkout main \
+        && git fetch -pt \
+        && git pull origin
+    if [[ "$prev" != "$(git cur)" ]]; then
+        git checkout "$prev"
+    fi
 
 ###
 # HERMIT

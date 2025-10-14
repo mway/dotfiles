@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#MISE description="Lint Go code"
+#MISE dir="{{cwd}}"
+#USAGE flag "-f --fix" help="Autofix lint issues where possible"
+#USAGE arg "[packages]" help="Package(s) to lint" default="./..." var=#true
+
+set -euo pipefail
+
+_main() {
+  local packages="${usage_packages:-"./..."}"
+  local fix=""
+  if [[ -n "${usage_fix:-""}" ]]; then
+    fix="--fix"
+  fi
+  # shellcheck disable=SC2086
+  golangci-lint run --new=false $fix $packages
+}
+
+_main "$@"

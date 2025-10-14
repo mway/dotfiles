@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+#MISE description="Lint Go code"
+#MISE dir="{{cwd}}"
+#USAGE flag "-f --format <format>" help="Output coverage in the given format" {
+#USAGE   choices "func" "html"
+#USAGE }
+#USAGE arg "[packages]" help="Package(s) to lint" default="./..." var=#true
+
+set -euo pipefail
+
+# [tasks."xxgo:cover:text"]
+# run = "go tool cover -func cover.out"
+# depends = ["go:test"]
+# [tasks."xxgo:cover:html"]
+# run = "go tool cover -html cover.out"
+
+_main() {
+  local packages="${usage_packages:-"./..."}"
+  local format="${usage_format:-"html"}"
+
+  # shellcheck disable=SC2086
+  mise run go:test $packages && go tool cover -$format cover.out
+}
+
+_main "$@"

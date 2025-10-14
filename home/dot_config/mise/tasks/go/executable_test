@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#MISE description="Run Go tests"
+#MISE dir="{{cwd}}"
+#USAGE arg "[packages]" help="Package(s) to test" default="./..." var=#true
+
+set -euo pipefail
+
+_main() {
+  local packages="${usage_packages:-"./..."}"
+  #shellcheck disable=SC2086
+  gotestsum -f dots -- -race -coverprofile cover.out -count 1 $packages
+
+}
+
+_main "$@"
