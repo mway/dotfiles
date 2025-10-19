@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#MISE description="Format Go code"
+#MISE dir="{{cwd}}"
+#USAGE arg "[packages]" help="Package(s) to format" default="./..." var=#true
+
+set -euo pipefail
+
+_main() {
+  local packages="${usage_packages:-"./..."}"
+  golangci-lint fmt "${packages[@]}"
+}
+
+_main "$@"
