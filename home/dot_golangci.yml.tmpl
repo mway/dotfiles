@@ -1,0 +1,150 @@
+version: "2"
+run:
+  modules-download-mode: readonly
+  issues-exit-code: 1
+  tests: true
+output:
+  formats:
+    text:
+      path: stdout
+      print-linter-name: true
+      print-issued-lines: true
+linters:
+  enable:
+    - asasalint
+    - asciicheck
+    - bidichk
+    - bodyclose
+    - dogsled
+    - errcheck
+    - exhaustive
+    - forbidigo
+    - goconst
+    - gocritic
+    - gocyclo
+    - govet
+    - importas
+    - ineffassign
+    - intrange
+    - lll
+    - misspell
+    - nilerr
+    - nilnesserr
+    - nilnil
+    - nolintlint
+    - prealloc
+    - predeclared
+    - recvcheck
+    - revive
+    - staticcheck
+    - unconvert
+    - unparam
+    - unused
+    - usestdlibvars
+    - wastedassign
+    - whitespace
+  settings:
+    dogsled:
+      max-blank-identifiers: 2
+    errcheck:
+      check-type-assertions: true
+      check-blank: true
+    exhaustive:
+      default-signifies-exhaustive: true
+    gocritic:
+      disable-all: true
+      enabled-checks:
+        - appendAssign
+        - appendCombine
+        - argOrder
+        - badCond
+        - badLock
+        - badRegexp
+        - badSorting
+        - badSyncOnceFunc
+        - boolExprSimplify
+        - builtinShadow
+        - builtinShadowDecl
+        - captLocal
+        - caseOrder
+        - commentFormatting
+        - defaultCaseOrder
+        - deferInLoop
+        - deferUnlambda
+        - dupImport
+        - dupSubExpr
+        - elseif
+        - exposedSyncMutex
+        - hugeParam
+        - ifElseChain
+        - importShadow
+        - indexAlloc
+        - initClause
+        - mapKey
+        - methodExprCall
+        - preferStringWriter
+        - preferWriteByte
+        - rangeExprCopy
+        - rangeValCopy
+        - redundantSprint
+        - regexpPattern
+        - regexpSimplify
+        - singleCaseSwitch
+        - sloppyReassign
+        - sloppyTypeAssert
+        - todoCommentWithoutDetail
+        - typeDefFirst
+        - typeSwitchVar
+        - typeUnparen
+        - underef
+        - unnecessaryBlock
+        - unnecessaryDefer
+        - unslice
+      settings:
+        hugeParam:
+          sizeThreshold: 100
+    gocyclo:
+      min-complexity: 10
+    govet:
+      enable-all: true
+    lll:
+      line-length: 79
+    misspell:
+      locale: US
+  exclusions:
+    generated: lax
+    rules:
+      - linters:
+          - lll
+        source: '^//go:generate '
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+  new: true
+formatters:
+  enable:
+    - gci
+    - golines
+    - gofumpt
+  settings:
+    gci:
+      sections:
+        - standard
+        - default
+        - localmodule
+    golines:
+      max-len: 79
+      tab-len: 4
+      reformat-tags: false
+      shorten-comments: false
+      chain-split-dots: true
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
