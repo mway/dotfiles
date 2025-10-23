@@ -11,6 +11,9 @@ experimental = true
 jobs = 4
 idiomatic_version_file_enable_tools = ["rust"]
 
+[settings.python]
+compile = true
+
 [tools]
 1password = "latest"
 aqua = "latest"
@@ -45,10 +48,9 @@ mask = "latest"
 mprocs = "latest"
 ninja = "latest"
 node = {{ quote .versions.node }}
-pipx = "latest"
 pnpm = "latest"
 pre-commit = {{ quote .versions.pre_commit }}
-python = {{ quote .versions.python }}  # run mise settings python.compile=1 if issues
+python = {{ quote .versions.python }}
 ripgrep = "latest"
 shfmt = "latest"
 sops = "latest"
