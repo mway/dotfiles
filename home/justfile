@@ -13,7 +13,7 @@ pull:
     set -euo pipefail
     prev="$(git cur)"
     true \
-        && git checkout main \
+        && git checkout "$(git branch -rl "*/HEAD" | rev | cut -d/ -f1 | rev)" \
         && git fetch -pt \
         && git pull origin
     if [[ "$prev" != "$(git cur)" ]]; then
