@@ -16,6 +16,7 @@ compile = true
 
 [tools]
 1password = "latest"
+ansible = "latest"
 aqua = "latest"
 bat = "latest"
 bazel = {{ quote .versions.bazel }}
@@ -39,6 +40,7 @@ golines = "latest"
 gotestsum = "latest"
 gum = "latest"
 helix = {{ quote .versions.helix }}
+helm = "latest"
 hurl = "latest"
 jq = "latest"
 just = "latest"
@@ -56,6 +58,7 @@ shfmt = "latest"
 sops = "latest"
 staticcheck = "latest"
 terraform = "latest"
+terraform-ls = "latest"
 ubi = "latest"
 usage = "latest"
 uv = "latest"
@@ -137,7 +140,7 @@ zellij = {{ quote .versions.zellij }}
 {{ if .personal -}}
 # Personal
 yt-dlp = "latest"
-"pipx:ansible" = { version = "latest", uvx = "false", pipx_args = "--include-deps" }
+# "pipx:ansible" = { version = "latest", uvx = "false", pipx_args = "--include-deps" }
 {{- else -}}
 # Work
 cosign = "latest"
