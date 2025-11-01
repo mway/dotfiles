@@ -59,3 +59,16 @@ auto-format = true
 
 [language-server.yaml-language-server.config]
 yaml.keyOrdering = false
+
+[language-server.terraform-ls]
+command = "terraform-ls"
+args = ["serve"]
+
+[[language]]
+name = "hcl"
+scope = "source.hcl"
+file-types = ["hcl", "tf", "tfvars", "tfvars.json", "terraform"]
+indent = { tab-width = 2, unit = "  " }
+language-servers = ["terraform-ls"]
+auto-format = true
+formatter = { command = "terraform", args = ["fmt", "-"] }
