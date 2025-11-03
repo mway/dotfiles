@@ -4,11 +4,15 @@ _main() {
   local venv="${HOME}/.local/share/uv/venv"
   source "${HOME}/.profile.d/00_core"
 
-  if which uv >/dev/null 2>&1; then
+  if command -v mise >/dev/null 2>&1; then
+    eval "$(mise env --shell bash)" >/dev/null 2>&1
+  fi
+
+  if command -v uv >/dev/null 2>&1; then
     ansi-badge-blue "uv pip" "Installing ${HOME}/.requirements.txt"
     uv venv -q --allow-existing "${venv}"
     uv pip install --python "${venv}" -Uqr "${HOME}/.requirements.txt"
-  elif which python3 >/dev/null 2>&1; then
+  elif command -v python3 >/dev/null 2>&1; then
     ansi-badge-blue "   pip" "Installing ${HOME}/.requirements.txt"
     [[ -d "${venv}/bin" ]] || python3 -m venv "${venv}"
     export PATH="${venv}/bin:${PATH}"
