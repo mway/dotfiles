@@ -81,6 +81,8 @@
 	ds = diff --staged
 	fadd = fuzzy-add
 	fdiff = fuzzy-diff
+	fetch-pull = "!f() { git fetch -pt && git pull; }; f"
+	fp = fetch-pull
 	current-branch = symbolic-ref --short HEAD
 	curbranch = current-branch
 	cur = current-branch
