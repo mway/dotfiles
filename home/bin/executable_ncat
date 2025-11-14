@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+_main() {
+  if [[ $# -eq 0 ]]; then
+    exec cat -
+  else
+    for path in "$@"; do
+      echo "### ${path} ###"
+      cat "$path"
+    done
+  fi
+}
+
+_main "$@"
