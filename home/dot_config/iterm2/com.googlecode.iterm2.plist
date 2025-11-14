@@ -2126,6 +2126,19 @@
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
+				<key>0x74-0x140000-0x11</key>
+				<dict>
+					<key>Action</key>
+					<integer>61</integer>
+					<key>Apply Mode</key>
+					<integer>0</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string></string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
 				<key>0x7c-0x60000-0x2a</key>
 				<dict>
 					<key>Action</key>
@@ -2208,6 +2221,32 @@
 				<dict>
 					<key>Action</key>
 					<integer>19</integer>
+					<key>Apply Mode</key>
+					<integer>0</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string></string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
+				<key>0xf72c-0x0-0x74</key>
+				<dict>
+					<key>Action</key>
+					<integer>9</integer>
+					<key>Apply Mode</key>
+					<integer>0</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string></string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
+				<key>0xf72d-0x0-0x79</key>
+				<dict>
+					<key>Action</key>
+					<integer>8</integer>
 					<key>Apply Mode</key>
 					<integer>0</integer>
 					<key>Escaping</key>
@@ -2306,7 +2345,7 @@
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
-			<integer>1000</integer>
+			<integer>10000</integer>
 			<key>Selected Text Color</key>
 			<dict>
 				<key>Alpha Component</key>
