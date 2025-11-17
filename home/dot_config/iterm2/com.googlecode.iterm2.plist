@@ -2113,6 +2113,48 @@
 					<key>Version</key>
 					<integer>2</integer>
 				</dict>
+				<key>0x4e-0x120000-0x2d</key>
+				<dict>
+					<key>Action</key>
+					<integer>25</integer>
+					<key>Apply Mode</key>
+					<integer>0</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>Dev
+Dev:Restore Window Arrangement</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
+				<key>0x54-0x160000-0x11</key>
+				<dict>
+					<key>Action</key>
+					<integer>25</integer>
+					<key>Apply Mode</key>
+					<integer>0</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>Edit Tab Title
+Edit Tab Title</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
+				<key>0x57-0x160000-0xd</key>
+				<dict>
+					<key>Action</key>
+					<integer>25</integer>
+					<key>Apply Mode</key>
+					<integer>0</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>Edit Window Title
+Edit Window Title</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
 				<key>0x5f-0x60000-0x1b</key>
 				<dict>
 					<key>Action</key>
@@ -2430,6 +2472,10 @@
 			<true/>
 			<key>Use Bright Bold</key>
 			<true/>
+			<key>Use Custom Tab Title</key>
+			<true/>
+			<key>Use Custom Window Title</key>
+			<true/>
 			<key>Use Italic Font</key>
 			<true/>
 			<key>Use Non-ASCII Font</key>
@@ -2486,7 +2532,7 @@
 		</dict>
 	</dict>
 	<key>ShowFullScreenTabBar</key>
-	<false/>
+	<true/>
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
