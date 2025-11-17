@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+_main() {
+  local opts=(
+    -avhP
+  )
+
+  exec rsync "${opts[@]}" "$@"
+}
+
+_main "$@"
