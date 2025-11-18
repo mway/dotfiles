@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+set -uo pipefail
+
+_main() {
+  local want=0
+  for arg in "$@"; do
+    # also add: wait period
+    #           verbose (capture vs discard output)
+    #           status code matching (vs zero/non-zero)
+    case "$arg" in
+    "-f" | "-F" | "--expect-fail")
+      shift
+      want=1
+      ;;
+    *)
+      break
+      ;;
+    esac
+  done
+
+  local rc=0
+  "$@" >/dev/null 2>&1
+  rc=$?
+  local times=1
+  while [[ $rc -ne $want ]]; do
+    echo "Command failed, retrying (#${times})"
+    echo "  $*"
+    times=$((times + 1))
+    "$@" >/dev/null 2>&1
+    rc=$?
+  done
+}
+
+_main "$@"
