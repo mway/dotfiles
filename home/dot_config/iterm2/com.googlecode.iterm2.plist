@@ -2462,6 +2462,8 @@ Edit Window Title</string>
 			<array/>
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
+			<key>Title Components</key>
+			<integer>4</integer>
 			<key>Transparency</key>
 			<real>0.0</real>
 			<key>Treat Option as Alt</key>
@@ -2537,6 +2539,8 @@ Edit Window Title</string>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.20000000000000001</real>
+	<key>TabColorMenuOptions</key>
+	<string>#6272a4 #8be9fd #50fa7b #ffb86c #ff79c6 #bd93f9 #ff5555 #f1fa8c #282a36 #44475a #44475a #f8f8f2</string>
 	<key>VisualIndicatorForEsc</key>
 	<false/>
 	<key>Window Arrangements</key>
