@@ -1,11 +1,14 @@
 {{- $groqToken := "" -}}
 {{- $openaiToken := "" -}}
+{{- $geminiToken := "" -}}
 {{- if .personal -}}
 {{- $groqToken = onepasswordRead "op://infra/tokens.inference/groq.common" -}}
 {{- $openaiToken = onepasswordRead "op://infra/tokens.inference/openai.common" -}}
+{{- $geminiToken = onepasswordRead "op://infra/tokens.inference/gemini.common" -}}
 {{- else -}}
 {{- $groqToken = onepasswordRead "op://groq/tokens.inference/groq.common" -}}
 {{- $openaiToken = onepasswordRead "op://groq/tokens.inference/openai.common" -}}
+{{- $geminiToken = onepasswordRead "op://groq/tokens.inference/gemini.common" -}}
 {{- end -}}
 {
   "custom_models": [
@@ -42,10 +45,34 @@
       "max_tokens": 32000
     },
     {
+      "model_display_name": "GPT-5 Pro [OpenAI]",
+      "model": "gpt-5-codex",
+      "base_url": "https://api.openai.com/v1",
+      "api_key": "{{ $openaiToken }}",
+      "provider": "generic-chat-completion-api",
+      "max_tokens": 32000
+    },
+    {
       "model_display_name": "GPT-5.1-Codex-Max [OpenAI]",
       "model": "gpt-5.1-codex-max",
       "base_url": "https://api.openai.com/v1",
       "api_key": "{{ $openaiToken }}",
+      "provider": "generic-chat-completion-api",
+      "max_tokens": 32000
+    },
+    {
+      "model_display_name": "Gemini 2.5 Pro [Google]",
+      "model": "gemini-2.5-pro",
+      "base_url": "https://generativelanguage.googleapis.com/v1beta/",
+      "api_key": "{{ $geminiToken }}",
+      "provider": "generic-chat-completion-api",
+      "max_tokens": 32000
+    },
+    {
+      "model_display_name": "Gemini 3 Pro [Google]",
+      "model": "gemini-3-pro",
+      "base_url": "https://generativelanguage.googleapis.com/v1beta/",
+      "api_key": "{{ $geminiToken }}",
       "provider": "generic-chat-completion-api",
       "max_tokens": 32000
     }
