@@ -1,0 +1,53 @@
+{{- $groqToken := "" -}}
+{{- $openaiToken := "" -}}
+{{- if .personal -}}
+{{- $groqToken = onepasswordRead "op://infra/tokens.inference/groq.common" -}}
+{{- $openaiToken = onepasswordRead "op://infra/tokens.inference/openai.common" -}}
+{{- else -}}
+{{- $groqToken = onepasswordRead "op://groq/tokens.inference/groq.common" -}}
+{{- $openaiToken = onepasswordRead "op://groq/tokens.inference/openai.common" -}}
+{{- end -}}
+{
+  "custom_models": [
+    {
+      "model_display_name": "Minimax M2 [Groq]",
+      "model": "minimaxai/minimax-m2",
+      "base_url": "https://api.groq.com/openai/v1",
+      "api_key": "{{ $groqToken }}",
+      "provider": "generic-chat-completion-api",
+      "max_tokens": 32000
+    },
+    {
+      "model_display_name": "Kimi K2 [Groq]",
+      "model": "moonshotai/kimi-k2-instruct-0905",
+      "base_url": "https://api.groq.com/openai/v1",
+      "api_key": "{{ $groqToken }}",
+      "provider": "generic-chat-completion-api",
+      "max_tokens": 32000
+    },
+    {
+      "model_display_name": "GPT-OSS 120b [Groq]",
+      "model": "openai/gpt-oss-120b",
+      "base_url": "https://api.groq.com/openai/v1",
+      "api_key": "{{ $groqToken }}",
+      "provider": "generic-chat-completion-api",
+      "max_tokens": 32000
+    },
+    {
+      "model_display_name": "GPT-5 Pro [OpenAI]",
+      "model": "gpt-5-pro",
+      "base_url": "https://api.openai.com/v1",
+      "api_key": "{{ $openaiToken }}",
+      "provider": "generic-chat-completion-api",
+      "max_tokens": 32000
+    },
+    {
+      "model_display_name": "GPT-5.1-Codex-Max [OpenAI]",
+      "model": "gpt-5.1-codex-max",
+      "base_url": "https://api.openai.com/v1",
+      "api_key": "{{ $openaiToken }}",
+      "provider": "generic-chat-completion-api",
+      "max_tokens": 32000
+    }
+  ]
+}
