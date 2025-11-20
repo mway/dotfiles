@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+strgen() {
+  local args=("$@")
+  if [[ $# -eq 0 ]]; then
+    args=("64")
+  fi
+
+  pwgen -s -c -n -y -1 -r "\"'\`" "${args[@]}"
+}
