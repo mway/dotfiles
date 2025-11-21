@@ -1,10 +1,40 @@
 #!/usr/bin/env bash
 
-strgen() {
-  local args=("$@")
-  if [[ $# -eq 0 ]]; then
-    args=("64")
-  fi
+notify-filter() {
+  local interval="${1:-}" # seconds; empty = notify-once
+  local last_beep=0
+  local beeped_once=0
+  local now=0
 
-  pwgen -s -c -n -y -1 -r "\"'\`" "${args[@]}"
+  while IFS= read -r line; do
+    printf '%s\n' "$line"
+    now=$(date +%s)
+
+    if [ -z "$interval" ]; then
+      if [ "$beeped_once" -eq 0 ]; then
+        printf '\a'
+        beeped_once=1
+      fi
+    else
+      if [ $((now - last_beep)) -ge "$interval" ]; then
+        printf '\a'
+        last_beep=$now
+      fi
+    fi
+  done
+}
+
+alphagen() {
+  local args=("${@:-32}")
+  pwgen -s -c -0 -1 -r "\!\\#\"'\`" "${args[@]}"
+}
+
+alphanumgen() {
+  local args=("${@:-32}")
+  pwgen -s -c -n -1 -r "\!\\#\"'\`" "${args[@]}"
+}
+
+strgen() {
+  local args=("${@:-64}")
+  pwgen -s -c -n -y -1 -r "\!\\#\"'\`" "${args[@]}"
 }
