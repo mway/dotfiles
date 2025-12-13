@@ -1,11 +1,13 @@
 version = 1
+model = "gpt-5.1-codex-max"
+notify = ["ntfy-codex"]
 
 [profiles.default]
 provider = "openai"
-model = "gpt-5"
+model = "gpt-5.1-codex"
 
 [profiles.default.model_options]
-temperature = 0.2
+temperature = 0.35
 top_p = 1.0
 max_output_tokens = 32000
 
@@ -98,3 +100,5 @@ args = ["--local-timezone", "America/New_York"]
 command = "mcp-server-playwright"
 args = []
 
+[notice]
+"hide_gpt-5.1-codex-max_migration_prompt" = true

@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 
 export CODEX_HOME="${HOME}/.config/codex"
-
-{{ if .personal -}}
+{{- if .personal }}
 export OPENAI_API_KEY={{ quote (onepasswordRead "op://infra/tokens.inference/openai.common") }}
-{{ else -}}
+{{- else }}
 export OPENAI_API_KEY={{ quote (onepasswordRead "op://groq/tokens.inference/openai.gpt5_high") }}
-{{ end }}
+{{- end }}
 
-alias codex='\codex --sandbox=danger-full-access --ask-for-approval=on-request --cd ${PWD}'
+codex() {
+  unset OPENAI_API_KEY
+  command codex \
+    --sandbox=danger-full-access \
+    --ask-for-approval=on-request \
+    --cd ${PWD} "$@"
+}

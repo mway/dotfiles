@@ -2,13 +2,33 @@
 
 notify-filter() {
   local interval="${1:-}" # seconds; empty = notify-once
-  local last_beep=0
+  local interval_ms=""
+  local last_beep_ms=0
   local beeped_once=0
-  local now=0
+  local now_ms=0
+
+  if [ -n "$interval" ]; then
+    interval_ms="$(
+      python3 - "$interval" <<'PY'
+import sys
+
+try:
+    value = float(sys.argv[1])
+except (ValueError, IndexError):
+    print("notify-filter: interval must be numeric", file=sys.stderr)
+    sys.exit(1)
+
+if value < 0:
+    print("notify-filter: interval must be non-negative", file=sys.stderr)
+    sys.exit(1)
+
+print(int(value * 1000))
+PY
+    )" || return 1
+  fi
 
   while IFS= read -r line; do
     printf '%s\n' "$line"
-    now=$(date +%s)
 
     if [ -z "$interval" ]; then
       if [ "$beeped_once" -eq 0 ]; then
@@ -16,9 +36,11 @@ notify-filter() {
         beeped_once=1
       fi
     else
-      if [ $((now - last_beep)) -ge "$interval" ]; then
+      now_ms=$(python3 -c 'import time; print(int(time.time() * 1000))') || return 1
+
+      if [ $((now_ms - last_beep_ms)) -ge "$interval_ms" ]; then
         printf '\a'
-        last_beep=$now
+        last_beep_ms=$now_ms
       fi
     fi
   done
@@ -26,15 +48,15 @@ notify-filter() {
 
 alphagen() {
   local args=("${@:-32}")
-  pwgen -s -c -0 -1 -r "\!\\#\"'\`" "${args[@]}"
+  pwgen -s -c -0 -1 -r "\!\\#\"'\`" "${args[@]}" | tr -d '\n'
 }
 
 alphanumgen() {
   local args=("${@:-32}")
-  pwgen -s -c -n -1 -r "\!\\#\"'\`" "${args[@]}"
+  pwgen -s -c -n -1 -r "\!\\#\"'\`" "${args[@]}" | tr -d '\n'
 }
 
 strgen() {
   local args=("${@:-64}")
-  pwgen -s -c -n -y -1 -r "\!\\#\"'\`" "${args[@]}"
+  pwgen -s -c -n -y -1 -r "\!\\#\"'\`" "${args[@]}" | tr -d '\n'
 }
