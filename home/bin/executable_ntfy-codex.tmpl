@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+
+import base64
+import json
+import os
+import subprocess
+import sys
+
+TOPIC = "codex"
+NTFY_URL = f"https://ntfy.wayhq.net/{TOPIC}"
+
+
+def main() -> int:
+    if len(sys.argv) < 2:
+        return 0
+
+    notification = json.loads(sys.argv[1])
+    if notification.get("type") != "agent-turn-complete":
+        return 0
+
+    last_msg = notification.get("last-assistant-message") or "Codex turn complete"
+    thread_title = notification.get("thread-title") or "Codex"
+
+    # Build a terse one-line summary for the title
+    collapsed = " ".join(last_msg.split())
+    max_len = 80
+    summary = collapsed if len(collapsed) <= max_len else (collapsed[: max_len - 1] + "…")
+    title = f"Codex - {summary}" if summary else thread_title
+
+    auth_header = None
+    username = os.getenv("NTFY_USERNAME")
+    password = os.getenv("NTFY_PASSWORD")
+    if username and password:
+        token = base64.b64encode(f"{username}:{password}".encode()).decode()
+        auth_header = f"Authorization: Basic {token}"
+
+    # Fire-and-forget ntfy push
+    subprocess.run(
+        [
+            "curl",
+            "-sSo",
+            "/dev/null",
+            "-w",
+            "",
+            "-H",
+            f"Title: {title}",
+            "-H",
+            "Priority: 3",
+            *(["-H", auth_header] if auth_header else []),
+            "-d",
+            last_msg,
+            NTFY_URL,
+        ],
+        check=False,
+    )
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
