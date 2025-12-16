@@ -1,10 +1,29 @@
 version = 1
 model = "gpt-5.1-codex-max"
 notify = ["ntfy-codex"]
+profile = "default"
+model_reasoning_effort = "high"
+model_reasoning_summary = "concise"
+model_verbosity = "medium"
+
+[features]
+apply_patch_freeform = true
+view_image_tool = true
+web_search_request = true
+unified_exec = false
+rmcp_client = false
+experimental_sandbox_command_assessment = false
+ghost_commit = false
+enable_experimental_windows_sandbox = false
+enable_elevated_windows_sandbox = false
+
+[history]
+persistence = "save-all"
+max_bytes = 10485760
 
 [profiles.default]
 provider = "openai"
-model = "gpt-5.1-codex"
+model = "gpt-5.1-codex-max"
 
 [profiles.default.model_options]
 temperature = 0.35
@@ -75,6 +94,24 @@ env = "OPENAI_API_KEY"
 [profiles.default.telemetry]
 enabled = false
 
+[profiles.read_only]
+provider = "openai"
+model = "gpt-5.1-codex-max"
+
+[profiles.read_only.sandbox]
+filesystem = "read-only"
+network = "enabled"
+approvals = "untrusted"
+
+[profiles.full_auto]
+provider = "openai"
+model = "gpt-5.1-codex-max"
+
+[profiles.full_auto.sandbox]
+filesystem = "danger-full-access"
+network = "enabled"
+approvals = "never"
+
 # MCP servers
 #[mcp_servers.github]
 #command = "github-mcp-server"
@@ -89,7 +126,7 @@ command = "gopls"
 args = ["mcp"]
 
 [mcp_servers.rust]
-command = "rust-analyzer-mcp"
+command = "{{ .chezmoi.homeDir }}/bin/rust-analyzer-mcp-codex"
 args = []
 
 [mcp_servers.time]
@@ -101,4 +138,5 @@ command = "mcp-server-playwright"
 args = []
 
 [notice]
+hide_gpt5_1_migration_prompt = true
 "hide_gpt-5.1-codex-max_migration_prompt" = true

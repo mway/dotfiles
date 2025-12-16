@@ -1,0 +1,124 @@
+#!/usr/bin/env python3
+
+import asyncio
+import json
+import os
+import sys
+
+FILTERED_NOTIFICATION_METHODS = {
+    "initialized",
+    "notifications/initialized",
+}
+
+
+def _should_drop_client_message(raw_line: bytes) -> bool:
+    try:
+        msg = json.loads(raw_line)
+    except Exception:
+        return False
+
+    if not isinstance(msg, dict):
+        return False
+
+    if msg.get("jsonrpc") != "2.0":
+        return False
+
+    if "id" in msg:
+        return False
+
+    return msg.get("method") in FILTERED_NOTIFICATION_METHODS
+
+
+def _should_drop_server_message(raw_line: bytes) -> bool:
+    try:
+        msg = json.loads(raw_line)
+    except Exception:
+        return False
+
+    if not isinstance(msg, dict):
+        return False
+    if "id" in msg:
+        return False
+
+    err = msg.get("error")
+    if not isinstance(err, dict):
+        return False
+    if err.get("code") != -32601:
+        return False
+
+    message = err.get("message")
+    if not isinstance(message, str):
+        return False
+
+    prefix = "Method not found: "
+    if not message.startswith(prefix):
+        return False
+
+    missing = message[len(prefix) :]
+    return missing in FILTERED_NOTIFICATION_METHODS
+
+
+async def _pipe_stdin_to_child(proc: asyncio.subprocess.Process) -> None:
+    loop = asyncio.get_running_loop()
+    reader = asyncio.StreamReader()
+    protocol = asyncio.StreamReaderProtocol(reader)
+    await loop.connect_read_pipe(lambda: protocol, sys.stdin.buffer)
+
+    while True:
+        line = await reader.readline()
+        if not line:
+            break
+        if _should_drop_client_message(line):
+            continue
+        assert proc.stdin is not None
+        proc.stdin.write(line)
+        await proc.stdin.drain()
+
+    if proc.stdin is not None:
+        proc.stdin.close()
+
+
+async def _pipe_child_to_stdout(proc_stream: asyncio.StreamReader) -> None:
+    while True:
+        line = await proc_stream.readline()
+        if not line:
+            break
+        if _should_drop_server_message(line):
+            continue
+        try:
+            sys.stdout.buffer.write(line)
+            sys.stdout.buffer.flush()
+        except BrokenPipeError:
+            break
+
+
+async def main() -> int:
+    cmd = ["rust-analyzer-mcp"]
+
+    proc = await asyncio.create_subprocess_exec(
+        *cmd,
+        stdin=asyncio.subprocess.PIPE,
+        stdout=asyncio.subprocess.PIPE,
+        stderr=None,  # inherit
+        env=os.environ.copy(),
+    )
+
+    assert proc.stdout is not None
+
+    tasks = [
+        asyncio.create_task(_pipe_stdin_to_child(proc)),
+        asyncio.create_task(_pipe_child_to_stdout(proc.stdout)),
+    ]
+
+    try:
+        await proc.wait()
+    finally:
+        for t in tasks:
+            t.cancel()
+        await asyncio.gather(*tasks, return_exceptions=True)
+
+    return proc.returncode or 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(asyncio.run(main()))
