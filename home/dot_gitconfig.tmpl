@@ -101,6 +101,8 @@
 	commit-msg = "!f() { git log --format="%B" -n 1 | perl -pe 'chomp if eof'; }; f"
 	msg = commit-msg
 	wt = worktree
+	mine = "!f() { git l --author="$USER"; }; f"
+	vmine = "!f() { git log --author="$USER"; }; f"
 [branch]
 	autosetuprebase = always
 [rerere]

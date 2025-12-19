@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+# Claude Code PostToolUse hook for auto-formatting edited files.
+# Expects CLAUDE_FILE_PATH environment variable to be set.
+# Formatters match ~/.config/helix/languages.toml configuration.
+
+set -euo pipefail
+
+file="${CLAUDE_FILE_PATH:-}"
+[[ -z "$file" || ! -f "$file" ]] && exit 0
+
+case "$file" in
+  *.go)
+    command -v golangci-lint >/dev/null 2>&1 && \
+      golangci-lint run --fix "$file" 2>/dev/null || true
+    ;;
+  *.py)
+    command -v black >/dev/null 2>&1 && \
+      black --quiet --line-length=79 "$file" 2>/dev/null || true
+    command -v isort >/dev/null 2>&1 && \
+      isort --multi-line=VERTICAL_HANGING_INDENT --profile=black "$file" 2>/dev/null || true
+    ;;
+  *.rs)
+    command -v rustfmt >/dev/null 2>&1 && \
+      rustfmt "$file" 2>/dev/null || true
+    ;;
+  *.sh|*.bash)
+    command -v shfmt >/dev/null 2>&1 && \
+      shfmt -i 2 -w "$file" 2>/dev/null || true
+    ;;
+  *.h|*.hh|*.hpp|*.hxx|*.c|*.cc|*.cpp|*.cxx)
+    command -v clang-format >/dev/null 2>&1 && \
+      clang-format --Werror -i "$file" 2>/dev/null || true
+    ;;
+  *.hcl|*.tf|*.tfvars)
+    command -v terraform >/dev/null 2>&1 && \
+      terraform fmt "$file" 2>/dev/null || true
+    ;;
+  *.toml)
+    command -v taplo >/dev/null 2>&1 && \
+      taplo fmt "$file" 2>/dev/null || true
+    ;;
+  *.md|*.markdown)
+    command -v prettier >/dev/null 2>&1 && \
+      prettier --write "$file" 2>/dev/null || true
+    ;;
+esac
+
+exit 0
