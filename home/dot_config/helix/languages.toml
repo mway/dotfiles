@@ -32,6 +32,7 @@ Index.StandardLibrary = "Yes"
 
 [[language]]
 name = "rust"
+language-servers = ["rust-analyzer"]
 formatter = { command = "rustfmt" }
 
 [[language]]
