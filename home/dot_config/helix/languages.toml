@@ -14,7 +14,7 @@ unusedparams = true
 unreachable = true
 
 [language-server.golangci-lint-lsp.config]
-command = ["golangci-lint", "run", "--output.json.path=stdout", "--show-stats=false", "--issues-exit-code=1"]
+command = ["golangci-lint", "run", "--output.json.path=stdout", "--output.text.path=stderr", "--show-stats=false", "--issues-exit-code=1"]
 
 [[language]]
 name = "cpp"
