@@ -136,6 +136,9 @@ bind d detach-client
 # C-a r: Reload tmux config
 bind r source-file ~/.config/tmux/tmux.conf \; display "Config reloaded!"
 
+# C-a S: Toggle synchronize-panes (send keystrokes to all panes)
+bind S setw synchronize-panes \; display "Synchronize-panes #{?pane_synchronized,ON,OFF}"
+
 # ============================================================================
 # Copy Mode (Vi-style)
 # ============================================================================
