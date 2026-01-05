@@ -1,0 +1,186 @@
+# ============================================================================
+# Prefix
+# ============================================================================
+# Change prefix from C-b to C-a
+unbind C-b
+set-option -g prefix C-a
+bind-key C-a send-prefix
+
+# ============================================================================
+# Pane Navigation (Alt+Arrow keys)
+# ============================================================================
+bind -n M-Left select-pane -L
+bind -n M-Right select-pane -R
+bind -n M-Up select-pane -U
+bind -n M-Down select-pane -D
+
+# Also support vim-style navigation with Alt+hjkl
+bind -n M-h select-pane -L
+bind -n M-l select-pane -R
+bind -n M-k select-pane -U
+bind -n M-j select-pane -D
+
+# ============================================================================
+# Window (Tab) Navigation
+# ============================================================================
+bind -n M-[ previous-window
+bind -n M-] next-window
+
+# ============================================================================
+# Pane Splitting
+# ============================================================================
+# C-a _ splits vertically (new pane below)
+bind _ split-window -v -c "#{pane_current_path}"
+
+# C-a | splits horizontally (new pane to the right)
+bind | split-window -h -c "#{pane_current_path}"
+
+# Unbind default split keys
+unbind '"'
+unbind %
+
+# ============================================================================
+# Predefined Layouts
+# ============================================================================
+# C-a L 1: Default layout (fixed 125-col left pane, two variable-width right panes stacked)
+bind -T layout 1 run-shell '\
+    tmux split-window -h -c "#{pane_current_path}" \; \
+    resize-pane -t 1 -x 125 \; \
+    select-pane -t 2 \; \
+    split-window -v -c "#{pane_current_path}" \; \
+    select-pane -t 1'
+
+# C-a L 2: Empty layout (single pane)
+bind -T layout 2 kill-pane -a
+
+# C-a L h: Reset to even horizontal layout
+bind -T layout h select-layout even-horizontal
+
+# C-a L v: Reset to even vertical layout
+bind -T layout v select-layout even-vertical
+
+# C-a L: Enter layout mode
+bind L switch-client -T layout
+
+# ============================================================================
+# Quality of Life Improvements
+# ============================================================================
+# Enable mouse support
+set -g mouse on
+
+# Start windows and panes at 1, not 0
+set -g base-index 1
+setw -g pane-base-index 1
+
+# Renumber windows when one is closed
+set -g renumber-windows on
+
+# Increase scrollback buffer size
+set -g history-limit 100000
+
+# Enable 256 color support
+set -g default-terminal "screen-256color"
+
+# Faster command sequences (shorter escape time)
+set -s escape-time 0
+
+# Increase repeat time for repeatable commands
+set -g repeat-time 1000
+
+# Enable activity alerts
+setw -g monitor-activity on
+set -g visual-activity off
+
+# ============================================================================
+# Pane Management
+# ============================================================================
+# C-a x: Close current pane (with confirmation)
+bind x confirm-before -p "kill-pane #P? (y/n)" kill-pane
+
+# C-a X: Close current window (with confirmation)
+bind X confirm-before -p "kill-window #W? (y/n)" kill-window
+
+# C-a z: Toggle pane zoom
+bind z resize-pane -Z
+
+# ============================================================================
+# Pane Resizing
+# ============================================================================
+# C-a Alt+Arrow: Resize panes
+bind -r M-Up resize-pane -U 5
+bind -r M-Down resize-pane -D 5
+bind -r M-Left resize-pane -L 5
+bind -r M-Right resize-pane -R 5
+
+# C-a Alt+hjkl: Resize panes (vim-style)
+bind -r M-k resize-pane -U 5
+bind -r M-j resize-pane -D 5
+bind -r M-h resize-pane -L 5
+bind -r M-l resize-pane -R 5
+
+# ============================================================================
+# Window Management
+# ============================================================================
+# C-a c: Create new window
+bind c new-window -c "#{pane_current_path}"
+
+# C-a ,: Rename current window
+bind , command-prompt -I "#W" "rename-window '%%'"
+
+# ============================================================================
+# Session Management
+# ============================================================================
+# C-a d: Detach from session
+bind d detach-client
+
+# C-a r: Reload tmux config
+bind r source-file ~/.config/tmux/tmux.conf \; display "Config reloaded!"
+
+# ============================================================================
+# Copy Mode (Vi-style)
+# ============================================================================
+setw -g mode-keys vi
+
+# C-a [: Enter copy mode
+bind [ copy-mode
+
+# C-a ]: Paste buffer
+bind ] paste-buffer
+
+# In copy mode, v begins selection and y copies
+bind -T copy-mode-vi v send-keys -X begin-selection
+bind -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+bind -T copy-mode-vi C-v send-keys -X rectangle-toggle
+
+# Mouse selection automatically copies to system clipboard (macOS)
+bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pbcopy"
+bind -T copy-mode MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pbcopy"
+
+# ============================================================================
+# Status Bar
+# ============================================================================
+set -g status on
+set -g status-position bottom
+set -g status-justify left
+set -g status-style 'bg=colour236 fg=colour249'
+
+set -g status-left-length 40
+set -g status-left '#[fg=colour208,bold]#S #[fg=colour249]| '
+
+set -g status-right-length 80
+set -g status-right '#[fg=colour249]%Y-%m-%d %H:%M '
+
+setw -g window-status-format ' #I:#W '
+setw -g window-status-current-format '#[fg=colour208,bold] #I:#W '
+setw -g window-status-separator '|'
+
+# ============================================================================
+# Pane Borders
+# ============================================================================
+set -g pane-border-style 'fg=colour238'
+set -g pane-active-border-style 'fg=colour208'
+
+# ============================================================================
+# Message Style
+# ============================================================================
+set -g message-style 'bg=colour236 fg=colour208 bold'
