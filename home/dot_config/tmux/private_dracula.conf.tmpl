@@ -1,0 +1,81 @@
+# ============================================================================
+# Dracula Theme for tmux
+# ============================================================================
+# Based on the official Dracula color palette:
+# https://draculatheme.com/contribute
+#
+# Background:    #282a36
+# Current Line:  #44475a
+# Foreground:    #f8f8f2
+# Comment:       #6272a4
+# Cyan:          #8be9fd
+# Green:         #50fa7b
+# Orange:        #ffb86c
+# Pink:          #ff79c6
+# Purple:        #bd93f9
+# Red:           #ff5555
+# Yellow:        #f1fa8c
+# ============================================================================
+
+# ============================================================================
+# Status Bar
+# ============================================================================
+set -g status-style "bg=#282a36,fg=#f8f8f2"
+set -g status-left-style "bg=#282a36,fg=#50fa7b,bold"
+set -g status-right-style "bg=#282a36,fg=#f8f8f2"
+
+# Left side: session name in green
+set -g status-left-length 40
+set -g status-left "#[fg=#50fa7b,bold]#S #[fg=#6272a4]│ "
+
+# Right side: date and time
+set -g status-right-length 80
+set -g status-right "#[fg=#6272a4]│ #[fg=#f8f8f2]%Y-%m-%d #[fg=#6272a4]│ #[fg=#8be9fd]%H:%M "
+
+# Window status
+set -g window-status-separator ""
+
+# Inactive windows: subtle gray
+setw -g window-status-format "#[fg=#6272a4] #I:#W "
+
+# Active window: pink/purple highlight
+setw -g window-status-current-format "#[fg=#282a36,bg=#bd93f9,bold] #I:#W #[bg=#282a36] "
+
+# Window with activity: orange
+setw -g window-status-activity-style "fg=#ffb86c"
+
+# ============================================================================
+# Pane Borders
+# ============================================================================
+# Inactive pane border: dark gray
+set -g pane-border-style "fg=#44475a"
+
+# Active pane border: purple
+set -g pane-active-border-style "fg=#bd93f9"
+
+# ============================================================================
+# Messages
+# ============================================================================
+# Command/message line
+set -g message-style "bg=#44475a,fg=#f8f8f2,bold"
+
+# Command mode (when typing commands)
+set -g message-command-style "bg=#44475a,fg=#f8f8f2"
+
+# ============================================================================
+# Copy Mode
+# ============================================================================
+# Copy mode styling (when in copy/scroll mode)
+setw -g mode-style "bg=#44475a,fg=#f8f8f2"
+
+# ============================================================================
+# Clock Mode
+# ============================================================================
+# Clock color (C-a t to show clock)
+setw -g clock-mode-colour "#bd93f9"
+
+# ============================================================================
+# Pane Numbers (C-a q to show)
+# ============================================================================
+set -g display-panes-active-colour "#bd93f9"
+set -g display-panes-colour "#6272a4"

@@ -91,6 +91,10 @@ set -g repeat-time 1000
 setw -g monitor-activity on
 set -g visual-activity off
 
+# Set terminal window title to session name
+set -g set-titles on
+set -g set-titles-string "#S"
+
 # ============================================================================
 # Pane Management
 # ============================================================================
@@ -160,30 +164,6 @@ bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pbcopy
 bind -T copy-mode MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pbcopy"
 
 # ============================================================================
-# Status Bar
+# Theme
 # ============================================================================
-set -g status on
-set -g status-position bottom
-set -g status-justify left
-set -g status-style 'bg=colour236 fg=colour249'
-
-set -g status-left-length 40
-set -g status-left '#[fg=colour208,bold]#S #[fg=colour249]| '
-
-set -g status-right-length 80
-set -g status-right '#[fg=colour249]%Y-%m-%d %H:%M '
-
-setw -g window-status-format ' #I:#W '
-setw -g window-status-current-format '#[fg=colour208,bold] #I:#W '
-setw -g window-status-separator '|'
-
-# ============================================================================
-# Pane Borders
-# ============================================================================
-set -g pane-border-style 'fg=colour238'
-set -g pane-active-border-style 'fg=colour208'
-
-# ============================================================================
-# Message Style
-# ============================================================================
-set -g message-style 'bg=colour236 fg=colour208 bold'
+source-file ~/.config/tmux/dracula.conf
