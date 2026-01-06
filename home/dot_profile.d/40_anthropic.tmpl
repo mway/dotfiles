@@ -1,32 +1,36 @@
 #!/usr/bin/env bash
 # Managed by Chezmoi
 
-set-anthropic-real() {
-  export ANTHROPIC_API_KEY={{ quote (onepasswordRead "op://infra/tokens.inference/anthropic.common") }}
+claude() {
+  command claude \
+    --allow-dangerously-skip-permissions \
+    "$@"
 }
 
-set-anthropic() {
-  export ANTHROPIC_BASE_URL={{ quote (onepasswordRead "op://infra/anthropic.claude/base_url") }}
-  export ANTHROPIC_API_KEY={{ quote (onepasswordRead "op://infra/anthropic.claude/api_key") }}
-  export ANTHROPIC_DEFAULT_HAIKU_MODEL={{ quote (onepasswordRead "op://infra/anthropic.claude/default_haiku_model") }}
-  export ANTHROPIC_DEFAULT_OPUS_MODEL={{ quote (onepasswordRead "op://infra/anthropic.claude/default_opus_model") }}
-  export ANTHROPIC_DEFAULT_SONNET_MODEL={{ quote (onepasswordRead "op://infra/anthropic.claude/default_sonnet_model") }}
+claude-resume() {
+  claude -c
 }
 
-unset-anthropic() {
-  for var in $(env | grep ANTHROPIC | cut -d= -f1); do
-    unset "$var"
+claude-force-resume() {
+  local generate=1
+  local -a extra_args=()
+
+  for arg in "$@"; do
+    case "$arg" in
+    "-r" | "--resume" | "--session-id")
+      generate=0
+      ;;
+    *)
+      # nop
+      ;;
+    esac
   done
-  set-anthropic-real
-}
 
-anthropic-models() {
-  curl \
-    -sSL \
-    -H "Anthropic-Version: 2023-06-01" \
-    -H "X-Api-Key: {{ onepasswordRead "op://infra/anthropic.claude/anthropic_api_key" }}" \
-    https://api.anthropic.com/v1/models \
-    | jq -r '.data[].id' | sort -u
-}
+  if [[ "$generate" -eq 1 ]]; then
+    # shellcheck disable=SC2155
+    local sid="$(uuidgen | tr '[:upper:]' '[:lower:]')"
+    extra_args=(--session-id="$sid")
+  fi
 
-set-anthropic-real
+  claude "${extra_args[@]}" "$@"
+}

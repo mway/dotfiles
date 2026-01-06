@@ -1,0 +1,13 @@
+# Managed by Chezmoi
+
+[shell_alias]
+cm = 'chezmoi'
+exa = 'eza'
+htop = 'sudo htop'
+kc = 'kubectl'
+ls = 'eza -al'
+lsg = 'ls --git'
+mkdir = 'mkdir -p'
+tf = 'terraform'
+tm = 'tmux'
+zj = 'zellij'

@@ -23,11 +23,6 @@ export LANG=en_US.UTF-8
 export MISE="{{ .path.named.mise }}"
 [ ! -f "$MISE" ] || eval "$("$MISE" activate zsh)"
 
-{{ if .personal -}}
-export PATH="$PATH:{{ joinPath .path.home ".cache/lm-studio/bin" }}"
-[ -s "{{ .path.home }}/.bun/_bun" ] && source "{{ .path.home }}/.bun/_bun"
-{{- end }}
-
 sources=(
   '{{ joinPath .path.home ".dotrc" }}'
   '{{ joinPath .path.home ".dotrc.zsh" }}'

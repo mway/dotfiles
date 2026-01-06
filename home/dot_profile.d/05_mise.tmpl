@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-# Managed by Chezmoi
-
-{{ if isExecutable .path.named.mise -}}
-eval "$({{ .path.named.mise }} env)"
-{{- else -}}
-export PATH="{{ .path.path }}"
-{{- end }}
-

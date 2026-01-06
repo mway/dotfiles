@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
+# Managed by Chezmoi
 
-export CODEX_HOME="${HOME}/.config/codex"
-{{- if .personal }}
-export OPENAI_API_KEY={{ quote (onepasswordRead "op://infra/tokens.inference/openai.common") }}
-{{- else }}
-export OPENAI_API_KEY={{ quote (onepasswordRead "op://groq/tokens.inference/openai.gpt5_high") }}
-{{- end }}
+unset CODEX_HOME
 
 codex() {
-  unset OPENAI_API_KEY
   command codex \
     --sandbox=danger-full-access \
     --ask-for-approval=on-request \
-    --cd ${PWD} "$@"
+    --search \
+    --cd "${PWD}" "$@"
+}
+
+codex-resume() {
+  codex resume --last
 }

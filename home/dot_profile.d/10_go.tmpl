@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-# Managed by Chezmoi
-
-export GOPRIVATE='go.mway.dev/*{{ if not .personal -}},github.com/groq/*{{- end }}'
-export GOTOOLCHAIN='go{{ .versions.go }}'
