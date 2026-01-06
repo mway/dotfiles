@@ -1,10 +1,9 @@
 # ============================================================================
 # Prefix
 # ============================================================================
-# Change prefix from C-b to C-a
-unbind C-b
-set-option -g prefix C-a
-bind-key C-a send-prefix
+# Use C-b as prefix (default)
+set-option -g prefix C-b
+bind-key C-b send-prefix
 
 # ============================================================================
 # Pane Navigation (Alt+Arrow keys)
@@ -29,10 +28,10 @@ bind -n M-] next-window
 # ============================================================================
 # Pane Splitting
 # ============================================================================
-# C-a _ splits vertically (new pane below)
+# C-b _ splits vertically (new pane below)
 bind _ split-window -v -c "#{pane_current_path}"
 
-# C-a | splits horizontally (new pane to the right)
+# C-b | splits horizontally (new pane to the right)
 bind | split-window -h -c "#{pane_current_path}"
 
 # Unbind default split keys
@@ -42,7 +41,7 @@ unbind %
 # ============================================================================
 # Predefined Layouts
 # ============================================================================
-# C-a L 1: Default layout (fixed 125-col left pane, two variable-width right panes stacked)
+# C-b L 1: Default layout (fixed 125-col left pane, two variable-width right panes stacked)
 bind -T layout 1 run-shell '\
     tmux split-window -h -c "#{pane_current_path}" \; \
     resize-pane -t 1 -x 125 \; \
@@ -50,17 +49,23 @@ bind -T layout 1 run-shell '\
     split-window -v -c "#{pane_current_path}" \; \
     select-pane -t 1'
 
-# C-a L 2: Empty layout (single pane)
+# C-b L 2: Empty layout (single pane)
 bind -T layout 2 kill-pane -a
 
-# C-a L h: Reset to even horizontal layout
+# C-b L h: Reset to even horizontal layout
 bind -T layout h select-layout even-horizontal
 
-# C-a L v: Reset to even vertical layout
+# C-b L v: Reset to even vertical layout
 bind -T layout v select-layout even-vertical
 
-# C-a L: Enter layout mode
+# C-b L: Enter layout mode
 bind L switch-client -T layout
+
+# C-b R: Reset current layout (restore pane 1 to 125 cols, split right panes evenly)
+bind R run-shell '\
+    tmux resize-pane -t 1 -x 125 2>/dev/null; \
+    h=$(tmux display-message -p "#{window_height}"); \
+    tmux resize-pane -t 2 -y $((h/2)) 2>/dev/null || true'
 
 # ============================================================================
 # Quality of Life Improvements
@@ -98,25 +103,25 @@ set -g set-titles-string "#S"
 # ============================================================================
 # Pane Management
 # ============================================================================
-# C-a x: Close current pane (with confirmation)
+# C-b x: Close current pane (with confirmation)
 bind x confirm-before -p "kill-pane #P? (y/n)" kill-pane
 
-# C-a X: Close current window (with confirmation)
+# C-b X: Close current window (with confirmation)
 bind X confirm-before -p "kill-window #W? (y/n)" kill-window
 
-# C-a z: Toggle pane zoom
+# C-b z: Toggle pane zoom
 bind z resize-pane -Z
 
 # ============================================================================
 # Pane Resizing
 # ============================================================================
-# C-a Alt+Arrow: Resize panes
+# C-b Alt+Arrow: Resize panes
 bind -r M-Up resize-pane -U 5
 bind -r M-Down resize-pane -D 5
 bind -r M-Left resize-pane -L 5
 bind -r M-Right resize-pane -R 5
 
-# C-a Alt+hjkl: Resize panes (vim-style)
+# C-b Alt+hjkl: Resize panes (vim-style)
 bind -r M-k resize-pane -U 5
 bind -r M-j resize-pane -D 5
 bind -r M-h resize-pane -L 5
@@ -125,22 +130,22 @@ bind -r M-l resize-pane -R 5
 # ============================================================================
 # Window Management
 # ============================================================================
-# C-a c: Create new window
+# C-b c: Create new window
 bind c new-window -c "#{pane_current_path}"
 
-# C-a ,: Rename current window
+# C-b ,: Rename current window
 bind , command-prompt -I "#W" "rename-window '%%'"
 
 # ============================================================================
 # Session Management
 # ============================================================================
-# C-a d: Detach from session
+# C-b d: Detach from session
 bind d detach-client
 
-# C-a r: Reload tmux config
+# C-b r: Reload tmux config
 bind r source-file ~/.config/tmux/tmux.conf \; display "Config reloaded!"
 
-# C-a S: Toggle synchronize-panes (send keystrokes to all panes)
+# C-b S: Toggle synchronize-panes (send keystrokes to all panes)
 bind S setw synchronize-panes \; display "Synchronize-panes #{?pane_synchronized,ON,OFF}"
 
 # ============================================================================
@@ -148,10 +153,10 @@ bind S setw synchronize-panes \; display "Synchronize-panes #{?pane_synchronized
 # ============================================================================
 setw -g mode-keys vi
 
-# C-a [: Enter copy mode
+# C-b [: Enter copy mode
 bind [ copy-mode
 
-# C-a ]: Paste buffer
+# C-b ]: Paste buffer
 bind ] paste-buffer
 
 # In copy mode, v begins selection and y copies
