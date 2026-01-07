@@ -169,6 +169,17 @@ bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pbcopy
 bind -T copy-mode MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pbcopy"
 
 # ============================================================================
+# Plugins
+# ============================================================================
+# tmux-resurrect: Save and restore tmux sessions
+run-shell ~/.config/tmux/plugins/tmux-resurrect/resurrect.tmux
+
+# Resurrect settings
+set -g @resurrect-capture-pane-contents 'on'
+set -g @resurrect-processes 'hx claude-resume codex-resume'
+set -g @resurrect-dir '~/.config/tmux/resurrect'
+
+# ============================================================================
 # Theme
 # ============================================================================
 source-file ~/.config/tmux/dracula.conf
