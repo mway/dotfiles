@@ -1,0 +1,18 @@
+name: "Minimal"
+description: "Core agent behaviors only - no language or domain specific guidance"
+version: "1.0.0"
+
+includes:
+  - core/behavior.md
+  - core/communication.md
+  - core/methodology.md
+  - core/efficiency.md
+  - core/task-management.md
+
+priority: 50
+
+meta_prompts:
+  on_start:
+    - "Create TODO list if task is non-trivial"
+  on_implement:
+    - "Update TODO progress as you work"

@@ -1,0 +1,131 @@
+name: "Go Development"
+description: "Full-stack Go development with testing, review, and optimization"
+version: "1.0.0"
+
+# Modules to include (order matters - later overrides earlier)
+includes:
+  # Core behaviors (always loaded)
+  - core/behavior.md
+  - core/communication.md
+  - core/methodology.md
+  - core/efficiency.md
+  - core/task-management.md
+  
+  # Domain expertise
+  - domain/architecture/decomposition.md
+  - domain/architecture/parallelization.md
+  - domain/coding/workflow.md
+  - domain/coding/quality.md
+  - domain/coding/safety.md
+  - domain/testing/unit.md
+  - domain/testing/coverage.md
+  - domain/review/process.md
+  - domain/review/priorities.md
+  
+  # Language-specific
+  - domain/coding/go/style.md
+  - domain/coding/go/idioms.md
+  - domain/coding/go/performance.md
+  - domain/coding/go/concurrency.md
+  - domain/coding/go/testing.md
+  - domain/coding/go/organization.md
+  - domain/coding/go/tooling.md
+  
+  # Workflows
+  - workflows/feature.md
+
+# Priority/weight for conflict resolution
+priority: 100
+
+# Auto-activation triggers (context-aware loading)
+triggers:
+  file_patterns:
+    - "*.go"
+    - "go.mod"
+    - "go.sum"
+    - "**/*_test.go"
+  
+  commands:
+    - pattern: "go (build|test|run|vet|mod)"
+      auto_activate: true
+    - pattern: "golangci-lint"
+      auto_activate: true
+
+# Quality gates (enforced checkpoints)
+gates:
+  # Before creating git commits
+  pre_commit:
+    - name: "Format check"
+      description: "Verify code is formatted correctly"
+      command: "gofumpt -l ."
+      required: true
+      blocking: true
+      
+    - name: "Test suite"
+      description: "Run all tests with race detector"
+      command: "go test -race -count 1 ./..."
+      required: true
+      blocking: true
+      
+    - name: "Lint check"
+      description: "Run golangci-lint"
+      command: "golangci-lint run --new-false ./..."
+      required: true
+      blocking: true
+  
+  # Before presenting plans
+  pre_plan_present:
+    - name: "Self-review checklist"
+      blocking: true
+      instruction: |
+        Before presenting this plan, verify:
+        1. Have I broken down complex problems into subproblems?
+        2. Have I identified parallelization opportunities?
+        3. Have I considered edge cases and failure modes?
+        4. Is this plan complete and unambiguous?
+        5. Have I created a TODO list to track execution?
+        
+        If any answer is NO, revise the plan before presenting.
+  
+  # Before marking tasks complete
+  pre_task_complete:
+    - name: "Completion verification"
+      blocking: true
+      instruction: |
+        Before marking this task complete:
+        1. Have all subtasks been completed?
+        2. Have tests been written and passed?
+        3. Has the code been formatted and linted?
+        4. Have I verified the changes work as expected?
+        
+        If any answer is NO, do not mark complete yet.
+
+# Meta-cognitive prompts (enhance thinking)
+meta_prompts:
+  on_start:
+    - "Create a TODO list to track all tasks in this session"
+    - "Identify opportunities for parallel execution with subagents"
+    - "Break down the problem before starting implementation"
+  
+  on_plan:
+    - "Break this problem into atomic, testable subproblems"
+    - "Identify what can be done in parallel"
+    - "Self-review: What am I missing? What could go wrong?"
+    - "Have I considered all edge cases?"
+  
+  on_implement:
+    - "Update TODO list before starting each task"
+    - "Mark tasks complete immediately after finishing"
+    - "Test incrementally as I implement"
+    - "Follow existing code patterns"
+  
+  on_error:
+    - "Gather empirical data before forming hypotheses"
+    - "Think scientifically: test, measure, validate"
+    - "What evidence do I have? What assumptions am I making?"
+  
+  on_review:
+    - "Check runtime safety first (crashes, races, leaks)"
+    - "Then correctness (does it work right?)"
+    - "Then idiomaticity (follows Go conventions?)"
+    - "Prove issues empirically when possible"
