@@ -11,6 +11,52 @@
 - **No prose**: Don't use flowery language or be overly flattering. Assume the user is an expert in one or more relevant domains and speak to them as such. Don't use phrases like "You're absolutely right", instead preferring neutral phrases like "Good point"
 - **Think critically**: Do not mindlessly agree with or placate the user. Always apply critical thinking, backed by evidence or strong, educated hypotheses.
 
+## Task Tracking
+- **When required**: Tasks with 3+ steps, complex multi-file work, or non-trivial implementation
+- **Golden rule**: Exactly ONE task `in_progress` at any given moment
+  - ✗ Never ZERO in_progress (if work is happening)
+  - ✗ Never TWO OR MORE in_progress
+  - ✓ Always exactly ONE in_progress
+- **No batching**: Mark tasks as completed immediately after finishing - never batch multiple completions
+- **Status flow**: `pending` → `in_progress` → `completed`
+- **When blocked**: Move task back to `pending`, create new task describing the blocker
+- **Task forms**: Each task needs two forms:
+  - `content`: Imperative (e.g., "Run tests", "Fix bug in parser")
+  - `activeForm`: Present continuous (e.g., "Running tests", "Fixing bug in parser")
+
+## Problem-Solving Framework
+Apply this 5-phase approach to all non-trivial work:
+
+1. **Understand** (Decompose the problem)
+   - Gather all requirements and constraints
+   - Identify unknowns and dependencies
+   - Restate the problem to confirm understanding
+   - Ask clarifying questions if needed
+
+2. **Plan** (Strategize the solution)
+   - Design approach from first principles
+   - Make scope decisions (what's in/out)
+   - Identify opportunities for parallelization
+   - Break complex work into TODO items
+
+3. **Execute** (Implement methodically)
+   - Work through TODO list systematically
+   - Update task status in real-time
+   - Validate incrementally (don't save all verification for the end)
+   - Document decisions as you go
+
+4. **Verify** (Validate correctness)
+   - Sanity check first: "Is this actually good/correct?"
+   - Then run mechanical verification (tests, lint, build)
+   - Fix issues immediately, re-verify
+   - Don't proceed until verification passes
+
+5. **Reflect** (Learn from the work)
+   - What worked well? What didn't?
+   - Were estimates accurate?
+   - Would a different approach have been better?
+   - (This is internal reflection - don't always share with user)
+
 ## Commands
 - **Build**: `go build -o /dev/null ./...` or `just build-lint ./...`
 - **Test**: `go test -race -count 1 ./...` (run all tests), `go test -race -count 1 ./path/to/package` (single package)
@@ -253,6 +299,47 @@
 - **Coverage**: Aim for 100% unit test coverage, minimum 80% for new code
 - **Testing libraries**: Use github.com/stretchr/testify for assertions and mocks; prefer the `require` subpackage over `assert`
 - **Mocking libraries**: Use go.uber.org/mock for mocks/mockgen/etc. DO NOT use github.com/golang/mock.
+
+## Guidance Module References
+
+Additional detailed guidance is available in `~/.config/agent/`. While these files may not be auto-loaded by all agents, they can be referenced when relevant:
+
+**Core:**
+- `~/.config/agent/core/behavior.md` - Critical thinking, evidence-based reasoning
+- `~/.config/agent/core/communication.md` - Tone, style, conciseness
+- `~/.config/agent/core/methodology.md` - 5-phase problem-solving (detailed)
+- `~/.config/agent/core/efficiency.md` - Parallelization, throughput optimization
+- `~/.config/agent/core/task-management.md` - TODO discipline (detailed)
+- `~/.config/agent/core/principles.md` - Engineering principles (SOLID, DRY, YAGNI, etc.)
+
+**Architecture:**
+- `~/.config/agent/domain/architecture/decomposition.md` - Problem breakdown strategies
+- `~/.config/agent/domain/architecture/parallelization.md` - Concurrent execution patterns
+
+**Coding (General):**
+- `~/.config/agent/domain/coding/workflow.md` - Universal coding workflow
+- `~/.config/agent/domain/coding/quality.md` - Quality priorities (correctness, safety, performance)
+- `~/.config/agent/domain/coding/safety.md` - Runtime + security safety
+
+**Coding (Go-specific):**
+- `~/.config/agent/domain/coding/go/style.md` - Go code style (beyond Uber guide)
+- `~/.config/agent/domain/coding/go/idioms.md` - Go conventions and best practices
+- `~/.config/agent/domain/coding/go/concurrency.md` - Go thread safety, race conditions
+- `~/.config/agent/domain/coding/go/testing.md` - Go test practices (table-driven, subtests)
+- `~/.config/agent/domain/coding/go/tooling.md` - Go commands (go test, golangci-lint, etc.)
+- `~/.config/agent/domain/coding/go/organization.md` - Go code structure, package design
+- `~/.config/agent/domain/coding/go/performance.md` - Go optimization, profiling
+
+**Testing:**
+- `~/.config/agent/domain/testing/unit.md` - Unit test strategies
+- `~/.config/agent/domain/testing/coverage.md` - Coverage requirements and measurement
+
+**Review:**
+- `~/.config/agent/domain/review/process.md` - Review workflow and interactivity
+- `~/.config/agent/domain/review/priorities.md` - Review focus areas (safety, correctness, idiomaticity)
+
+**Workflows:**
+- `~/.config/agent/workflows/feature.md` - Feature implementation workflow
 
 ## Filesystem modifications
 - **Destructive operations**: NEVER perform destructive actions (removing files/directories, removing/changing existing lines within files) without asking for confirmation

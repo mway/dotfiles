@@ -113,6 +113,105 @@ filesystem = "danger-full-access"
 network = "enabled"
 approvals = "never"
 
+[profiles.methodical]
+provider = "openai"
+model = "gpt-5.2-codex"
+model_reasoning_effort = "high"
+
+[profiles.methodical.model_options]
+temperature = 0.35
+top_p = 1.0
+max_output_tokens = 32000
+
+[profiles.methodical.persona]
+tone = "analytical"
+style = "detailed"
+
+[profiles.methodical.prompts]
+system = """
+You are a coding agent running in the Codex CLI with extreme attention to detail.
+"""
+developer = """
+Read both @~/AGENTS.md and @AGENTS.md, if they exist, and internalize their instructions. Operate with hyper-detailed, evidence-based reasoning. Show your work and reasoning at each step.
+"""
+
+[profiles.concise]
+provider = "openai"
+model = "gpt-5.2-codex"
+model_reasoning_effort = "medium"
+model_verbosity = "low"
+
+[profiles.concise.model_options]
+temperature = 0.35
+top_p = 1.0
+max_output_tokens = 32000
+
+[profiles.concise.persona]
+tone = "concise"
+style = "direct"
+
+[profiles.concise.prompts]
+system = """
+You are a coding agent running in the Codex CLI. Be extremely concise and action-focused.
+"""
+developer = """
+Read both @~/AGENTS.md and @AGENTS.md, if they exist, and internalize their instructions. Minimize verbosity. Focus on action over explanation unless explicitly asked.
+"""
+
+[profiles.reviewer]
+provider = "openai"
+model = "gpt-5.2-codex"
+model_reasoning_effort = "high"
+
+[profiles.reviewer.model_options]
+temperature = 0.35
+top_p = 1.0
+max_output_tokens = 32000
+
+[profiles.reviewer.persona]
+tone = "analytical"
+style = "detailed"
+
+[profiles.reviewer.prompts]
+system = """
+You are a code review specialist running in the Codex CLI.
+"""
+developer = """
+Read both @~/AGENTS.md and @AGENTS.md, if they exist, and internalize their instructions. Focus on thorough, interactive code review. Be pedantic and detail-oriented.
+"""
+
+[profiles.reviewer.sandbox]
+filesystem = "read-only"
+network = "enabled"
+approvals = "on-request"
+
+[profiles.security]
+provider = "openai"
+model = "gpt-5.2-codex"
+model_reasoning_effort = "high"
+
+[profiles.security.model_options]
+temperature = 0.35
+top_p = 1.0
+max_output_tokens = 32000
+
+[profiles.security.persona]
+tone = "analytical"
+style = "detailed"
+
+[profiles.security.prompts]
+system = """
+You are a security auditing specialist running in the Codex CLI.
+"""
+developer = """
+Read both @~/AGENTS.md and @AGENTS.md, if they exist, and internalize their instructions. Focus on identifying security vulnerabilities, runtime safety issues, and potential exploits.
+"""
+
+[profiles.security.sandbox]
+filesystem = "read-only"
+network = "enabled"
+approvals = "on-request"
+
 # MCP servers
 #[mcp_servers.github]
 #command = "github-mcp-server"
