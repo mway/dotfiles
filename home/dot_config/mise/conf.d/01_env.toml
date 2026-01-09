@@ -2,8 +2,6 @@
 _.path = [
   "~/bin",
   "~/.local/bin",
-  "/opt/homebrew/bin",
-  "~/.local/share/uv/venv/bin",
   "~/.bun/bin",
   "~/Library/pnpm",
   "~/.docker/bin",
