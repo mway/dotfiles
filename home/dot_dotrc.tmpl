@@ -4,5 +4,3 @@ function maybe_source() {
     # shellcheck disable=SC1090
     [ -z "$1" ] || [ ! -f "$1" ] || source "$1"
 }
-
-maybe_source "{{ joinPath .path.home ".config/op/plugins.sh" }}"
