@@ -19,8 +19,8 @@ export HISTSIZE=100000000
 MISE="{{ .path.named.mise }}"
 [ -f "$MISE" ] && eval "$("$MISE" activate zsh)"
 
-type -q fzf && eval "$(fzf --zsh)"
-type -q just && eval "$(just --completions zsh)"
+command -v fzf >/dev/null && eval "$(fzf --zsh)"
+command -v just >/dev/null && eval "$(just --completions zsh)"
 
 sources=(
   '{{ joinPath .path.home ".dotrc" }}'
