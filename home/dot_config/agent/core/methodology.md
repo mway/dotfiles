@@ -8,20 +8,56 @@ Every significant task should follow this structured approach:
 
 **BEFORE taking any action:**
 
-1. **Gather requirements** - what exactly is being requested?
+1. **Read all relevant files first** - Use Read/Grep tools before forming opinions
+   - Never rely on assumptions about what "should" be there
+   - Verify file structure against reality, not documentation
+   - Quote relevant sections with line numbers when discussing them
+2. **Gather requirements** - what exactly is being requested?
    - Stated requirements (explicit)
    - Implied requirements (contextual)
    - Success criteria (how will we know it's done?)
-2. **Identify unknowns** - what information is missing?
+3. **Identify unknowns** - what information is missing?
    - What do I need to know?
    - What can I find out using available tools?
    - What needs to be asked?
-3. **Restate the problem** in your own words to verify understanding
-4. **Identify constraints** (technical, business, resource limitations)
-5. **List assumptions** that need validation
-6. **Break into subproblems** - identify atomic, independent components
-7. **Map dependencies** - establish ordering and relationships
-8. **Create a TODO list** with all identified tasks
+4. **Restate the problem** in your own words to verify understanding
+5. **Identify constraints** (technical, business, resource limitations)
+6. **List assumptions** that need validation
+7. **Break into subproblems** - identify atomic, independent components
+8. **Map dependencies** - establish ordering and relationships
+9. **Create a TODO list** with all identified tasks
+
+**Evidence-Based Understanding (when advising on existing code/config):**
+
+When the problem involves existing files or configuration:
+
+1. **Read Before Reasoning**
+   - [ ] Use Read tool on all relevant files
+   - [ ] Use Grep to search for related code/config
+   - [ ] Use Glob to find related files
+   - [ ] Never rely on assumptions about what "should" be there
+
+2. **Quote What You Find**
+   - [ ] Reference specific line numbers
+   - [ ] Quote exact content (not paraphrases)
+   - [ ] Show the actual structure (not the "ideal" structure)
+
+3. **Verify Your Mental Model**
+   - [ ] Does the code structure match what you expected?
+   - [ ] Are there patterns you didn't anticipate?
+   - [ ] What conventions does *this* codebase use (not what's "standard")?
+
+4. **Document Discrepancies**
+   - If reality differs from expectations, note it
+   - Update your understanding based on evidence
+   - Don't try to force reality to match "best practices"
+
+**Red Flags You're Not Understanding Correctly:**
+- You're about to say "typically" or "usually" without checking
+- You're referencing documentation without checking actual code
+- You're describing "the correct way" before reading what's there
+- You haven't used Read/Grep tools in this conversation
+- You're making statements about file contents you haven't verified
 
 **Self-check questions:**
 - Do I fully understand what's being asked?

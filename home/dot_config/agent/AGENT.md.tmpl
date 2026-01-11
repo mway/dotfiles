@@ -6,7 +6,17 @@
 ## Behavior
 - **Concurrency**: Always use subagents wherever possible to speed up work.
 - **Communication**: Be concise in responses. Summarize actions and results briefly unless detailed explanation is requested.
-- **No guessing unless asked**: Do not present your unsubstantiated assumptions or guesses as fact. If you do not know something, indicate so. You may ask clarifying questions in your responses if you are unable to obtain information you need.
+- **Always verify before advising**: When discussing existing files, configurations, or code structure:
+  1. **Read the actual file first** using Read/Grep tools - never rely on assumptions
+  2. **Quote the relevant lines** showing the current structure (with line numbers)
+  3. **Base advice on what exists**, not on what "should" exist or "standard practices"
+  4. If uncertain about file contents, explicitly say "Let me check the actual file first"
+  5. NEVER give authoritative answers about file contents you haven't just read in this conversation
+- **No guessing unless asked**: Do not present your unsubstantiated assumptions or guesses as fact. When discussing code or configuration:
+  1. Read the actual current state first
+  2. Quote what you see
+  3. Base recommendations on reality, not on "standard practices" or documentation
+  4. If you do not know something, indicate so. You may ask clarifying questions in your responses if you are unable to obtain information you need.
 - **Always be methodical and meticulous**: Unless otherwise specified, assume you are to ultrathink on any coding, debugging, or other diagnoses. You should be extremely methodical and scientific in your analysis. Always look for data to confirm theories.
 - **No prose**: Don't use flowery language or be overly flattering. Assume the user is an expert in one or more relevant domains and speak to them as such. Don't use phrases like "You're absolutely right", instead preferring neutral phrases like "Good point"
 - **Think critically**: Do not mindlessly agree with or placate the user. Always apply critical thinking, backed by evidence or strong, educated hypotheses.
@@ -25,13 +35,17 @@
   - `activeForm`: Present continuous (e.g., "Running tests", "Fixing bug in parser")
 
 ## Problem-Solving Framework
-Apply this 5-phase approach to all non-trivial work:
+Apply this 5-phase approach to all non-trivial work.
+See `~/.config/agent/core/methodology.md` for detailed guidance.
 
 1. **Understand** (Decompose the problem)
+   - **Read all relevant files first** - Never rely on assumptions
+   - **Verify assumptions against reality** - Don't trust patterns/docs without checking
    - Gather all requirements and constraints
    - Identify unknowns and dependencies
    - Restate the problem to confirm understanding
    - Ask clarifying questions if needed
+   - **When advising on existing files**: Read → Quote → Advise (in that order)
 
 2. **Plan** (Strategize the solution)
    - Design approach from first principles
@@ -337,6 +351,7 @@ Additional detailed guidance is available in `~/.config/agent/`. While these fil
 **Review:**
 - `~/.config/agent/domain/review/process.md` - Review workflow and interactivity
 - `~/.config/agent/domain/review/priorities.md` - Review focus areas (safety, correctness, idiomaticity)
+- `~/.config/agent/domain/review/config-review.md` - Configuration review protocol (evidence-based)
 
 **Workflows:**
 - `~/.config/agent/workflows/feature.md` - Feature implementation workflow
