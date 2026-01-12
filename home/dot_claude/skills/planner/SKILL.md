@@ -79,6 +79,13 @@ Specify how to validate the implementation:
 3. **Quality gates** - what must pass before done
 4. **Rollback plan** - how to undo if needed
 
+### Phase 5b: Evidence and Handoff (Required)
+
+Document:
+1. **Evidence mode** - label information as **Verified** vs **Reported (Unverified)**
+2. **Handoff contract** - assumptions to validate, dependencies, and do-not-change items
+3. **Risk register** - explicit risks with likelihood, impact, and mitigations
+
 ### Phase 6: Format and Output
 
 Generate the plan document using the standard template from `planning.md`.
@@ -115,6 +122,8 @@ Before presenting the plan, verify:
 - [ ] **Parallelization identified**: Concurrent work marked
 - [ ] **Verification defined**: Success criteria specified
 - [ ] **Risks documented**: Known risks and mitigations listed
+- [ ] **Evidence labeled**: Verified vs reported information is explicit
+- [ ] **Handoff-ready**: Assumptions, dependencies, and do-not-change items are explicit
 
 ## Arguments
 
