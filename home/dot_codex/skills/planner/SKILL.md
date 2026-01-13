@@ -1,6 +1,6 @@
 ---
 name: planner
-description: Create detailed, standalone implementation plans as artifacts. Activates for planning complex features, architecture design, multi-session work, or when plans need to be shared/reviewed. Use when asked to "create a plan", "design implementation", "blueprint", or "plan out" something.
+description: Use when planning complex features, architecture design, multi-session work, or when plans need to be shared/reviewed. Activates for requests like "create a plan", "design implementation", "blueprint", or "plan out".
 allowed-tools: ["shell", "read_file", "write_file", "update_plan"]
 metadata:
   short-description: Create standalone implementation plan documents
@@ -24,6 +24,13 @@ Create standalone implementation plan documents that can be:
 ## Instructions
 
 ### Phase 1: Gather Requirements
+
+If requirements are unclear, start with **Design Discovery** before proceeding:
+- Review existing context (files, docs, prior decisions)
+- Ask **batched** clarifying questions (group related items)
+- Propose 2–3 approaches with trade-offs when ambiguity remains
+- Confirm scope, constraints, and success criteria
+Then continue with requirements gathering:
 
 Before creating a plan, thoroughly understand:
 
@@ -72,6 +79,8 @@ Each task must be:
 - **Self-contained**: Can be executed without reading the whole plan
 - **Testable**: Has clear acceptance criteria
 - **Appropriately sized**: Not too coarse, not too granular
+
+Use `decompose` for atomic breakdowns and `parallelize` to identify concurrent work.
 
 ### Phase 5: Define Verification
 

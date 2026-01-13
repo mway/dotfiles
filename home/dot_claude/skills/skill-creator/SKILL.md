@@ -1,168 +1,173 @@
 ---
 name: skill-creator
-description: Meta-skill for creating new Claude Code skills, subagents, slash commands, and output styles with rigor and consistency. Use when asked to create new agent capabilities or extend the configuration system.
+description: Use when asked to create or update skills or extend agent capabilities in this configuration.
+allowed-tools: ["write_file", "read_file"]
+metadata:
+  short-description: Create new Codex skills systematically
 ---
 
 # Skill Creator
 
-Guide for creating new Claude Code capabilities (skills, subagents, slash commands, output styles) with the same rigor as existing ones.
+Guide for creating new Codex skills with the same rigor as existing ones.
 
-## Core Principle: Reference Only
+## Context Efficiency (Anthropic Principle)
 
-**Never summarize guidance documents.** Always use `@` includes to reference the full document, allowing all guidance to apply.
+The context window is a public good. Only include what the model does **not** already know. Prefer concise guidance and move heavy references into separate files.
 
-**Bad:**
+## Degree of Freedom Matching
+
+Match instruction specificity to task fragility:
+- **Low freedom** for fragile, error-prone workflows
+- **High freedom** for exploratory work
+
+## Progressive Disclosure
+
+Use a three-layer structure:
+1. **Frontmatter** for triggers only
+2. **SKILL.md body** for workflow guidance
+3. **References/scripts/assets** for heavy details
+
+## TDD for Skills (Discipline)
+
+Before creating or editing a skill:
+- Define pressure scenarios that the skill must handle
+- Validate behavior before/after changes
+- Iterate to close loopholes
+
+## Core Principle: Explicit References
+
+**Never summarize guidance documents.** Always instruct to **read** the full documents, allowing all guidance to apply.
+
+**Bad (summarizing):**
 ```markdown
-Per @~/.config/agent/core/methodology.md:
-- 5-phase approach
-- Evidence-based reasoning
+Per quality.md:
+- Correctness first
+- Then safety
 ```
 
-**Good:**
+**Good (explicit read):**
 ```markdown
-Apply all guidance from:
-- @~/.config/agent/core/methodology.md
+**Read these references:**
+- `~/.config/agent/domain/coding/quality.md` - Complete quality priorities
 ```
 
 ## File Locations
 
 All files in chezmoi source: `~/.local/share/chezmoi/home/`
 
-| Type | Location | Extension |
-|------|----------|-----------|
-| Slash Commands | `dot_claude/commands/` | `.md` |
-| Skills | `dot_claude/skills/<name>/` | `SKILL.md` |
-| Subagents | `dot_claude/agents/<name>/` | `AGENT.md` |
-| Output Styles | `dot_claude/output-styles/` | `.md` |
+**Skill Files (Parity Required):**
+- Claude Code: `dot_claude/skills/<name>/SKILL.md`
+- Codex: `dot_codex/skills/<name>/SKILL.md`
+- Keep both in sync (strict parity)
 
-## Creating a Slash Command
-
-**Template:**
-```markdown
----
-description: <Clear description of what this command does>
-allowed-tools: <Tool restrictions, comma-separated>
-argument-hint: [optional-arg-name]
----
-
-# <Command Name>
-
-Apply all guidance from:
-- @~/.config/agent/<relevant-module>.md
-- @~/.config/agent/<relevant-module>.md
-
-<Minimal command-specific logic if needed>
-
-Target: $ARGUMENTS
+**Apply with chezmoi:**
+```bash
+chezmoi apply ~/.codex
 ```
 
-**Examples:** See existing commands in `dot_claude/commands/`
-
-## Creating a Skill
+## Creating a Codex Skill
 
 **Template:**
 ```markdown
 ---
-name: <skill-name>
-description: <What this skill does and when it activates. Be specific about trigger conditions.>
+name: skill-name
+description: Use when <trigger conditions only; no workflow summary>
+allowed-tools: ["shell", "apply_patch", "read_file", "write_file"]
+metadata:
+  short-description: Brief one-liner
 ---
 
-# <Skill Name>
+# Skill Title
 
-Apply all guidance from:
-- @~/.config/agent/<relevant-module>.md
-- @~/.config/agent/<relevant-module>.md
+**Read these references:**
+- `references/file1.md` - Purpose/summary
+- `~/.config/agent/path/to/file2.md` - Purpose/summary
+
+## Instructions
+
+<Skill-specific guidance>
+
+Apply all guidance from references listed above.
+
+## Arguments
+
+Target: ${ARGUMENTS}
 ```
 
 **Key points:**
-- `description` field triggers auto-activation
-- Keep it focused - one clear purpose
-- Reference ALL relevant guidance modules
-- No summaries or excerpts
+- `description` field triggers auto-activation - be specific about triggers
+- `allowed-tools` is JSON array format: `["shell", "read_file"]`
+- `metadata.short-description` for UI display
+- Use `${ARGUMENTS}` for argument substitution (NOT `$ARGUMENTS`)
+- No `@` includes - use explicit "Read these references" instead
 
-**Examples:** See `dot_claude/skills/`
+**Reference Formats:**
+- Local (via symlink): `references/file.md`
+- Direct path: `~/.config/agent/path/to/file.md`
+- AGENT.md is auto-loaded for all profiles
 
-## Creating a Subagent
+## Creating References Symlink
 
-**Template:**
-```markdown
----
-name: <agent-name>
-description: <What this agent specializes in. When to use it.>
-tools: <Tool allowlist>
-model: sonnet|opus|haiku
----
+For skills needing domain-specific guidance:
+```bash
+# In deployed directory (NOT chezmoi source!)
+cd ~/.codex/skills/skill-name
+ln -s ~/.config/agent/domain/path references
 
-You are <role description>.
-
-Apply all guidance from:
-- @~/.config/agent/<relevant-module>.md
-- @~/.config/agent/<relevant-module>.md
+# If also using Claude Code, mirror the same symlink:
+cd ~/.claude/skills/skill-name
+ln -s ~/.config/agent/domain/path references
 ```
 
-**Tool restrictions:**
-- Read-only agents: `Read, Grep, Glob`
-- Full agents: `Read, Grep, Glob, Edit, Write, Bash`
-- Specific bash: `Bash(go:*), Bash(git:*)`
+Example: Go skills symlink to `~/.config/agent/domain/coding/go`
 
-**Examples:** See `dot_claude/agents/`
-
-## Creating an Output Style
-
-**Template:**
-```markdown
----
-name: <style-name>
-description: <Communication style description>
-keep-coding-instructions: true
----
-
-# <Style Name>
-
-<Brief style description>
-
-Apply all guidance from:
-- @~/.config/agent/<relevant-module>.md
-- @~/.config/agent/<relevant-module>.md
-
-<Style-specific instructions if needed>
-```
-
-**Examples:** See `dot_claude/output-styles/`
-
-## Workflow for Creating New Capabilities
+## Workflow for Creating New Skills
 
 ### 1. Identify Purpose
 - What problem does this solve?
-- When should it activate (skills) or be invoked (commands)?
-- What scope does it need (tools, model)?
+- When should it activate?
+- What tools does it need?
+- Is it command-style (explicit invocation) or auto-activation?
 
 ### 2. Identify Relevant Guidance
-- Which modules from `~/.config/agent/` apply?
-  - `core/` - Universal behaviors
-  - `domain/` - Domain-specific (architecture, coding, testing, review)
-  - `workflows/` - Task workflows
+Which modules from `~/.config/agent/` apply?
+- `core/` - Universal behaviors (methodology, task-management, etc.)
+- `domain/` - Domain-specific (coding, testing, review, architecture)
+- `workflows/` - Task workflows (feature implementation, etc.)
 
-### 3. Choose Mechanism
-- **Slash Command** - User explicitly invokes
-- **Skill** - Auto-activates based on context
-- **Subagent** - Delegated work with isolated context
-- **Output Style** - Changes persona/communication mode
+### 3. Design Skill Structure
+- Frontmatter: name, description (with triggers), allowed-tools, metadata
+- References section: List all guidance files to read
+- Instructions: Skill-specific logic
+- Arguments section: How to use ${ARGUMENTS}
 
-### 4. Write File
-- Use reference-only approach
-- List ALL relevant guidance modules
-- Minimal additional content
-- No summaries or duplication
+### 4. Write SKILL.md File
+In chezmoi source: `~/.local/share/chezmoi/home/dot_codex/skills/<name>/SKILL.md`
+- Use explicit read instructions (not summaries)
+- List ALL relevant guidance files
+- Keep instructions focused and minimal
+- Reference AGENT.md where applicable
 
-### 5. Test
-- Apply with `chezmoi apply -v`
-- Test invocation/activation
-- Verify guidance is being applied
+### 5. Apply with Chezmoi
+```bash
+chezmoi apply ~/.codex
+```
+
+### 6. Create References Symlink (if needed)
+In deployed directory: `~/.codex/skills/<name>/`
+```bash
+ln -s ~/.config/agent/domain/path references
+```
+
+### 7. Test
+- Invoke skill: `$skill-name <arguments>`
+- Verify skill activates correctly
+- Confirm references are readable
+- Validate guidance is being applied
 
 ## Existing Guidance Modules
 
-Reference these as needed:
+All paths relative to `~/.config/agent/`:
 
 **Core:**
 - `core/behavior.md` - Critical thinking, evidence-based reasoning
@@ -176,10 +181,12 @@ Reference these as needed:
 - `domain/architecture/decomposition.md` - Problem breakdown
 - `domain/architecture/parallelization.md` - Concurrent execution
 
-**Coding:**
+**Coding (General):**
 - `domain/coding/workflow.md` - Universal coding workflow
 - `domain/coding/quality.md` - Quality priorities
 - `domain/coding/safety.md` - Runtime + security safety
+
+**Coding (Go):**
 - `domain/coding/go/style.md` - Go code style
 - `domain/coding/go/idioms.md` - Go conventions
 - `domain/coding/go/concurrency.md` - Go thread safety
@@ -201,38 +208,33 @@ Reference these as needed:
 
 ## Anti-Patterns to Avoid
 
-❌ **Summarizing guidance**
+❌ **Summarizing guidance:**
 ```markdown
-Per @file.md:
-- Point 1
-- Point 2
+From quality.md, the priorities are: correctness, safety...
 ```
 
-❌ **Duplicating content**
+❌ **Selective quoting:**
 ```markdown
-From @file.md, the priority order is:
-1. Correctness
-2. Safety
-...
+Key rules: Rule A, Rule B
 ```
 
-❌ **Selective quoting**
-```markdown
-Key rules from @file.md:
-- Rule A
-- Rule B
-```
-
-✅ **Reference only**
+❌ **Using `@` includes (doesn't work in Codex):**
 ```markdown
 Apply all guidance from:
-- @~/.config/agent/path/to/file.md
+- @~/.config/agent/file.md
+```
+
+✅ **Explicit read instructions:**
+```markdown
+**Read these references:**
+- `references/file.md` - Complete guidance on topic
+- `~/.config/agent/path/to/file.md` - Full details
 ```
 
 ## Examples
 
-See existing implementations:
-- Commands: `dot_claude/commands/go-review.md`
-- Skills: `dot_claude/skills/go-development/SKILL.md`
-- Subagents: `dot_claude/agents/go-reviewer/AGENT.md`
-- Styles: `dot_claude/output-styles/methodical.md`
+See existing Codex skills:
+- `~/.codex/skills/go-development/SKILL.md` - With references symlink
+- `~/.codex/skills/go-test/SKILL.md` - Command-style skill
+- `~/.codex/skills/problem-solving/SKILL.md` - With multiple references
+- `~/.codex/skills/feature/SKILL.md` - Workflow orchestration

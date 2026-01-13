@@ -1,6 +1,6 @@
 ---
 name: skill-creator
-description: Meta-skill for creating new Codex skills with rigor and consistency. Use when asked to create new skills or extend Codex capabilities.
+description: Use when asked to create or update skills or extend agent capabilities in this configuration.
 allowed-tools: ["write_file", "read_file"]
 metadata:
   short-description: Create new Codex skills systematically
@@ -9,6 +9,30 @@ metadata:
 # Skill Creator
 
 Guide for creating new Codex skills with the same rigor as existing ones.
+
+## Context Efficiency (Anthropic Principle)
+
+The context window is a public good. Only include what the model does **not** already know. Prefer concise guidance and move heavy references into separate files.
+
+## Degree of Freedom Matching
+
+Match instruction specificity to task fragility:
+- **Low freedom** for fragile, error-prone workflows
+- **High freedom** for exploratory work
+
+## Progressive Disclosure
+
+Use a three-layer structure:
+1. **Frontmatter** for triggers only
+2. **SKILL.md body** for workflow guidance
+3. **References/scripts/assets** for heavy details
+
+## TDD for Skills (Discipline)
+
+Before creating or editing a skill:
+- Define pressure scenarios that the skill must handle
+- Validate behavior before/after changes
+- Iterate to close loopholes
 
 ## Core Principle: Explicit References
 
@@ -31,10 +55,10 @@ Per quality.md:
 
 All files in chezmoi source: `~/.local/share/chezmoi/home/`
 
-**Codex Skills:**
-- Location: `dot_codex/skills/<name>/`
-- Main file: `SKILL.md`
-- References: `references/` symlink (for domain-specific guidance)
+**Skill Files (Parity Required):**
+- Claude Code: `dot_claude/skills/<name>/SKILL.md`
+- Codex: `dot_codex/skills/<name>/SKILL.md`
+- Keep both in sync (strict parity)
 
 **Apply with chezmoi:**
 ```bash
@@ -47,7 +71,7 @@ chezmoi apply ~/.codex
 ```markdown
 ---
 name: skill-name
-description: What this skill does. When to use. Use when <triggers>.
+description: Use when <trigger conditions only; no workflow summary>
 allowed-tools: ["shell", "apply_patch", "read_file", "write_file"]
 metadata:
   short-description: Brief one-liner
@@ -88,6 +112,10 @@ For skills needing domain-specific guidance:
 ```bash
 # In deployed directory (NOT chezmoi source!)
 cd ~/.codex/skills/skill-name
+ln -s ~/.config/agent/domain/path references
+
+# If also using Claude Code, mirror the same symlink:
+cd ~/.claude/skills/skill-name
 ln -s ~/.config/agent/domain/path references
 ```
 

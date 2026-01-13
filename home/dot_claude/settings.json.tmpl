@@ -11,7 +11,6 @@
       "WebFetch",
       "WebSearch",
       "Write(**)",
-
       "Bash(ansible --list-hosts :*)",
       "Bash(ansible --version)",
       "Bash(ansible-config :*)",
@@ -420,7 +419,6 @@
       "Bash(wget :*)",
       "Bash(xargs :*)",
       "Bash(zsh -c :*)",
-
       "Read(.env*)",
       "Read(**/.env*)",
       "Read(**/*key*)",
@@ -431,8 +429,6 @@
       "Read(secrets/**)"
     ]
   },
-  "model": "opusplan",
-  "installMethod": "native",
   "hooks": {
     "PostToolUse": [
       {
@@ -449,5 +445,7 @@
   "statusLine": {
     "type": "command",
     "command": "printf '%s @ %s' \"$(git branch --show-current 2>/dev/null || echo 'no-git')\" \"$(pwd)\""
-  }
+  },
+  "installMethod": "native",
+  "model": "opusplan"
 }

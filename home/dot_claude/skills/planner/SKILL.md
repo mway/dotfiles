@@ -1,6 +1,9 @@
 ---
 name: planner
-description: Create detailed, standalone implementation plans as artifacts. Activates for planning complex features, architecture design, multi-session work, or when plans need to be shared/reviewed. Use when asked to "create a plan", "design implementation", "blueprint", or "plan out" something.
+description: Use when planning complex features, architecture design, multi-session work, or when plans need to be shared/reviewed. Activates for requests like "create a plan", "design implementation", "blueprint", or "plan out".
+allowed-tools: ["shell", "read_file", "write_file", "update_plan"]
+metadata:
+  short-description: Create standalone implementation plan documents
 ---
 
 # Implementation Planner
@@ -11,16 +14,23 @@ Create standalone implementation plan documents that can be:
 - Validated for completeness before work begins
 - Reviewed and approved before execution
 
-Apply all guidance from:
-- @~/.config/agent/core/methodology.md
-- @~/.config/agent/domain/architecture/decomposition.md
-- @~/.config/agent/domain/architecture/parallelization.md
-- @~/.config/agent/core/task-management.md
-- @~/.config/agent/workflows/planning.md
+**Read these references:**
+- `~/.config/agent/core/methodology.md` - 5-phase problem-solving framework
+- `~/.config/agent/domain/architecture/decomposition.md` - Problem breakdown strategies
+- `~/.config/agent/domain/architecture/parallelization.md` - Concurrent execution patterns
+- `~/.config/agent/core/task-management.md` - TODO discipline and task tracking
+- `~/.config/agent/workflows/planning.md` - Complete planning workflow and template
 
-## Planning Workflow
+## Instructions
 
 ### Phase 1: Gather Requirements
+
+If requirements are unclear, start with **Design Discovery** before proceeding:
+- Review existing context (files, docs, prior decisions)
+- Ask **batched** clarifying questions (group related items)
+- Propose 2–3 approaches with trade-offs when ambiguity remains
+- Confirm scope, constraints, and success criteria
+Then continue with requirements gathering:
 
 Before creating a plan, thoroughly understand:
 
@@ -70,6 +80,8 @@ Each task must be:
 - **Testable**: Has clear acceptance criteria
 - **Appropriately sized**: Not too coarse, not too granular
 
+Use `decompose` for atomic breakdowns and `parallelize` to identify concurrent work.
+
 ### Phase 5: Define Verification
 
 Specify how to validate the implementation:
@@ -109,7 +121,7 @@ Generate the plan document using the standard template from `planning.md`.
 - Single file: `mkdir -p <project-root>/docs/plans && touch <name>.md`
 - Directory: `mkdir -p <project-root>/docs/plans/<name> && touch plan.md`
 
-## Plan Quality Checklist
+### Plan Quality Checklist
 
 Before presenting the plan, verify:
 
@@ -125,6 +137,8 @@ Before presenting the plan, verify:
 - [ ] **Evidence labeled**: Verified vs reported information is explicit
 - [ ] **Handoff-ready**: Assumptions, dependencies, and do-not-change items are explicit
 
+All guidance from AGENT.md also applies.
+
 ## Arguments
 
-Topic to plan: $ARGUMENTS
+Topic to plan: ${ARGUMENTS}
