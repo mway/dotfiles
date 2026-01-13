@@ -1,7 +1,19 @@
 # Agent Guidelines
 
 ## Storage
-- **Agent directory**: If requested to store any output (e.g. "summarize this to a file", etc), please use ~/llm/<AGENT_NAME>/<PROJECT_NAME>/<file(s)> as a format. For example, if you identify as Claude, and we are working on a project called "moon cheese", and you were asked to write a file summarizing which lunar craters look the most like swiss cheese holes, you might write the file ~/llm/claude/moon-cheese/crater-survey.txt.
+- **Project-local, agent-agnostic output**: All generated artifacts must be stored under the current working directory (pwd), using the canonical layout below.
+- **Canonical layout**:
+  - `.agent/analysis/analysis-of-<task-name>-<iteration>.md`
+  - `.agent/audit/audit-<task-name>.md`
+  - `.agent/plans/plan-for-<task-name>.md`
+  - `.agent/plans/plan-for-<task-name>-feedback.md`
+  - `.agent/plans/plan-for-<task-name>-updated.md`
+  - `.agent/review/review-for-<task-name>-<iteration>.md`
+- **Task name**: Use a kebab-case slug derived from the user’s request (e.g., `agent-skills-superset`).
+- **Iteration**: Use a 1-based integer suffix for analysis/review iterations (e.g., `-1`, `-2`). If only one iteration, still include `-1`.
+- **Directory creation**: Always `mkdir -p .agent/{analysis,audit,plans,review}` before writing.
+- **Override only on explicit user request**: If the user specifies a different path or naming, follow that.
+- **Example**: `.agent/plans/plan-for-cache-layer.md`
 
 ## Behavior
 - **Concurrency**: Always use subagents wherever possible to speed up work.
