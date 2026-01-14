@@ -1,0 +1,72 @@
+#!/usr/bin/env python3
+
+import argparse
+import base64
+import json
+import os
+import subprocess
+import sys
+from urllib.parse import urljoin
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-t",
+        "--title",
+        default="Automated Notification",
+        help="Notification title",
+    )
+    parser.add_argument(
+        "-T",
+        "--topic",
+        default="notifications-general",
+        help="Notification topic",
+    )
+    parser.add_argument(
+        "-e",
+        "--endpoint",
+        default="https://ntfy.wayhq.net/",
+        help="Ntfy.sh endpoint",
+    )
+    parser.add_argument(
+        "-k",
+        "--api-key",
+        default=os.getenv("WAYHQ_NTFY_API_KEY"),
+        help="Notification endpoint API key",
+    )
+    parser.add_argument("content", help="Notification content", nargs="+")
+
+    args = parser.parse_args()
+    title = str(args.title).strip()
+    content = str(" ".join(args.content)).strip()
+    topic = str(args.topic).strip()
+    endpoint = str(args.endpoint).strip()
+    token = str(args.api_key).strip()
+    url = urljoin(endpoint, topic)
+
+    subprocess.run(
+        [
+            "curl",
+            "-sSo",
+            "/dev/null",
+            "-w",
+            "",
+            "-H",
+            f"Title: {title}",
+            "-H",
+            "Priority: 3",
+            "-H",
+            f"Authorization: Bearer {token}",
+            "-d",
+            content,
+            url,
+        ],
+        check=False,
+    )
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
