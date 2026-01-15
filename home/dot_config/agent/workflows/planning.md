@@ -188,7 +188,9 @@ A plan is valid when:
 6. **Ordered**: Dependencies and execution order clear
 7. **Parallel-aware**: Concurrent opportunities identified
 8. **Verifiable**: Success criteria defined
-9. **Risk-aware**: Known risks documented
+9. **Risk-aware**: Known risks documented with mitigations
+10. **Evidence-aware**: Verified vs reported information is labeled
+11. **Handoff-ready**: Assumptions, dependencies, and do-not-change items are explicit
 
 ## Plan Template
 
@@ -228,6 +230,14 @@ Status: Draft | Approved | In Progress | Completed
 
 ### Assumptions
 - [A-1] [Assumption description]
+
+## Evidence & Verification
+
+### Verified
+- [Finding/result that was directly confirmed with evidence]
+
+### Reported (Unverified)
+- [Finding/result from another source not yet confirmed]
 
 ## Architecture/Approach
 
@@ -275,6 +285,17 @@ Status: Draft | Approved | In Progress | Completed
 2. **Phase 2** (Sequential, after Phase 1): [Task-3]
 3. **Phase 3** (Parallel): [Task-4], [Task-5]
 
+## Handoff Contract
+
+### Assumptions to Validate
+- [A-1] [Assumption that executor must verify]
+
+### Dependencies / Preconditions
+- [D-1] [Dependency or prerequisite]
+
+### Do-Not-Change
+- [DN-1] [Areas or files explicitly out of scope]
+
 ## Verification
 
 ### Test Strategy
@@ -291,7 +312,7 @@ Status: Draft | Approved | In Progress | Completed
 ### Rollback Plan
 [How to undo changes if implementation fails]
 
-## Risks and Mitigations
+## Risk Register
 
 | Risk | Likelihood | Impact | Mitigation |
 |------|------------|--------|------------|
