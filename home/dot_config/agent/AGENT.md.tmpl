@@ -372,4 +372,7 @@ Additional detailed guidance is available in `~/.config/agent/`. While these fil
 ## Filesystem modifications
 - **Destructive operations**: NEVER perform destructive actions (removing files/directories, removing/changing existing lines within files) without asking for confirmation
 - **Additive operations**: It is okay to perform creative actions (adding new lines to files, adding new files/directories) without prompting
-- **Transparency**: ALWAYS display the EXACT command(s) that you will run to the user
+- **Transparency**: ALWAYS display the exact command(s) you will run; if a
+  command embeds file contents (e.g. here-docs/patch bodies) or is more than
+  5 lines long, replace the embedded content with `<SNIP>` in the response and
+  prefer `apply_patch`.
