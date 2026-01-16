@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+_main() {
+  source "${HOME}/.profile.d/00_core"
+
+  local mcp_dir="${HOME}/.local/share/mcp-server-apple-events"
+
+  # Check if the external was extracted
+  if [[ ! -d "${mcp_dir}" ]]; then
+    ansi-error "MCP server directory not found: ${mcp_dir}"
+    return 1
+  fi
+
+  # Check for Xcode Command Line Tools (required for Swift compilation)
+  if ! xcode-select -p >/dev/null 2>&1; then
+    ansi-error "Xcode Command Line Tools required for Swift compilation"
+    ansi-error "Install with: xcode-select --install"
+    return 1
+  fi
+
+  # Check if pnpm is available
+  if ! which pnpm >/dev/null 2>&1; then
+    ansi-error "pnpm not found - required for mcp-server-apple-events"
+    return 1
+  fi
+
+  cd "${mcp_dir}" || {
+    ansi-error "Failed to cd to ${mcp_dir}"
+    return 1
+  }
+
+  # Check if already built and linked
+  local needs_setup=false
+  if [[ ! -x "bin/EventKitCLI" ]] || [[ ! -d "dist" ]]; then
+    needs_setup=true
+  fi
+
+  if [[ "${needs_setup}" == "true" ]]; then
+    ansi-badge-blue "   mcp" "Setting up mcp-server-apple-events"
+
+    # Install dependencies
+    pnpm install --silent >/dev/null 2>&1 || {
+      ansi-error "pnpm install failed"
+      return 1
+    }
+
+    # Build TypeScript and Swift binary
+    pnpm build --silent >/dev/null 2>&1 || {
+      ansi-error "pnpm build failed"
+      return 1
+    }
+
+    # Link globally
+    pnpm link --global --silent >/dev/null 2>&1 || {
+      ansi-error "pnpm link --global failed"
+      return 1
+    }
+
+    ansi-badge-green "   mcp" "Successfully set up mcp-server-apple-events"
+  else
+    # Still ensure global link exists (cheap operation)
+    pnpm link --global --silent >/dev/null 2>&1 || true
+    ansi-badge-blue "   mcp" "Re-linked mcp-server-apple-events"
+  fi
+}
+
+_main "$@"
