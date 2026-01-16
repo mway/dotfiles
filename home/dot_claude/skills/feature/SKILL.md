@@ -11,6 +11,15 @@ metadata:
 **Read this reference:**
 - `~/.config/agent/workflows/feature.md` - Complete 7-phase feature workflow
 
+## Mode Awareness
+
+This skill respects coding modes when performing implementation work:
+- Check if a mode is active in the session (normal/autopilot/full-auto)
+- During Phase 3 (Implement) and Phase 5 (Quality Check), apply mode-specific confirmation behavior
+- See the `coding` skill for full mode definitions and guardrails
+
+If no mode is active, default to `normal` mode (confirm all modifications).
+
 ## Instructions
 
 Follow this structured 7-phase workflow for feature implementation:

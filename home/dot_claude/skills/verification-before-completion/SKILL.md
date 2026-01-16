@@ -19,6 +19,30 @@ Claiming work is complete without verification is unacceptable. Evidence comes f
 
 **Core principle:** Evidence before claims, always.
 
+## Mode-Aware Verification
+
+Verification requirements apply to ALL modes, but execution differs:
+
+**Normal mode:**
+- Confirm before running verification commands
+- Show user the commands that will be run
+- Execute after confirmation
+
+**Autopilot mode:**
+- Auto-run verification commands (Tier 3 operations)
+- Report progress: "Running tests..."
+- Show results automatically
+
+**Full-auto mode:**
+- Auto-run verification commands
+- Log to audit trail
+- Only pause if verification fails repeatedly
+
+**Verification failure handling:**
+- Normal: Report failure, ask for guidance
+- Autopilot: Attempt one auto-fix, then ask for guidance
+- Full-auto: Attempt up to 3 auto-fixes, then stop and report (see `~/.config/agent/domain/coding/guardrails.md` recovery procedures)
+
 ## The Iron Law
 
 ```
