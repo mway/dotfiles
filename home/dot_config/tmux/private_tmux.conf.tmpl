@@ -8,16 +8,16 @@ bind-key C-b send-prefix
 # ============================================================================
 # Pane Navigation (Alt+Arrow keys)
 # ============================================================================
-bind -n M-Left select-pane -L
-bind -n M-Right select-pane -R
-bind -n M-Up select-pane -U
-bind -n M-Down select-pane -D
+bind -n M-Left if-shell -F '#{?pane_at_left,0,1}' 'select-pane -L'
+bind -n M-Right if-shell -F '#{?pane_at_right,0,1}' 'select-pane -R'
+bind -n M-Up if-shell -F '#{?pane_at_top,0,1}' 'select-pane -U'
+bind -n M-Down if-shell -F '#{?pane_at_bottom,0,1}' 'select-pane -D'
 
 # Also support vim-style navigation with Alt+hjkl
-bind -n M-h select-pane -L
-bind -n M-l select-pane -R
-bind -n M-k select-pane -U
-bind -n M-j select-pane -D
+bind -n M-h if-shell -F '#{?pane_at_left,0,1}' 'select-pane -L'
+bind -n M-l if-shell -F '#{?pane_at_right,0,1}' 'select-pane -R'
+bind -n M-k if-shell -F '#{?pane_at_top,0,1}' 'select-pane -U'
+bind -n M-j if-shell -F '#{?pane_at_bottom,0,1}' 'select-pane -D'
 
 # ============================================================================
 # Window (Tab) Navigation
