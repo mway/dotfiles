@@ -1,5 +1,5 @@
 {{- $globalCache := "1" -}}
-{{- $personal := and (lt (len .chezmoi.hostname) 15) (ne .chezmoi.hostname .chezmoi.username) (not (contains "groq" .chezmoi.hostname)) -}}
+{{- $personal := not (lstat (joinPath .chezmoi.homeDir ".is-work-machine")) -}}
 {{- $localRoot := print .chezmoi.homeDir "/.local" -}}
 {{- $localBin := print $localRoot "/bin" -}}
 {{- $userHome := .chezmoi.homeDir -}}
@@ -56,7 +56,7 @@ data:
     fzf: "v0.67.0"
     go: "1.25.6"
     helix: "25.07.1"
-    mise: "v2026.1.0"
+    mise: "v2026.1.5"
     node: "24.4.1"
     pre_commit: "4"
     python: "3"
