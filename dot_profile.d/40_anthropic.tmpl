@@ -2,9 +2,26 @@
 # Managed by Chezmoi
 
 claude() {
+  local has_model=0
+  for arg in "$@"; do
+    case "$arg" in
+    "--model" | "--model"*)
+      has_model=1
+      ;;
+    *)
+      # nop
+      ;;
+    esac
+  done
+
+  local model=""
+  if [[ $has_model -eq 0 ]]; then
+    model="--model=opusplan"
+  fi
+
   command claude \
     --allow-dangerously-skip-permissions \
-    "$@"
+    $model "$@"
 }
 
 claude-resume() {
