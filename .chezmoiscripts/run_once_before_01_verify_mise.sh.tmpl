@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+MISE_BIN="{{ .path.home }}/bin/mise"
+
+# Verify Mise binary exists (should be from .chezmoiexternals)
+if [[ ! -x "$MISE_BIN" ]]; then
+    echo "ERROR: Mise binary not found at $MISE_BIN"
+    echo "This should have been downloaded via .chezmoiexternals"
+    exit 1
+fi
+
+# Make it executable
+chmod +x "$MISE_BIN"
+
+# Verify it works
+"$MISE_BIN" --version || {
+    echo "ERROR: Mise binary exists but fails to execute"
+    exit 1
+}
+
+echo "✓ Mise binary verified at $MISE_BIN"

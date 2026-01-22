@@ -2,7 +2,19 @@
 
 set -euo pipefail
 
+# Source mise environment to ensure tools are in PATH
+if [[ -x "$HOME/bin/mise" ]]; then
+    eval "$("$HOME/bin/mise" env -s bash)"
+fi
+
 source "${HOME}/.profile.d/00_core"
+
+# Verify tool exists before using it
+if ! command -v fzf >/dev/null; then
+    ansi-error "fzf not found - cannot generate completions"
+    exit 1
+fi
+
 ansi-badge-blue "   fzf" "Writing shell completion scripts"
 fzf --zsh >>"${HOME}/.fzf.zsh"
 fzf --bash >>"${HOME}/.fzf.bash"

@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Source mise environment to ensure tools are in PATH
+if [[ -x "$HOME/bin/mise" ]]; then
+    eval "$("$HOME/bin/mise" env -s bash)"
+fi
+
 _main() {
   source "${HOME}/.profile.d/00_core"
 
