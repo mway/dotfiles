@@ -446,6 +446,11 @@
     "type": "command",
     "command": "printf '%s @ %s' \"$(git branch --show-current 2>/dev/null || echo 'no-git')\" \"$(pwd)\""
   },
+  "enabledPlugins": {
+    {{ range $i, $name := .claude.plugins }}
+      {{ $name | quote }}: true{{ if (lt $i (sub (len $.claude.plugins) 1)) }},{{ end }}
+    {{ end }}
+  },
   "installMethod": "native",
   "model": "opusplan"
 }

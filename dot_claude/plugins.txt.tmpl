@@ -1,0 +1,5 @@
+# Claude Code plugins to install
+# Format: plugin-name@marketplace
+{{ range $name := .claude.plugins }}
+{{ $name }}
+{{ end }}

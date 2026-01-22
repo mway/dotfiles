@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Source mise environment for any dependencies
+if [[ -x "$HOME/bin/mise" ]]; then
+    eval "$("$HOME/bin/mise" env -s bash)"
+fi
+
+source "${HOME}/.profile.d/00_core"
+
+PLUGIN_LIST="${HOME}/.claude/plugins.txt"
+
+if [[ ! -f "$PLUGIN_LIST" ]]; then
+    ansi-error "Plugin list not found: $PLUGIN_LIST"
+    exit 1
+fi
+
+if ! command -v claude >/dev/null; then
+    ansi-error "claude CLI not found - cannot install plugins"
+    exit 1
+fi
+
+ansi-badge-blue "claude" "Installing plugins"
+
+while IFS= read -r plugin || [[ -n "$plugin" ]]; do
+    # Skip empty lines and comments
+    [[ -z "$plugin" || "$plugin" =~ ^# ]] && continue
+
+    # claude plugins install is idempotent - safe to run repeatedly
+    if claude plugins install "$plugin" 2>/dev/null; then
+        ansi-badge-green "claude" "Installed $plugin"
+    else
+        ansi-error "Failed to install plugin: $plugin"
+        # Non-blocking: continue with remaining plugins
+    fi
+done < "$PLUGIN_LIST"
