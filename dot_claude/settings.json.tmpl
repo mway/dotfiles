@@ -429,6 +429,7 @@
       "Read(secrets/**)"
     ]
   },
+  "model": "opusplan",
   "hooks": {
     "PostToolUse": [
       {
@@ -451,6 +452,5 @@
       {{ $name | quote }}: true{{ if (lt $i (sub (len $.claude.plugins) 1)) }},{{ end }}
     {{ end }}
   },
-  "installMethod": "native",
-  "model": "opusplan"
+  "installMethod": "native"
 }
