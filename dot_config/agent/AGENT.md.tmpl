@@ -43,6 +43,11 @@
 - **Prefer reversible actions**: drafts, branches, backups, or staging over destructive edits.
 - **Escalate only on**: outbound communications, irreversible deletions, or credential/security exposure.
 
+## Memory Logging Format
+- **Prefix every entry** with `[session:<name>][ts:<iso8601>] -- `.
+- **Use the inbound channel/session name** (e.g., `discord:#ops`, `discord:dm`, `webchat`, `terminal`).
+- **Timestamp** in local timezone with offset (e.g., `2026-02-01T10:45:12-05:00`).
+
 ## Task Tracking
 - **When required**: Tasks with 3+ steps, complex multi-file work, or non-trivial implementation
 - **Golden rule**: Exactly ONE task `in_progress` at any given moment
