@@ -1,0 +1,15 @@
+[env]
+_.file = ".env"
+_.source = [".envrc", ".envrc.local"]
+GOTOOLCHAIN = "go{{ .versions.go }}"
+JUST_UNSTABLE = 1
+
+[settings]
+auto_install = true
+not_found_auto_install = true
+experimental = true
+jobs = 4
+idiomatic_version_file_enable_tools = ["rust"]
+
+[settings.python]
+compile = true

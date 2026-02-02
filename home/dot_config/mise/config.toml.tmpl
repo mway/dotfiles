@@ -1,19 +1,3 @@
-[env]
-_.file = ".env"
-_.source = [".envrc", ".envrc.local"]
-GOTOOLCHAIN = "go{{ .versions.go }}"
-JUST_UNSTABLE = 1
-
-[settings]
-auto_install = true
-not_found_auto_install = true
-experimental = true
-jobs = 4
-idiomatic_version_file_enable_tools = ["rust"]
-
-[settings.python]
-compile = true
-
 [tools]
 1password = "latest"
 ansible = "latest"
@@ -66,7 +50,6 @@ staticcheck = "latest"
 terraform = "latest"
 terraform-ls = "latest"
 tmux = "latest"
-ubi = "latest"
 usage = "latest"
 uv = "latest"
 watchexec = "latest"
@@ -93,6 +76,8 @@ zls = "latest"
 "cargo:minijinja-cli" = "latest"
 "cargo:taplo-cli" = { version = "latest", features = "lsp" }
 "cargo:trippy" = "latest"
+"github:brandonyoungdev/tldx" = "latest"
+"github:knqyf263/pet" = "latest"
 "go:github.com/cashapp/hermit/cmd/hermit" = "latest"
 "go:github.com/go-delve/delve/cmd/dlv" = "latest"
 "go:github.com/orlangure/gocovsh" = "latest"
@@ -116,8 +101,6 @@ zls = "latest"
 "pipx:pylint" = "latest"
 "pipx:python-lsp-server" = "latest"
 "pipx:ruff" = "latest"
-"ubi:brandonyoungdev/tldx" = "latest"
-"ubi:knqyf263/pet" = "latest"
 
 # AI
 "claude" = "latest"
@@ -127,6 +110,11 @@ zls = "latest"
 "cargo:lsp-ai" = "latest"
 "cargo:rust-analyzer-mcp" = "latest"
 "cargo:https://github.com/just-every/code" = { version = "latest", crate = "codex-cli" }
+"github:block/goose" = "latest"
+"github:charmbracelet/crush" = "latest"
+"github:opencode-ai/opencode" = "latest"
+"github:sigoden/aichat" = "latest"
+"github:smtg-ai/claude-squad" = "latest"
 "go:github.com/charmbracelet/mods" = "latest"
 "go:github.com/github/github-mcp-server/cmd/github-mcp-server" = "latest"
 "npm:@modelcontextprotocol/server-filesystem" = "latest"
@@ -141,17 +129,13 @@ zls = "latest"
 "pipx:mcp-server-fetch" = "latest"
 "pipx:mcp-server-git" = "latest"
 "pipx:mcp-server-time" = "latest"
-"ubi:block/goose" = "latest"
-"ubi:charmbracelet/crush" = "latest"
-"ubi:opencode-ai/opencode" = "latest"
-"ubi:sigoden/aichat" = "latest"
-"ubi:smtg-ai/claude-squad" = "latest"
 
-{{ if .personal -}}
+{{ if .tenancy.personal -}}
 # Personal
 yt-dlp = "latest"
 # "pipx:ansible" = { version = "latest", uvx = "false", pipx_args = "--include-deps" }
-{{- else -}}
+{{- end }}
+{{ if .tenancy.work -}}
 # Work
 cosign = "latest"
 {{- end }}

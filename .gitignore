@@ -1,2 +1,11 @@
-.crush
+.agent/
+*.0
+*.local
+*.local[.-]*
+*.log
+*.log[.-]*
+*.old
+*.old[.-]*
+*.tmp
+*.tmp[.-]*
 docs/

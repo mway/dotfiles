@@ -1,8 +1,11 @@
 tap "1password/tap"
 tap "jesseduffield/lazydocker"
 tap "lizardbyte/homebrew"
-{{ if .personal -}}
+{{ if .tenancy.personal -}}
 tap "hashicorp/tap"
+{{ end -}}
+{{ if .tenancy.work -}}
+# work taps
 {{ end -}}
 
 brew "bash-language-server"
@@ -58,7 +61,7 @@ brew "wget"
 brew "yq"
 brew "zsh-completions"
 brew "zsh"
-{{ if .personal -}}
+{{ if .tenancy.personal -}}
 brew "certbot"
 brew "llama.cpp"
 brew "lua"
@@ -90,7 +93,7 @@ cask "raycast"
 cask "rectangle"
 cask "slack"
 cask "zed"
-{{ if .personal -}}
+{{ if .tenancy.personal -}}
 cask "balenaetcher"
 cask "discord"
 cask "disk-inventory-x"

@@ -1,5 +1,16 @@
 {{- $globalCache := "1" -}}
-{{- $personal := not (lstat (joinPath .chezmoi.homeDir ".is-work-machine")) -}}
+{{- /* Tenancy map: prefix -> {personal, work} (case-insensitive prefix match) */ -}}
+{{- $tenancyMap := dict
+    "mway-m4" (dict "personal" true "work" true)
+    "hw90f7p4n1" (dict "personal" false "work" true)
+-}}
+{{- $hostname := lower .chezmoi.hostname -}}
+{{- $currentTenancy := dict "personal" false "work" false -}}
+{{- range $prefix, $cfg := $tenancyMap -}}
+{{-   if hasPrefix $hostname (lower $prefix) -}}
+{{-     $currentTenancy = $cfg -}}
+{{-   end -}}
+{{- end -}}
 {{- $localRoot := print .chezmoi.homeDir "/.local" -}}
 {{- $localBin := print $localRoot "/bin" -}}
 {{- $userHome := .chezmoi.homeDir -}}
@@ -32,7 +43,9 @@ secret:
 data:
   user: {{ .chezmoi.username }}
   shell: {{ trim (output "which" "zsh") }}
-  personal: {{ $personal }}
+  tenancy:
+    personal: {{ index $currentTenancy "personal" }}
+    work: {{ index $currentTenancy "work" }}
   arch: {{ .chezmoi.arch }}
   os: {{ .chezmoi.os }}
   path:
@@ -50,16 +63,16 @@ data:
       userBin: {{ $userBin }}
   versions:
     ansi: "2c84a541a31d68a4d2779fbfb37a56fca29da4ab"
-    bazel: "8"
+    bazel: "9"
     btop: "1.2.13"
     fasd: "1.0.1"
     fzf: "v0.67.0"
     go: "1.25.6"
     helix: "25.07.1"
-    mise: "v2026.2.0"
-    node: "24.4.1"
-    pre_commit: "4"
-    python: "3"
+    mise: "v2026.2.1"
+    node: "25.5.0"
+    pre_commit: "4.5"
+    python: "3.14"
     shflags: "v1.3.0"
     zellij: "0.43.1"
   claude:
