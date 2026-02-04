@@ -2,8 +2,6 @@
 *.0
 *.local
 *.local[.-]*
-*.log
-*.log[.-]*
 *.old
 *.old[.-]*
 *.tmp

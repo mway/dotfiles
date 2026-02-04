@@ -1,7 +1,13 @@
 # Agent Guidelines
 
+## AGENTS.log Guidance
+- Always assume `AGENTS.log` refers to `~/AGENTS.log`.
+- “AGENTS.log guidance” refers to `~/AGENTS.log/AGENTS.md`.
+- Always read and follow `~/AGENTS.log/AGENTS.md` (AGENTS.log guidance).
+
 ## Storage
 - **Project-local, agent-agnostic output**: All generated artifacts must be stored under the current working directory (pwd), using the canonical layout below.
+- **AGENTS.log entries**: When instructed to write log entries per AGENTS.log guidance, store them in `~/AGENTS.log` (this is an explicit exception to the project-local storage rule).
 - **Canonical layout**:
   - `.agent/analysis/analysis-of-<task-name>-<iteration>.md`
   - `.agent/audit/audit-<task-name>.md`

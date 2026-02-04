@@ -25,6 +25,7 @@ max_bytes = 10485760
 provider = "openai"
 model = "gpt-5.2-codex"
 model_reasoning_effort = "high"
+personality = "pragmatic"
 
 [profiles.default.model_options]
 temperature = 0.35
@@ -227,7 +228,7 @@ args = ["mcp"]
 
 {{- if (stat (joinPath .chezmoi.homeDir "bin/rust-analyzer-mcp-codex")) }}
 [mcp_servers.rust]
-command = "{{ .chezmoi.homeDir }}/bin/rust-analyzer-mcp-codex"
+command = "rust-analyzer-mcp-codex"
 args = []
 {{- end }}
 

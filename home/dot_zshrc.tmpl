@@ -17,13 +17,13 @@ setopt interactivecomments
 export HISTSIZE=100000000
 
 BREW=/opt/homebrew/bin/brew
-[ ! -f "$BREW" ] || eval "$("$BREW" shellenv)"
+[[ ! -f "$BREW" ]] || eval "$("$BREW" shellenv)"
 
 MISE="{{ .path.named.mise }}"
-[ ! -f "$MISE" ] || eval "$("$MISE" activate zsh)"
+[[ ! -f "$MISE" ]] || eval "$("$MISE" activate zsh)"
 
-! command -v fzf >/dev/null || eval "$(fzf --zsh)"
-! command -v just >/dev/null || eval "$(just --completions zsh)"
+! command -v fzf >/dev/null 2>&1 || eval "$(command fzf --completions zsh)"
+! command -v just >/dev/null 2>&1 || eval "$(command just --completions zsh)"
 
 sources=(
   '{{ joinPath .path.home ".dotrc" }}'

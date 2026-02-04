@@ -1,0 +1,29 @@
+[env]
+_.path = [
+  "/opt/homebrew/bin",
+  "~/.local/bin",
+  "~/.bun/bin",
+  "~/Library/pnpm",
+  "~/.docker/bin",
+  "~/bin",
+]
+
+[tools]
+cargo = "latest"
+go = "latest"
+chezmoi = "latest"
+fzf = "latest"
+ripgrep = "latest"
+rust = "latest"
+delta = "latest"
+jq = "latest"
+yq = "latest"
+just = "latest"
+pipx = "latest"
+pnpm = "latest"
+node = "latest"
+bat = "latest"
+github-cli = "latest"
+python = "3.14"
+"cargo:difftastic" = "latest"
+uv = "latest"
