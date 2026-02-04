@@ -45,6 +45,7 @@ _ensure_paths() {
 
 _ensure_path() {
   [[ $# -eq 0 || ":${PATH}:" == *":${1}:"* ]] || PATH="${1}${PATH:+:$PATH}"
+  export PATH
 }
 
 # ─────────────────────────────────────────────────────────────────
@@ -401,7 +402,8 @@ _ensure_mise() {
   fi
 
   _notify_installing "$NAME"
-  MISE_INSTALL_PATH="$MISE" curl https://mise.run | sh
+  export MISE_INSTALL_PATH="$MISE"
+  curl https://mise.run | sh
   if [[ ! -x "$MISE" ]]; then
     _notify_not_installed "$NAME"
     return 1
@@ -433,7 +435,7 @@ _ensure_chezmoi() {
   _notify_installing "$NAME"
 
   local FORCE="--force"
-  if [[ -n "$NO_FORCE" ]]; then
+  if [[ -n "${NO_FORCE:-}" ]]; then
     FORCE=""
   else
     echo '⚠️ WARNING: --force will be supplied to `chezmoi` invocation; use NO_FORCE=... to disable'

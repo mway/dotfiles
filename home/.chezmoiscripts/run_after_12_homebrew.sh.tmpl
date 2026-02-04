@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-if which brew >/dev/null 2>&1; then
+BREW=/opt/homebrew/bin/brew
+if [[ -x "$BREW" ]]; then
   source "${HOME}/.profile.d/00_core"
   ansi-badge-blue "  brew" "Bundling ${HOME}/.Brewfile"
-  brew bundle install --quiet --file "${HOME}/.Brewfile"
-  brew upgrade
+  "$BREW" bundle install --quiet --file "${HOME}/.Brewfile"
+  "$BREW" upgrade
 fi
