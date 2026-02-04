@@ -16,11 +16,14 @@ setopt INC_APPEND_HISTORY
 setopt interactivecomments
 export HISTSIZE=100000000
 
-MISE="{{ .path.named.mise }}"
-[ -f "$MISE" ] && eval "$("$MISE" activate zsh)"
+BREW=/opt/homebrew/bin/brew
+[ ! -f "$BREW" ] || eval "$("$BREW" shellenv)"
 
-command -v fzf >/dev/null && eval "$(fzf --zsh)"
-command -v just >/dev/null && eval "$(just --completions zsh)"
+MISE="{{ .path.named.mise }}"
+[ ! -f "$MISE" ] || eval "$("$MISE" activate zsh)"
+
+! command -v fzf >/dev/null || eval "$(fzf --zsh)"
+! command -v just >/dev/null || eval "$(just --completions zsh)"
 
 sources=(
   '{{ joinPath .path.home ".dotrc" }}'
