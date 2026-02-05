@@ -24,6 +24,7 @@ MISE="{{ .path.named.mise }}"
 
 ! command -v fzf >/dev/null 2>&1 || eval "$(command fzf --completions zsh)"
 ! command -v just >/dev/null 2>&1 || eval "$(command just --completions zsh)"
+! command -v openclaw >/dev/null 2>&1 || source <(command openclaw completion --shell zsh)
 
 sources=(
   '{{ joinPath .path.home ".dotrc" }}'
